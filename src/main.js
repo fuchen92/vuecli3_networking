@@ -8,6 +8,8 @@ import router from './router'
 
 Vue.use(VueI18n)
 
+console.log(LangZh)
+
 const i18n = new VueI18n({
 	locale: "zh",
 	messages: {

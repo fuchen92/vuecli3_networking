@@ -18,11 +18,11 @@
 		</div>
 		<div class="loginBox">
 			<div class="formGroup">
-				<input class="formInput" type="text" placeholder="请输入报名时提交的手机号/邮箱">
+				<input class="formInput" type="text" v-bind:placeholder="accountPlaceholder">
 			</div>
 			<div class="formGroup clear">
-				<input class="formInput valicodeInput lt" type="text" placeholder="{{ $t('login.valicode') }}">
-				<button class="btn btnRed getValicode rt" @click="getValicode">获取验证码</button>
+				<input class="formInput valicodeInput lt" type="text" v-bind:placeholder="valicodePlaceholder">
+				<button class="btn btnRed getValicode rt" @click="getValicode" v-t="{ path: 'login.getValicode', locale: language }">{{ $t('login.getValicode') }}</button>
 			</div>
 			<div class="formGroup">
 				<p class="formTips" v-show="hasError">{{ errText }}</p>
@@ -127,9 +127,16 @@ export default {
 			loginTip: "如有疑问，请联系 020-2882 9750"
 		}
 	},
+	computed: {
+		accountPlaceholder: function() {
+			return this.$i18n.messages[this.language].login.account
+		},
+		valicodePlaceholder: function() {
+			return this.$i18n.messages[this.language].login.valicode
+		}
+	},
 	methods: {
 		switchLanguage: function() {
-			console.log(this.language)
 			this.$i18n.locale = this.language;
 		},
 		getValicode: function() {
