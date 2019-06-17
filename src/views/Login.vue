@@ -3,14 +3,14 @@
 		<img class="loginLogo" src="../assets/loginLogo.png" alt="">
 		<div class="languageSwitch">
 			<label class="languageLabel">
-				<input class="languageRadio" type="radio" name="language" value="1" v-model="language" @change="switchLanguage">
+				<input class="languageRadio" type="radio" name="language" value="zh" v-model="language" @change="switchLanguage">
 				<span class="languageLabelText">
 					中文
 				</span>
 			</label>
 			<b class="languageDivide"></b>
 			<label class="languageLabel">
-				<input class="languageRadio" type="radio" name="language" value="2" v-model="language" @change="switchLanguage">
+				<input class="languageRadio" type="radio" name="language" value="en" v-model="language" @change="switchLanguage">
 				<span class="languageLabelText">
 					EN
 				</span>
@@ -21,7 +21,7 @@
 				<input class="formInput" type="text" placeholder="请输入报名时提交的手机号/邮箱">
 			</div>
 			<div class="formGroup clear">
-				<input class="formInput valicodeInput lt" type="text" placeholder="输入验证码">
+				<input class="formInput valicodeInput lt" type="text" placeholder="{{ $t('login.valicode') }}">
 				<button class="btn btnRed getValicode rt" @click="getValicode">获取验证码</button>
 			</div>
 			<div class="formGroup">
@@ -121,7 +121,7 @@ export default {
 	name: "login",
 	data: function() {
 		return {
-			language: 1,
+			language: "zh",
 			hasError: false,
 			errText: "请输入报名时提交的手机号/邮箱",
 			loginTip: "如有疑问，请联系 020-2882 9750"
@@ -130,6 +130,7 @@ export default {
 	methods: {
 		switchLanguage: function() {
 			console.log(this.language)
+			this.$i18n.locale = this.language;
 		},
 		getValicode: function() {
 			console.log("获取验证码");

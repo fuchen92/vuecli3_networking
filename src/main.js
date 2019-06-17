@@ -1,6 +1,20 @@
 import Vue from 'vue'
+import VueI18n from "vue-i18n"
+import LangZh from "@/lang/zh.json"
+import LangEn from "@/lang/en.json"
+
 import App from './App.vue'
 import router from './router'
+
+Vue.use(VueI18n)
+
+const i18n = new VueI18n({
+	locale: "zh",
+	messages: {
+		"zh": LangZh,
+		"en": LangEn
+	}
+})
 
 import axios from 'axios'
 Vue.prototype.$http = axios
@@ -25,6 +39,7 @@ router.beforeEach((to, from, next) => {
 })
 
 new Vue({
+	i18n,
 	router,
 	render: h => h(App)
 }).$mount('#app')
