@@ -128,7 +128,6 @@ export default {
 		return {
 			showNum: false,
 			countDown: 59,
-			// language: this.$store.state.lang,
 			hasError: false,
 			errType: "empty",
 			errText: "请输入报名时提交的手机号/邮箱",
