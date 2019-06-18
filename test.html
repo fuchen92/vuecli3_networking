@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="email=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <meta name="renderer" content="webkit">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .app {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* max-height: 100%; */
+            /* overflow-x: hidden; */
+            /* overflow-y: scroll; */
+            overflow: hidden;
+        }
+        .wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            background-color: lightblue;
+        }
+        .inner {
+            height: 2000px;
+        }
+        .absoluteDiv {
+            position: absolute;
+            left: 5%;
+            bottom: 50px;
+            width: 90%;
+            height: 50px;
+            /* transform: translateX(-50%); */
+            border-radius: 20px;
+            background-color: #c30d23;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="wrapper">
+            <div class="inner"></div>
+        </div>
+        <div class="absoluteDiv"></div>
+    </div>
+</body>
+</html>
