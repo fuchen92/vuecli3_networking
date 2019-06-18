@@ -23,7 +23,7 @@
 				<input class="formInput" type="text" ref="account" v-bind:placeholder="accountPlaceholder" v-model.trim="account">
 			</div>
 			<div class="formGroup clear">
-				<input class="formInput valicodeInput lt" type="text" ref="valicode" v-bind:placeholder="valicodePlaceholder" v-model.trim="valicode">
+				<input class="formInput valicodeInput lt" type="text" maxlength="6" ref="valicode" v-bind:placeholder="valicodePlaceholder" v-model.trim="valicode">
 				<!-- <button class="btn btnRed getValicode rt" @click="getValicode" v-t="{ path: 'login.getValicode', locale: language }">{{ $t('login.getValicode') }}</button> -->
 				<button class="btn btnRed getValicode rt" @click="getValicode" v-bind:disabled="isGettedCode">{{ isGettedCode ? (countDown + "s") : $t("login.getCode[" + valicodeTipIndex + "]") }}</button>
 				<!-- <button class="btn btnRed getValicode rt" @click="getValicode" v-t="'login.getValicode'"></button> -->
@@ -60,7 +60,7 @@ html, body {
 }
 .loginLogo {
 	width: 4.19rem;
-	margin: 2rem auto 0.6rem;
+	margin: 1rem auto 0.4rem;
 }
 .languageSwitch {
 	font-size: 0;
@@ -204,9 +204,9 @@ export default {
 				return;
 			}
 			if(this._validate("account")) {
-				console.log(111)
 				this.hasError = false;
 				this.isGettedCode = true;
+				this.$refs.valicode.focus();
 				this.timer = setInterval(() => {
 					this.countDown--;
 					if(this.countDown <= 0) {
@@ -223,28 +223,42 @@ export default {
 		},
 		submitLogin: function() {
 			let { account, valicode } = this;
-			if(account == "" || account.length == 0) {
-				this.hasError = true;
-				this.$refs.account.focus();
+			// if(account == "" || account.length == 0) {
+			// 	this.hasError = true;
+			// 	this.$refs.account.focus();
+			// 	return false;
+			// }
+			// if(account.indexOf("@") != -1) {
+			// 	if(!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(account)) {
+			// 		this.errType = "emailErr";
+			// 		this.hasError = true;
+			// 		this.$refs.account.focus();
+			// 		return false;
+			// 	}
+			// } else {
+			// 	if(!/(^(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$)|(^09\d{8}$)|(^[569]\d{7}$)|(^(66|62)\d{6}$)/.test(account)) {
+			// 		this.errType = "mobileErr";
+			// 		this.hasError = true;
+			// 		this.$refs.account.focus();
+			// 		return false;
+			// 	}
+			// }
+			if(!this._validate("account")) {
 				return false;
 			}
-			if(account.indexOf("@") != -1) {
-				if(!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(account)) {
-					this.errType = "emailErr";
-					this.hasError = true;
-					this.$refs.account.focus();
-					return false;
-				}
-			} else {
-				if(!/(^(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$)|(^09\d{8}$)|(^[569]\d{7}$)|(^(66|62)\d{6}$)/.test(account)) {
-					this.errType = "mobileErr";
-					this.hasError = true;
-					this.$refs.account.focus();
-					return false;
-				}
+			if(!this._validate("valicode")) {
+				return false;
 			}
-
-			console.log("登录");
+			if(this._validate("account") && this._validate("valicode")) {
+				this.hasError = false;
+				alert("验证通过，登录成功");
+			}
+			let _redirect = this.$route.query.redirect
+			if (_redirect) {
+				this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
+			} else {
+				this.$router.push({ path: "/" })
+			}
 		}
 	},
 	beforeDestroy() {
