@@ -20,12 +20,12 @@
 		</div>
 		<div class="loginBox">
 			<div class="formGroup">
-				<input class="formInput" type="text" v-bind:placeholder="accountPlaceholder">
+				<input class="formInput" type="text" ref="account" v-bind:placeholder="accountPlaceholder" v-model.trim="account">
 			</div>
 			<div class="formGroup clear">
-				<input class="formInput valicodeInput lt" type="text" v-bind:placeholder="valicodePlaceholder">
+				<input class="formInput valicodeInput lt" type="text" ref="valicode" v-bind:placeholder="valicodePlaceholder" v-model.trim="valicode">
 				<!-- <button class="btn btnRed getValicode rt" @click="getValicode" v-t="{ path: 'login.getValicode', locale: language }">{{ $t('login.getValicode') }}</button> -->
-				<button class="btn btnRed getValicode rt" @click="getValicode">{{ showNum ? (countDown + "s") : $t('login.getValicode') }}</button>
+				<button class="btn btnRed getValicode rt" @click="getValicode" v-bind:disabled="isGettedCode">{{ isGettedCode ? (countDown + "s") : $t("login.getCode[" + valicodeTipIndex + "]") }}</button>
 				<!-- <button class="btn btnRed getValicode rt" @click="getValicode" v-t="'login.getValicode'"></button> -->
 			</div>
 			<div class="formGroup">
@@ -126,12 +126,14 @@ export default {
 	name: "login",
 	data: function() {
 		return {
-			showNum: false,
-			countDown: 59,
+			isGettedCode: false,
+			countDown: 5,
 			hasError: false,
 			errType: "empty",
-			errText: "请输入报名时提交的手机号/邮箱",
-			loginTip: "如有疑问，请联系 020-2882 9750"
+			account: "",
+			valicode: "",
+			valicodeTipIndex: 0,
+			timer: ""
 		}
 	},
 	computed: {
@@ -156,12 +158,102 @@ export default {
 		}
 	},
 	methods: {
+		_validate: function(type) {
+			let { account, valicode } = this;
+			switch(type) {
+				case "account":
+					if(account == "" || account.length == 0) {
+						this.hasError = true;
+						this.$refs.account.focus();
+						return false;
+					}
+					if(account.indexOf("@") != -1) {
+						if(!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(account)) {
+							this.errType = "emailErr";
+							this.hasError = true;
+							this.$refs.account.focus();
+							return false;
+						}
+					} else {
+						if(!/(^(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$)|(^09\d{8}$)|(^[569]\d{7}$)|(^(66|62)\d{6}$)/.test(account)) {
+							this.errType = "mobileErr";
+							this.hasError = true;
+							this.$refs.account.focus();
+							return false;
+						}
+					}
+					break;
+				case "valicode":
+					if(valicode == "" || valicode.length == 0) {
+						this.errType = "valicodeEmpty";
+						this.hasError = true;
+						this.$refs.valicode.focus();
+						return false;
+					} else if(!/\d{6}/.test(valicode)) {
+						this.errType = "valicodeErr";
+						this.hasError = true;
+						this.$refs.valicode.focus();
+						return false;
+					}
+					break;
+			}
+			return true;
+		},
 		getValicode: function() {
+			if(this.isGettedCode == true) {
+				return;
+			}
+			if(this._validate("account")) {
+				console.log(111)
+				this.hasError = false;
+				this.isGettedCode = true;
+				this.timer = setInterval(() => {
+					this.countDown--;
+					if(this.countDown <= 0) {
+						this.countDown = 5;
+						clearInterval(this.timer);
+						this.timer = null;
+						this.isGettedCode = false;
+						this.valicodeTipIndex = 1;
+					}
+				}, 1000);
+			}
+			return this._validate("account");
 			console.log("获取验证码");
 		},
 		submitLogin: function() {
+			let { account, valicode } = this;
+			if(account == "" || account.length == 0) {
+				this.hasError = true;
+				this.$refs.account.focus();
+				return false;
+			}
+			if(account.indexOf("@") != -1) {
+				if(!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(account)) {
+					this.errType = "emailErr";
+					this.hasError = true;
+					this.$refs.account.focus();
+					return false;
+				}
+			} else {
+				if(!/(^(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$)|(^09\d{8}$)|(^[569]\d{7}$)|(^(66|62)\d{6}$)/.test(account)) {
+					this.errType = "mobileErr";
+					this.hasError = true;
+					this.$refs.account.focus();
+					return false;
+				}
+			}
+
 			console.log("登录");
 		}
+	},
+	beforeDestroy() {
+		clearInterval(this.timer)
+		this.timer = null;
+		// this.initAccount(this.mobile)
+		// this.initActivityList()
+		// this.initOrders()
+		// this.initAllots()
 	}
 }
 </script>
