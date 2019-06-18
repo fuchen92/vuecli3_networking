@@ -1,17 +1,16 @@
 import Vue from 'vue'
 import VueI18n from "vue-i18n"
-import LangZh from "@/lang/zh.json"
-import LangEn from "@/lang/en.json"
+import LangZh from "@/lang/zh"
+import LangEn from "@/lang/en"
 
 import App from './App.vue'
+import store from "./store"
 import router from './router'
 
 Vue.use(VueI18n)
 
-console.log(LangZh)
-
 const i18n = new VueI18n({
-	locale: "zh",
+	locale: store.state.lang,
 	messages: {
 		"zh": LangZh,
 		"en": LangEn
@@ -43,5 +42,6 @@ router.beforeEach((to, from, next) => {
 new Vue({
 	i18n,
 	router,
+	store,
 	render: h => h(App)
 }).$mount('#app')

@@ -3,14 +3,16 @@
 		<img class="loginLogo" src="../assets/loginLogo.png" alt="">
 		<div class="languageSwitch">
 			<label class="languageLabel">
-				<input class="languageRadio" type="radio" name="language" value="zh" v-model="language" @change="switchLanguage">
+				<!-- <input class="languageRadio" type="radio" name="language" value="zh" v-model="language" @change="switchLanguage"> -->
+				<input class="languageRadio" type="radio" name="language" value="zh" v-model="language">
 				<span class="languageLabelText">
 					中文
 				</span>
 			</label>
 			<b class="languageDivide"></b>
 			<label class="languageLabel">
-				<input class="languageRadio" type="radio" name="language" value="en" v-model="language" @change="switchLanguage">
+				<!-- <input class="languageRadio" type="radio" name="language" value="en" v-model="language" @change="switchLanguage"> -->
+				<input class="languageRadio" type="radio" name="language" value="en" v-model="language">
 				<span class="languageLabelText">
 					EN
 				</span>
@@ -22,14 +24,17 @@
 			</div>
 			<div class="formGroup clear">
 				<input class="formInput valicodeInput lt" type="text" v-bind:placeholder="valicodePlaceholder">
-				<button class="btn btnRed getValicode rt" @click="getValicode" v-t="{ path: 'login.getValicode', locale: language }">{{ $t('login.getValicode') }}</button>
+				<!-- <button class="btn btnRed getValicode rt" @click="getValicode" v-t="{ path: 'login.getValicode', locale: language }">{{ $t('login.getValicode') }}</button> -->
+				<button class="btn btnRed getValicode rt" @click="getValicode">{{ showNum ? (countDown + "s") : $t('login.getValicode') }}</button>
+				<!-- <button class="btn btnRed getValicode rt" @click="getValicode" v-t="'login.getValicode'"></button> -->
 			</div>
 			<div class="formGroup">
-				<p class="formTips" v-show="hasError">{{ errText }}</p>
+				<p class="formTips" v-show="hasError">{{ $t("login.errTip['" + errType + "']") }}</p>
 			</div>
 			<div class="formGroup">
-				<button class="btn btnRed loginBtn" @click="submitLogin">登录</button>
-				<p class="loginTip">{{ loginTip }}</p>
+				<button class="btn btnRed loginBtn" @click="submitLogin">{{ $t('login.loginBtn') }}</button>
+				<!-- <p class="loginTip">{{ loginTip }}</p> -->
+				<p class="loginTip">{{ $t('login.loginTip') }}</p>
 			</div>
 		</div>
 		<p class="copyright">
@@ -121,24 +126,37 @@ export default {
 	name: "login",
 	data: function() {
 		return {
-			language: "zh",
+			showNum: false,
+			countDown: 59,
+			// language: this.$store.state.lang,
 			hasError: false,
+			errType: "empty",
 			errText: "请输入报名时提交的手机号/邮箱",
 			loginTip: "如有疑问，请联系 020-2882 9750"
 		}
 	},
 	computed: {
+		// 计算属性设置setter，参考vuex文档（表单处理）
+		language: {
+			get() {
+				return this.$store.state.lang
+			},
+			set(value) {
+				this.$store.commit("CHANGELANGUAGE", value);
+				this.$i18n.locale = value;
+			}
+		},
+		lang: function() {
+			return this.$i18n.messages[this.$store.state.lang]
+		},
 		accountPlaceholder: function() {
-			return this.$i18n.messages[this.language].login.account
+			return this.lang.login.account
 		},
 		valicodePlaceholder: function() {
-			return this.$i18n.messages[this.language].login.valicode
+			return this.lang.login.valicode
 		}
 	},
 	methods: {
-		switchLanguage: function() {
-			this.$i18n.locale = this.language;
-		},
 		getValicode: function() {
 			console.log("获取验证码");
 		},
