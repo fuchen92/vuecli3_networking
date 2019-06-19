@@ -28,7 +28,12 @@
 				<div class="programList" v-bind:key="i" v-bind:class="{ active: currentIndex == i }">
 					<div class="container">
 						<div class="programItem programItemSite">
-							{{ i == 0 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (i == 1 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}
+                            <template v-if="lang == 'zh'">
+							    {{ i == 0 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (i == 1 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}
+                            </template>
+                            <template v-else>
+                                {{ i == 0 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2 & 3】" : (i == 1 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2】" : "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 3】") }}
+                            </template>
 						</div>
 
 						<template v-for="(prg, index) in programList">
@@ -150,7 +155,7 @@
     </div>
 </template>
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
     name: "Program",
     data: function() {
@@ -166,6 +171,9 @@ export default {
     computed: {
         ...mapGetters({
             programList: "getProgramListByLang"
+        }),
+        ...mapState({
+            lang: state => state.Lang
         })
     },
     methods: {
