@@ -42,6 +42,143 @@
 		</p>
 	</div>
 </template>
+<script>
+import { mapActions } from "vuex"
+export default {
+	name: "login",
+	data: function() {
+		return {
+			isGettedCode: false,
+			countDown: 5,
+			hasError: false,
+			errType: "empty",
+			account: "",
+			valicode: "",
+			valicodeTipIndex: 0,
+			timer: ""
+		}
+	},
+	computed: {
+		// 计算属性设置setter，参考vuex文档（表单处理）
+		language: {
+			get() {
+				return this.$store.state.Lang
+			},
+			set(value) {
+				this.$store.commit("CHANGELANGUAGE", value);
+				this.$i18n.locale = value;
+			}
+		},
+		lang: function() {
+			return this.$i18n.messages[this.$store.state.Lang]
+		},
+		accountPlaceholder: function() {
+			return this.lang.login.account
+		},
+		valicodePlaceholder: function() {
+			return this.lang.login.valicode
+		}
+	},
+	methods: {
+		// 使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
+		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+		...mapActions({
+			initProgram: "getProgramList"
+		}),
+		_validate: function(type) {
+			let { account, valicode } = this;
+			switch(type) {
+				case "account":
+					if(account == "" || account.length == 0) {
+						this.hasError = true;
+						this.$refs.account.focus();
+						return false;
+					}
+					if(account.indexOf("@") != -1) {
+						if(!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(account)) {
+							this.errType = "emailErr";
+							this.hasError = true;
+							this.$refs.account.focus();
+							return false;
+						}
+					} else {
+						if(!/(^(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$)|(^09\d{8}$)|(^[569]\d{7}$)|(^(66|62)\d{6}$)/.test(account)) {
+							this.errType = "mobileErr";
+							this.hasError = true;
+							this.$refs.account.focus();
+							return false;
+						}
+					}
+					break;
+				case "valicode":
+					if(valicode == "" || valicode.length == 0) {
+						this.errType = "valicodeEmpty";
+						this.hasError = true;
+						this.$refs.valicode.focus();
+						return false;
+					} else if(!/\d{6}/.test(valicode)) {
+						this.errType = "valicodeErr";
+						this.hasError = true;
+						this.$refs.valicode.focus();
+						return false;
+					}
+					break;
+			}
+			return true;
+		},
+		getValicode: function() {
+			if(this.isGettedCode == true) {
+				return;
+			}
+			if(this._validate("account")) {
+				this.hasError = false;
+				this.isGettedCode = true;
+				this.$refs.valicode.focus();
+				this.timer = setInterval(() => {
+					this.countDown--;
+					if(this.countDown <= 0) {
+						this.countDown = 5;
+						clearInterval(this.timer);
+						this.timer = null;
+						this.isGettedCode = false;
+						this.valicodeTipIndex = 1;
+					}
+				}, 1000);
+			}
+			return this._validate("account");
+			console.log("获取验证码");
+		},
+		submitLogin: function() {
+			let { account, valicode } = this;
+			if(!this._validate("account")) {
+				return false;
+			}
+			if(!this._validate("valicode")) {
+				return false;
+			}
+			if(this._validate("account") && this._validate("valicode")) {
+				this.hasError = false;
+				console.log("验证通过，登录成功");
+			}
+			let _redirect = this.$route.query.redirect
+			if (_redirect) {
+				this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
+			} else {
+				this.$router.push({ path: "/" })
+			}
+		}
+	},
+	beforeDestroy() {
+		clearInterval(this.timer)
+		this.timer = null;
+		// 初始化日程列表
+		// this.getProgramList();
+		// this.initActivityList()
+		// this.initOrders()
+		// this.initAllots()
+	}
+}
+</script>
 <style>
 html, body {
 	width: 100%;
@@ -121,153 +258,3 @@ html, body {
 	color: #aaaaaa;
 }
 </style>
-<script>
-export default {
-	name: "login",
-	data: function() {
-		return {
-			isGettedCode: false,
-			countDown: 5,
-			hasError: false,
-			errType: "empty",
-			account: "",
-			valicode: "",
-			valicodeTipIndex: 0,
-			timer: ""
-		}
-	},
-	computed: {
-		// 计算属性设置setter，参考vuex文档（表单处理）
-		language: {
-			get() {
-				return this.$store.state.lang
-			},
-			set(value) {
-				this.$store.commit("CHANGELANGUAGE", value);
-				this.$i18n.locale = value;
-			}
-		},
-		lang: function() {
-			return this.$i18n.messages[this.$store.state.lang]
-		},
-		accountPlaceholder: function() {
-			return this.lang.login.account
-		},
-		valicodePlaceholder: function() {
-			return this.lang.login.valicode
-		}
-	},
-	methods: {
-		_validate: function(type) {
-			let { account, valicode } = this;
-			switch(type) {
-				case "account":
-					if(account == "" || account.length == 0) {
-						this.hasError = true;
-						this.$refs.account.focus();
-						return false;
-					}
-					if(account.indexOf("@") != -1) {
-						if(!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(account)) {
-							this.errType = "emailErr";
-							this.hasError = true;
-							this.$refs.account.focus();
-							return false;
-						}
-					} else {
-						if(!/(^(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$)|(^09\d{8}$)|(^[569]\d{7}$)|(^(66|62)\d{6}$)/.test(account)) {
-							this.errType = "mobileErr";
-							this.hasError = true;
-							this.$refs.account.focus();
-							return false;
-						}
-					}
-					break;
-				case "valicode":
-					if(valicode == "" || valicode.length == 0) {
-						this.errType = "valicodeEmpty";
-						this.hasError = true;
-						this.$refs.valicode.focus();
-						return false;
-					} else if(!/\d{6}/.test(valicode)) {
-						this.errType = "valicodeErr";
-						this.hasError = true;
-						this.$refs.valicode.focus();
-						return false;
-					}
-					break;
-			}
-			return true;
-		},
-		getValicode: function() {
-			if(this.isGettedCode == true) {
-				return;
-			}
-			if(this._validate("account")) {
-				this.hasError = false;
-				this.isGettedCode = true;
-				this.$refs.valicode.focus();
-				this.timer = setInterval(() => {
-					this.countDown--;
-					if(this.countDown <= 0) {
-						this.countDown = 5;
-						clearInterval(this.timer);
-						this.timer = null;
-						this.isGettedCode = false;
-						this.valicodeTipIndex = 1;
-					}
-				}, 1000);
-			}
-			return this._validate("account");
-			console.log("获取验证码");
-		},
-		submitLogin: function() {
-			let { account, valicode } = this;
-			// if(account == "" || account.length == 0) {
-			// 	this.hasError = true;
-			// 	this.$refs.account.focus();
-			// 	return false;
-			// }
-			// if(account.indexOf("@") != -1) {
-			// 	if(!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(account)) {
-			// 		this.errType = "emailErr";
-			// 		this.hasError = true;
-			// 		this.$refs.account.focus();
-			// 		return false;
-			// 	}
-			// } else {
-			// 	if(!/(^(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$)|(^09\d{8}$)|(^[569]\d{7}$)|(^(66|62)\d{6}$)/.test(account)) {
-			// 		this.errType = "mobileErr";
-			// 		this.hasError = true;
-			// 		this.$refs.account.focus();
-			// 		return false;
-			// 	}
-			// }
-			if(!this._validate("account")) {
-				return false;
-			}
-			if(!this._validate("valicode")) {
-				return false;
-			}
-			if(this._validate("account") && this._validate("valicode")) {
-				this.hasError = false;
-				alert("验证通过，登录成功");
-			}
-			let _redirect = this.$route.query.redirect
-			if (_redirect) {
-				this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
-			} else {
-				this.$router.push({ path: "/" })
-			}
-		}
-	},
-	beforeDestroy() {
-		clearInterval(this.timer)
-		this.timer = null;
-		// this.initAccount(this.mobile)
-		// this.initActivityList()
-		// this.initOrders()
-		// this.initAllots()
-	}
-}
-</script>

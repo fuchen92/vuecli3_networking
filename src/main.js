@@ -10,7 +10,7 @@ import router from './router'
 Vue.use(VueI18n)
 
 const i18n = new VueI18n({
-	locale: store.state.lang,
+	locale: store.state.Lang,
 	messages: {
 		"zh": LangZh,
 		"en": LangEn

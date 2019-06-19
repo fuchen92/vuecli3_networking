@@ -1,17 +1,7 @@
 import axios from "axios";
 
-export function getUserAccount(mobile) {
-    return axios.get(`http://localhost:8081/api/activity/${mobile}`)
-}
+const apiDomain = "http://192.168.1.22:8089";
 
-export function fetchActivities() {
-    return axios.get(`http://localhost:8081/api/activity/`)
-}
-
-export function getOrders() {
-    return axios.get(`http://localhost:8081/api/activity/`)
-}
-
-export function getAllots() {
-    return axios.get(`http://localhost:8081/api/activity/`)
+export function getProgramList(mobile) {
+    return axios.get(`${apiDomain}/api/program`)
 }
