@@ -68,15 +68,15 @@
                 "Id": 1,
                 "Begin": "09:00",
                 "End": "09:15",
-                "Topic": "弱冠之年，携程的新挑战",
+                "Topic": "New Challenges for Ctrip in Its 20s",
                 "Details": [
                     {
-                        "DataType": "对话嘉宾",
+                        "DataType": "Speaker",
                         "Speaker": {
                             "Id": 1329,
-                            "Name": "张三",
-                            "Company": "公安局",
-                            "JobTitle": "警察",
+                            "Name": "Zhang San",
+                            "Company": "police",
+                            "JobTitle": "policeman",
                             "IsComfirmed": true,
                             "Language": 0,
                             "Photo": "https://img.traveldaily.cn/events/68/speaker/c8382452382e8cee.png",
@@ -84,12 +84,12 @@
                         }
                     },
                     {
-                        "DataType": "对话嘉宾",
+                        "DataType": "Speaker",
                         "Speaker": {
                             "Id": 1330,
-                            "Name": "李四",
-                            "Company": "消防局",
-                            "JobTitle": "火警",
+                            "Name": "Li Si",
+                            "Company": "xiaofangju",
+                            "JobTitle": "huojing",
                             "IsComfirmed": true,
                             "Language": 0,
                             "Photo": "https://img.traveldaily.cn/events/68/speaker/c8382452382e8cee.png",
@@ -97,12 +97,12 @@
                         }
                     },
                     {
-                        "DataType": "对话嘉宾",
+                        "DataType": "Speaker",
                         "Speaker": {
                             "Id": 1331,
-                            "Name": "王五",
-                            "Company": "纪检局",
-                            "JobTitle": "纪检督察",
+                            "Name": "Wang Wu",
+                            "Company": "jijianju",
+                            "JobTitle": "jijianducha",
                             "IsComfirmed": true,
                             "Language": 0,
                             "Photo": "https://img.traveldaily.cn/events/68/speaker/c8382452382e8cee.png",
@@ -110,12 +110,12 @@
                         }
                     },
                     {
-                        "DataType": "主持嘉宾",
+                        "DataType": "Moderated by",
                         "Speaker": {
                             "Id": 1340,
-                            "Name": "赵六",
-                            "Company": "地方总局",
-                            "JobTitle": "局长",
+                            "Name": "Zhao Liu",
+                            "Company": "difangzongju",
+                            "JobTitle": "juzhang",
                             "IsComfirmed": true,
                             "Language": 0,
                             "Photo": "https://img.traveldaily.cn/events/68/speaker/c8382452382e8cee.png",

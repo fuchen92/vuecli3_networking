@@ -43,13 +43,13 @@
 								<template v-if="prg.Details.length != 0">
 									<div class="programItemBody">
 										<div class="programItemSpeakerList">
-											<template v-for="(speaker, idx) in prg.Details">
-												<p v-if="speaker.DataType != prg.Details[0].DataType || idx == 0" v-bind:key="speaker.Id" class="speakerType">{{ speaker.DataType }}</p>
-												<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + speaker.Id" v-bind:key="speaker.Id">
+											<template v-for="(detail, idx) in prg.Details">
+												<p v-if="detail.DataType != prg.Details[0].DataType || idx == 0" v-bind:key="idx" class="speakerType">{{ detail.DataType }}</p>
+												<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + detail.Speaker.Id" v-bind:key="detail.Speaker.Id">
 													<span class="programItemSpeakerPhoto">
-														<img class="programItemSpeakerPhotoImg" v-bind:src="speaker.Photo" alt="">
+														<img class="programItemSpeakerPhotoImg" v-bind:src="detail.Speaker.Photo" alt="">
 													</span>
-													<span class="programItemSpeakerName">{{ speaker.Company }} {{ speaker.JotTitle }} {{ speaker.Name }}</span>
+													<span class="programItemSpeakerName">{{ detail.Speaker.Company }} {{ detail.Speaker.JotTitle }} {{ detail.Speaker.Name }}</span>
 												</router-link>
 											</template>
 										</div>
@@ -150,19 +150,30 @@
     </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
     name: "Program",
     data: function() {
         return {
 			isCurrent: true,
-			currentIndex: 0
+			currentIndex: 1
         }
+    },
+    created: function() {
+        console.log(this)
+        this.initProgram();
     },
     computed: {
         ...mapGetters({
             programList: "getProgramListByLang"
         })
+    },
+    methods: {
+        // 使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
+		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+		...mapActions({
+			initProgram: "getProgramList"
+		})
     }
 }
 </script>

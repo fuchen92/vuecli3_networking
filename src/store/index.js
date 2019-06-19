@@ -24,8 +24,8 @@ export default new Vuex.Store({
         // 初始化日程列表
         INITPROGRAMLIST(state, { programList }) {
             Vue.set(state.ProgramList, "zh", programList.zh);
-            // Vue.set(state.ProgramList, "en", ProgramList.en);
-            state.ProgramList
+            Vue.set(state.ProgramList, "en", programList.en);
+            // state.ProgramList
         },
     },
     actions: {
