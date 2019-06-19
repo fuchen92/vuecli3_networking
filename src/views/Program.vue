@@ -33,9 +33,78 @@
                         <div class="programItemHead">
                             <p class="programItemTime">09:00 - 09:15</p>
                             <p class="programItemType">主题演讲</p>
-                            <router-link v-bind:to="'/programdetail?id=' + 11 ">
+                            <router-link class="programItemTitle" v-bind:to="'/programdetail?id=' + 11 ">
                                 弱冠之年，携程的新挑战
                             </router-link>
+                        </div>
+						<div class="programItemBody">
+							<div class="programItemSpeakerList">
+								<p class="speakerType">对话嘉宾</p>
+								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
+									<span class="programItemSpeakerPhoto">
+										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
+									</span>
+									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
+								</router-link>
+								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
+									<span class="programItemSpeakerPhoto">
+										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
+									</span>
+									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
+								</router-link>
+								<p class="speakerType">主持嘉宾</p>
+								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
+									<span class="programItemSpeakerPhoto">
+										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
+									</span>
+									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
+								</router-link>
+							</div>
+						</div>
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">12:00-14:00</p>
+                            <p class="programItemType">午餐交流</p>
+                        </div>
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">09:00 - 09:15</p>
+                            <p class="programItemType">主题演讲</p>
+                            <router-link class="programItemTitle" v-bind:to="'/programdetail?id=' + 11 ">
+                                弱冠之年，携程的新挑战
+                            </router-link>
+                        </div>
+						<div class="programItemBody">
+							<div class="programItemSpeakerList">
+								<p class="speakerType">对话嘉宾</p>
+								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
+									<span class="programItemSpeakerPhoto">
+										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
+									</span>
+									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
+								</router-link>
+								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
+									<span class="programItemSpeakerPhoto">
+										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
+									</span>
+									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
+								</router-link>
+								<p class="speakerType">主持嘉宾</p>
+								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
+									<span class="programItemSpeakerPhoto">
+										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
+									</span>
+									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
+								</router-link>
+							</div>
+						</div>
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">12:00-14:00</p>
+                            <p class="programItemType">午餐交流</p>
                         </div>
                     </div>
                 </div>
@@ -159,6 +228,46 @@ export default {
     margin-bottom: 0.2rem;
     padding: 0.4rem 0.2rem;
     font-size: 0.28rem;
+	line-height: 0.4rem;
     background-color: #fff;
+}
+.programItemTime, .programItemType {
+	display: inline-block;
+}
+.programItemType {
+	margin-left: 0.4rem;
+}
+.programItemTitle {
+	margin-top: 0.2rem;
+	font-size: 0.32rem;
+	line-height: 0.4rem;
+	color: var(--themeColor);
+}
+.programItemBody {
+	margin-top: 0.2rem;
+}
+.speakerType {
+	margin-bottom: 0.2rem;
+	font-size: 0.24rem;	
+}
+.programItemSpeaker {
+	margin-bottom: 0.2rem;
+	font-size: 0;
+}
+.programItemSpeakerPhoto, .programItemSpeakerName {
+	display: inline-block;
+	vertical-align: middle;
+}
+.programItemSpeakerPhoto {
+	width: 0.6rem;
+	overflow: hidden;
+}
+.programItemSpeakerPhotoImg {
+	width: 100%;
+}
+.programItemSpeakerName {
+	margin-left: 0.3rem;
+	font-size: 0.28rem;
+	color: #2c3e50;
 }
 </style>
