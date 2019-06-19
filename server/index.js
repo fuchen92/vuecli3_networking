@@ -9,12 +9,9 @@ router.get("/", function(req, res) {
 })
 
 // mock假数据
-router.get("/api/activity/:mobile", function(req, res, next) {
-	// 响应mock数据
-	res.json(db)
-})
 router.get("/api/program/", function(req, res, next) {
 	// 响应mock数据
+	console.log("响应数据")
 	res.json(db)
 })
 

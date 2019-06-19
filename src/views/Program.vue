@@ -24,7 +24,44 @@
             <div class="programList">
 
             </div>
-            <div class="programList active">
+			<template v-for="i in programList.length">
+				<div class="programList" v-bind:key="i" v-bind:class="{ active: currentIndex == i }">
+					<div class="container">
+						<div class="programItem programItemSite">
+							{{ i == 0 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (i == 1 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}
+						</div>
+
+						<template v-for="(prg, index) in programList">
+							<div class="programItem" v-bind:key="index">
+								<div class="programItemHead">
+									<p class="programItemTime">{{ prg.Begin }} - {{ prg.End }}</p>
+									<p class="programItemType">{{ prg.Type }}</p>
+									<router-link v-if="prg.Topic != ''" class="programItemTitle" :to="'/programdetail?id=' + prg.Id">
+										{{ prg.Topic }}
+									</router-link>
+								</div>
+								<template v-if="prg.Details.length != 0">
+									<div class="programItemBody">
+										<div class="programItemSpeakerList">
+											<template v-for="(speaker, idx) in prg.Details">
+												<p v-if="speaker.DataType != prg.Details[0].DataType || idx == 0" v-bind:key="speaker.Id" class="speakerType">{{ speaker.DataType }}</p>
+												<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + speaker.Id" v-bind:key="speaker.Id">
+													<span class="programItemSpeakerPhoto">
+														<img class="programItemSpeakerPhotoImg" v-bind:src="speaker.Photo" alt="">
+													</span>
+													<span class="programItemSpeakerName">{{ speaker.Company }} {{ speaker.JotTitle }} {{ speaker.Name }}</span>
+												</router-link>
+											</template>
+										</div>
+									</div>
+								</template>
+							</div>
+						</template>
+
+					</div>
+				</div>
+			</template>
+            <!-- <div class="programList active">
                 <div class="container">
                     <div class="programItem programItemSite">
                         会议地点：上海国际会议中心7楼-上海厅2 &amp; 3
@@ -108,7 +145,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -118,7 +155,8 @@ export default {
     name: "Program",
     data: function() {
         return {
-            isCurrent: true,
+			isCurrent: true,
+			currentIndex: 0
         }
     },
     computed: {

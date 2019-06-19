@@ -176,7 +176,7 @@ export default {
 		clearInterval(this.timer)
 		this.timer = null;
 		// 初始化日程列表
-		// this.getProgramList();
+		this.initProgram();
 		// this.initActivityList()
 		// this.initOrders()
 		// this.initAllots()
