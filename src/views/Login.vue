@@ -160,6 +160,10 @@ export default {
 				this.hasError = false;
 				console.log("验证通过，登录成功");
 			}
+			var logininfo = {
+				account: account
+			}
+			sessionStorage.setItem("user", JSON.stringify(logininfo))
 			let _redirect = this.$route.query.redirect
 			if (_redirect) {
 				this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
@@ -180,16 +184,6 @@ export default {
 }
 </script>
 <style>
-html, body {
-	width: 100%;
-	height: 100%;
-}
-#app {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	background-color: #F8F8F8;
-}
 .login {
 	width: 90%;
 	margin: 0 auto;

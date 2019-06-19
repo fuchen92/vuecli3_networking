@@ -29,12 +29,14 @@ router.beforeEach((to, from, next) => {
 	}
 	let user = JSON.parse(sessionStorage.getItem('user'))
 	if (!user && to.path !== '/login') {
+		console.log("重定向到登录页")
 		if (to.path.substring(1)) {
 			next({ path: '/login', query: { redirect: to.path.substring(1), no: to.query.no } })
 		} else {
 			next({ path: '/login' })
 		}
 	} else {
+		console.log("无重定向，直接进入下一步")
 		next()
 	}
 })

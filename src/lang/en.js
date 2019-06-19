@@ -12,5 +12,8 @@ export default {
         },
         "loginBtn": "Login",
         "loginTip": "Call 0086 20-2882 9750 or email register@traveldaily.cn if you still can't log in."
+    },
+    "program": {
+
     }
 }

@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+
+import Layout from "@/views/Layout.vue";
+import Program from "@/views/Program.vue";
+import ProgramDetail from "@/views/ProgramDetail.vue";
+// import Home from './views/Home.vue'
 
 import Login from "@/views/Login.vue"
 
@@ -12,8 +16,17 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'home',
-			component: Home
+			component: Layout,
+			children: [
+				{
+					path: "",
+					component: Program
+				}
+			]
+		},
+		{
+			path: "/programdetail",
+			component: ProgramDetail
 		},
 		{
 			path: "/login",

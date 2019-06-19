@@ -12,5 +12,8 @@ export default {
         },
         "loginBtn": "登录",
         "loginTip": "如有疑问，请联系 020-2882 9750"
+    },
+    "program": {
+        
     }
 }

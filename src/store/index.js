@@ -41,8 +41,8 @@ export default new Vuex.Store({
     },
     getters: {
         // 根据语言获取日程列表到底是中文还是英文
-        getProgramListByLang: (state) => (lang) => {
-            return state.ProgramList[lang];
+        getProgramListByLang: (state) => {
+            return state.ProgramList[state.Lang];
         }
     }
 });

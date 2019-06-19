@@ -12,15 +12,16 @@
 :root {
 	--themeColor: #c30d23;
 }
-/* * {
-    -webkit-tap-highlight-color: transparent;
-} */
 html, body, header, section, aside, footer, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd {
     margin: 0;
     padding: 0;
 }
 html, body {
+    width: 100%;
+    height: 100%;
     font-family: "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 a {
     display: block;
@@ -52,6 +53,10 @@ select::-ms-expand {
 input:disabled, select:disabled, button:disabled {
     background: #999;
     cursor: not-allowed;
+}
+.container {
+    margin: 0 auto;
+    overflow: hidden;
 }
 .lt {
     float: left;
@@ -92,10 +97,9 @@ input:disabled, select:disabled, button:disabled {
 	color: #fff;
 }
 #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: #F8F8F8;
     color: #2c3e50;
 }
 #nav {
