@@ -2,7 +2,8 @@
     <div class="navBar">
         <div class="container">
             <router-link class="searchLink" to="/search">
-                搜索参会嘉宾或企业
+                <!-- 搜索参会嘉宾或企业 -->
+                {{ $t("navBar.search") }}
             </router-link>
         </div>
     </div>

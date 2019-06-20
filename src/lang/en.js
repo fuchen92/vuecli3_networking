@@ -1,4 +1,14 @@
 export default {
+    "navBar": {
+        "search": "Search"
+    },
+    "tabBar": {
+        "home": "Program",
+        "connection": "Connection",
+        "plaza": "Plaza",
+        "message": "Message",
+        "about": "about"
+    },
     "login": {
         "account": "Please enter your email adress for sign-up",
         "valicode": "Enter the verification code",

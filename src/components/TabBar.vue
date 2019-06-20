@@ -2,23 +2,24 @@
     <div class="tabBar">
         <router-link class="tabBarItemLink" to="/" active-class="active">
             <span class="tabBarItemIcon tabBarHome"></span>
-            日程
+            {{ $t('tabBar.home') }}
         </router-link>
         <router-link class="tabBarItemLink" to="/connection" active-class="active">
             <span class="tabBarItemIcon tabBarConnection"></span>
-            人脉
+            {{ $t('tabBar.connection') }}
         </router-link>
         <router-link class="tabBarItemLink" to="/plaza" active-class="active">
             <span class="tabBarItemIcon tabBarPlaza"></span>
-            广场
+            {{ $t('tabBar.plaza') }}
         </router-link>
         <router-link class="tabBarItemLink" to="/message" active-class="active">
             <span class="tabBarItemIcon tabBarMsg"></span>
-            消息
+            {{ $t('tabBar.message') }}
         </router-link>
         <router-link class="tabBarItemLink" to="/me" active-class="active">
             <span class="tabBarItemIcon tabBarMe"></span>
-            我的
+            <!-- 我的 -->
+            {{ $t('tabBar.about') }}
         </router-link>
     </div>
 </template>

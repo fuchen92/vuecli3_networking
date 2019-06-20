@@ -1,4 +1,14 @@
 export default {
+    "navBar": {
+        "search": "搜索参会嘉宾或企业"
+    },
+    "tabBar": {
+        "home": "日程",
+        "connection": "人脉",
+        "plaza": "广场",
+        "message": "消息",
+        "about": "我的"
+    },
     "login": {
         "account": "请输入报名时提交的手机号/邮箱",
         "valicode": "输入验证码",
