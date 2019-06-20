@@ -9,9 +9,6 @@ import router from './router'
 
 Vue.use(VueI18n)
 
-const DEFAULT_LANG = "zh";
-const LOCAL_KEY = "localeLanguage"
-
 // const i18n = new VueI18n({
 // 	locale: store.state.Lang,
 // 	messages: {
@@ -20,7 +17,7 @@ const LOCAL_KEY = "localeLanguage"
 // 	}
 // })
 const i18n = new VueI18n({
-	locale: localStorage.getItem("localeLanguage") || "zh",
+	locale: localStorage.getItem("localeLanguage") || store.state.Lang || "zh",
 	messages: {
 		"zh": LangZh,
 		"en": LangEn
