@@ -14,6 +14,39 @@ export default {
         "loginTip": "Call 0086 20-2882 9750 or email register@traveldaily.cn if you still can't log in."
     },
     "program": {
-
+        "tabOne": {
+            "time": "Aug.27",
+            "name": "Digital Travel Awards"
+        },
+        "tabTwo": {
+            "time": "Aug.28",
+            "name": "TravelDaily Conference"
+        },
+        "tabThree": {
+            "time": "Aug.29",
+            "name": "Hotel Conference"
+        },
+        "tabFour": {
+            "time": "Aug.30",
+            "name": "Airline Conference"
+        },
+        "tabs": [
+            {
+                "time": "Aug.27",
+                "name": "Digital Travel Awards"
+            },
+            {
+                "time": "Aug.28",
+                "name": "TravelDaily Conference"
+            }, 
+            {
+                "time": "Aug.29",
+                "name": "Hotel Conference"
+            },
+            {
+                "time": "Aug.30",
+                "name": "Airline Conference"
+            }
+        ]
     }
 }

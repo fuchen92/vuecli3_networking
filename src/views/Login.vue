@@ -3,7 +3,6 @@
 		<img class="loginLogo" src="../assets/loginLogo.png" alt="">
 		<div class="languageSwitch">
 			<label class="languageLabel">
-				<!-- <input class="languageRadio" type="radio" name="language" value="zh" v-model="language" @change="switchLanguage"> -->
 				<input class="languageRadio" type="radio" name="language" value="zh" v-model="language">
 				<span class="languageLabelText">
 					中文
@@ -11,7 +10,6 @@
 			</label>
 			<b class="languageDivide"></b>
 			<label class="languageLabel">
-				<!-- <input class="languageRadio" type="radio" name="language" value="en" v-model="language" @change="switchLanguage"> -->
 				<input class="languageRadio" type="radio" name="language" value="en" v-model="language">
 				<span class="languageLabelText">
 					EN
@@ -33,7 +31,6 @@
 			</div>
 			<div class="formGroup">
 				<button class="btn btnRed loginBtn" @click="submitLogin">{{ $t('login.loginBtn') }}</button>
-				<!-- <p class="loginTip">{{ loginTip }}</p> -->
 				<p class="loginTip">{{ $t('login.loginTip') }}</p>
 			</div>
 		</div>
@@ -67,6 +64,7 @@ export default {
 			set(value) {
 				this.$store.commit("CHANGELANGUAGE", value);
 				this.$i18n.locale = value;
+				localStorage.setItem("localeLanguage", value);
 			}
 		},
 		lang: function() {
@@ -176,10 +174,7 @@ export default {
 		clearInterval(this.timer)
 		this.timer = null;
 		// 初始化日程列表
-		this.initProgram();
-		// this.initActivityList()
-		// this.initOrders()
-		// this.initAllots()
+		// this.initProgram();
 	}
 }
 </script>

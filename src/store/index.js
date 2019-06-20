@@ -9,7 +9,8 @@ import {
 
 export default new Vuex.Store({
     state: {
-        Lang: "zh",
+        // Lang: "zh",
+        Lang: localStorage.getItem("localeLanguage") || "zh",
         ProgramList: {
             zh: [],
             en: []
@@ -19,13 +20,11 @@ export default new Vuex.Store({
         // 修改语言
         CHANGELANGUAGE(state, language) {
             state.Lang = language;
-            // Vue.set(state, "lang", language);
         },
         // 初始化日程列表
         INITPROGRAMLIST(state, { programList }) {
             Vue.set(state.ProgramList, "zh", programList.zh);
             Vue.set(state.ProgramList, "en", programList.en);
-            // state.ProgramList
         },
     },
     actions: {

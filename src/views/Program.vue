@@ -2,26 +2,34 @@
     <div class="program">
         <div class="programTabs">
             <div class="programTabsWrapper">
-                <div class="programTab">
-                    <span class="programTabTime">8月27日</span>
-                    <span class="programTabName">创新论坛</span>
+                <!-- <div class="programTab">
+                    <span class="programTabTime">{{ $t('program.tabOne.time') }}</span>
+                    <span class="programTabName">{{ $t('program.tabOne.name') }}</span>
                 </div>
                 <div class="programTab" v-bind:class="{ active: isCurrent }">
-                    <span class="programTabTime">8月28日</span>
-                    <span class="programTabName">主论坛</span>
+                    <span class="programTabTime">{{ $t('program.tabTwo.time') }}</span>
+                    <span class="programTabName">{{ $t('program.tabTwo.name') }}</span>
                 </div>
                 <div class="programTab">
-                    <span class="programTabTime">8月29日</span>
-                    <span class="programTabName">酒店论坛</span>
+                    <span class="programTabTime">{{ $t('program.tabThree.time') }}</span>
+                    <span class="programTabName">{{ $t('program.tabThree.name') }}</span>
                 </div>
                 <div class="programTab">
-                    <span class="programTabTime">8月30日</span>
-                    <span class="programTabName">航空论坛</span>
+                    <span class="programTabTime">{{ $t('program.tabFour.time') }}</span>
+                    <span class="programTabName">{{ $t('program.tabFour.name') }}</span>
+                </div> -->
+
+                
+                <div v-for="(tab, index) in tabs" v-bind:key="index" class="programTab" v-bind:class="{ active: currentIndex == index, en: lang == 'en' }" v-on:click=" currentIndex = index">
+                    <span class="programTabTime">{{ tab.time }}</span>
+                    <span class="programTabName">{{ tab.name }}</span>
                 </div>
+                
+
             </div>
         </div>
         <div class="programBox">
-            <div class="programList">
+            <div class="programList" v-bind:class="{ active: currentIndex == 0 }">
 
             </div>
 			<template v-for="i in programList.length">
@@ -29,10 +37,10 @@
 					<div class="container">
 						<div class="programItem programItemSite">
                             <template v-if="lang == 'zh'">
-							    {{ i == 0 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (i == 1 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}
+							    {{ i == 1 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (i == 2 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}
                             </template>
                             <template v-else>
-                                {{ i == 0 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2 & 3】" : (i == 1 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2】" : "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 3】") }}
+                                {{ i == 1 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2 & 3】" : (i == 2 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2】" : "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 3】") }}
                             </template>
 						</div>
 
@@ -161,14 +169,17 @@ export default {
     data: function() {
         return {
 			isCurrent: true,
-			currentIndex: 1
+            currentIndex: 1,
+           
         }
     },
     created: function() {
-        console.log(this)
         this.initProgram();
     },
     computed: {
+        tabs: function() {
+            return this.$i18n.messages[this.$store.state.Lang].program.tabs
+        },
         ...mapGetters({
             programList: "getProgramListByLang"
         }),
@@ -245,6 +256,9 @@ export default {
     margin-right: 0.2rem;
     font-size: 0.28rem;
     text-align: center;
+}
+.programTab.en {
+    width: auto;
 }
 .programTab:last-child {
     margin-right: 0;
