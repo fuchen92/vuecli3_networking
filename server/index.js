@@ -9,7 +9,7 @@ router.get("/", function(req, res) {
 })
 
 // mock假数据
-router.get("/api/program/", function(req, res, next) {
+router.post("/Program/List", function(req, res, next) {
 	// 响应mock数据
 	res.json(db)
 })

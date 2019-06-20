@@ -75,6 +75,7 @@
                 </div>
             </div>
 			<template v-for="i in programList.length">
+                <!-- <div>{{ i }}</div> -->
 				<div class="programList" v-bind:key="i" v-bind:class="{ active: currentIndex == i }">
 					<div class="container">
 						<div class="programItem programItemSite">
@@ -86,10 +87,10 @@
                             </template>
 						</div>
 
-						<template v-for="(prg, index) in programList">
+						<template v-for="(prg, index) in programList[i - 1]">
 							<div class="programItem" v-bind:key="index">
 								<div class="programItemHead">
-									<p class="programItemTime">{{ prg.Begin }} - {{ prg.End }}</p>
+									<p class="programItemTime">{{ prg.Begin.split("T")[1].substr(0, 5) }} - {{ prg.End.split("T")[1].substr(0, 5) }}</p>
 									<p class="programItemType">{{ prg.Type }}</p>
 									<router-link v-if="prg.Topic != ''" class="programItemTitle" :to="'/programdetail?id=' + prg.Id">
 										{{ prg.Topic }}
@@ -218,7 +219,20 @@ export default {
     },
     created: function() {
         this.initProgram(63, "", 1);
-        this.test();
+        // this.$http.post("http://localhost:8089/Program/List", {
+        //     eventNo: 63,
+        //     token: "",
+        //     lang: this.lang
+        // }).then(res => {
+        //     let data = res.data.Data2;
+        //     let arr = [];
+        //     let firstDay = data[4]["2018-9-20"]
+        //     let secondDay = data[5]["2018-9-21"]
+        //     let thirdDay = data[6]["2018-9-21"]
+        //     arr.push(firstDay, secondDay, thirdDay);
+        //     this.programList.push(firstDay, secondDay, thirdDay)
+        // })
+        // this.test();
     },
     computed: {
         tabs: function() {
@@ -227,6 +241,7 @@ export default {
         },
         programList: function() {
             console.log(this.$store.state.ProgramList)
+            console.log(this)
             return this.$store.state.ProgramList
         },
         ...mapState({
@@ -408,6 +423,7 @@ export default {
 	width: 100%;
 }
 .programItemSpeakerName {
+    width: calc(100% - 0.9rem);
 	margin-left: 0.3rem;
 	font-size: 0.28rem;
 	color: #2c3e50;

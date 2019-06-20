@@ -20,10 +20,20 @@ export default new Vuex.Store({
         },
         // 初始化日程列表
         INITPROGRAMLIST(state, { programList }) {
-            let arr = [];
             let data = programList;
-            arr.push(data[4]["2018-9-19"], data[5]["2018-9-21"], data[6]["2018-9-21"])
-            state.ProgramList = arr;
+            let arr = [];
+            let firstDay = data[4]["2018-9-20"];
+            let secondDay = data[5]["2018-9-21"];
+            let thirdDay = data[6]["2018-9-21"];
+            arr.push(firstDay, secondDay, thirdDay);
+            state.ProgramList = arr;            
+            // let data = res.data.Data2;
+            // let arr = [];
+            // let firstDay = data[4]["2018-9-20"];
+            // let secondDay = data[5]["2018-9-21"];
+            // let thirdDay = data[6]["2018-9-21"];
+            // arr.push(firstDay, secondDay, thirdDay);
+            // state.ProgramList = arr;            
         },
     },
     actions: {
@@ -31,7 +41,7 @@ export default new Vuex.Store({
         getProgramList({ commit }, eventNo, token, lang) {
             getProgramList(eventNo, token, lang).then(res => {
                 console.log(res)
-                commit("INITPROGRAMLIST", { programList: res.data.Data })
+                commit("INITPROGRAMLIST", { programList: res.data.Data2 })
             })
         }
     },
