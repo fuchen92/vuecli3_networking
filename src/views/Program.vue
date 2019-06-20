@@ -1,36 +1,90 @@
 <template>
     <div class="program">
         <div class="programTabs">
-            <div class="programTabsWrapper">
-                <!-- <div class="programTab">
-                    <span class="programTabTime">{{ $t('program.tabOne.time') }}</span>
-                    <span class="programTabName">{{ $t('program.tabOne.name') }}</span>
-                </div>
-                <div class="programTab" v-bind:class="{ active: isCurrent }">
-                    <span class="programTabTime">{{ $t('program.tabTwo.time') }}</span>
-                    <span class="programTabName">{{ $t('program.tabTwo.name') }}</span>
-                </div>
-                <div class="programTab">
-                    <span class="programTabTime">{{ $t('program.tabThree.time') }}</span>
-                    <span class="programTabName">{{ $t('program.tabThree.name') }}</span>
-                </div>
-                <div class="programTab">
-                    <span class="programTabTime">{{ $t('program.tabFour.time') }}</span>
-                    <span class="programTabName">{{ $t('program.tabFour.name') }}</span>
-                </div> -->
-
-                
+            <div class="programTabsWrapper">                
                 <div v-for="(tab, index) in tabs" v-bind:key="index" class="programTab" v-bind:class="{ active: currentIndex == index, en: lang == 'en' }" v-on:click=" currentIndex = index">
                     <span class="programTabTime">{{ tab.time }}</span>
                     <span class="programTabName">{{ tab.name }}</span>
                 </div>
-                
-
             </div>
         </div>
         <div class="programBox">
             <div class="programList" v-bind:class="{ active: currentIndex == 0 }">
-
+                <div class="container">
+                    <div class="programItem programItemSite">
+                        {{ lang == 'zh' ? '会场：上海国际会议中心7楼 【明珠厅】' : 'Venue: Pearl Hall, 7th Floor, Shanghai International Convention Center' }}
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemDesc">
+                            <p class="programItemDescText">
+                                数字化转型浪潮席卷而至，大多数垂直领域的竞争格局都发生了变化，旅游业表现最为明显：未来20年，数字化将给旅游业带来怎样的影响？
+                            </p>
+                            <p class="programItemDescText">
+                                来看一组来自世界旅游组织的预测数据：
+                                <br>
+                                通过提高盈利能力，为行业创造高达3050 亿美元的价值；
+                                <br>
+                                将传统企业1000 亿美元价值转移到新的竞争者手中；
+                                <br>
+                                通过提高安全性、节省时间和成本，为用户和企业带来价值7000 亿美元的效益。
+                            </p>
+                            <p class="programItemDescText">
+                                最先进的旅游企业每天都在不断地利用数字技术，以前所未有的速度发展，这对其他企业意味着什么？
+                                <br>
+                                这即是，启航“<a href="/taward2019/" target="_blank" style="display: inline-block; color: #c30d23;">数字旅游奖</a>”的初衷。“2019数字旅游奖”将分设【数字营销奖】&amp;【产品创新奖】两个奖项，致力于鼓励数字化转型开拓者，评选当年度在数字化转型过程中有卓越表现的商业案例。“他山之石，可以攻玉”，希望通过该奖项，为业者明晰领先者的宝贵经验、方法论，从而指导自身的转型实践。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemDesc">
+                            <p class="programItemDescText">
+                                <strong>【大赛流程】</strong>
+                            </p>
+                            <ul class="awardFlow">
+                                <li class="awardFlowItem">
+                                    <span class="awardFlowLabel">2019年4月22日</span>
+                                    <span class="awardFlowItemDesc">大赛启动</span>
+                                </li>
+                                <li class="awardFlowItem">
+                                    <span class="awardFlowLabel">2019年6月30日</span>
+                                    <span class="awardFlowItemDesc">案例提交截止日期</span>
+                                </li>
+                                <li class="awardFlowItem">
+                                    <span class="awardFlowLabel">2019年7月1日-7月20日</span>
+                                    <span class="awardFlowItemDesc">评审团案例初评</span>
+                                </li>
+                                <li class="awardFlowItem">
+                                    <span class="awardFlowLabel">2019年8月5日-8月25日</span>
+                                    <span class="awardFlowItemDesc">入围案例公示</span>
+                                </li>
+                                <li class="awardFlowItem">
+                                    <span class="awardFlowLabel">2019年8月27日</span>
+                                    <span class="awardFlowItemDesc">
+                                        “入围奖”案例展示&amp;评审提问
+                                        <br>
+                                        现场评审会评出“数字营销奖”金奖，交由第三方机构封存结果
+                                    </span>
+                                </li>
+                                <li class="awardFlowItem">
+                                    <span class="awardFlowLabel">2019年8月28日</span>
+                                    <span class="awardFlowItemDesc">
+                                        颁奖晚宴，揭晓金奖名单
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemDesc">
+                            <p class="programItemDescText">
+                                <strong>【8.27入围奖案例展示】</strong>
+                            </p>
+                            <p class="programItemDescText">
+                                “<a href="/taward2019/" target="_blank" style="display: inline-block; color: #c30d23;">2019数字旅游奖</a>”分设【数字营销奖】、【产品创新奖】两类奖项，每个奖项设“入围奖”和“金奖”。初评阶段，评审将依据【评审标准】对参赛作品进行打分，从参赛作品中遴选20%优秀案例作品评为“入围奖‘。”入围奖“案例将在8月27日全天进行现场展示，案例展示结束后参赛企业将回答来自现场评审的抛问。
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 			<template v-for="i in programList.length">
 				<div class="programList" v-bind:key="i" v-bind:class="{ active: currentIndex == i }">
@@ -62,7 +116,7 @@
 													<span class="programItemSpeakerPhoto">
 														<img class="programItemSpeakerPhotoImg" v-bind:src="detail.Speaker.Photo" alt="">
 													</span>
-													<span class="programItemSpeakerName">{{ detail.Speaker.Company }} {{ detail.Speaker.JotTitle }} {{ detail.Speaker.Name }}</span>
+													<span class="programItemSpeakerName">{{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}</span>
 												</router-link>
 											</template>
 										</div>
@@ -259,6 +313,7 @@ export default {
 }
 .programTab.en {
     width: auto;
+    padding: 0 0.1rem;
 }
 .programTab:last-child {
     margin-right: 0;
@@ -313,6 +368,26 @@ export default {
 	font-size: 0.32rem;
 	line-height: 0.4rem;
 	color: var(--themeColor);
+}
+.programItemDesc {
+    overflow: hidden;
+}
+.programItemDescText:not(:last-child) {
+    margin-bottom: 0.4rem;
+}
+.awardFlowItem:not(:last-child) {
+    margin-bottom: 0.3rem;
+}
+.awardFlowLabel, .awardFlowItemDesc {
+    display: inline-block;
+    vertical-align: top;
+}
+.awardFlowLabel {
+    width: 3rem;
+    margin-right: 0.2rem;
+}
+.awardFlowItemDesc {
+    width: calc(100% - 3.2rem);
 }
 .programItemBody {
 	margin-top: 0.2rem;

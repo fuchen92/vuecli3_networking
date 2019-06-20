@@ -14,22 +14,6 @@ export default {
         "loginTip": "如有疑问，请联系 020-2882 9750"
     },
     "program": {
-        "tabOne": {
-            "time": "8月27日",
-            "name": "创新论坛"
-        },
-        "tabTwo": {
-            "time": "8月28日",
-            "name": "主论坛"
-        },
-        "tabThree": {
-            "time": "8月29日",
-            "name": "酒店论坛"
-        },
-        "tabFour": {
-            "time": "8月30日",
-            "name": "航空论坛"
-        },
         "tabs": [
             {
                 "time": "8月27日",
