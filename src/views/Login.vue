@@ -174,7 +174,7 @@ export default {
 		clearInterval(this.timer)
 		this.timer = null;
 		// 初始化日程列表
-		// this.initProgram();
+		// this.initProgram(63, "", 1);
 	}
 }
 </script>

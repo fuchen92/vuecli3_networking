@@ -211,23 +211,26 @@ export default {
     data: function() {
         return {
 			isCurrent: true,
-            currentIndex: 1,
-           
+            currentIndex: 1, 
+            timer: null,
+            // programList: []
         }
     },
     created: function() {
-        this.initProgram();
+        this.initProgram(63, "", 1);
+        this.test();
     },
     computed: {
         tabs: function() {
             return this.$i18n.messages[this.lang].program.tabs
             // return this.$i18n.messages[this.$store.state.Lang].program.tabs
         },
-        ...mapGetters({
-            programList: "getProgramListByLang"
-        }),
+        programList: function() {
+            console.log(this.$store.state.ProgramList)
+            return this.$store.state.ProgramList
+        },
         ...mapState({
-            lang: state => state.Lang
+            lang: state => state.Lang,
         })
     },
     methods: {
@@ -235,7 +238,11 @@ export default {
 		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
 		...mapActions({
 			initProgram: "getProgramList"
-		})
+        }),
+        test: function() {
+            console.log("爱神的箭房间爱速度快放假阿四大金刚开啦四大金刚")
+        }
+        
     }
 }
 </script>

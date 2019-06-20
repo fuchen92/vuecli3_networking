@@ -11,10 +11,7 @@ export default new Vuex.Store({
     state: {
         // Lang: "zh",
         Lang: localStorage.getItem("localeLanguage") || "zh",
-        ProgramList: {
-            zh: [],
-            en: []
-        }
+        ProgramList: []
     },
     mutations: {
         // 修改语言
@@ -23,22 +20,25 @@ export default new Vuex.Store({
         },
         // 初始化日程列表
         INITPROGRAMLIST(state, { programList }) {
-            Vue.set(state.ProgramList, "zh", programList.zh);
-            Vue.set(state.ProgramList, "en", programList.en);
+            let arr = [];
+            let data = programList;
+            arr.push(data[4]["2018-9-19"], data[5]["2018-9-21"], data[6]["2018-9-21"])
+            state.ProgramList = arr;
         },
     },
     actions: {
         // 初始化日程列表
-        getProgramList({ commit }) {
-            getProgramList().then(res => {
-                commit("INITPROGRAMLIST", { programList: res.data.ProgramList })
+        getProgramList({ commit }, eventNo, token, lang) {
+            getProgramList(eventNo, token, lang).then(res => {
+                console.log(res)
+                commit("INITPROGRAMLIST", { programList: res.data.Data })
             })
         }
     },
     getters: {
         // 根据语言获取日程列表到底是中文还是英文
-        getProgramListByLang: (state) => {
-            return state.ProgramList[state.Lang];
-        }
+        // getProgramListByLang: (state) => {
+        //     return state.ProgramList[state.Lang];
+        // }
     }
 });

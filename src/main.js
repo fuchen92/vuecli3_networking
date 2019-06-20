@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
 			next({ path: '/login' })
 		}
 	} else {
-		console.log("无重定向，直接进入下一步")
+		// console.log("无重定向，直接进入下一步")
 		next()
 	}
 })
