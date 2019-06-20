@@ -1,6 +1,6 @@
 <template>
     <div class="tabBar">
-        <router-link class="tabBarItemLink" to="/" active-class="active">
+        <router-link class="tabBarItemLink" to="/" active-class="active" exact>
             <span class="tabBarItemIcon tabBarHome"></span>
             {{ $t('tabBar.home') }}
         </router-link>
