@@ -218,11 +218,12 @@ export default {
         }
     },
     created: function() {
+        console.log("created")
         // let language = localStorage.getItem("localeLanguage") == "zh" ? 1 : 2;
         let language = this.lang == "zh" ? 1 : 2;
-        if(this.programList.length == 0) {
+        // if(this.programList.length == 0) {
             this.initProgram({ eventNo: 63, token: "", lang: language });
-        }
+        // }
         // this.$http.post("http://192.168.1.21:89/Program/List", {
         //     eventNo: 63,
         //     token: "",
@@ -236,7 +237,6 @@ export default {
         //     arr.push(firstDay, secondDay, thirdDay);
         //     this.programList.push(firstDay, secondDay, thirdDay)
         // })
-        // this.test();
     },
     computed: {
         tabs: function() {
@@ -255,11 +255,7 @@ export default {
 		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
 		...mapActions({
 			initProgram: "getProgramList"
-        }),
-        test: function() {
-            console.log("爱神的箭房间爱速度快放假阿四大金刚开啦四大金刚")
-        }
-        
+        })
     }
 }
 </script>

@@ -62,6 +62,7 @@
     </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
 	name: "Me",
 	computed: {
@@ -76,6 +77,9 @@ export default {
 				localStorage.setItem("localeLanguage", value);
 			}
 		}
+	},
+	methods: {
+		
 	}
 };
 </script>
