@@ -80,6 +80,7 @@ export default {
         "mobile": "手机号",
         "email": "邮箱",
         "wechat": "微信号",
+        "wechatplaceholder": "请输入微信号",
         "intro": "请输入个人简介",
         "save": "保存"
     }

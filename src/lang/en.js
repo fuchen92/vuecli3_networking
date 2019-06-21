@@ -80,6 +80,7 @@ export default {
         "mobile": "Mobile",
         "email": "Email",
         "wechat": "WeChat",
+        "wechatplaceholder": "Please Enter Wechat",
         "intro": "Personal Intro",
         "save": "Save"
     }

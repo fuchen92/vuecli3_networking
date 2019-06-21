@@ -7,37 +7,37 @@
                     <img class="avatarPhoto" src="../assets/avatar.jpg" alt="">
                 </div>
                 <div class="infomationCardContent">
-                    <button class="uploadBtn">点击上传</button>
+                    <button class="uploadBtn">{{ $t("meinfomation.upload") }}</button>
                     <div class="infomationItem clear">
-                        <p class="infomationItemLabel lt">名字</p>
+                        <p class="infomationItemLabel lt">{{ $t("meinfomation.name") }}</p>
                         <p class="infomationItemValue rt">张三</p>
                     </div>
                     <div class="infomationItem clear">
-                        <p class="infomationItemLabel lt">公司</p>
+                        <p class="infomationItemLabel lt">{{ $t("meinfomation.company") }}</p>
                         <p class="infomationItemValue rt">公安局</p>
                     </div>
                     <div class="infomationItem clear">
-                        <p class="infomationItemLabel lt">职位</p>
+                        <p class="infomationItemLabel lt">{{ $t("meinfomation.job") }}</p>
                         <p class="infomationItemValue rt">警察</p>
                     </div>
                     <div class="infomationItem clear">
-                        <p class="infomationItemLabel lt">手机</p>
+                        <p class="infomationItemLabel lt">{{ $t("meinfomation.mobile") }}</p>
                         <p class="infomationItemValue rt">18811101110</p>
                     </div>
                     <div class="infomationItem clear">
-                        <p class="infomationItemLabel lt">邮箱</p>
+                        <p class="infomationItemLabel lt">{{ $t("meinfomation.email") }}</p>
                         <p class="infomationItemValue rt">110@qq.com</p>
                     </div>
                     <div class="infomationItem clear">
-                        <p class="infomationItemLabel lt">微信</p>
-                        <input class="wechatInput" type="text" placeholder="请输入微信号">
+                        <p class="infomationItemLabel lt">{{ $t("meinfomation.wechat") }}</p>
+                        <input class="wechatInput" type="text" :placeholder="$t('meinfomation.wechatplaceholder')">
                     </div>
                 </div>
             </div>
             <div class="infomationCard">
-                <textarea class="infomationIntro" placeholder="请输入个人简介"></textarea>
+                <textarea class="infomationIntro" :placeholder="$t('meinfomation.intro')"></textarea>
             </div>
-            <button class="saveInfomation">保存</button>        
+            <button class="saveInfomation">{{ $t("meinfomation.save") }}</button>        
         </div>
     </div>
 </template>
