@@ -244,8 +244,6 @@ export default {
             // return this.$i18n.messages[this.$store.state.Lang].program.tabs
         },
         programList: function() {
-            console.log(this.$store.state.ProgramList)
-            console.log(this)
             return this.$store.state.ProgramList
         },
         ...mapState({

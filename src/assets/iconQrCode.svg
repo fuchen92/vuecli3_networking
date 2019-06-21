@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #484848;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="QR" class="cls-1" d="M734,9780h20v-20H734v20Zm3-17h14v14H737v-14Zm20-3v20h20v-20H757Zm17,17H760v-14h14v14Zm-33-3.99h6.013v-6.02H741v6.02ZM734,9803h20v-20H734v20Zm3-17h14v14H737v-14Zm33-19.01h-6.013v6.02h6.013v-6.02h0ZM757.036,9803H761v-4h-4ZM762,9787v12h5v-12h-5Zm11,12h-6l0.018,4H777v-9.98l-4-.02v6Zm-0.008-11.99L777,9787v-3.97l-4.008-.03v4.01ZM757,9783v4h4v-4h-4Zm-16,13h6.013v-6.01H741V9796Zm0,0,30-2-3,0h3v3h-3v-3Z" transform="translate(-734 -9760)"/>
+</svg>
