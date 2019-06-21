@@ -87,6 +87,6 @@ export default {
     "qrcode": {
         "navBarTitle": "Sign in Code",
         "name": "Sign in Code",
-        "qrcodeDesc": "In order to prevent the site network instability, can be in advance screensaver save this page. <br> Limited qr code pictures when checking in."
+        "qrcodeDesc": "In order to prevent the site network instability, can be in advance screensaver save this page. <br> Just show the qr code picture when you check in"
     }
 }
