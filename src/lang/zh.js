@@ -83,5 +83,10 @@ export default {
         "wechatplaceholder": "请输入微信号",
         "intro": "请输入个人简介",
         "save": "保存"
+    },
+    "qrcode": {
+        "navBarTitle": "签到码",
+        "name": "签到码",
+        "qrcodeDesc": "为防现场网络不稳定，可事先截屏保存本页面。<br>签到时出示二维码图片有限。"
     }
 }

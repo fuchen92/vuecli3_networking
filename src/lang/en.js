@@ -7,7 +7,7 @@ export default {
         "connection": "Connection",
         "plaza": "Plaza",
         "message": "Message",
-        "me": "me"
+        "me": "Me"
     },
     "login": {
         "account": "Please enter your email adress for sign-up",
@@ -83,5 +83,10 @@ export default {
         "wechatplaceholder": "Please Enter Wechat",
         "intro": "Personal Intro",
         "save": "Save"
+    },
+    "qrcode": {
+        "navBarTitle": "Sign in Code",
+        "name": "Sign in Code",
+        "qrcodeDesc": "In order to prevent the site network instability, can be in advance screensaver save this page. <br> Limited qr code pictures when checking in."
     }
 }
