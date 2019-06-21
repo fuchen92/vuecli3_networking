@@ -70,5 +70,17 @@ export default {
         "contact": "Contact",
         "faq": "Faq",
         "service": "Service"
+    },
+    "meinfomation": {
+        "navBarTitle": "Infomation",
+        "upload": "Upload",
+        "name": "Name",
+        "company": "Company",
+        "job": "Job",
+        "mobile": "Mobile",
+        "email": "Email",
+        "wechat": "WeChat",
+        "intro": "Personal Intro",
+        "save": "Save"
     }
 }

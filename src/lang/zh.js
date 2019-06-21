@@ -70,5 +70,17 @@ export default {
         "contact": "联系我们",
         "faq": "常见问题",
         "service": "推荐服务"
+    },
+    "meinfomation": {
+        "navBarTitle": "个人资料",
+        "upload": "点击上传",
+        "name": "名字",
+        "company": "公司",
+        "job": "职位",
+        "mobile": "手机号",
+        "email": "邮箱",
+        "wechat": "微信号",
+        "intro": "请输入个人简介",
+        "save": "保存"
     }
 }

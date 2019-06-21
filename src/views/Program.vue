@@ -243,7 +243,6 @@ export default {
             // return this.$i18n.messages[this.$store.state.Lang].program.tabs
         },
         programList: function() {
-            console.log(this.$store.state)
             return this.$store.state.ProgramList
         },
         ...mapState({
@@ -347,6 +346,7 @@ export default {
     padding-top: 1.2rem;
     overflow-x: hidden;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 .programList {
     display: none;

@@ -1,6 +1,6 @@
 <template>
     <div class="layout">
-        <NavBar></NavBar>
+        <NavBar :showSearch="true" backUrl="" navBarTitle=""></NavBar>
         <router-view></router-view>
         <TabBar></TabBar>
     </div>
@@ -11,6 +11,11 @@ import TabBar from "@/components/TabBar";
 
 export default {
     name: "layout",
+    data: function() {
+        return {
+
+        }
+    },
     components: {
         NavBar,
         TabBar
