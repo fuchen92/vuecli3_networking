@@ -75,7 +75,6 @@
                 </div>
             </div>
 			<template v-for="i in programList.length">
-                <!-- <div>{{ i }}</div> -->
 				<div class="programList" v-bind:key="i" v-bind:class="{ active: currentIndex == i }">
 					<div class="container">
 						<div class="programItem programItemSite">
@@ -244,6 +243,7 @@ export default {
             // return this.$i18n.messages[this.$store.state.Lang].program.tabs
         },
         programList: function() {
+            console.log(this.$store.state)
             return this.$store.state.ProgramList
         },
         ...mapState({

@@ -73,13 +73,17 @@ export default {
 			},
 			set(value) {
 				this.$store.commit("CHANGELANGUAGE", value);
+				// 应在此处修改语言之后重新请求日程英文数据，暂时注释，后续再放开
+				// this.initProgram({ eventNo: 63, token: "", lang: value == 'zh' ? 1 : 2 });
 				this.$i18n.locale = value;
 				localStorage.setItem("localeLanguage", value);
 			}
 		}
 	},
 	methods: {
-		
+		...mapActions({
+			initProgram: "getProgramList"
+        })
 	}
 };
 </script>

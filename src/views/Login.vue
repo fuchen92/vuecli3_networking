@@ -174,7 +174,8 @@ export default {
 		clearInterval(this.timer)
 		this.timer = null;
 		// 初始化日程列表
-		// this.initProgram({ eventNo: 63, token: "", lang: this.lang });
+		// 应在此处根据语言初始化日程列表，暂时注释，后续再放开
+		// this.initProgram({ eventNo: 63, token: "", lang: this.lang == 'zh' ? 1 : 2 });
 	}
 }
 </script>
