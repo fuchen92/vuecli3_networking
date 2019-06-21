@@ -60,5 +60,15 @@ export default {
         "awardFlowTime6Desc": "Gold Award winner announcement at Award Dinner Ceremony",
         "awardShowCaption": "August 27 Shortlisted Entries Presentations & Judge Quiz",
         "awardShowDesc": "Digital Travel Awards will present two award categories: Digital Marketing Awards and Product Innovation Awards. Both category will feature Nomination Awards and a Gold Award. The judges will make their decisions based on the evaluation criteria for the preliminary round and the Nomination Awards will be awarded to 20% of the entries. Shortlisted entries will make presentations on stage and answer questions from the judging panel on August 27."
+    },
+    "me": {
+        "qrcode": "Code",
+        "need": "Need",
+        "language": "Language",
+        "view": "view",
+        "venue": "Venue",
+        "contact": "Contact",
+        "faq": "Faq",
+        "service": "Service"
     }
 }

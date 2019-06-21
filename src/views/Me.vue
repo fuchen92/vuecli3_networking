@@ -16,29 +16,67 @@
 				<div class="qrCode">
 					<router-link class="qrCodeLink" to="/qrcode">
 						<img class="qrCodeIcon" src="../assets/iconQrCode.svg" alt="">
-						签到码
+						<!-- 签到码 -->
+						{{ $t("me.qrcode") }}
 					</router-link>
 				</div>
 			</div>
 			<div class="menuCard clear">
-				<p class="menuLabel lt">语言选择</p>
-				<select class="languageChoose rt">
+				<p class="menuLabel lt">{{ $t("me.language") }}</p>
+				<select class="languageChoose rt" v-model="language">
 					<option value="zh">中文</option>
 					<option value="en">EN</option>
 				</select>
 			</div>
 			<div class="menuCard">
 				<router-link class="menuCardLink clear" to="/meneed">
-					<p class="menuLabel lt">我的需求</p>
-					<span class="menuCardLinkIcon rt">点击查看</span>
+					<p class="menuLabel lt">{{ $t("me.need") }}</p>
+					<span class="menuCardLinkIcon rt">{{ $t("me.view") }}</span>
 				</router-link>
+			</div>
+			<div class="menuCard">
+				<a class="menuCardLink clear" href="">
+					<p class="menuLabel lt">{{ $t("me.venue") }}</p>
+					<span class="menuCardLinkIcon rt"></span>
+				</a>
+			</div>
+			<div class="menuCard">
+				<a class="menuCardLink clear" href="">
+					<p class="menuLabel lt">{{ $t("me.contact") }}</p>
+					<span class="menuCardLinkIcon rt"></span>
+				</a>
+			</div>
+			<div class="menuCard">
+				<a class="menuCardLink clear" href="">
+					<p class="menuLabel lt">{{ $t("me.faq") }}</p>
+					<span class="menuCardLinkIcon rt"></span>
+				</a>
+			</div>
+			<div class="menuCard">
+				<a class="menuCardLink clear" href="">
+					<p class="menuLabel lt">{{ $t("me.service") }}</p>
+					<span class="menuCardLinkIcon rt"></span>
+				</a>
 			</div>
 		</div>
     </div>
 </template>
 <script>
 export default {
-	name: "Me"
+	name: "Me",
+	computed: {
+		language: {
+			// 计算属性设置setter，参考vuex文档（表单处理）
+			get() {
+				return this.$store.state.Lang
+			},
+			set(value) {
+				this.$store.commit("CHANGELANGUAGE", value);
+				this.$i18n.locale = value;
+				localStorage.setItem("localeLanguage", value);
+			}
+		}
+	}
 };
 </script>
 <style>
@@ -117,9 +155,19 @@ export default {
 }
 .languageChoose {
 	padding-right: 0.4rem;
-	font-size: 0.28rem;
+	font-size: 0.24rem;
 	line-height: 0.4rem;
 	border: 0;
-	background: url(../assets/dropdown.png) right center/0.32rem auto no-repeat;
+	background: url(../assets/dropdown32.png) right center/0.32rem auto no-repeat;
+	/* color: #cccccc; */
+}
+.menuCardLinkIcon {
+	/* width: 0.4rem; */
+	height: 0.4rem;
+	padding-right: 0.4rem;
+	font-size: 0.24rem;
+	line-height: 0.4rem;
+	background: url(../assets/rightArrow32.png) right center/0.3rem auto no-repeat;
+	color: #2c3e50;
 }
 </style>
