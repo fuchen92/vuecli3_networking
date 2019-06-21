@@ -19,7 +19,7 @@
         <router-link class="tabBarItemLink" to="/me" active-class="active">
             <span class="tabBarItemIcon tabBarMe"></span>
             <!-- 我的 -->
-            {{ $t('tabBar.about') }}
+            {{ $t('tabBar.me') }}
         </router-link>
     </div>
 </template>

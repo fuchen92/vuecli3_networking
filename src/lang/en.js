@@ -7,7 +7,7 @@ export default {
         "connection": "Connection",
         "plaza": "Plaza",
         "message": "Message",
-        "about": "about"
+        "me": "me"
     },
     "login": {
         "account": "Please enter your email adress for sign-up",

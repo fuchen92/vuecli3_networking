@@ -7,7 +7,7 @@ export default {
         "connection": "人脉",
         "plaza": "广场",
         "message": "消息",
-        "about": "我的"
+        "me": "我的"
     },
     "login": {
         "account": "请输入报名时提交的手机号/邮箱",

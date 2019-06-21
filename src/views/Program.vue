@@ -218,13 +218,17 @@ export default {
         }
     },
     created: function() {
-        this.initProgram(63, "", 1);
-        // this.$http.post("http://localhost:8089/Program/List", {
+        // let language = localStorage.getItem("localeLanguage") == "zh" ? 1 : 2;
+        let language = this.lang == "zh" ? 1 : 2;
+        if(this.programList.length == 0) {
+            this.initProgram({ eventNo: 63, token: "", lang: language });
+        }
+        // this.$http.post("http://192.168.1.21:89/Program/List", {
         //     eventNo: 63,
         //     token: "",
-        //     lang: this.lang
+        //     lang: 2
         // }).then(res => {
-        //     let data = res.data.Data2;
+        //     let data = res.data.Data;
         //     let arr = [];
         //     let firstDay = data[4]["2018-9-20"]
         //     let secondDay = data[5]["2018-9-21"]
