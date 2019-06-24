@@ -136,7 +136,7 @@ export default {
 				this.hasError = false;
 				this.isGettedCode = true;
 				this.$refs.valicode.focus();
-				this.$http.post("http://192.168.1.21:89/Home/SendCode", {
+				this.$http.post("https://socialapi.traveldaily.cn/Home/SendCode", {
 					eventNo: this.eventNo,
 					loginName: this.account,
 					lang: this.language
@@ -169,39 +169,49 @@ export default {
 			}
 			if(this._validate("account") && this._validate("valicode")) {
 				this.hasError = false;
-				this.$http.post("http://192.168.1.21:89/Home/Login", {
-					eventNo: this.eventNo,
-					loginName: this.account,
-					code: this.valicode,
-					lang: this.language == 'zh' ? 1 : 2
-				}).then(res => {
-					console.log(res)
-					if(res.data.Code == 0) {
-						let account = {
-							token: res.data.Data,
-							isFirstLogin: res.data.Message == 0 ? true : false
-						}
-						// 触发初始化account的actions（token）
-						this.initToken({ account });
+				// this.$http.post("https://socialapi.traveldaily.cn/Home/Login", {
+				// 	eventNo: this.eventNo,
+				// 	loginName: this.account,
+				// 	code: this.valicode,
+				// 	lang: this.language == 'zh' ? 1 : 2
+				// }).then(res => {
+				// 	console.log(res)
+				// 	if(res.data.Code == 0) {
+				// 		let account = {
+				// 			token: res.data.Data,
+				// 			isFirstLogin: res.data.Message == 0 ? true : false
+				// 		}
+				// 		// 触发初始化account的actions（token）
+				// 		this.initToken({ account });
 
-						var logininfo = {
-							account: this.account
-						};
-						localStorage.setItem("user", JSON.stringify(logininfo))
-						let _redirect = this.$route.query.redirect
-						if (_redirect) {
-							this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
-						} else {
-							this.$router.push({ path: "/" })
-						}
-					} else if(res.data.Code != 0) {
-						alert(res.data.Message)
-					}
+				// 		var logininfo = {
+				// 			account: this.account
+				// 		};
+				// 		localStorage.setItem("user", JSON.stringify(logininfo))
+				// 		let _redirect = this.$route.query.redirect
+				// 		if (_redirect) {
+				// 			this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
+				// 		} else {
+				// 			this.$router.push({ path: "/" })
+				// 		}
+				// 	} else if(res.data.Code != 0) {
+				// 		alert(res.data.Message)
+				// 	}
 					
-				}).catch(err => {
-					alert(err);
-				})
+				// }).catch(err => {
+				// 	alert(err);
+				// })
 				console.log("验证通过，登录成功");
+				var logininfo = {
+					account: this.account
+				};
+				localStorage.setItem("user", JSON.stringify(logininfo))
+				let _redirect = this.$route.query.redirect
+				if (_redirect) {
+					this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
+				} else {
+					this.$router.push({ path: "/" })
+				}
 			}
 			
 		}
