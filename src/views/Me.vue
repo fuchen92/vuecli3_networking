@@ -5,7 +5,7 @@
 			<div class="meCard">
 				<router-link class="meInfoLink" to="/meinfomation">
 					<div class="meAvatar">
-						<img class="meAvatarImg" src="../assets/avatar.jpg" alt="">
+						<img class="meAvatarImg" v-bind:src="myInfo.Photo" alt="">
 					</div>
 					<div class="meInfo">
 						<p class="meName">{{ myInfo.Name }}</p>

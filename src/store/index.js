@@ -45,7 +45,6 @@ export default new Vuex.Store({
         },
         // 我的页面个人信息简要
         INITMYINFOMATION(state, { infomation }) {
-            console.log(infomation)
             state.MyInfomation = infomation;
         }
     },
@@ -76,20 +75,26 @@ export default new Vuex.Store({
     getters: {
         // 根据语言获取我的页面个人资料简要
         getMyInfoByLang: (state) => (lang) => {
-            console.log(state)
             var myInfo = {};
+            console.log(state.MyInfomation)
             if(lang == "zh") {
                 myInfo = {
                     Name: state.MyInfomation.Name,
                     Company: state.MyInfomation.Company,
-                    JobTitle: state.MyInfomation.JobTitle
+                    JobTitle: state.MyInfomation.JobTitle,
+                    Photo: state.MyInfomation.Photo,
+                    // Mobile: state.MyInfomation.ContactList[0].Name,
+                    // Email: state.MyInfomation.ContactList[1].Name,
+                    // WeChat: state.MyInfomation.ContactList[2].Name
+                    // Intro: state.MyInfomation.ContactList[2].Name,
                 }
             }
             if(lang == "en") {
                 myInfo = {
                     Name: state.MyInfomation.NameEn,
                     Company: state.MyInfomation.CompanyEn,
-                    JobTitle: state.MyInfomation.JobTitleEn
+                    JobTitle: state.MyInfomation.JobTitleEn,
+                    Photo: state.MyInfomation.Photo
                 }
             }
             console.log(myInfo)

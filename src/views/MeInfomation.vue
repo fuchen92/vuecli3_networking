@@ -4,33 +4,45 @@
         <div class="infomationWrapper">
             <div class="infomationCard">
                 <div class="infomationAvatar">                
-                    <img class="avatarPhoto" src="../assets/avatar.jpg" alt="">
+                    <img class="avatarPhoto" v-bind:src="myInfo.Photo || '../assets/avatar.jpg'" alt="">
                 </div>
                 <div class="infomationCardContent">
                     <button class="uploadBtn">{{ $t("meinfomation.upload") }}</button>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.name") }}</p>
-                        <p class="infomationItemValue rt">张三</p>
+                        <p class="infomationItemValue rt">{{ myInfo.Name }}</p>
+                    </div>
+                    <div class="infomationItem clear">
+                        <p class="infomationItemLabel lt">{{ $t("meinfomation.nameEn") }}</p>
+                        <p class="infomationItemValue rt">{{ myInfo.NameEn }}</p>
                     </div>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.company") }}</p>
-                        <p class="infomationItemValue rt">公安局</p>
+                        <p class="infomationItemValue rt">{{ myInfo.Company }}</p>
+                    </div>
+                    <div class="infomationItem clear">
+                        <p class="infomationItemLabel lt">{{ $t("meinfomation.companyEn") }}</p>
+                        <p class="infomationItemValue rt">{{ myInfo.CompanyEn }}</p>
                     </div>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.job") }}</p>
-                        <p class="infomationItemValue rt">警察</p>
+                        <p class="infomationItemValue rt">{{ myInfo.JobTitle }}</p>
+                    </div>
+                    <div class="infomationItem clear">
+                        <p class="infomationItemLabel lt">{{ $t("meinfomation.jobEn") }}</p>
+                        <p class="infomationItemValue rt">{{ myInfo.JobTitleEn }}</p>
                     </div>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.mobile") }}</p>
-                        <p class="infomationItemValue rt">18811101110</p>
+                        <p class="infomationItemValue rt">{{ myInfo.ContactList[0].Name }}</p>
                     </div>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.email") }}</p>
-                        <p class="infomationItemValue rt">110@qq.com</p>
+                        <p class="infomationItemValue rt">{{ myInfo.ContactList[1].Name }}</p>
                     </div>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.wechat") }}</p>
-                        <input class="wechatInput" type="text" :placeholder="$t('meinfomation.wechatplaceholder')">
+                        <input class="wechatInput" type="text" :value="myInfo.WeChat" :placeholder="$t('meinfomation.wechatplaceholder')">
                     </div>
                 </div>
             </div>
@@ -42,18 +54,39 @@
     </div>
 </template>
 <script>
+import { mapActions, mapState } from "vuex";
 import NavBar from "@/components/NavBar";
 export default {
     name: "MeInfomation",
     data: function() {
         return {
             backUrl: "/me",
-            navBarTitle: this.$i18n.messages[this.$store.state.Lang].meinfomation.navBarTitle
+            navBarTitle: this.$i18n.messages[this.$store.state.Lang].meinfomation.navBarTitle,
+            // myInfo: {}
         }
     },
     components: {
         NavBar
-    }
+    },
+    computed: {
+        ...mapState({
+            lang: state => state.Lang,
+            eventNo: state => state.eventNo,
+            token: state => state.Account.Token,
+            myInfo: state => state.MyInfomation
+		}),
+        // myInfo: function() {
+		// 	return this.$store.getters.getMyInfoByLang(this.lang)
+		// }
+    },
+    methods: {
+		...mapActions({
+			initMyInfo: "getMyInfo"
+        })
+	},
+	created: function() {
+		// this.initMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });
+	}
 }
 </script>
 <style scoped>
@@ -66,7 +99,7 @@ export default {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding-top: 1rem;
+    padding: 1rem 0;
     overflow: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -83,9 +116,9 @@ export default {
 }
 .infomationAvatar {
     position: relative;
-    top: -1.2rem;
-    width: 1.6rem;
-    height: 1.6rem;
+    top: -1rem;
+    width: 1.2rem;
+    height: 1.2rem;
     margin: 0 auto;
     border-radius: 100%;
     overflow: hidden;
@@ -94,7 +127,7 @@ export default {
     width: 100%;
 }
 .infomationCardContent {
-    margin-top: -1.2rem;
+    margin-top: -1rem;
     font-size: 0;
 }
 .uploadBtn {
@@ -113,19 +146,19 @@ export default {
     border-bottom: 1px solid #F0F1F2;
 }
 .infomationItemLabel, .infomationItemValue, .wechatInput {
-    width: 1.2rem;
+    width: 2rem;
     font-size: 0.28rem;
     line-height: 0.8rem;
 }
 .infomationItemValue {
-    width: calc(100% - 1.2rem);
+    width: calc(100% - 2rem);
     text-align: right;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 .wechatInput {
-    width: calc(100% - 1.2rem);
+    width: calc(100% - 2rem);
     border: 0;
     text-align: right;
 }
