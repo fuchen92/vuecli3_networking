@@ -18,7 +18,8 @@ export default {
             "valicodeEmpty": "请输入验证码",
             "mobileErr": "手机号码格式不正确，请检查",
             "emailErr": "邮箱格式不正确，请检查",
-            "valicodeErr": "验证码为6位数字"
+            "valicodeErr": "验证码为6位数字",
+            "codeIncorrect": "手机验证码错误"
         },
         "loginBtn": "登录",
         "loginTip": "如有疑问，请联系 020-2882 9750"

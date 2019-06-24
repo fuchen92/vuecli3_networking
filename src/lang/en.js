@@ -18,7 +18,8 @@ export default {
             "valicodeEmpty": "Please enter verification code",
             "mobileErr": "mobile incorrect format",
             "emailErr": "email incorrect format",
-            "valicodeErr": "Please enter a six-digit verification code"
+            "valicodeErr": "Please enter a six-digit verification code",
+            "codeIncorrect": "Mobile phone verification incorrect"
         },
         "loginBtn": "Login",
         "loginTip": "Call 0086 20-2882 9750 or email register@traveldaily.cn if you still can't log in."

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export function getProgramList(no, token, lang) {
+export function getProgramList(eventNo, token, lang) {
     return axios.post(`http://192.168.1.21:89/Program/List`, {
-        eventNo: no,
+        eventNo: eventNo,
         token: token,
         lang: lang
     })

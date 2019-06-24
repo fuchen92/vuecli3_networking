@@ -46,7 +46,7 @@ export default {
 	data: function() {
 		return {
 			isGettedCode: false,
-			countDown: 5,
+			countDown: 10,
 			hasError: false,
 			errType: "empty",
 			account: "",
@@ -67,6 +67,9 @@ export default {
 				localStorage.setItem("localeLanguage", value);
 			}
 		},
+		eventNo: function() {
+			return this.$store.state.eventNo
+		},
 		lang: function() {
 			return this.$i18n.messages[this.$store.state.Lang]
 		},
@@ -81,7 +84,8 @@ export default {
 		// 使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
 		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
 		...mapActions({
-			initProgram: "getProgramList"
+			initProgram: "getProgramList",
+			initAccount: "initAccount"
 		}),
 		_validate: function(type) {
 			let { account, valicode } = this;
@@ -132,19 +136,28 @@ export default {
 				this.hasError = false;
 				this.isGettedCode = true;
 				this.$refs.valicode.focus();
-				this.timer = setInterval(() => {
-					this.countDown--;
-					if(this.countDown <= 0) {
-						this.countDown = 5;
-						clearInterval(this.timer);
-						this.timer = null;
-						this.isGettedCode = false;
-						this.valicodeTipIndex = 1;
+				this.$http.post("http://192.168.1.21:89/Home/SendCode", {
+					eventNo: this.eventNo,
+					loginName: this.account,
+					lang: this.language
+				}).then(res => {
+					if(res.data.Code == 0) {
+						this.timer = setInterval(() => {
+							this.countDown--;
+							if(this.countDown <= 0) {
+								this.countDown = 10;
+								clearInterval(this.timer);
+								this.timer = null;
+								this.isGettedCode = false;
+								this.valicodeTipIndex = 1;
+							}
+						}, 1000);
+					} else if(res.data.Code != 0) {
+						alert(res.data.Message)
 					}
-				}, 1000);
+					
+				})
 			}
-			return this._validate("account");
-			console.log("获取验证码");
 		},
 		submitLogin: function() {
 			let { account, valicode } = this;
@@ -156,18 +169,41 @@ export default {
 			}
 			if(this._validate("account") && this._validate("valicode")) {
 				this.hasError = false;
+				this.$http.post("http://192.168.1.21:89/Home/Login", {
+					eventNo: this.eventNo,
+					loginName: this.account,
+					code: this.valicode,
+					lang: this.language == 'zh' ? 1 : 2
+				}).then(res => {
+					console.log(res)
+					if(res.data.Code == 0) {
+						let account = {
+							token: res.data.Data,
+							isFirstLogin: res.data.Message == 0 ? true : false
+						}
+						// 触发初始化account的actions（token）
+						this.initAccount({ account });
+						
+						var logininfo = {
+							account: this.account
+						};
+						localStorage.setItem("user", JSON.stringify(logininfo))
+						let _redirect = this.$route.query.redirect
+						if (_redirect) {
+							this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
+						} else {
+							this.$router.push({ path: "/" })
+						}
+					} else if(res.data.Code != 0) {
+						alert(res.data.Message)
+					}
+					
+				}).catch(err => {
+					alert(err);
+				})
 				console.log("验证通过，登录成功");
 			}
-			var logininfo = {
-				account: account
-			}
-			sessionStorage.setItem("user", JSON.stringify(logininfo))
-			let _redirect = this.$route.query.redirect
-			if (_redirect) {
-				this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
-			} else {
-				this.$router.push({ path: "/" })
-			}
+			
 		}
 	},
 	beforeDestroy() {

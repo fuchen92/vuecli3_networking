@@ -9,14 +9,24 @@ import {
 
 export default new Vuex.Store({
     state: {
-        // Lang: "zh",
+        eventNo: 63,
         Lang: localStorage.getItem("localeLanguage") || "zh",
+        Account: {
+            Token: localStorage.getItem("token") || "",
+            IsFirstLogin: ""
+        },
         ProgramList: []
     },
     mutations: {
         // 修改语言
         CHANGELANGUAGE(state, language) {
             state.Lang = language;
+        },
+        // 初始化账户（token）
+        INITACCOUNT(state, { account }) {
+            localStorage.setItem("token", account.token);
+            Vue.set(state.Account, "Token", account.token);
+            Vue.set(state.Account, "IsFirstLogin", account.isFirstLogin);
         },
         // 初始化日程列表
         INITPROGRAMLIST(state, { programList }) {
@@ -26,21 +36,18 @@ export default new Vuex.Store({
             let secondDay = data[5]["2018-9-21"];
             let thirdDay = data[6]["2018-9-21"];
             arr.push(firstDay, secondDay, thirdDay);
-            state.ProgramList = arr;            
-            // let data = res.data.Data2;
-            // let arr = [];
-            // let firstDay = data[4]["2018-9-20"];
-            // let secondDay = data[5]["2018-9-21"];
-            // let thirdDay = data[6]["2018-9-21"];
-            // arr.push(firstDay, secondDay, thirdDay);
-            // state.ProgramList = arr;            
+            state.ProgramList = arr;          
         },
     },
     actions: {
+        // 初始化账户
+        initAccount({ commit }, { account }) {
+            commit("INITACCOUNT", { account })
+        },
         // 初始化日程列表
         getProgramList({ commit }, { eventNo, token, lang }) {
             getProgramList(eventNo, token, lang).then(res => {
-                commit("INITPROGRAMLIST", { programList: res.data.ProgramList })
+                commit("INITPROGRAMLIST", { programList: res.data.Data })
             })
         }
     },
