@@ -37,6 +37,10 @@ export default new Router({
 			component: () => import(/* webpackChunkName: "qrcode" */ "@/views/QrCode.vue")
 		},
 		{
+			path: "/myneed",
+			component: () => import(/* webpackChunkName: "myneed" */ "@/views/MyNeed.vue")
+		},
+		{
 			path: "/programdetail",
 			component: ProgramDetail
 		},

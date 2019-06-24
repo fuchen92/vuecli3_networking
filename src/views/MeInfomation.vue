@@ -46,7 +46,6 @@ import NavBar from "@/components/NavBar";
 export default {
     name: "MeInfomation",
     data: function() {
-        // console.log(this.$i18n.messages[this.$store.state.Lang].meinfomation.navBarTitle)
         return {
             backUrl: "/me",
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].meinfomation.navBarTitle

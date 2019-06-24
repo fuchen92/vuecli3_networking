@@ -88,5 +88,9 @@ export default {
         "navBarTitle": "Sign in Code",
         "name": "Sign in Code",
         "qrcodeDesc": "In order to prevent the site network instability, can be in advance screensaver save this page. <br> Just show the qr code picture when you check in"
+    },
+    "myneed": {
+        "navBarTitle": "My Need",
+        "emptyNeedDesc": "You have not published requirements yet"
     }
 }

@@ -88,5 +88,9 @@ export default {
         "navBarTitle": "签到码",
         "name": "签到码",
         "qrcodeDesc": "为防现场网络不稳定，可事先截屏保存本页面。<br>签到时出示二维码图片即可。"
+    },
+    "myneed": {
+        "navBarTitle": "我的需求",
+        "emptyNeedDesc": "您暂未发布需求"
     }
 }

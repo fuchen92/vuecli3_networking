@@ -29,7 +29,7 @@
 				</select>
 			</div>
 			<div class="menuCard">
-				<router-link class="menuCardLink clear" to="/meneed">
+				<router-link class="menuCardLink clear" to="/myneed">
 					<p class="menuLabel lt">{{ $t("me.need") }}</p>
 					<span class="menuCardLinkIcon rt">{{ $t("me.view") }}</span>
 				</router-link>

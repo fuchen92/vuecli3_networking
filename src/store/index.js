@@ -40,7 +40,7 @@ export default new Vuex.Store({
         // 初始化日程列表
         getProgramList({ commit }, { eventNo, token, lang }) {
             getProgramList(eventNo, token, lang).then(res => {
-                commit("INITPROGRAMLIST", { programList: res.data.Data })
+                commit("INITPROGRAMLIST", { programList: res.data.ProgramList })
             })
         }
     },
