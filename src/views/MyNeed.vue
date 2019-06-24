@@ -9,9 +9,7 @@
                 </div>
             </template>                
             <template v-else>
-                <div v-for="(need, index) in needList" v-bind:key="index">
-
-                </div>
+                <!-- <PostCard v-for="(post, index) in needList" v-bind:key="index" v-bind:post="post"></PostCard> -->
             </template>
         </div>
     </div>
@@ -19,21 +17,73 @@
 
 <script>
 import NavBar from "@/components/NavBar";
+import PostCard from "@/components/PostCard.vue";
 export default {
     name: "MyNeed",
     data: function() {
         return {
             backUrl: "/me",
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].myneed.navBarTitle,
-            needList: []
+            needList: [
+                {
+                    "Id": 100,
+                    "Type": 2,
+                    "Intro": "我的需求我的需求我的需求",
+                    "Contact": {
+                        "Id": 0,
+                        "Name": 13899998888,
+                        "Value": 1
+                    },
+                    "EventNo": 0,
+                    "IsLike": false,
+                    "Like": 0,
+                    "LikeUserPhoto": null,
+                    "SocialId": 0,
+                    "Tag": [
+                        {
+                            "Id": 4,
+                            "Name": "项目合作",
+                            "Value": 0
+                        }
+                    ],
+                    "Time": "2019-06-24T11:01:51:67",
+                    "User": null
+                },
+                {
+                    "Id": 100,
+                    "Type": 2,
+                    "Intro": "我的需求我的需求我的需求",
+                    "Contact": {
+                        "Id": 0,
+                        "Name": 13899998888,
+                        "Value": 1
+                    },
+                    "EventNo": 0,
+                    "IsLike": false,
+                    "Like": 0,
+                    "LikeUserPhoto": null,
+                    "SocialId": 0,
+                    "Tag": [
+                        {
+                            "Id": 4,
+                            "Name": "项目合作",
+                            "Value": 0
+                        }
+                    ],
+                    "Time": "2019-06-24T11:01:51:67",
+                    "User": null
+                }
+            ]
         }
     },
     components: {
-        NavBar
+        NavBar,
+        PostCard
     },
+    // computed: function() {
+        
+    // },
     created: function() {
-        console.log("created")
-        console.log(this)
         this.$http.post("http://192.168.1.21:89/Me/SolutionList", {
             eventNo: 63,
             index: 1,
@@ -43,9 +93,6 @@ export default {
         }).then(res => {
             console.log(res)
         })
-    },
-    mounted: function() {
-        console.log("mounted");
     }
 }
 </script>

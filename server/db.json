@@ -3649,10 +3649,54 @@
             ]
         }
     },
-    "SolutionList": {
-        "Id": 100,
-        "Type": 2,
-        "Intro": "我的需求我的需求我的需求",
-        "Contact": 18811101110
-    }
+    "SolutionList": [
+        {
+            "Id": 100,
+            "Type": 2,
+            "Intro": "我的需求我的需求我的需求",
+            "Contact": {
+                "Id": 0,
+                "Name": 13899998888,
+                "Value": 1
+            },
+            "EventNo": 0,
+            "IsLike": false,
+            "Like": 0,
+            "LikeUserPhoto": null,
+            "SocialId": 0,
+            "Tag": [
+                {
+                    "Id": 4,
+                    "Name": "项目合作",
+                    "Value": 0
+                }
+            ],
+            "Time": "2019-06-24T11:01:51:67",
+            "User": null
+        },
+        {
+            "Id": 100,
+            "Type": 2,
+            "Intro": "我的需求我的需求我的需求",
+            "Contact": {
+                "Id": 0,
+                "Name": 13899998888,
+                "Value": 1
+            },
+            "EventNo": 0,
+            "IsLike": false,
+            "Like": 0,
+            "LikeUserPhoto": null,
+            "SocialId": 0,
+            "Tag": [
+                {
+                    "Id": 4,
+                    "Name": "项目合作",
+                    "Value": 0
+                }
+            ],
+            "Time": "2019-06-24T11:01:51:67",
+            "User": null
+        }
+    ]
 }
