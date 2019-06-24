@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import NavBar from "@/components/NavBar";
 import PostCard from "@/components/PostCard.vue";
 export default {
@@ -24,74 +25,92 @@ export default {
         return {
             backUrl: "/me",
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].myneed.navBarTitle,
-            needList: [
-                {
-                    "Id": 100,
-                    "Type": 2,
-                    "Intro": "我的需求我的需求我的需求",
-                    "Contact": {
-                        "Id": 0,
-                        "Name": 13899998888,
-                        "Value": 1
-                    },
-                    "EventNo": 0,
-                    "IsLike": false,
-                    "Like": 0,
-                    "LikeUserPhoto": null,
-                    "SocialId": 0,
-                    "Tag": [
-                        {
-                            "Id": 4,
-                            "Name": "项目合作",
-                            "Value": 0
-                        }
-                    ],
-                    "Time": "2019-06-24T11:01:51:67",
-                    "User": null
-                },
-                {
-                    "Id": 100,
-                    "Type": 2,
-                    "Intro": "我的需求我的需求我的需求",
-                    "Contact": {
-                        "Id": 0,
-                        "Name": 13899998888,
-                        "Value": 1
-                    },
-                    "EventNo": 0,
-                    "IsLike": false,
-                    "Like": 0,
-                    "LikeUserPhoto": null,
-                    "SocialId": 0,
-                    "Tag": [
-                        {
-                            "Id": 4,
-                            "Name": "项目合作",
-                            "Value": 0
-                        }
-                    ],
-                    "Time": "2019-06-24T11:01:51:67",
-                    "User": null
-                }
-            ]
+            // needList: [
+            //     {
+            //         "Id": 100,
+            //         "Type": 2,
+            //         "Intro": "我的需求我的需求我的需求",
+            //         "Contact": {
+            //             "Id": 0,
+            //             "Name": 13899998888,
+            //             "Value": 1
+            //         },
+            //         "EventNo": 0,
+            //         "IsLike": false,
+            //         "Like": 0,
+            //         "LikeUserPhoto": null,
+            //         "SocialId": 0,
+            //         "Tag": [
+            //             {
+            //                 "Id": 4,
+            //                 "Name": "项目合作",
+            //                 "Value": 0
+            //             }
+            //         ],
+            //         "Time": "2019-06-24T11:01:51:67",
+            //         "User": null
+            //     },
+            //     {
+            //         "Id": 100,
+            //         "Type": 2,
+            //         "Intro": "我的需求我的需求我的需求",
+            //         "Contact": {
+            //             "Id": 0,
+            //             "Name": 13899998888,
+            //             "Value": 1
+            //         },
+            //         "EventNo": 0,
+            //         "IsLike": false,
+            //         "Like": 0,
+            //         "LikeUserPhoto": null,
+            //         "SocialId": 0,
+            //         "Tag": [
+            //             {
+            //                 "Id": 4,
+            //                 "Name": "项目合作",
+            //                 "Value": 0
+            //             }
+            //         ],
+            //         "Time": "2019-06-24T11:01:51:67",
+            //         "User": null
+            //     }
+            // ]
         }
     },
     components: {
         NavBar,
         PostCard
     },
-    // computed: function() {
-        
-    // },
+    computed: {
+        ...mapState({
+            lang: state => state.Lang,
+            eventNo: state => state.eventNo,
+            token: state => state.Account.Token
+        }),
+        needList: function() {
+            return this.$store.state.SolutionList
+        },
+    },
     created: function() {
-        this.$http.post("http://192.168.1.21:89/Me/SolutionList", {
-            eventNo: 63,
-            index: 1,
-            size: -1,
-            token: "",
-            lang: 1
-        }).then(res => {
-            console.log(res)
+        console.log("created");
+        console.log(this);
+        // this.$http.post("http://192.168.1.21:89/Me/SolutionList", {
+        //     eventNo: 63,
+        //     index: 1,
+        //     size: -1,
+        //     token: "",
+        //     lang: 1
+        // }).then(res => {
+        //     console.log(res)
+        // })
+        let language = this.lang == "zh" ? 1 : 2;
+        this.initNeedList({ eventNo: this.eventNo, token: this.token, lang: language });
+    },
+     methods: {
+        // 使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
+		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+		...mapActions({
+			initNeedList: "getMySolutionList"
         })
     }
 }

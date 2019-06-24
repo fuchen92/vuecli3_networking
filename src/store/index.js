@@ -3,9 +3,7 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-import {
-    getProgramList
-} from "./api";
+import { getProgramList, getMySolutionList, getMyInfo } from "./api";
 
 export default new Vuex.Store({
     state: {
@@ -15,15 +13,17 @@ export default new Vuex.Store({
             Token: localStorage.getItem("token") || "",
             IsFirstLogin: ""
         },
-        ProgramList: []
+        MyInfomation: {},
+        ProgramList: [],
+        SolutionList: []
     },
     mutations: {
         // 修改语言
         CHANGELANGUAGE(state, language) {
             state.Lang = language;
         },
-        // 初始化账户（token）
-        INITACCOUNT(state, { account }) {
+        // 初始化（token）
+        INITTOKEN(state, { account }) {
             localStorage.setItem("token", account.token);
             Vue.set(state.Account, "Token", account.token);
             Vue.set(state.Account, "IsFirstLogin", account.isFirstLogin);
@@ -38,23 +38,62 @@ export default new Vuex.Store({
             arr.push(firstDay, secondDay, thirdDay);
             state.ProgramList = arr;          
         },
+        // 我的需求页面获取我的需求
+        INITMYSOLUTIONLIST(state, { solutionList }) {
+            console.log(solutionList)
+            state.SolutionList = solutionList;
+        },
+        // 我的页面个人信息简要
+        INITMYINFOMATION(state, { infomation }) {
+            console.log(infomation)
+            state.MyInfomation = infomation;
+        }
     },
     actions: {
-        // 初始化账户
-        initAccount({ commit }, { account }) {
-            commit("INITACCOUNT", { account })
+        // 初始化Token
+        initToken({ commit }, { account }) {
+            commit("INITTOKEN", { account })
         },
         // 初始化日程列表
         getProgramList({ commit }, { eventNo, token, lang }) {
             getProgramList(eventNo, token, lang).then(res => {
                 commit("INITPROGRAMLIST", { programList: res.data.Data })
             })
+        },
+        // 我的需求页面获取我的需求
+        getMySolutionList({ commit }, { eventNo, index, size, token, lang }) {
+            getMySolutionList(eventNo, index, size, token, lang).then(res => {
+                commit("INITMYSOLUTIONLIST", { solutionList: res.data.Data })
+            })
+        },
+        // 我的页面个人信息简要
+        getMyInfo({ commit }, { eventNo, token, lang }) {
+            getMyInfo(eventNo, token, lang).then(res => {
+                commit("INITMYINFOMATION", { infomation: res.data.Data })
+            })
         }
     },
     getters: {
-        // 根据语言获取日程列表到底是中文还是英文
-        // getProgramListByLang: (state) => {
-        //     return state.ProgramList[state.Lang];
-        // }
+        // 根据语言获取我的页面个人资料简要
+        getMyInfoByLang: (state) => (lang) => {
+            console.log(state)
+            var myInfo = {};
+            if(lang == "zh") {
+                myInfo = {
+                    Name: state.MyInfomation.Name,
+                    Company: state.MyInfomation.Company,
+                    JobTitle: state.MyInfomation.JobTitle
+                }
+            }
+            if(lang == "en") {
+                myInfo = {
+                    Name: state.MyInfomation.NameEn,
+                    Company: state.MyInfomation.CompanyEn,
+                    JobTitle: state.MyInfomation.JobTitleEn
+                }
+            }
+            console.log(myInfo)
+            return myInfo;
+        }
     }
 });

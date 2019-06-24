@@ -85,7 +85,7 @@ export default {
 		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
 		...mapActions({
 			initProgram: "getProgramList",
-			initAccount: "initAccount"
+			initToken: "initToken"
 		}),
 		_validate: function(type) {
 			let { account, valicode } = this;
@@ -182,8 +182,8 @@ export default {
 							isFirstLogin: res.data.Message == 0 ? true : false
 						}
 						// 触发初始化account的actions（token）
-						this.initAccount({ account });
-						
+						this.initToken({ account });
+
 						var logininfo = {
 							account: this.account
 						};

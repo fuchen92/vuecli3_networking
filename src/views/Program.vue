@@ -205,7 +205,7 @@
     </div>
 </template>
 <script>
-import { mapGetters, mapActions, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
     name: "Program",
     data: function() {
@@ -218,10 +218,9 @@ export default {
     },
     created: function() {
         console.log("created")
-        // let language = localStorage.getItem("localeLanguage") == "zh" ? 1 : 2;
         let language = this.lang == "zh" ? 1 : 2;
         // if(this.programList.length == 0) {
-            this.initProgram({ eventNo: this.eventNo, token: "", lang: language });
+            this.initProgram({ eventNo: this.eventNo, token: this.token, lang: language });
         // }
         // this.$http.post("http://192.168.1.21:89/Program/List", {
         //     eventNo: 63,
@@ -242,12 +241,14 @@ export default {
             return this.$i18n.messages[this.lang].program.tabs
             // return this.$i18n.messages[this.$store.state.Lang].program.tabs
         },        
-        programList: function() {
-            return this.$store.state.ProgramList
-        },
+        // programList: function() {
+        //     return this.$store.state.ProgramList
+        // },
         ...mapState({
             lang: state => state.Lang,
-            eventNo: state => state.eventNo
+            eventNo: state => state.eventNo,
+            token: state => state.Account.Token,
+            programList: state => state.ProgramList
         })
     },
     methods: {

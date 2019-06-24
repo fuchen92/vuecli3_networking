@@ -8,9 +8,12 @@
 						<img class="meAvatarImg" src="../assets/avatar.jpg" alt="">
 					</div>
 					<div class="meInfo">
-						<p class="meName">宇智波 ● 鼬</p>
+						<p class="meName">{{ myInfo.Name }}</p>
+						<p class="meCompany">{{ myInfo.Company }}</p>
+						<p class="meJob">{{ myInfo.JobTitle }}</p>
+						<!-- <p class="meName">宇智波 ● 鼬</p>
 						<p class="meCompany">木叶暗部</p>
-						<p class="meJob">暗部杀手</p>
+						<p class="meJob">暗部杀手</p> -->
 					</div>
 				</router-link>
 				<div class="qrCode">
@@ -62,7 +65,7 @@
     </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
 	name: "Me",
 	computed: {
@@ -78,12 +81,23 @@ export default {
 				this.$i18n.locale = value;
 				localStorage.setItem("localeLanguage", value);
 			}
+		},
+		...mapState({
+            lang: state => state.Lang,
+            eventNo: state => state.eventNo,
+			token: state => state.Account.Token,
+		}),
+		myInfo: function() {
+			return this.$store.getters.getMyInfoByLang(this.lang)
 		}
 	},
 	methods: {
 		...mapActions({
-			initProgram: "getProgramList"
+			initMyInfo: "getMyInfo"
         })
+	},
+	created: function() {
+		this.initMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });
 	}
 };
 </script>
