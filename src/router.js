@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Layout from "@/views/Layout.vue";
 import Program from "@/views/Program.vue";
 import ProgramDetail from "@/views/ProgramDetail.vue";
+import MeInfomation from "@/views/MeInfomation.vue";
 // import Home from './views/Home.vue'
 
 import Login from "@/views/Login.vue"
@@ -34,7 +35,7 @@ export default new Router({
 		},
 		{
 			path: "/meinfomation",
-			component: () => import(/* webpackChunkName: "meinfomation" */ "@/views/MeInfomation.vue")
+			component: MeInfomation
 		},
 		{
 			path: "/qrcode",

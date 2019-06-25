@@ -25,6 +25,15 @@ export function getMyInfo(eventNo, token, lang) {
         lang: lang
     })
 }
+
+export function saveMyInfo(intro, contactList, token, lang) {
+    return axios.post(`http://192.168.1.21:89/Me/MeSave`, {
+        Intro: intro,
+        ContactList: contactList,
+        token: token,
+        lang: lang
+    })
+}
 // export function getProgramList(no, token, lang) {
 //     return axios.post(`http://localhost:8089/Program/List`, {
 //         eventNo: no,

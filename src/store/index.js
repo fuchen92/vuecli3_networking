@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-import { getProgramList, getMySolutionList, getMyInfo } from "./api";
+import { getProgramList, getMySolutionList, getMyInfo, saveMyInfo } from "./api";
 
 export default new Vuex.Store({
     state: {
@@ -45,8 +45,22 @@ export default new Vuex.Store({
         },
         // 我的页面个人信息简要
         INITMYINFOMATION(state, { infomation }) {
+            let Mobile = infomation.ContactList.filter(item => item.Id == 1)[0].Name;
+            let Email = infomation.ContactList.filter(item => item.Id == 2)[0].Name;
+            let WeChat = infomation.ContactList.filter(item => item.Id == 3)[0].Name;
             state.MyInfomation = infomation;
-        }
+            Vue.set(state.MyInfomation, "Mobile", Mobile);
+            Vue.set(state.MyInfomation, "Email", Email);
+            Vue.set(state.MyInfomation, "WeChat", WeChat);
+        },
+        // 修改个人资料页wechat
+        CHANGEWECHAT(state, wechat) {
+            Vue.set(state.MyInfomation, "WeChat", wechat)
+        },
+        // 修改个人资料页简介
+        CHANGEINTRO(state, intro) {
+            Vue.set(state.MyInfomation, "Intro", intro)
+        },
     },
     actions: {
         // 初始化Token
@@ -70,13 +84,17 @@ export default new Vuex.Store({
             getMyInfo(eventNo, token, lang).then(res => {
                 commit("INITMYINFOMATION", { infomation: res.data.Data })
             })
+        },
+        saveMyInfo({ commit }, { intro, contactList, token, lang }) {
+            saveMyInfo(intro, contactList, token, lang).then(res => {
+                console.log("保存成功");
+            })
         }
     },
     getters: {
         // 根据语言获取我的页面个人资料简要
         getMyInfoByLang: (state) => (lang) => {
             var myInfo = {};
-            console.log(state.MyInfomation)
             if(lang == "zh") {
                 myInfo = {
                     Name: state.MyInfomation.Name,
@@ -97,7 +115,6 @@ export default new Vuex.Store({
                     Photo: state.MyInfomation.Photo
                 }
             }
-            console.log(myInfo)
             return myInfo;
         }
     }

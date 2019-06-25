@@ -34,22 +34,22 @@
                     </div>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.mobile") }}</p>
-                        <p class="infomationItemValue rt">{{ myInfo.ContactList[0].Name }}</p>
+                        <p class="infomationItemValue rt">{{ myInfo.Mobile }}</p>
                     </div>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.email") }}</p>
-                        <p class="infomationItemValue rt">{{ myInfo.ContactList[1].Name }}</p>
+                        <p class="infomationItemValue rt">{{ myInfo.Email }}</p>
                     </div>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.wechat") }}</p>
-                        <input class="wechatInput" type="text" :value="myInfo.WeChat" :placeholder="$t('meinfomation.wechatplaceholder')">
+                        <input class="wechatInput" type="text" v-model.trim="wechat" :placeholder="$t('meinfomation.wechatplaceholder')">
                     </div>
                 </div>
             </div>
             <div class="infomationCard">
-                <textarea class="infomationIntro" :placeholder="$t('meinfomation.intro')"></textarea>
+                <textarea class="infomationIntro" :placeholder="$t('meinfomation.intro')" v-model.trim="intro"></textarea>
             </div>
-            <button class="saveInfomation">{{ $t("meinfomation.save") }}</button>        
+            <button class="saveInfomation" @click="saveInfomation">{{ $t("meinfomation.save") }}</button>        
         </div>
     </div>
 </template>
@@ -62,31 +62,70 @@ export default {
         return {
             backUrl: "/me",
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].meinfomation.navBarTitle,
-            // myInfo: {}
+            // wechat: "111",
+            // intro: ""
         }
     },
     components: {
         NavBar
     },
     computed: {
+        intro: {
+            get() {
+                return this.$store.state.MyInfomation.Intro
+            },
+            set(value) {
+                this.$store.commit("CHANGEINTRO", value)
+            }
+        },
+        wechat: {
+            get() {
+                return this.$store.state.MyInfomation.WeChat
+            },
+            set(value) {
+                this.$store.commit("CHANGEWECHAT", value)
+            }
+        },
         ...mapState({
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
-            myInfo: state => state.MyInfomation
-		}),
-        // myInfo: function() {
-		// 	return this.$store.getters.getMyInfoByLang(this.lang)
-		// }
+            myInfo: state => state.MyInfomation,
+            contactList: state => state.MyInfomation.ContactList
+		})
     },
     methods: {
-		...mapActions({
-			initMyInfo: "getMyInfo"
-        })
+        saveInfomation: function() {
+            console.log("保存个人信息");
+            if((this.intro == "" || this.intro.length == 0) && (this.wechat == "" || this.wechat.length == 0)) {
+                return false;
+            }
+            let contactList = this.contactList;
+            contactList.map(item => {
+                if(item.Id == 3) {
+                    item.Name = this.wechat
+                }
+            });
+            // 不用触发action修改state
+            // this.saveMyInfo({ intro: this.intro, contactList, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
+            this.$http.post(`http://192.168.1.21:89/Me/MeSave`, {
+                Intro: this.intro,
+                ContactList: contactList,
+                token: this.token,
+                lang: this.lang == "zh" ? 1 : 2
+            }).then(res => {
+                if(res.data.Code == 0) {
+                    alert("修改成功");
+                } else {
+                    alert(res.data.Message)
+                }
+            })
+        },
+        // 此处不用修改state
+        // ...mapActions({
+        //     saveMyInfo: "saveMyInfo"
+        // })
 	},
-	created: function() {
-		// this.initMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });
-	}
 }
 </script>
 <style scoped>
