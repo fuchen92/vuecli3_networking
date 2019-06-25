@@ -1,7 +1,10 @@
 import axios from "axios";
 
+let LocalApiDomain = "http://192.168.1.21:89",
+    apiDomain = "https://socialapi.traveldaily.cn";
+
 export function getProgramList(eventNo, token, lang) {
-    return axios.post(`http://192.168.1.21:89/Program/List`, {
+    return axios.post(`${apiDomain}/Program/List`, {
         eventNo: eventNo,
         token: token,
         lang: lang
@@ -19,7 +22,7 @@ export function getMySolutionList(eventNo, index, size, token, lang) {
 }
 
 export function getMyInfo(eventNo, token, lang) {
-    return axios.post(`http://192.168.1.21:89/Me/UserInfo`, {
+    return axios.post(`${apiDomain}/Me/UserInfo`, {
         eventNo: eventNo,
         token: token,
         lang: lang

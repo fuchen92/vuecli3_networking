@@ -24,6 +24,10 @@ export default new Router({
 					component: Program
 				},
 				{
+					path: "plaza",
+					component: () => import(/* webpackChunkName: "plaza" */ "@/views/Plaza.vue")
+				},
+				{
 					path: "me",
 					component: () => import(/* webpackChunkName: "me" */"@/views/Me.vue")
 				},
