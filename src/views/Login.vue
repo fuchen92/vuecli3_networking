@@ -175,7 +175,6 @@ export default {
 					code: this.valicode,
 					lang: this.language == 'zh' ? 1 : 2
 				}).then(res => {
-					console.log(res)
 					if(res.data.Code == 0) {
 						let account = {
 							token: res.data.Data,
@@ -201,7 +200,7 @@ export default {
 				}).catch(err => {
 					alert(err);
 				})
-				console.log("验证通过，登录成功");
+				// console.log("验证通过，登录成功");
 				// var logininfo = {
 				// 	account: this.account
 				// };

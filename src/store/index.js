@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-import { getProgramList, getMySolutionList, getMyInfo, saveMyInfo } from "./api";
+import { getProgramList, getMySolutionList, getMyInfo, saveMyInfo, getMyQrcode, getChatList } from "./api";
 
 export default new Vuex.Store({
     state: {
@@ -15,7 +15,9 @@ export default new Vuex.Store({
         },
         MyInfomation: {},
         ProgramList: [],
-        SolutionList: []
+        SolutionList: [],
+        QrCode: "",
+        ChatList: [],
     },
     mutations: {
         // 修改语言
@@ -45,6 +47,7 @@ export default new Vuex.Store({
         },
         // 我的页面个人信息简要
         INITMYINFOMATION(state, { infomation }) {
+            // console.log(infomation)
             let Mobile = infomation.ContactList.filter(item => item.Id == 1)[0].Name;
             let Email = infomation.ContactList.filter(item => item.Id == 2)[0].Name;
             let WeChat = infomation.ContactList.filter(item => item.Id == 3)[0].Name;
@@ -61,6 +64,13 @@ export default new Vuex.Store({
         CHANGEINTRO(state, intro) {
             Vue.set(state.MyInfomation, "Intro", intro)
         },
+        GETMYQRCODE(state, code) {
+            state.QrCode = code;
+        },
+        // 获取聊天用户列表
+        INITCHATLIST(state, chatList) {
+            state.ChatList = chatList;
+        }
     },
     actions: {
         // 初始化Token
@@ -88,6 +98,18 @@ export default new Vuex.Store({
         saveMyInfo({ commit }, { intro, contactList, token, lang }) {
             saveMyInfo(intro, contactList, token, lang).then(res => {
                 console.log("保存成功");
+            })
+        },
+        getMyQrcode({ commit }, { token, lang }) {
+            getMyQrcode(token, lang).then(res => {
+                // console.log(res);
+                // commit("GETMYQRCODE", res.data.)
+            })
+        },
+        // 获取用户聊天列表
+        getChatList({ commit }, { token, lang }) {
+            getChatList(token, lang).then(res => {
+                commit("INITCHATLIST", res.data.Data);
             })
         }
     },

@@ -16,6 +16,7 @@
 					<div class="messageUser lt">
 						<div class="messageUserAvatar">
 							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
+							<span class="unReadMsgCount">10</span>
 						</div>
 						<div class="messageUserInfo">
 							<p class="messageUserName">宇智波 ● 鼬</p>
@@ -27,214 +28,20 @@
 						<p class="latestTime">22:00</p>
 					</div>
 				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
+				<router-link class="messageItem clear" v-for="chat in chatList" v-bind:key="chat.id" v-bind:to="'/chat?chatId=' + chat.Id">
 					<div class="messageUser lt">
 						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
+							<img class="messageUserPhoto" v-bind:src="chat.Photo" alt="">
+							<span class="unReadMsgCount" v-if="chat.NewMessageCount > 0">{{ chat.NewMessageCount > 99 ? 99 : chat.NewMessageCount }}</span>
 						</div>
 						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
+							<p class="messageUserName">{{ chat.Name }}</p>
+							<p class="latestMessage">{{ chat.LastMessage.Content }}</p>
 						</div>
 					</div>
 					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
-					</div>
-				</router-link>
-				<router-link class="messageItem clear" to="/chat?userid=110">
-					<div class="messageUser lt">
-						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
-						</div>
-						<div class="messageUserInfo">
-							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
-						</div>
-					</div>
-					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
-						<p class="latestTime">22:00</p>
+						<p class="messageDate">{{ chat.LastMessage.SentTime.split("T")[0].substr(5) }}</p>
+						<p class="latestTime">{{ chat.LastMessage.SentTime.split("T")[1].substr(0, 5) }}</p>
 					</div>
 				</router-link>
 			</div>
@@ -242,8 +49,25 @@
     </div>
 </template>
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
-    name: "Message"
+	name: "Message",
+	computed: {
+		...mapState({
+			lang: state => state.Lang,
+            eventNo: state => state.eventNo,
+			token: state => state.Account.Token,
+			chatList: state => state.ChatList
+		})
+	},
+	methods: {
+		...mapActions([
+			"getChatList"
+		])
+	},
+	created: function() {
+		this.getChatList({ token: this.token, lang: this.lang == "zh" ? 1 : 2 });
+	}
 }
 </script>
 <style>
@@ -337,14 +161,27 @@ export default {
 	vertical-align: middle;
 }
 .messageUserAvatar {
+	position: relative;
 	width: 1rem;
 	height: 1rem;
 	margin-right: 0.2rem;
-	border-radius: 100%;
-	overflow: hidden;
 }
 .messageUserPhoto {
 	width: 100%;
+	border-radius: 100%;
+}
+.unReadMsgCount {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0.4rem;
+	height: 0.4rem;
+	font-size: 0.24rem;
+	line-height: 0.4rem;
+	text-align: center;
+	border-radius: 100%;
+	background-color: var(--themeColor);
+	color: #fff;
 }
 .messageUserInfo {
 	width: calc(100% - 1.2rem);
@@ -364,12 +201,13 @@ export default {
 	width: 25%;
 }
 .messageDate, .latestTime {
-	font-size: 0.28rem;
+	font-size: 0.24rem;
 	line-height: 0.4rem;
 	text-align: right;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	color: #9f9f9f;
 }
 .messageDate {
 	margin-bottom: 0.1rem;

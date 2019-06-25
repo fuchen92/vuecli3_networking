@@ -34,6 +34,20 @@ export function saveMyInfo(intro, contactList, token, lang) {
         lang: lang
     })
 }
+
+export function getMyQrcode(token, lang) {
+    return axios.post(`http://192.168.1.21:89/Me/UserQRCode`, {
+        token: token,
+        lang: lang
+    })
+}
+
+export function getChatList(token, lang) {
+    return axios.post(`http://192.168.1.21:89/Message/ChatList`, {
+        token: token,
+        lang: lang
+    })
+}
 // export function getProgramList(no, token, lang) {
 //     return axios.post(`http://localhost:8089/Program/List`, {
 //         eventNo: no,

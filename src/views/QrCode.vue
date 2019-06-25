@@ -3,7 +3,7 @@
         <NavBar :showSearch="false" :backUrl="backUrl" :navBarTitle="navBarTitle"></NavBar>
         <div class="qrCodeWrapper">
             <div class="qrCodeBox">
-                <img class="qrCodeImg" src="../assets/qrcodeImg.png" alt="">
+                <img class="qrCodeImg" v-bind:src="qrcode" alt="">
                 <p class="qrCodeName">{{ $t("qrcode.name") }}</p>
             </div>
             <p class="qrCodeDesc" v-html="$t('qrcode.qrcodeDesc')"></p>
@@ -11,6 +11,7 @@
     </div>
 </template>
 <script>
+import { mapActions, mapState } from "vuex";
 import NavBar from "@/components/NavBar";
 export default {
     name: "QrCode",
@@ -22,6 +23,23 @@ export default {
     },
     components: {
         NavBar
+    },
+    computed: {
+        qrcode: function() {
+            return this.$store.state.QrCode
+        },
+        ...mapState({
+            lang: state => state.Lang,
+            token: state => state.Account.Token
+        })
+    },
+    methods: {
+        ...mapActions([
+            "getMyQrcode"
+        ])
+    },
+    created: function() {
+        this.getMyQrcode({ token: this.token, lang: this.lang == "zh" ? 1 : 2});
     }
 }
 </script>
