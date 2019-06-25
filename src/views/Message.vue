@@ -20,7 +20,7 @@
 						</div>
 						<div class="messageUserInfo">
 							<p class="messageUserName">宇智波 ● 鼬</p>
-							<p class="latestMessage">愚蠢的弟弟啊</p>
+							<p class="lastMessage">愚蠢的弟弟啊</p>
 						</div>
 					</div>
 					<div class="messageSummary rt">
@@ -36,7 +36,7 @@
 						</div>
 						<div class="messageUserInfo">
 							<p class="messageUserName">{{ chat.Name }}</p>
-							<p class="latestMessage">{{ chat.LastMessage.Content }}</p>
+							<p class="lastMessage">{{ chat.LastMessage.Content }}</p>
 						</div>
 					</div>
 					<div class="messageSummary rt">
@@ -186,7 +186,7 @@ export default {
 .messageUserInfo {
 	width: calc(100% - 1.2rem);
 }
-.messageUserName, .latestMessage {
+.messageUserName, .lastMessage {
 	font-size: 0.28rem;
 	line-height: 0.4rem;
 	overflow: hidden;

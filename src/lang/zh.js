@@ -65,6 +65,9 @@ export default {
     "message": {
         "noticeText": "新消息提醒（离线短信 + 邮件提醒）"
     },
+    "chat": {
+        "navBarTitle": "聊天页"
+    },
     "me": {
         "qrcode": "签到码",
         "need": "我的需求",

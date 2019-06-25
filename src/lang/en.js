@@ -65,6 +65,9 @@ export default {
     "message": {
         "noticeText": "New message alerts（SMS + Email）"
     },
+    "chat": {
+        "navBarTitle": "Chat"
+    },
     "me": {
         "qrcode": "Code",
         "need": "Need",

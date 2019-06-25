@@ -38,6 +38,10 @@ export default new Router({
 			component: MeInfomation
 		},
 		{
+			path: "/chat",
+			component: () => import(/* webpakChunkName: "chat" */ "@/views/Chat.vue")
+		},
+		{
 			path: "/qrcode",
 			component: () => import(/* webpackChunkName: "qrcode" */ "@/views/QrCode.vue")
 		},
