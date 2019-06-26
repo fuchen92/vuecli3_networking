@@ -83,16 +83,45 @@ export default {
     "publish": {
         "navBarSupplyTitle": "Publish Supply",
         "navBarRequirementTitle": "Publish Requirement",
+        "postType": "Post type",
+        postSupply: "Supply",
+        postRequirement: "Requirement",
+        offserLabel: "What we offer",
+        inputPlaceholder: "For example: we are specialized in hotel cloud service, and we have a good solution. If you need any help, please contact us, we are at booth c-20.",
+        addTag: "Add tags",
+        tagTip: "Easy to find and locate content",
+        publishMobile: "Public mobile",  
         "publishBtn": "Publish"
     },
     "exhibitor": {
-        "navBarTitle": "Exhibitor Detail"
+        "navBarTitle": "Exhibitor Detail",
+        "companyCaption": "Company Intro",
+        "boothCaption": "Exhibition Booth Map",
+        "schemeCaption": "Tourism Solutions",
+        "contactCaption": "Contact Information",
+        "contactLabel": "Contact Person",
+        "mobileLabel": "Mobile",
+        "emailLabel": "Email",
+        "telLabel": "Phone",
+        "siteLabel": "Company Website",
+        "emptyVal": "Not Filled",
+        "designedContact": "Designated Contact"
     },
     "message": {
         "noticeText": "New message alerts（SMS + Email）"
     },
     "chat": {
-        "navBarTitle": "Chat"
+        "navBarTitle": "Chat",
+        chatRule: "Communication rules",
+        rule1: "Please state your requirements",
+        rule2: "Please do not send spam messages",
+        rule3: "First meeting template: I want to seek partners in China, who can provide similar resources, interested people can contact me!",
+        emptyVal: "Not Filled",
+        businessCard: "Here is my business card",
+        invite: "Meeting invitation",
+        checkDetail: "view details",
+        cardBtn: "Card",
+        sendBtn: "Send"
     },
     "me": {
         "qrcode": "Code",

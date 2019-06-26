@@ -83,16 +83,45 @@ export default {
     "publish": {
         "navBarSupplyTitle": "发布供应",
         "navBarRequirementTitle": "发布需求",
+        "postType": "帖子类型",
+        postSupply: "供应",
+        postRequirement: "需求",
+        offserLabel: "我们提供",
+        inputPlaceholder: "例：我们专业做酒店云服务的，有很好的解决方案如有需要，请联系我们，我们在 C-20 展位。",
+        addTag: "添加标签",
+        tagTip: "便于内容查找和定位",
+        publishMobile: "公开手机号",        
         "publishBtn": "发布"
     },
     "exhibitor": {
-        "navBarTitle": "展商详情"
+        "navBarTitle": "展商详情",
+        "companyCaption": "公司介绍",
+        "boothCaption": "会场展位图",
+        "schemeCaption": "旅游业解决方案",
+        "contactCaption": "联系方式",
+        "contactLabel": "联系人",
+        "mobileLabel": "手机",
+        "emailLabel": "邮箱",
+        "telLabel": "联系电话",
+        "siteLabel": "公司官网",
+        "emptyVal": "未填写",
+        "designedContact": "指定联系人"
     },
     "message": {
         "noticeText": "新消息提醒（离线短信 + 邮件提醒）"
     },
     "chat": {
-        "navBarTitle": "聊天页"
+        "navBarTitle": "聊天页",
+        chatRule: "沟通须知",
+        rule1: "请说明您的需求",
+        rule2: "请不要发送垃圾信息",
+        rule3: "初次见面模板：我想要寻求中国区的合作伙伴，请问有谁可以提供类似资源，有意者可以联系我呀！",
+        emptyVal: "未填写",
+        businessCard: "这是我的名片",
+        invite: "我向你发起了见面邀约，请查收",
+        checkDetail: "查看详情",
+        cardBtn: "发送名片",
+        sendBtn: "发送"
     },
     "me": {
         "qrcode": "签到码",

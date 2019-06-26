@@ -20,14 +20,14 @@
                     </div>
                 </div>
                 <div class="exhibitorChunk">
-                    <h4 class="exhibitorChunkCaption">公司介绍</h4>
+                    <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.companyCaption") }}</h4>
                     <p class="exhibitorIntro">{{ exhibitor.Intro }}</p>
                 </div>
                 <div class="exhibitorChunk">
-                    <h4 class="exhibitorChunkCaption">会场展位图 &gt;</h4>
+                    <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.boothCaption") }} &gt;</h4>
                 </div>
                 <div class="exhibitorChunk" v-if="exhibitor.Products.length != 0">
-                    <h4 class="exhibitorChunkCaption">旅游业解决方案</h4>
+                    <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.schemeCaption") }}</h4>
                     <div class="schemeList">
                         <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="'/Product?id=' + scheme.Id" class="schemeItem">
                             <div class="schemeLogo">
@@ -41,32 +41,32 @@
                     </div>
                 </div>
                 <div class="exhibitorChunk">
-                    <h4 class="exhibitorChunkCaption">联系方式</h4>
+                    <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.contactCaption") }}</h4>
                     <div class="exhibitorContact">
                         <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">联系人</p>
-                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactPeople == null ? "未填写" : exhibitor.ContactPeople }}</p>
+                            <p class="exhibitorContactItemName lt">{{ $t("exhibitor.contactLabel") }}</p>
+                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactPeople == null ? $t("exhibitor.emptyVal") : exhibitor.ContactPeople }}</p>
                         </div>
                         <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">手机</p>
-                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactMobile == null ? "未填写" : exhibitor.ContactMobile }}</p>
+                            <p class="exhibitorContactItemName lt">{{ $t("exhibitor.mobileLabel") }}</p>
+                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactMobile == null ? $t("exhibitor.emptyVal") : exhibitor.ContactMobile }}</p>
                         </div>
                         <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">邮箱</p>
-                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactEmail == null ? "未填写" : exhibitor.ContactEmail }}</p>
+                            <p class="exhibitorContactItemName lt">{{ $t("exhibitor.emailLabel") }}</p>
+                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactEmail == null ? $t("exhibitor.emptyVal") : exhibitor.ContactEmail }}</p>
                         </div>
                         <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">联系电话</p>
-                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactPhone == null ? "未填写" : exhibitor.ContactPhone }}</p>
+                            <p class="exhibitorContactItemName lt">{{ $t("exhibitor.telLabel") }}</p>
+                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactPhone == null ? $t("exhibitor.emptyVal") : exhibitor.ContactPhone }}</p>
                         </div>
                         <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">公司官网</p>
-                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactSite == null ? "未填写" : exhibitor.ContactSite }}</p>
+                            <p class="exhibitorContactItemName lt">{{ $t("exhibitor.siteLabel") }}</p>
+                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactSite == null ? $t("exhibitor.emptyVal") : exhibitor.ContactSite }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="exhibitorChunk" v-if="exhibitor.Attendees.length != 0">
-                    <h4 class="exhibitorChunkCaption">指定联系人</h4>
+                    <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.designedContact") }}</h4>
                     <div class="guestCard">
                         <div class="guestCardTop">
                             <div class="guestAvatar">
@@ -209,6 +209,7 @@ export default {
 .exhibitorIntro {
     margin-top: 0.1rem;
     font-size: 0.24rem;
+    line-height: 0.4rem;
 }
 .schemeList {
     margin-top: 0.1rem;
@@ -265,10 +266,10 @@ export default {
     text-overflow: ellipsis;
 }
 .exhibitorContactItemName {
-    width: 2rem;
+    width: 2.4rem;
 }
 .exhibitorContactItemVal {
-    width: calc(100% - 2rem);
+    width: calc(100% - 2.4rem);
     text-align: right;
 }
 </style>

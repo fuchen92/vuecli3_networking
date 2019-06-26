@@ -4,7 +4,7 @@ let LocalApiDomain = "http://192.168.1.21:89",
     apiDomain = "https://socialapi.traveldaily.cn";
 
 export function getProgramList(eventNo, token, lang) {
-    return axios.post(`${LocalApiDomain}/Program/List`, {
+    return axios.post(`${apiDomain}/Program/List`, {
         eventNo: eventNo,
         token: token,
         lang: lang

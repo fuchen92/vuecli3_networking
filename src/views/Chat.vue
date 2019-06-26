@@ -4,10 +4,10 @@
         <div class="chatBox">
             <div class="container">
                 <div class="chatRules">
-                    <p class="ruleCaption">沟通须知</p>
-                    <p class="ruleItem">1. 请说明您的需求</p>
-                    <p class="ruleItem">2. 请不要发送垃圾信息；</p>
-                    <p class="ruleItem">3. 初次见面模板：我想要寻求中国区的合作伙伴，请问有谁可以提供类似资源，有意者可以联系我呀！</p>
+                    <p class="ruleCaption">{{ $t("chat.chatRule") }}</p>
+                    <p class="ruleItem">1. {{ $t("chat.rule1") }}</p>
+                    <p class="ruleItem">2. {{ $t("chat.rule2") }}</p>
+                    <p class="ruleItem">3. {{ $t("chat.rule3") }}</p>
                 </div>
                 <div class="chatList">
                     <template v-for="chat in chatList">
@@ -25,31 +25,31 @@
                                     <img v-bind:src="chat.NetUserId == chatId ? chatUserPhoto : myPhoto" alt="">
                                 </div>
                                 <div class="chatContent">
-                                    <p class="chatCardCaption">这是我的名片</p>
+                                    <p class="chatCardCaption">{{ $t("chat.businessCard") }}</p>
                                     <div class="chatCard">
                                         <div class="chatCardItem">
                                             <img class="chatCardIcon" src="../assets/iconName.svg" alt="">
-                                            <span class="chatCardText">{{ chat.Content.Name || '未填写' }}</span>
+                                            <span class="chatCardText">{{ chat.Content.Name || $t("chat.emptyVal") }}</span>
                                         </div>
                                         <div class="chatCardItem">
                                             <img class="chatCardIcon" src="../assets/iconCompany.svg" alt="">
-                                            <span class="chatCardText">{{ chat.Content.Company || '未填写' }}</span>
+                                            <span class="chatCardText">{{ chat.Content.Company || $t("chat.emptyVal") }}</span>
                                         </div>
                                         <div class="chatCardItem">
                                             <img class="chatCardIcon" src="../assets/iconJobtitle.svg" alt="">
-                                            <span class="chatCardText">{{ chat.Content.JobTitle || '未填写' }}</span>
+                                            <span class="chatCardText">{{ chat.Content.JobTitle || $t("chat.emptyVal") }}</span>
                                         </div>
                                         <div class="chatCardItem">
                                             <img class="chatCardIcon" src="../assets/iconMobile.svg" alt="">
-                                            <span class="chatCardText">{{ chat.Content.Mobile || '未填写' }}</span>
+                                            <span class="chatCardText">{{ chat.Content.Mobile || $t("chat.emptyVal") }}</span>
                                         </div>
                                         <div class="chatCardItem">
                                             <img class="chatCardIcon" src="../assets/iconEmail.svg" alt="">
-                                            <span class="chatCardText">{{ chat.Content.Mail || '未填写' }}</span>
+                                            <span class="chatCardText">{{ chat.Content.Mail || $t("chat.emptyVal") }}</span>
                                         </div>
                                         <div class="chatCardItem">
                                             <img class="chatCardIcon" src="../assets/iconWechat.svg" alt="">
-                                            <span class="chatCardText">{{ chat.Content.WeChat || '未填写' }}</span>
+                                            <span class="chatCardText">{{ chat.Content.WeChat || $t("chat.emptyVal") }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                     <img v-bind:src="chat.NetUserId == chatId ? chatUserPhoto : myPhoto" alt="">
                                 </div>
                                 <div class="chatContent">
-                                    <p class="chatCardCaption inviteCaption">我向你发起了见面邀约，请查收</p>
+                                    <p class="chatCardCaption inviteCaption">{{ $t("chat.invite") }}</p>
                                     <div class="chatCard">
                                         <div class="chatCardItem">
                                             <img class="chatCardIcon" src="../assets/iconLocation.svg" alt="">
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <router-link class="inviteLink clear" v-bind:to="'/invite?id=' + chat.Content.Id">
-                                        <span class="inviteLinkText lt">查看详情</span>
+                                        <span class="inviteLinkText lt">{{ $t("chat.checkDetail") }}</span>
                                         <span class="inviteLinkRightArrow"></span>
                                     </router-link>
                                 </div>
@@ -86,10 +86,10 @@
         <div class="chatOpts">
             <div class="sendCard">
                 <img class="sendCardImg" src="../assets/iconSendcard.svg" alt="">
-                发送名片
+                {{ $t("chat.cardBtn") }}
             </div>
             <textarea class="chatInput"></textarea>
-            <button class="sendMsgBtn">发送</button>
+            <button class="sendMsgBtn">{{ $t("chat.sendBtn") }}</button>
         </div>
     </div>
 </template>
@@ -162,6 +162,7 @@ export default {
     margin-right: 0.2rem;
     font-size: 0.24rem;
     line-height: 0.3rem;
+    text-align: center;
 }
 .sendCardImg {
     width: 0.5rem;

@@ -4,17 +4,17 @@
         <div class="publishBox">
             <div class="container">
                 <div class="publishChunk clear">
-                    <p class="publishChunkCaption lt">帖子类型</p>
-                    <p class="publishType rt">{{ publishType == 1 ? "供应" : "需求" }}</p>
+                    <p class="publishChunkCaption lt">{{ $t("publish.postType") }}</p>
+                    <p class="publishType rt">{{ publishType == 1 ? $t("publish.postSupply") : $t("publish.postRequirement") }}</p>
                 </div>
                 <div class="publishChunk">
-                    <p class="publishChunkCaption">我们提供</p>
-                    <textarea class="publishInput" v-model="publishContent" v-bind:placeholder="publishPlaceholder"></textarea>
+                    <p class="publishChunkCaption">{{ $t("publish.offserLabel") }}</p>
+                    <textarea class="publishInput" v-model="publishContent" v-bind:placeholder="$t('publish.inputPlaceholder')"></textarea>
                 </div>
                 <div class="publishChunk">
                     <p class="publishChunkCaption">
-                        添加标签
-                        <span class="publishChunkCaptionTip">（便于内容查找和定位）</span>
+                        {{ $t("publish.addTag") }}
+                        <span class="publishChunkCaptionTip">（{{ $t("publish.tagTip") }}）</span>
                     </p>
                     <div class="publishTags">
                         <span class="publishTag active">资源互换</span>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="publishChunk clear">
-                    <p class="publishChunkCaption lt">公开手机号</p>
+                    <p class="publishChunkCaption lt">{{ $t("publish.publishMobile") }}</p>
                     <span class="publishMobile lt">13988887777</span>
                     <label class="publishMobileLabel rt">
                         <input class="publishMobileCheckbox" type="checkbox" v-model="isChecked">
