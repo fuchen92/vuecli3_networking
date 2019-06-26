@@ -76,19 +76,19 @@
             </div>
         </div>
         <div class="publishTabs">
-            <div class="publishTab">
+            <router-link class="publishTab" to="/publish?type=1">
                 <img class="publishTabIcon" src="../assets/publishSupply.svg" alt="">
                 <span class="publishTabText">
                     {{ $t("plaza.publishTab") }}
                 </span>
-            </div>
+            </router-link>
             <b class="publishTabDivide"></b>
-            <div class="publishTab">
+            <router-link class="publishTab" to="/publish?type=2">
                 <img class="publishTabIcon" src="../assets/publishRequirement.svg" alt="">
                 <span class="publishTabText">
                     {{ $t("plaza.requirementTab") }}
                 </span>
-            </div>
+            </router-link>
         </div>
     </div>
 </template>

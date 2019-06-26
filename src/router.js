@@ -38,6 +38,10 @@ export default new Router({
 			]
 		},
 		{
+			path: "/publish",
+			component: () => import(/* webpackChunkName: "publish" */ "@/views/Publish.vue")
+		},
+		{
 			path: "/meinfomation",
 			component: MeInfomation
 		},

@@ -79,6 +79,11 @@ export default {
         "emptySupplyDesc": "You have not released the supply yet",
         "emptyRequirementDesc": "You have not published requirements yet"
     },
+    "publish": {
+        "navBarSupplyTitle": "Publish Supply",
+        "navBarRequirementTitle": "Publish Requirement",
+        "publishBtn": "Publish"
+    },
     "message": {
         "noticeText": "New message alerts（SMS + Email）"
     },

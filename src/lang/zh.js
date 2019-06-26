@@ -79,6 +79,11 @@ export default {
         "emptySupplyDesc": "您暂未发布供应",
         "emptyRequirementDesc": "您暂未发布需求"
     },
+    "publish": {
+        "navBarSupplyTitle": "发布供应",
+        "navBarRequirementTitle": "发布需求",
+        "publishBtn": "发布"
+    },
     "message": {
         "noticeText": "新消息提醒（离线短信 + 邮件提醒）"
     },
