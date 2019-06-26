@@ -85,6 +85,9 @@ export default {
         "navBarRequirementTitle": "Publish Requirement",
         "publishBtn": "Publish"
     },
+    "exhibitor": {
+        "navBarTitle": "Exhibitor Detail"
+    },
     "message": {
         "noticeText": "New message alerts（SMS + Email）"
     },

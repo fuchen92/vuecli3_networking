@@ -85,6 +85,9 @@ export default {
         "navBarRequirementTitle": "发布需求",
         "publishBtn": "发布"
     },
+    "exhibitor": {
+        "navBarTitle": "展商详情"
+    },
     "message": {
         "noticeText": "新消息提醒（离线短信 + 邮件提醒）"
     },

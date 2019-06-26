@@ -3,7 +3,16 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-import { getProgramList, getExhibitorList, getMySolutionList, getMyInfo, saveMyInfo, getMyQrcode, getChatList } from "./api";
+import {
+    getProgramList,
+    getExhibitorList,
+    getExhibitorDetail,
+    getMySolutionList,
+    getMyInfo,
+    saveMyInfo,
+    getMyQrcode,
+    getChatList
+} from "./api";
 
 export default new Vuex.Store({
     state: {
@@ -15,6 +24,7 @@ export default new Vuex.Store({
         },
         ProgramList: [],
         ExhibitorList: [],
+        ExhibitorDetail: {},
         MyInfomation: {},
         SolutionList: [],
         QrCode: "",
@@ -42,8 +52,26 @@ export default new Vuex.Store({
             arr.push(firstDay, secondDay, thirdDay);
             state.ProgramList = arr;          
         },
+        // 初始化展商列表
         INITEXHIBITORLIST(state, { exhibitorList }) {
             state.ExhibitorList = exhibitorList;
+        },
+        // 获取展商详情
+        INITEXHIBITORDETAIL(state, { detail }) {
+            console.log(detail)
+            let contactList = detail.ContactList;
+            let ContactPeople = contactList.filter(item => item.Id == 8)[0].Name;
+            let ContactMobile = contactList.filter(item => item.Id == 1)[0].Name;
+            let ContactEmail = contactList.filter(item => item.Id == 2)[0].Name;
+            let ContactPhone = contactList.filter(item => item.Id == 10)[0].Name;
+            let ContactSite = contactList.filter(item => item.Id == 9)[0].Name;
+            state.ExhibitorDetail = detail;
+            Vue.set(state.ExhibitorDetail, "ContactPeople", ContactPeople);
+            Vue.set(state.ExhibitorDetail, "ContactMobile", ContactMobile);
+            Vue.set(state.ExhibitorDetail, "ContactEmail", ContactEmail);
+            Vue.set(state.ExhibitorDetail, "ContactPhone", ContactPhone);
+            Vue.set(state.ExhibitorDetail, "ContactSite", ContactSite);
+            console.log(state.ExhibitorDetail)
         },
         // 我的需求页面获取我的需求
         INITMYSOLUTIONLIST(state, { solutionList }) {
@@ -92,6 +120,11 @@ export default new Vuex.Store({
         getExhibitorList({ commit }, { eventNo, index, size, token, lang }) {
             getExhibitorList(eventNo, index, size, token, lang).then(res => {
                 commit("INITEXHIBITORLIST", { exhibitorList: res.data.Data })
+            })
+        },
+        getExhibitorDetail({ commit }, { eventNo, id, token, lang }) {
+            getExhibitorDetail(eventNo, id, token, lang).then(res => {
+                commit("INITEXHIBITORDETAIL", { detail: res.data.Data })
             })
         },
         // 我的需求页面获取我的需求
