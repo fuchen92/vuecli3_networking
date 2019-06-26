@@ -27,18 +27,17 @@
                     <p class="publishChunkCaption lt">公开手机号</p>
                     <span class="publishMobile lt">13988887777</span>
                     <label class="publishMobileLabel rt">
-                        <input class="publishMobileCheckbox" type="checkbox">
+                        <input class="publishMobileCheckbox" type="checkbox" v-model="isChecked">
                         <i class="publishMobileCaret"></i>
                     </label>
                 </div>
             </div>
         </div>
-        <button class="publishBtn">
+        <button class="publishBtn" @click="publish">
             {{ $t("publish.publishBtn") }}
         </button>
     </div>
 </template>
-
 <script>
 import { mapState } from "vuex";
 import NavBar from "@/components/NavBar";
@@ -49,7 +48,8 @@ export default {
             backUrl: "/plaza",
             publishType: this.$route.query.type,
             publishPlaceholder: "例：我们专业做酒店云服务的，有很好的解决方案如有需要，请联系我们，我们在 C-20 展位。",
-            publishContent: ""
+            publishContent: "",
+            isChecked: true
         }
     },
     components: {
@@ -57,7 +57,6 @@ export default {
     },
     computed: {
         navBarTitle: function() {
-            console.log(this)
             return this.publishType == 1 ? this.$i18n.messages[this.$store.state.Lang].publish.navBarSupplyTitle : this.$i18n.messages[this.$store.state.Lang].publish.navBarRequirementTitle
         },
         ...mapState({
@@ -67,6 +66,11 @@ export default {
             myInfo: state => state.MyInfomation,
             contactList: state => state.MyInfomation.ContactList
 		})
+    },
+    methods: {
+        publish: function() {
+            console.log(this.isChecked)
+        }
     }
 }
 </script>
@@ -144,12 +148,10 @@ export default {
     width: 0.4rem;
     height: 0.4rem;
     border-radius: 100%;
-    /* background-color: var(--themeColor);
-    background-image: url(../assets/iconTick.svg); */
-    background: url(../assets/iconTick.svg) var(--themeColor) center center/0.28rem no-repeat;
+    background: url(../assets/iconTick.svg) #999 center center/0.28rem no-repeat;
 }
 .publishMobileCheckbox:checked + .publishMobileCaret {
-    background: url(../assets/iconTick.svg) #999 center center/0.28rem no-repeat;
+    background: url(../assets/iconTick.svg) var(--themeColor) center center/0.28rem no-repeat;
 }
 .publishBtn {
     position: absolute;

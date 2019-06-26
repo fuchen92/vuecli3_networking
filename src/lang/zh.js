@@ -77,7 +77,8 @@ export default {
         "publishTab": "发布供应",
         "requirementTab": "发布需求",
         "emptySupplyDesc": "您暂未发布供应",
-        "emptyRequirementDesc": "您暂未发布需求"
+        "emptyRequirementDesc": "您暂未发布需求",
+        "attendExpected": "等{count}人出席",
     },
     "publish": {
         "navBarSupplyTitle": "发布供应",

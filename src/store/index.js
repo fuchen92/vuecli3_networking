@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-import { getProgramList, getMySolutionList, getMyInfo, saveMyInfo, getMyQrcode, getChatList } from "./api";
+import { getProgramList, getExhibitorList, getMySolutionList, getMyInfo, saveMyInfo, getMyQrcode, getChatList } from "./api";
 
 export default new Vuex.Store({
     state: {
@@ -13,8 +13,9 @@ export default new Vuex.Store({
             Token: localStorage.getItem("token") || "",
             IsFirstLogin: ""
         },
-        MyInfomation: {},
         ProgramList: [],
+        ExhibitorList: [],
+        MyInfomation: {},
         SolutionList: [],
         QrCode: "",
         ChatList: [],
@@ -40,6 +41,9 @@ export default new Vuex.Store({
             let thirdDay = data[6]["2018-9-21"];
             arr.push(firstDay, secondDay, thirdDay);
             state.ProgramList = arr;          
+        },
+        INITEXHIBITORLIST(state, { exhibitorList }) {
+            state.ExhibitorList = exhibitorList;
         },
         // 我的需求页面获取我的需求
         INITMYSOLUTIONLIST(state, { solutionList }) {
@@ -82,6 +86,12 @@ export default new Vuex.Store({
         getProgramList({ commit }, { eventNo, token, lang }) {
             getProgramList(eventNo, token, lang).then(res => {
                 commit("INITPROGRAMLIST", { programList: res.data.Data })
+            })
+        },
+        // 获取展商列表
+        getExhibitorList({ commit }, { eventNo, index, size, token, lang }) {
+            getExhibitorList(eventNo, index, size, token, lang).then(res => {
+                commit("INITEXHIBITORLIST", { exhibitorList: res.data.Data })
             })
         },
         // 我的需求页面获取我的需求

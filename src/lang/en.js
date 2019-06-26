@@ -77,7 +77,8 @@ export default {
         "publishTab": "Supply",
         "requirementTab": "Requirement",
         "emptySupplyDesc": "You have not released the supply yet",
-        "emptyRequirementDesc": "You have not published requirements yet"
+        "emptyRequirementDesc": "You have not published requirements yet",
+        "attendExpected": "{count} people are expected to attend"
     },
     "publish": {
         "navBarSupplyTitle": "Publish Supply",

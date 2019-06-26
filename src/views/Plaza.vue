@@ -8,54 +8,34 @@
         <div class="plazaBox">
             <div class="plazaList" v-bind:class="{ active: currentIndex == 0 }">
                 <div class="container">
-                    <div class="exhibitor">
+                    <router-link v-for="exhibitor in exhibitorList" class="exhibitor" v-bind:key="exhibitor.Id" v-bind:to="'/exhibitor?id=' + exhibitor.Id">
                         <div class="exhibitorAvatar">
-                            <img class="exhibitorLogo" src="../assets/avatar.jpg" alt="">
+                            <img class="exhibitorLogo" :src="exhibitor.Photo" alt="">
                             <p class="exhibitorBooth">
                                 <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                                <span class="exhibitorBoothText">A-1</span>
+                                <span class="exhibitorBoothText">{{ exhibitor.Booth }}</span>
                             </p>
                         </div>
                         <div class="exhibitorInfo">
-                            <h4 class="exhibitorName">携程集团</h4>
+                            <h4 class="exhibitorName">{{ exhibitor.Name }}</h4>
                             <div class="exhibitorTags">
-                                <span class="exhibitorTag">在线旅游</span>
+                                <span class="exhibitorTag" v-for="(industry, index) in exhibitor.Industry" :key="index">{{ industry.Name }}</span>
                             </div>
-                            <p class="exhibitorSlogan">携程在手，说走就走</p>
-                            <div class="interestList">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
+                            <p class="exhibitorSlogan" v-if="exhibitor.Intro2 != ''">{{ exhibitor.Intro2 }}</p>
+                            <div class="interestList" v-if="exhibitor.AttendeesPhoto != null">
+                                <template v-for="(attend, index) in exhibitor.AttendeesPhoto">
+                                    <template v-if="index < 3">
+                                        <img class="interestPeople" :src="attend[index]" :key="index" alt="">
+                                    </template>
+                                </template>
                                 <span class="interestSummary">
-                                    等<span class="interestNum">5</span>人出席
+                                    <!-- {{ $tc("plaza.attendExpected", {count: 5}) }} -->
+                                    {{ $tc("plaza.attendExpected", exhibitor.AttendeesPhoto.length) }}
+                                    <!-- 等{{ exhibitor.AttendeesPhoto.length }}人出席 -->
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="exhibitor">
-                        <div class="exhibitorAvatar">
-                            <img class="exhibitorLogo" src="../assets/avatar.jpg" alt="">
-                            <p class="exhibitorBooth">
-                                <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                                <span class="exhibitorBoothText">A-1</span>
-                            </p>
-                        </div>
-                        <div class="exhibitorInfo">
-                            <h4 class="exhibitorName">携程集团</h4>
-                            <div class="exhibitorTags">
-                                <span class="exhibitorTag">在线旅游</span>
-                            </div>
-                            <p class="exhibitorSlogan">携程在手，说走就走</p>
-                            <div class="interestList">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <span class="interestSummary">
-                                    等<span class="interestNum">5</span>人出席
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                    </router-link>
                 </div>
             </div>
             <div class="plazaList supplyList" v-bind:class="{ active: currentIndex == 1, empty: supplyList.length == 0 }">
@@ -93,7 +73,7 @@
     </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
     name: "Plaza",
     data: function() {
@@ -112,11 +92,16 @@ export default {
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
-            programList: state => state.ProgramList
+            exhibitorList: state => state.ExhibitorList
         })
     },
     methods: {
-
+        ...mapActions([
+            "getExhibitorList"
+        ])
+    },
+    created: function() {
+        this.getExhibitorList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2});
     }
 }
 </script>
@@ -191,7 +176,7 @@ export default {
     width: 100%;
 }
 .exhibitorBooth {
-    margin-top: 0.1rem;
+    margin-top: 0.2rem;
     text-align: center;
 }
 .exhibitorBoothImg, .exhibitorBoothText {
@@ -204,6 +189,7 @@ export default {
 }
 .exhibitorBoothText {
     font-size: 0.24rem;
+    color: #777;
 }
 .exhibitorInfo {
     width: calc(100% - 1.8rem);
@@ -211,6 +197,7 @@ export default {
 .exhibitorName {
     font-size: 0.28rem;
     line-height: 0.4rem;
+    color: var(--themeColor);
 }
 .exhibitorTags {
     margin: 0.15rem 0 0;
@@ -249,6 +236,7 @@ export default {
 .interestSummary {
     width: calc(100% - 1.8rem);
     font-size: 0.24rem;
+    color: #777;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
