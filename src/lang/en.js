@@ -75,7 +75,9 @@ export default {
             }
         ],
         "publishTab": "Supply",
-        "requirementTab": "Requirement"
+        "requirementTab": "Requirement",
+        "emptySupplyDesc": "You have not released the supply yet",
+        "emptyRequirementDesc": "You have not published requirements yet"
     },
     "message": {
         "noticeText": "New message alerts（SMS + Email）"

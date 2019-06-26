@@ -6,176 +6,8 @@
             </div>
         </div>
         <div class="plazaBox">
-            <div class="plazaList active">
+            <div class="plazaList" v-bind:class="{ active: currentIndex == 0 }">
                 <div class="container">
-                    <div class="exhibitor">
-                        <div class="exhibitorAvatar">
-                            <img class="exhibitorLogo" src="../assets/avatar.jpg" alt="">
-                            <p class="exhibitorBooth">
-                                <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                                <span class="exhibitorBoothText">A-1</span>
-                            </p>
-                        </div>
-                        <div class="exhibitorInfo">
-                            <h4 class="exhibitorName">携程集团</h4>
-                            <div class="exhibitorTags">
-                                <span class="exhibitorTag">在线旅游</span>
-                            </div>
-                            <p class="exhibitorSlogan">携程在手，说走就走</p>
-                            <div class="interestList">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <span class="interestSummary">
-                                    等<span class="interestNum">5</span>人出席
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="exhibitor">
-                        <div class="exhibitorAvatar">
-                            <img class="exhibitorLogo" src="../assets/avatar.jpg" alt="">
-                            <p class="exhibitorBooth">
-                                <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                                <span class="exhibitorBoothText">A-1</span>
-                            </p>
-                        </div>
-                        <div class="exhibitorInfo">
-                            <h4 class="exhibitorName">携程集团</h4>
-                            <div class="exhibitorTags">
-                                <span class="exhibitorTag">在线旅游</span>
-                            </div>
-                            <p class="exhibitorSlogan">携程在手，说走就走</p>
-                            <div class="interestList">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <span class="interestSummary">
-                                    等<span class="interestNum">5</span>人出席
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="exhibitor">
-                        <div class="exhibitorAvatar">
-                            <img class="exhibitorLogo" src="../assets/avatar.jpg" alt="">
-                            <p class="exhibitorBooth">
-                                <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                                <span class="exhibitorBoothText">A-1</span>
-                            </p>
-                        </div>
-                        <div class="exhibitorInfo">
-                            <h4 class="exhibitorName">携程集团</h4>
-                            <div class="exhibitorTags">
-                                <span class="exhibitorTag">在线旅游</span>
-                            </div>
-                            <p class="exhibitorSlogan">携程在手，说走就走</p>
-                            <div class="interestList">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <span class="interestSummary">
-                                    等<span class="interestNum">5</span>人出席
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="exhibitor">
-                        <div class="exhibitorAvatar">
-                            <img class="exhibitorLogo" src="../assets/avatar.jpg" alt="">
-                            <p class="exhibitorBooth">
-                                <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                                <span class="exhibitorBoothText">A-1</span>
-                            </p>
-                        </div>
-                        <div class="exhibitorInfo">
-                            <h4 class="exhibitorName">携程集团</h4>
-                            <div class="exhibitorTags">
-                                <span class="exhibitorTag">在线旅游</span>
-                            </div>
-                            <p class="exhibitorSlogan">携程在手，说走就走</p>
-                            <div class="interestList">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <span class="interestSummary">
-                                    等<span class="interestNum">5</span>人出席
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="exhibitor">
-                        <div class="exhibitorAvatar">
-                            <img class="exhibitorLogo" src="../assets/avatar.jpg" alt="">
-                            <p class="exhibitorBooth">
-                                <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                                <span class="exhibitorBoothText">A-1</span>
-                            </p>
-                        </div>
-                        <div class="exhibitorInfo">
-                            <h4 class="exhibitorName">携程集团</h4>
-                            <div class="exhibitorTags">
-                                <span class="exhibitorTag">在线旅游</span>
-                            </div>
-                            <p class="exhibitorSlogan">携程在手，说走就走</p>
-                            <div class="interestList">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <span class="interestSummary">
-                                    等<span class="interestNum">5</span>人出席
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="exhibitor">
-                        <div class="exhibitorAvatar">
-                            <img class="exhibitorLogo" src="../assets/avatar.jpg" alt="">
-                            <p class="exhibitorBooth">
-                                <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                                <span class="exhibitorBoothText">A-1</span>
-                            </p>
-                        </div>
-                        <div class="exhibitorInfo">
-                            <h4 class="exhibitorName">携程集团</h4>
-                            <div class="exhibitorTags">
-                                <span class="exhibitorTag">在线旅游</span>
-                            </div>
-                            <p class="exhibitorSlogan">携程在手，说走就走</p>
-                            <div class="interestList">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <span class="interestSummary">
-                                    等<span class="interestNum">5</span>人出席
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="exhibitor">
-                        <div class="exhibitorAvatar">
-                            <img class="exhibitorLogo" src="../assets/avatar.jpg" alt="">
-                            <p class="exhibitorBooth">
-                                <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                                <span class="exhibitorBoothText">A-1</span>
-                            </p>
-                        </div>
-                        <div class="exhibitorInfo">
-                            <h4 class="exhibitorName">携程集团</h4>
-                            <div class="exhibitorTags">
-                                <span class="exhibitorTag">在线旅游</span>
-                            </div>
-                            <p class="exhibitorSlogan">携程在手，说走就走</p>
-                            <div class="interestList">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <img class="interestPeople" src="../assets/avatar.jpg" alt="">
-                                <span class="interestSummary">
-                                    等<span class="interestNum">5</span>人出席
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                     <div class="exhibitor">
                         <div class="exhibitorAvatar">
                             <img class="exhibitorLogo" src="../assets/avatar.jpg" alt="">
@@ -226,6 +58,22 @@
                     </div>
                 </div>
             </div>
+            <div class="plazaList supplyList" v-bind:class="{ active: currentIndex == 1, empty: supplyList.length == 0 }">
+                <div class="container">
+                    <div class="emptyList" v-if="supplyList.length == 0">
+                        <img class="emptyListImg" src="../assets/nullState.png" alt="">
+                        <p class="emptyListDesc">{{ $t("plaza.emptySupplyDesc") }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="plazaList requirementList" v-bind:class="{ active: currentIndex == 2, empty: requirementList.length == 0 }">
+                <div class="container">
+                    <div class="emptyList" v-if="requirementList.length == 0">
+                        <img class="emptyListImg" src="../assets/nullState.png" alt="">
+                        <p class="emptyListDesc">{{ $t("plaza.emptyRequirementDesc") }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="publishTabs">
             <div class="publishTab">
@@ -250,7 +98,9 @@ export default {
     name: "Plaza",
     data: function() {
         return {
-            currentIndex: 0
+            currentIndex: 0,
+            supplyList: [],
+            requirementList: []
         }
     },
     computed: {
@@ -403,7 +253,31 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+.supplyList.empty,
+.supplyList.empty > .container,
+.requirementList.empty,
+.requirementList.empty > .container {
+    width: 100%;
+    height: 100%;
+}
+.emptyList {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.emptyListImg {
+    width: 4rem;
+    margin: 0 auto 0.2rem;
+}
+.emptyListDesc {
+    font-size: 0.24rem;
+    text-align: center;
+    color: #666666;
+}
 .publishTabs {
     position: absolute;
     left: 50%;

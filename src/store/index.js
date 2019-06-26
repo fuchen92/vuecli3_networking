@@ -32,6 +32,7 @@ export default new Vuex.Store({
         },
         // 初始化日程列表
         INITPROGRAMLIST(state, { programList }) {
+            console.log(programList)
             let data = programList;
             let arr = [];
             let firstDay = data[4]["2018-9-20"];
