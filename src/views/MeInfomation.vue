@@ -146,7 +146,7 @@ export default {
 }
 .infomationCard {
     box-sizing: border-box;
-    width: 90%;
+    width: 95%;
     margin: 0 auto 0.2rem;
     padding: 0.4rem 0.2rem 0.2rem;
     background-color: #ffffff;
@@ -210,7 +210,7 @@ export default {
 }
 .saveInfomation {
     display: block;
-    width: 90%;
+    width: 95%;
     height: 0.8rem;
     margin: 0 auto;
     font-size: 0.28rem;
