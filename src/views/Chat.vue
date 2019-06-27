@@ -72,7 +72,7 @@
                                             <span class="chatCardText">{{ chat.Content.Time }}</span>
                                         </div>
                                     </div>
-                                    <router-link class="inviteLink clear" v-bind:to="'/invite?id=' + chat.Content.Id">
+                                    <router-link class="inviteLink clear" v-bind:to="'/invite?inviteId=' + chat.Content.Id">
                                         <span class="inviteLinkText lt">{{ $t("chat.checkDetail") }}</span>
                                         <span class="inviteLinkRightArrow"></span>
                                     </router-link>
