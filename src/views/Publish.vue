@@ -9,7 +9,7 @@
                 </div>
                 <div class="publishChunk">
                     <p class="publishChunkCaption">{{ $t("publish.offserLabel") }}</p>
-                    <textarea class="publishInput" v-model="publishContent" v-bind:placeholder="$t('publish.inputPlaceholder')"></textarea>
+                    <textarea class="publishInput" v-model.trim="publishContent" v-bind:placeholder="$t('publish.inputPlaceholder')"></textarea>
                 </div>
                 <div class="publishChunk">
                     <p class="publishChunkCaption">
@@ -24,15 +24,15 @@
                 </div>
                 <div class="publishChunk clear">
                     <p class="publishChunkCaption lt">{{ $t("publish.publishMobile") }}</p>
-                    <span class="publishMobile lt">13988887777</span>
+                    <span class="publishMobile lt">{{ mobile }}</span>
                     <label class="publishMobileLabel rt">
-                        <input class="publishMobileCheckbox" type="checkbox" v-model="isChecked">
+                        <input class="publishMobileCheckbox" type="checkbox" v-model="publicMobile">
                         <i class="publishMobileCaret"></i>
                     </label>
                 </div>
             </div>
         </div>
-        <button class="publishBtn" @click="publish">
+        <button class="publishBtn" @click="publish" v-bind:disabled="isPublished">
             {{ $t("publish.publishBtn") }}
         </button>
     </div>
@@ -47,30 +47,9 @@ export default {
             backUrl: "/plaza",
             publishType: this.$route.query.type,
             publishContent: "",
-            isChecked: true,
+            publicMobile: true,
             tagIndex: 1,
-            // tagList: [
-            //     {
-            //         Id: 1,
-            //         Name: "资源互换",
-            //         value: ""
-            //     },
-            //     {
-            //         Id: 2,
-            //         Name: "企业招聘",
-            //         value: ""
-            //     },
-            //     {
-            //         Id: 3,
-            //         Name: "解决方案",
-            //         value: ""
-            //     },
-            //     {
-            //         Id: 4,
-            //         Name: "项目合作",
-            //         value: ""
-            //     }
-            // ]
+            isPublished: false
         }
     },
     components: {
@@ -81,19 +60,49 @@ export default {
             return this.publishType == 1 ? this.$i18n.messages[this.lang].publish.navBarSupplyTitle : this.$i18n.messages[this.lang].publish.navBarRequirementTitle
         },
         tagList: function() {
-             return this.$i18n.messages[this.lang].publish.tagList
+            return this.$i18n.messages[this.lang].publish.tagList
         },
         ...mapState({
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
             myInfo: state => state.MyInfomation,
-            contactList: state => state.MyInfomation.ContactList
+            mobile: state => state.MyInfomation.Mobile
 		})
     },
     methods: {
         publish: function() {
-            console.log(this.isChecked)
+            if(this.isPublished || this.publishContent == "" || this.publishContent.length == 0) {
+                return false;
+            }
+            this.isPublished = true;
+            let data = {
+                Id: 0,
+                Type: this.publishType,
+                Intro: this.publishContent,
+                Contact: {
+                    Id: 0,
+                    Name: this.mobile,
+                    Value: this.publicMobile ? 1 : 9
+                },
+                Tag: this.tagList[this.tagIndex]
+            }
+            console.log(data);
+            // return false;
+            this.$http.post(`http://192.168.1.21:89/Plaza/SolutionSave`, {
+                eventNo: this.eventNo,
+                token: this.token,
+                solution: data
+            }).then(res => {
+                let data = res.data;
+                if(data.Code != 0) {
+                    alert(data.Message)
+                }
+                console.log(res);
+                this.$router.go(-1)
+            }).catch(err => {
+                console.log(err);
+            })
         }
     }
 }

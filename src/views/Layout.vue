@@ -1,7 +1,9 @@
 <template>
     <div class="layout">
         <NavBar :showSearch="true" backUrl="" navBarTitle=""></NavBar>
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
         <TabBar></TabBar>
     </div>
 </template>

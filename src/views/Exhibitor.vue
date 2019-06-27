@@ -26,10 +26,11 @@
                 <div class="exhibitorChunk">
                     <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.boothCaption") }} &gt;</h4>
                 </div>
-                <div class="exhibitorChunk" v-if="exhibitor.Products.length != 0">
+                <div class="exhibitorChunk">
+                <!-- <div class="exhibitorChunk" v-if="exhibitor.Products.length != 0"> -->
                     <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.schemeCaption") }}</h4>
                     <div class="schemeList">
-                        <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="'/Product?id=' + scheme.Id" class="schemeItem">
+                        <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="'/product?productId=' + scheme.Id" class="schemeItem">
                             <div class="schemeLogo">
                                 <img class="schemeLogoImg" :src="scheme.Logo" alt="">
                             </div>
@@ -65,22 +66,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="exhibitorChunk" v-if="exhibitor.Attendees.length != 0">
-                    <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.designedContact") }}</h4>
-                    <div class="guestCard">
-                        <div class="guestCardTop">
-                            <div class="guestAvatar">
-                                <img class="guestPhoto" src="../assets/avatar.jpg" alt="">
-                            </div>
-                            <div class="guestInfo">
-                                <p class="guestName">张三</p>
-                                <p class="guestCompany">公安局</p>
-                                <p class="guestJob">警察</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <template v-if="attends.length > 0">
+                    <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.designedContact") }}</h4>
+                    <template v-for="(attend, index) in attends">
+                        <template v-if="attend.IsContact">
+                            <GuestCard prop="attend" :key="index"></GuestCard>
+                        </template>
+                    </template>
+                    <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.otherAttend") }}</h4>
+                    <template v-for="(attend, index) in attends">
+                        <template v-if="!attend.IsContact">
+                            <GuestCard prop="attend" :key="index"></GuestCard>
+                        </template>
+                    </template>
+                </template>
             </div>
         </div>
     </div>
@@ -88,6 +87,7 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import NavBar from "@/components/NavBar";
+import GuestCard from "@/components/GuestCard.vue";
 export default {
     name: "Exhibitor",
     data: function() {
@@ -97,14 +97,16 @@ export default {
         }
     },
     components: {
-        NavBar
+        NavBar,
+        GuestCard
     },
     computed: {
         ...mapState({
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
-            exhibitor: state => state.ExhibitorDetail
+            exhibitor: state => state.ExhibitorDetail,
+            attends: state => state.ExhibitorDetail.Attendees
 		})
     },
     methods: {
@@ -271,5 +273,10 @@ export default {
 .exhibitorContactItemVal {
     width: calc(100% - 2.4rem);
     text-align: right;
+}
+.contactChunkCaption {
+    margin-bottom: 0.2rem;
+    padding: 0.1rem 0.2rem;
+    background-color: #fff;
 }
 </style>

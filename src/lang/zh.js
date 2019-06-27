@@ -127,7 +127,8 @@ export default {
         "telLabel": "联系电话",
         "siteLabel": "公司官网",
         "emptyVal": "未填写",
-        "designedContact": "指定联系人"
+        "designedContact": "指定联系人",
+        otherAttend: "其他出席人员"
     },
     "message": {
         "noticeText": "新消息提醒（离线短信 + 邮件提醒）"

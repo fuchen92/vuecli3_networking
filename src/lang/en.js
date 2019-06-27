@@ -127,7 +127,8 @@ export default {
         "telLabel": "Phone",
         "siteLabel": "Company Website",
         "emptyVal": "Not Filled",
-        "designedContact": "Designated Contact"
+        "designedContact": "Designated Contact",
+        otherAttend: "Other Participants"
     },
     "message": {
         "noticeText": "New message alerts（SMS + Email）"
