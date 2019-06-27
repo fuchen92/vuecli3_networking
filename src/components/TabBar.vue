@@ -4,9 +4,9 @@
             <span class="tabBarItemIcon tabBarHome"></span>
             {{ $t('tabBar.home') }}
         </router-link>
-        <router-link class="tabBarItemLink" to="/connection" active-class="active">
-            <span class="tabBarItemIcon tabBarConnection"></span>
-            {{ $t('tabBar.connection') }}
+        <router-link class="tabBarItemLink" to="/attendees" active-class="active">
+            <span class="tabBarItemIcon tabBarAttendees"></span>
+            {{ $t('tabBar.attendees') }}
         </router-link>
         <router-link class="tabBarItemLink" to="/plaza" active-class="active">
             <span class="tabBarItemIcon tabBarPlaza"></span>
@@ -63,7 +63,7 @@ export default {
 .tabBarHome {
     background-image: url(../assets/tabHome.png);
 }
-.tabBarConnection {
+.tabBarAttendees {
     background-image: url(../assets/tabConnection.png);
 }
 .tabBarPlaza {
@@ -78,7 +78,7 @@ export default {
 .tabBarItemLink.active > .tabBarHome {
     background-image: url(../assets/tabHome1.png);
 }
-.tabBarItemLink.active > .tabBarConnection {
+.tabBarItemLink.active > .tabBarAttendees {
     background-image: url(../assets/tabConnection1.png);
 }
 .tabBarItemLink.active > .tabBarPlaza {

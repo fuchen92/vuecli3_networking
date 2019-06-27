@@ -4,7 +4,7 @@ export default {
     },
     "tabBar": {
         "home": "日程",
-        "connection": "人脉",
+        "attendees": "人脉",
         "plaza": "广场",
         "message": "消息",
         "me": "我的"
@@ -61,6 +61,18 @@ export default {
         "awardFlowTime6Desc": " 颁奖晚宴，揭晓金奖名单",
         "awardShowCaption": "8.27入围奖案例展示",
         "awardShowDesc": "“2019数字旅游奖”分设【数字营销奖】、【产品创新奖】两类奖项，每个奖项设“入围奖”和“金奖”。初评阶段，评审将依据【评审标准】对参赛作品进行打分，从参赛作品中遴选20%优秀案例作品评为“入围奖‘。”入围奖“案例将在8月27日全天进行现场展示，案例展示结束后参赛企业将回答来自现场评审的抛问。"
+    },
+    attendees: {
+        "tabs": [
+            {
+                "name": "推荐嘉宾"
+            },
+            {
+                "name": "全部嘉宾"
+            }
+        ],
+        emptyListDesc: "暂无推荐嘉宾，请筛选标签",
+        openRecommend: "开启推荐"
     },
     "plaza": {
         "tabs": [

@@ -22,6 +22,10 @@ export default new Router({
 					component: Program
 				},
 				{
+					path: "attendees",
+					component: () => import(/* webpackChunkName: "attendees" */ "@/views/Attendees.vue")
+				},
+				{
 					path: "plaza",
 					component: () => import(/* webpackChunkName: "plaza" */ "@/views/Plaza.vue")
 				},
