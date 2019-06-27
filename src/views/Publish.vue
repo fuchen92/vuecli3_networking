@@ -17,10 +17,9 @@
                         <span class="publishChunkCaptionTip">（{{ $t("publish.tagTip") }}）</span>
                     </p>
                     <div class="publishTags">
-                        <span class="publishTag active">资源互换</span>
-                        <span class="publishTag">企业招聘</span>
-                        <span class="publishTag">解决方案</span>
-                        <span class="publishTag">项目合作</span>
+                        <span class="publishTag" v-for="(tag, index) in tagList" :key="index"  v-bind:class="{ active: tagIndex == index }" v-on:click="tagIndex = index">                        
+                            {{ tag.Name }}
+                        </span>
                     </div>
                 </div>
                 <div class="publishChunk clear">
@@ -47,9 +46,31 @@ export default {
         return  {
             backUrl: "/plaza",
             publishType: this.$route.query.type,
-            publishPlaceholder: "例：我们专业做酒店云服务的，有很好的解决方案如有需要，请联系我们，我们在 C-20 展位。",
             publishContent: "",
-            isChecked: true
+            isChecked: true,
+            tagIndex: 1,
+            // tagList: [
+            //     {
+            //         Id: 1,
+            //         Name: "资源互换",
+            //         value: ""
+            //     },
+            //     {
+            //         Id: 2,
+            //         Name: "企业招聘",
+            //         value: ""
+            //     },
+            //     {
+            //         Id: 3,
+            //         Name: "解决方案",
+            //         value: ""
+            //     },
+            //     {
+            //         Id: 4,
+            //         Name: "项目合作",
+            //         value: ""
+            //     }
+            // ]
         }
     },
     components: {
@@ -57,7 +78,10 @@ export default {
     },
     computed: {
         navBarTitle: function() {
-            return this.publishType == 1 ? this.$i18n.messages[this.$store.state.Lang].publish.navBarSupplyTitle : this.$i18n.messages[this.$store.state.Lang].publish.navBarRequirementTitle
+            return this.publishType == 1 ? this.$i18n.messages[this.lang].publish.navBarSupplyTitle : this.$i18n.messages[this.lang].publish.navBarRequirementTitle
+        },
+        tagList: function() {
+             return this.$i18n.messages[this.lang].publish.tagList
         },
         ...mapState({
             lang: state => state.Lang,

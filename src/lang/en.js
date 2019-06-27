@@ -90,6 +90,28 @@ export default {
         inputPlaceholder: "For example: we are specialized in hotel cloud service, and we have a good solution. If you need any help, please contact us, we are at booth c-20.",
         addTag: "Add tags",
         tagTip: "Easy to find and locate content",
+        tagList: [
+            {
+                Id: 1,
+                Name: "Resources swap",
+                value: ""
+            },
+            {
+                Id: 2,
+                Name: "Recruitment",
+                value: ""
+            },
+            {
+                Id: 3,
+                Name: "Solution",
+                value: ""
+            },
+            {
+                Id: 4,
+                Name: "Project Cooperation",
+                value: ""
+            }
+        ],
         publishMobile: "Public mobile",  
         "publishBtn": "Publish"
     },

@@ -2,7 +2,7 @@
     <div class="program">
         <div class="programTabs">
             <div class="programTabsWrapper">                
-                <div v-for="(tab, index) in tabs" v-bind:key="index" class="programTab" v-bind:class="{ active: currentIndex == index, en: lang == 'en' }" v-on:click=" currentIndex = index">
+                <div v-for="(tab, index) in tabs" v-bind:key="index" class="programTab" v-bind:class="{ active: currentIndex == index, en: lang == 'en' }" v-on:click="currentIndex = index">
                     <span class="programTabTime">{{ tab.time }}</span>
                     <span class="programTabName">{{ tab.name }}</span>
                 </div>

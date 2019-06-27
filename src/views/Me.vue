@@ -106,7 +106,7 @@ export default {
 	padding: 1rem 0;
 }
 .me > .container {
-	width: 90%;
+	width: 95%;
 }
 .meCard {
 	box-sizing: border-box;

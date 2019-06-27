@@ -90,6 +90,28 @@ export default {
         inputPlaceholder: "例：我们专业做酒店云服务的，有很好的解决方案如有需要，请联系我们，我们在 C-20 展位。",
         addTag: "添加标签",
         tagTip: "便于内容查找和定位",
+        tagList: [
+            {
+                Id: 1,
+                Name: "资源互换",
+                value: ""
+            },
+            {
+                Id: 2,
+                Name: "企业招聘",
+                value: ""
+            },
+            {
+                Id: 3,
+                Name: "解决方案",
+                value: ""
+            },
+            {
+                Id: 4,
+                Name: "项目合作",
+                value: ""
+            }
+        ],
         publishMobile: "公开手机号",        
         "publishBtn": "发布"
     },
