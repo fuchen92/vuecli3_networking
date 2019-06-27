@@ -7,6 +7,7 @@ import {
     getProgramList,
     getExhibitorList,
     getExhibitorDetail,
+    getProductDetail,
     getMySolutionList,
     getMyInfo,
     saveMyInfo,
@@ -27,6 +28,7 @@ export default new Vuex.Store({
         ExhibitorDetail: {},
         MyInfomation: {},
         SolutionList: [],
+        ProductDetail: {},
         QrCode: "",
         ChatList: [],
     },
@@ -71,6 +73,11 @@ export default new Vuex.Store({
             Vue.set(state.ExhibitorDetail, "ContactPhone", ContactPhone);
             Vue.set(state.ExhibitorDetail, "ContactSite", ContactSite);
             console.log(state.ExhibitorDetail)
+        },
+        // 获取产品详情
+        INITPRODUCTDETAIL(state, { product }) {
+            state.ProductDetail = product;
+            console.log(state.ProductDetail);
         },
         // 我的需求页面获取我的需求
         INITMYSOLUTIONLIST(state, { solutionList }) {
@@ -121,9 +128,16 @@ export default new Vuex.Store({
                 commit("INITEXHIBITORLIST", { exhibitorList: res.data.Data })
             })
         },
+        // 获取展商详情
         getExhibitorDetail({ commit }, { eventNo, id, token, lang }) {
             getExhibitorDetail(eventNo, id, token, lang).then(res => {
                 commit("INITEXHIBITORDETAIL", { detail: res.data.Data })
+            })
+        },
+        // 获取产品详情
+        getProductDetail({ commit }, { eventNo, id, token, lang }) {
+            getProductDetail(eventNo, id, token, lang).then(res => {
+                commit("INITPRODUCTDETAIL", { product: res.data.Data })
             })
         },
         // 我的需求页面获取我的需求

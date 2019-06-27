@@ -8,7 +8,7 @@
         <div class="plazaBox">
             <div class="plazaList" v-bind:class="{ active: currentIndex == 0 }">
                 <div class="container">
-                    <router-link v-for="exhibitor in exhibitorList" class="exhibitorLink" v-bind:key="exhibitor.Id" v-bind:to="'/exhibitor?id=' + exhibitor.Id">
+                    <router-link v-for="exhibitor in exhibitorList" class="exhibitorLink" v-bind:key="exhibitor.Id" v-bind:to="'/exhibitor?exhibitorId=' + exhibitor.Id">
                         <div class="exhibitorAvatar">
                             <img class="exhibitorLogo" :src="exhibitor.Photo" alt="">
                             <p class="exhibitorBooth">

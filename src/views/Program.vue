@@ -213,8 +213,26 @@ export default {
 			isCurrent: true,
             currentIndex: 1, 
             timer: null,
-            // programList: []
         }
+    },    
+    computed: {
+        tabs: function() {
+            return this.$i18n.messages[this.lang].program.tabs
+            // return this.$i18n.messages[this.$store.state.Lang].program.tabs
+        },
+        ...mapState({
+            lang: state => state.Lang,
+            eventNo: state => state.eventNo,
+            token: state => state.Account.Token,
+            programList: state => state.ProgramList
+        })
+    },
+    methods: {
+        // 使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
+		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+		...mapActions({
+			initProgram: "getProgramList"
+        })
     },
     created: function() {
         console.log("created")
@@ -235,28 +253,6 @@ export default {
         //     arr.push(firstDay, secondDay, thirdDay);
         //     this.programList.push(firstDay, secondDay, thirdDay)
         // })
-    },
-    computed: {
-        tabs: function() {
-            return this.$i18n.messages[this.lang].program.tabs
-            // return this.$i18n.messages[this.$store.state.Lang].program.tabs
-        },        
-        // programList: function() {
-        //     return this.$store.state.ProgramList
-        // },
-        ...mapState({
-            lang: state => state.Lang,
-            eventNo: state => state.eventNo,
-            token: state => state.Account.Token,
-            programList: state => state.ProgramList
-        })
-    },
-    methods: {
-        // 使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
-		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
-		...mapActions({
-			initProgram: "getProgramList"
-        })
     }
 }
 </script>

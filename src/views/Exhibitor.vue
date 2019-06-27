@@ -30,7 +30,7 @@
                 <!-- <div class="exhibitorChunk" v-if="exhibitor.Products.length != 0"> -->
                     <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.schemeCaption") }}</h4>
                     <div class="schemeList">
-                        <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="'/product?productId=' + scheme.Id" class="schemeItem">
+                        <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="'/product?productId=' + scheme.Id + '&backId=' + exhibitorId" class="schemeItem">
                             <div class="schemeLogo">
                                 <img class="schemeLogoImg" :src="scheme.Logo" alt="">
                             </div>
@@ -68,15 +68,15 @@
                 </div>
                 <template v-if="attends.length > 0">
                     <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.designedContact") }}</h4>
-                    <template v-for="(attend, index) in attends">
-                        <template v-if="attend.IsContact">
-                            <GuestCard prop="attend" :key="index"></GuestCard>
+                    <template v-for="(guest, index) in attends">
+                        <template v-if="guest.IsContact">
+                            <GuestCard prop="guest" :key="index"></GuestCard>
                         </template>
                     </template>
                     <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.otherAttend") }}</h4>
-                    <template v-for="(attend, index) in attends">
-                        <template v-if="!attend.IsContact">
-                            <GuestCard prop="attend" :key="index"></GuestCard>
+                    <template v-for="(guest, index) in attends">
+                        <template v-if="!guest.IsContact">
+                            <GuestCard prop="guest" :key="index"></GuestCard>
                         </template>
                     </template>
                 </template>
@@ -87,12 +87,12 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import NavBar from "@/components/NavBar";
-import GuestCard from "@/components/GuestCard.vue";
+import GuestCard from "@/components/GuestCard";
 export default {
     name: "Exhibitor",
     data: function() {
         return {
-            exhibitorId: this.$route.query.id,
+            exhibitorId: this.$route.query.exhibitorId,
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].exhibitor.navBarTitle
         }
     },

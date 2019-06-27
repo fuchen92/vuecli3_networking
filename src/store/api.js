@@ -30,6 +30,15 @@ export function getExhibitorDetail(eventNo, id, token, lang) {
     })
 }
 
+export function getProductDetail(eventNo, id, token, lang) {
+    return axios.post(`${apiDomain}/Exhibitors/ProductDetail`, {
+        eventNo: eventNo,
+        id: id,
+        token: token,
+        lang: lang
+    })
+}
+
 export function getMySolutionList(eventNo, index, size, token, lang) {
     return axios.post(`http://192.168.1.21:89/Me/SolutionList`, {
         eventNo: eventNo,

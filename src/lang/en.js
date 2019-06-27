@@ -130,6 +130,9 @@ export default {
         "designedContact": "Designated Contact",
         otherAttend: "Other Participants"
     },
+    product: {
+        "navBarTitle": "Product Detail",
+    },
     "message": {
         "noticeText": "New message alerts（SMS + Email）"
     },

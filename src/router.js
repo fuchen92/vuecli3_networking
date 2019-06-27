@@ -3,8 +3,6 @@ import Router from 'vue-router'
 
 import Layout from "@/views/Layout.vue";
 import Program from "@/views/Program.vue";
-import ProgramDetail from "@/views/ProgramDetail.vue";
-import MeInfomation from "@/views/MeInfomation.vue";
 // import Home from './views/Home.vue'
 
 import Login from "@/views/Login.vue"
@@ -42,12 +40,16 @@ export default new Router({
 			component: () => import(/* webpackChunkName: "exhibitor" */ "@/views/Exhibitor.vue")
 		},
 		{
+			path: "/product",
+			component: () => import(/* webpackChunkName: "product" */ "@/views/Product.vue")
+		},
+		{
 			path: "/publish",
 			component: () => import(/* webpackChunkName: "publish" */ "@/views/Publish.vue")
 		},
 		{
 			path: "/meinfomation",
-			component: MeInfomation
+			component: () => import(/* webpackChunkName: "meinfomation" */ "@/views/MeInfomation.vue")
 		},
 		{
 			path: "/chat",
@@ -60,10 +62,6 @@ export default new Router({
 		{
 			path: "/myneed",
 			component: () => import(/* webpackChunkName: "myneed" */ "@/views/MyNeed.vue")
-		},
-		{
-			path: "/programdetail",
-			component: ProgramDetail
 		},
 		{
 			path: "/login",

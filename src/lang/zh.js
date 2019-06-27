@@ -130,6 +130,9 @@ export default {
         "designedContact": "指定联系人",
         otherAttend: "其他出席人员"
     },
+    product: {
+        "navBarTitle": "产品详情",
+    },
     "message": {
         "noticeText": "新消息提醒（离线短信 + 邮件提醒）"
     },
