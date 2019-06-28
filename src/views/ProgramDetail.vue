@@ -3,7 +3,7 @@
         <NavBar :showSearch="false" :backUrl="'/'" :navBarTitle="navBarTitle"></NavBar>
         <div class="programDetailBox">
             <div class="detailBanner">
-                <video class="afterVideo" v-if="programDetail.IsEnd" controls :src="programDetail.Video[0]"></video>
+                <video class="afterVideo" v-if="programDetail.IsEnd && programDetail.Video != null" controls :src="programDetail.Video[0]"></video>
                 <div class="detailBannerBox" v-else>
                     <div class="detailBannerContent">
                         <h3 class="detailBannerTitle">{{ programDetail.Topic }}</h3>
@@ -23,7 +23,7 @@
                         <div class="detailIntro" v-html="programDetail.Summary"></div>
                         <div class="detailSpeakerList">
                             <template v-for="(speaker, idx) in programDetail.Details">
-                                <p v-if="speaker.DataType != programDetail.Details[0].DataType || idx == 0" :key="idx" class="speakerType">{{ speaker.DataType.Title }}</p>
+                                <p v-if="speaker.DataType.Title != programDetail.Details[0].DataType.Title || idx == 0" :key="idx" class="speakerType">{{ speaker.DataType.Title }}</p>
                                 <router-link class="detailSpeaker" v-bind:to="'/speaker?id=' + speaker.Speaker.Id" v-bind:key="speaker.Speaker.Id">
                                     <span class="detailSpeakerAvatar">
                                         <img class="detailSpeakerPhoto" v-bind:src="speaker.Speaker.Photo" alt="">
@@ -33,12 +33,41 @@
                             </template>
                         </div>
                     </div>
-                    <div class="detailList" :class="{ active: currentIndex == 1 }">
-                        222
+                    <div class="detailList" :class="{ active: currentIndex == 1, empty: programDetail.NewsList == null }">
+                        <template v-if="programDetail.NewsList == null">
+                            <div class="noArticle">
+                                <img class="noArticleImg" src="../assets/nullState.png" alt="">
+                                <p class="noArticleDesc">本环节暂无报道文章</p>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="article" v-for="article in programDetail.NewsList" :key="article.Id">
+                                <a class="articleLink" :href="'http://m.traveldaily.cn/article/' + article.Id">{{ article.Title }}</a>
+                                <p class="articleSummary">{{ article.Summary }}</p>
+                            </div>
+                        </template>
                     </div>
-                    <div class="detailList" :class="{ active: currentIndex == 2 }">
-                        333
+                    <div class="detailList" :class="{ active: currentIndex == 2, empty: programDetail.PptList == null && programDetail.PptListEn == null }">
+                        <template v-if="programDetail.PptList == null && programDetail.PptListEn == null">
+                            <div class="noPPT">
+                                <img class="noPPTImg" src="../assets/nullState.png" alt="">
+                                <p class="noPPTDesc">本环节暂无PPT</p>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="pptList zhPPT">
+                                <div class="pptBlock" v-for="(pptzh, index) in programDetail.PptList" :key="index">
+                                    <img class="pptImg" :src="pptzh">
+                                </div>
+                            </div>
+                            <div class="pptList enPPT">
+                                <div class="pptBlock" v-for="(ppten, index) in programDetail.PptListEn" :key="index">                                    
+                                    <img class="pptImg" :src="ppten">
+                                </div>
+                            </div>
+                        </template>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -53,7 +82,8 @@ export default {
         return {
             programId: this.$route.query.programId,
             backUrl: "/",
-            currentIndex: 0
+            currentIndex: 0,
+            pptIndex: 1
         }
     },
     components: {
@@ -182,6 +212,9 @@ export default {
 .detailList.active {
     display: block;
 }
+.detailList.empty {
+    height: 100%;
+}
 .detailIntro {
     margin-bottom: 0.2rem;
     padding: 0.4rem 0.2rem;
@@ -220,5 +253,48 @@ export default {
 	margin-left: 0.3rem;
 	font-size: 0.28rem;
 	color: #2c3e50;
+}
+.noArticle, .noPPT {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.noArticleImg, .noPPTImg {
+    width: 4rem;
+}
+.noArticleDesc, .noPPTDesc {
+    margin-top: 0.2rem;
+    font-size: 0.24rem;
+    color: #666666;
+}
+.article {
+    margin-bottom: 0.2rem;
+    padding: 0.4rem 0.2rem;
+    background-color: #fff;
+}
+.article:last-child {
+    margin-bottom: 0;
+}
+.articleLink {
+    font-size: 0.28rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+.articleSummary {
+    margin-top: 0.1rem;
+    font-size: 0.28rem;
+}
+.pptBlock {
+    margin-bottom: 0.2rem;
+    padding: 0.4rem 0.2rem;
+    background-color: #fff;
+}
+.pptImg {
+    max-width: 100%;
+    height: auto;
 }
 </style>
