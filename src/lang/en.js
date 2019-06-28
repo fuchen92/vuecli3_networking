@@ -74,7 +74,11 @@ export default {
             {
                 name: "PPT"
             }
-        ]
+        ],
+        videoTip: "Video will be posted here after the conference, please stay tuned",
+        noArticle: "There are no reports in this section",
+        noPPT: "No PPT for this session",
+        subscribeBtn: ["Subscription Start Reminder", "Already Subscribed"]
     },
     attendees: {
         "tabs": [

@@ -8,7 +8,7 @@
                     <div class="detailBannerContent">
                         <h3 class="detailBannerTitle">{{ programDetail.Topic }}</h3>
                         <p class="detailTime">{{ programDetail.LocalTime }}</p>
-                        <p class="detailBannerTip">会后视频将发布在此，请保持关注</p>
+                        <p class="detailBannerTip">{{ $t("programDetail.videoTip") }}</p>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                         <template v-if="programDetail.NewsList == null">
                             <div class="noArticle">
                                 <img class="noArticleImg" src="../assets/nullState.png" alt="">
-                                <p class="noArticleDesc">本环节暂无报道文章</p>
+                                <p class="noArticleDesc">{{ $t("programDetail.noArticle") }}</p>
                             </div>
                         </template>
                         <template v-else>
@@ -51,7 +51,7 @@
                         <template v-if="programDetail.PptList == null && programDetail.PptListEn == null">
                             <div class="noPPT">
                                 <img class="noPPTImg" src="../assets/nullState.png" alt="">
-                                <p class="noPPTDesc">本环节暂无PPT</p>
+                                <p class="noPPTDesc">{{ $t("programDetail.noPPT") }}</p>
                             </div>
                         </template>
                         <template v-else>
@@ -69,6 +69,7 @@
                     </div>
                     
                 </div>
+                <button class="subscribeBtn" v-if="!programDetail.IsSubscribed" :disabled="isSubscribed" @click="subscribe">{{ $t("programDetail.subscribeBtn[" + subscribeIndex + "]") }}</button>
             </div>
         </div>
     </div>
@@ -83,7 +84,9 @@ export default {
             programId: this.$route.query.programId,
             backUrl: "/",
             currentIndex: 0,
-            pptIndex: 1
+            // pptIndex: 1,
+            subscribeIndex: 0,
+            isSubscribed: false
         }
     },
     components: {
@@ -106,7 +109,30 @@ export default {
     methods: {
         ...mapActions([
             "getProgramDetail"
-        ])
+        ]),
+        subscribe: function() {
+            this.isSubscribed = true;
+            this.$http.post("http://192.168.1.21:89/Program/ProgramSubscribe", {
+                programId: this.programId,
+                token: this.token,
+                lang: this.lang == "zh" ? 1 : 2
+            }).then(res => {
+                console.log(res)
+                if(res.data.Code == 0) {
+                    this.subscribeIndex = 1;
+                } else {
+                    this.isSubscribed = false;
+                    alert(res.data.Message)
+                }
+            }).catch(err => {
+                this.isSubscribed = false;
+                this.subscribeIndex = 0;
+                alert(err);
+            })
+            
+            
+            console.log("订阅开始提醒")
+        }
     },
     created: function() {
         this.getProgramDetail({ eventNo: this.eventNo, id: this.programId, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
@@ -146,6 +172,7 @@ export default {
     background-color: rgba(0, 0, 0, 0.65);
 }
 .detailBannerContent {
+    box-sizing: border-box;
     position: absolute;
     top: 0;
     left: 0;
@@ -156,12 +183,14 @@ export default {
     align-items: center;
     width: 100%;
     height: 100%;
+    padding: 0 0.3rem;
     color: #fff;
 }
 .detailBannerTitle {
     margin-bottom: 0.4rem;
     font-size: 0.4rem;
     font-weight: normal;
+    text-align: center;
 }
 .detailTime {
     margin-bottom: 0.4rem;
@@ -296,5 +325,17 @@ export default {
 .pptImg {
     max-width: 100%;
     height: auto;
+}
+.subscribeBtn {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0.8rem;
+    font-size: 0.28rem;
+    line-height: 0.8rem;
+    text-align: center;
+    background-color: var(--themeColor);
+    color: #fff;
 }
 </style>
