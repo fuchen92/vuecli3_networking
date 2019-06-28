@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 import {
     getProgramList,
+    getProgramDetail,
     getExhibitorList,
     getExhibitorDetail,
     getProductDetail,
@@ -24,6 +25,7 @@ export default new Vuex.Store({
             IsFirstLogin: ""
         },
         ProgramList: [],
+        ProgramDetail: {},
         ExhibitorList: [],
         ExhibitorDetail: {},
         MyInfomation: {},
@@ -52,6 +54,31 @@ export default new Vuex.Store({
             let thirdDay = data[6]["2018-9-21"];
             arr.push(firstDay, secondDay, thirdDay);
             state.ProgramList = arr;          
+        },
+        // 获取日程详情
+        INITPROGRAMDETAIL(state, { programDetail }) {
+            let detail = programDetail;
+            let data = detail.Data;
+            
+            let isEnd = detail.Message.isEnd,
+                isSpeaker = detail.Message.isSpeaker;
+
+            let tempBegin = data.Begin,
+                tempEnd = data.End;
+
+
+            let begin = tempBegin.split("T")[1].substr(0, 5),
+                end = tempEnd.split("T")[1].substr(0, 5);
+
+            let date = tempBegin.split("T")[0].substr(5, 5);
+
+            let time = date + "，" + begin + " - " + end;
+            
+            state.ProgramDetail = data;
+            Vue.set(state.ProgramDetail, "IsEnd", isEnd);
+            Vue.set(state.ProgramDetail, "IsSpeaker", isSpeaker);
+            Vue.set(state.ProgramDetail, "LocalTime", time);
+            console.log(state.ProgramDetail)
         },
         // 初始化展商列表
         INITEXHIBITORLIST(state, { exhibitorList }) {
@@ -120,6 +147,12 @@ export default new Vuex.Store({
         getProgramList({ commit }, { eventNo, token, lang }) {
             getProgramList(eventNo, token, lang).then(res => {
                 commit("INITPROGRAMLIST", { programList: res.data.Data })
+            })
+        },
+        // 获取日程详情
+        getProgramDetail({ commit }, { eventNo, id, token, lang }) {
+            getProgramDetail(eventNo, id, token, lang).then(res => {
+                commit("INITPROGRAMDETAIL", { programDetail: res.data })
             })
         },
         // 获取展商列表

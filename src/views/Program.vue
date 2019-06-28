@@ -91,7 +91,7 @@
 								<div class="programItemHead">
 									<p class="programItemTime">{{ prg.Begin.split("T")[1].substr(0, 5) }} - {{ prg.End.split("T")[1].substr(0, 5) }}</p>
 									<p class="programItemType">{{ prg.Type }}</p>
-									<router-link v-if="prg.Topic != ''" class="programItemTitle" :to="'/programdetail?id=' + prg.Id">
+									<router-link v-if="prg.Topic != ''" class="programItemTitle" :to="'/programdetail?programId=' + prg.Id">
 										{{ prg.Topic }}
 									</router-link>
 								</div>
@@ -101,8 +101,8 @@
 											<template v-for="(detail, idx) in prg.Details">
 												<p v-if="detail.DataType != prg.Details[0].DataType || idx == 0" v-bind:key="idx" class="speakerType">{{ detail.DataType }}</p>
 												<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + detail.Speaker.Id" v-bind:key="detail.Speaker.Id">
-													<span class="programItemSpeakerPhoto">
-														<img class="programItemSpeakerPhotoImg" v-bind:src="detail.Speaker.Photo" alt="">
+													<span class="programItemSpeakerAvatar">
+														<img class="programItemSpeakerPhoto" v-bind:src="detail.Speaker.Photo" alt="">
 													</span>
 													<span class="programItemSpeakerName">{{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}</span>
 												</router-link>
@@ -407,15 +407,15 @@ export default {
 	margin-bottom: 0.2rem;
 	font-size: 0;
 }
-.programItemSpeakerPhoto, .programItemSpeakerName {
+.programItemSpeakerAvatar, .programItemSpeakerName {
 	display: inline-block;
 	vertical-align: middle;
 }
-.programItemSpeakerPhoto {
+.programItemSpeakerAvatar {
 	width: 0.6rem;
 	overflow: hidden;
 }
-.programItemSpeakerPhotoImg {
+.programItemSpeakerPhoto {
 	width: 100%;
 }
 .programItemSpeakerName {

@@ -40,6 +40,10 @@ export default new Router({
 			]
 		},
 		{
+			path: "/programdetail",
+			component: () => import(/* webpackChunkName: "programdetail" */ "@/views/ProgramDetail.vue")
+		},
+		{
 			path: "/invite",
 			component: () => import(/* webpackChunkName: "invite" */ "@/views/Invite.vue")
 		},
