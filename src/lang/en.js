@@ -80,6 +80,9 @@ export default {
         noPPT: "No PPT for this session",
         subscribeBtn: ["Subscription Start Reminder", "Already Subscribed"]
     },
+    guest: {
+        "navBarTitle": "Guest Details",
+    },
     attendees: {
         "tabs": [
             {

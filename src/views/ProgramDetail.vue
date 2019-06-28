@@ -293,7 +293,7 @@ export default {
     height: 100%;
 }
 .noArticleImg, .noPPTImg {
-    width: 4rem;
+    width: 2rem;
 }
 .noArticleDesc, .noPPTDesc {
     margin-top: 0.2rem;

@@ -100,7 +100,7 @@
 										<div class="programItemSpeakerList">
 											<template v-for="(detail, idx) in prg.Details">
 												<p v-if="detail.DataType != prg.Details[0].DataType || idx == 0" v-bind:key="idx" class="speakerType">{{ detail.DataType }}</p>
-												<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + detail.Speaker.Id" v-bind:key="detail.Speaker.Id">
+												<router-link class="programItemSpeaker" v-bind:to="'/guest?guestId=' + detail.Speaker.Id" v-bind:key="detail.Speaker.Id">
 													<span class="programItemSpeakerAvatar">
 														<img class="programItemSpeakerPhoto" v-bind:src="detail.Speaker.Photo" alt="">
 													</span>

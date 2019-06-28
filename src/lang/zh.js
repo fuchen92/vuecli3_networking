@@ -80,6 +80,9 @@ export default {
         noPPT: "本环节暂无PPT",
         subscribeBtn: ["订阅开始提醒", "已订阅"]
     },
+    guest: {
+        "navBarTitle": "嘉宾详情",
+    },
     attendees: {
         "tabs": [
             {

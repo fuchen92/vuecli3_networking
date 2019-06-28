@@ -59,7 +59,7 @@ export default {
     color: #666;
 }
 .navBarLinks {
-    width: 1.42rem;
+    width: 1.45rem;
     height: 0.6rem;
     margin-top: 0.2rem;
     padding: 0 0.1rem;
@@ -74,7 +74,7 @@ export default {
 .navBarLinkDivide {
     height: 0.3rem;
     margin: 0 0.1rem;
-    border-left: 1px solid #000;
+    border-left: 0.02rem solid #000;
 }
 .navBarLink {
     width: 0.6rem;
@@ -90,7 +90,7 @@ export default {
     font-size: 0.28rem;
     line-height: 1rem;
     text-align: center;
-    text-indent: -1.42rem;
+    text-indent: -1.45rem;
     color: #fff;
 }
 </style>
