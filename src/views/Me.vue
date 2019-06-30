@@ -103,10 +103,19 @@ export default {
 </script>
 <style>
 .me {
+	box-sizing: border-box;
+	position: relative;
+	width: 100%;
+	height: 100%;
 	padding: 1rem 0;
 }
 .me > .container {
+	box-sizing: border-box;
 	width: 95%;
+	height: 100%;
+	overflow: hidden;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 .meCard {
 	box-sizing: border-box;
