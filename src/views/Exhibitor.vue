@@ -47,35 +47,35 @@
                     <div class="exhibitorContact">
                         <div class="exhibitorContactItem clear">
                             <p class="exhibitorContactItemName lt">{{ $t("exhibitor.contactLabel") }}</p>
-                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactPeople == null ? $t("exhibitor.emptyVal") : exhibitor.ContactPeople }}</p>
+                            <p class="exhibitorContactItemVal rt">{{ (exhibitor.localContactList[7] == "" || exhibitor.localContactList[7] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[7] }}</p>
                         </div>
                         <div class="exhibitorContactItem clear">
                             <p class="exhibitorContactItemName lt">{{ $t("exhibitor.mobileLabel") }}</p>
-                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactMobile == null ? $t("exhibitor.emptyVal") : exhibitor.ContactMobile }}</p>
+                            <p class="exhibitorContactItemVal rt">{{ (exhibitor.localContactList[0] == "" || exhibitor.localContactList[0] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[0] }}</p>
                         </div>
                         <div class="exhibitorContactItem clear">
                             <p class="exhibitorContactItemName lt">{{ $t("exhibitor.emailLabel") }}</p>
-                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactEmail == null ? $t("exhibitor.emptyVal") : exhibitor.ContactEmail }}</p>
+                            <p class="exhibitorContactItemVal rt">{{ (exhibitor.localContactList[1] == "" || exhibitor.localContactList[1] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[1] }}</p>
                         </div>
                         <div class="exhibitorContactItem clear">
                             <p class="exhibitorContactItemName lt">{{ $t("exhibitor.telLabel") }}</p>
-                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactPhone == null ? $t("exhibitor.emptyVal") : exhibitor.ContactPhone }}</p>
+                            <p class="exhibitorContactItemVal rt">{{ (exhibitor.localContactList[9] == "" || exhibitor.localContactList[9] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[9] }}</p>
                         </div>
                         <div class="exhibitorContactItem clear">
                             <p class="exhibitorContactItemName lt">{{ $t("exhibitor.siteLabel") }}</p>
-                            <p class="exhibitorContactItemVal rt">{{ exhibitor.ContactSite == null ? $t("exhibitor.emptyVal") : exhibitor.ContactSite }}</p>
+                            <p class="exhibitorContactItemVal rt">{{ (exhibitor.localContactList[8] == "" || exhibitor.localContactList[8] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[8] }}</p>
                         </div>
                     </div>
                 </div>
-                <template v-if="attends.length > 0">
+                <template v-if="exhibitor.Attendees.length > 0">
                     <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.designedContact") }}</h4>
-                    <template v-for="(guest, index) in attends">
+                    <template v-for="(guest, index) in exhibitor.Attendees">
                         <template v-if="guest.IsContact">
                             <GuestCard prop="guest" :key="index"></GuestCard>
                         </template>
                     </template>
                     <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.otherAttend") }}</h4>
-                    <template v-for="(guest, index) in attends">
+                    <template v-for="(guest, index) in exhibitor.Attendees">
                         <template v-if="!guest.IsContact">
                             <GuestCard prop="guest" :key="index"></GuestCard>
                         </template>
@@ -106,8 +106,7 @@ export default {
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
-            exhibitor: state => state.ExhibitorDetail,
-            attends: state => state.ExhibitorDetail.Attendees
+            exhibitor: state => state.ExhibitorDetail
 		})
     },
     methods: {
@@ -205,6 +204,7 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #666;
 }
 .exhibitorChunkCaption {
     font-size: 0.28rem;

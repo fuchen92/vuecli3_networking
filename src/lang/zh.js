@@ -81,7 +81,11 @@ export default {
         subscribeBtn: ["订阅开始提醒", "已订阅"]
     },
     speaker: {
-        navBarTitle: "嘉宾详情"
+        navBarTitle: "嘉宾详情",
+        emptyVal: "未填写",
+        introCaption: "简介",
+        participateCaption: "参与的环节",
+        view: "立即查看"
     },
     guest: {
         "navBarTitle": "嘉宾详情",

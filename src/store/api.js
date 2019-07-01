@@ -20,6 +20,15 @@ export function getProgramDetail(eventNo, id, token, lang) {
     })
 }
 
+export function getSpeakerDetail(eventNo, id, token, lang) {
+    return axios.post(`${apiDomain}/Program/SpeakerDetails`, {
+        eventNo: eventNo,
+        id: id,
+        token: token,
+        lang: lang
+    })
+}
+
 export function getExhibitorList(eventNo, index, size, token, lang) {
     return axios.post(`${apiDomain}/Exhibitors/List`, {
         eventNo: eventNo,

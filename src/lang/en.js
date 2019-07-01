@@ -81,7 +81,11 @@ export default {
         subscribeBtn: ["Subscription Start Reminder", "Already Subscribed"]
     },
     speaker: {
-        navBarTitle: "Guest Details"
+        navBarTitle: "Guest Details",
+        emptyVal: "Not Filled",
+        introCaption: "Intro",
+        participateCaption: "Participation Process",
+        view: "View Now"
     },
     guest: {
         "navBarTitle": "Guest Details",

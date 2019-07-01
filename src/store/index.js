@@ -6,6 +6,7 @@ Vue.use(Vuex);
 import {
     getProgramList,
     getProgramDetail,
+    getSpeakerDetail,
     getExhibitorList,
     getExhibitorDetail,
     getProductDetail,
@@ -26,8 +27,14 @@ export default new Vuex.Store({
         },
         ProgramList: [],
         ProgramDetail: {},
+        SpeakerDetail: {
+            ProgramList: []
+        },
         ExhibitorList: [],
-        ExhibitorDetail: {},
+        ExhibitorDetail: {
+            Attendees: [],
+            localContactList: []
+        },
         MyInfomation: {},
         SolutionList: [],
         ProductDetail: {},
@@ -83,24 +90,30 @@ export default new Vuex.Store({
             Vue.set(state.ProgramDetail, "LocalTime", time);
             console.log(state.ProgramDetail)
         },
+        // 获取演讲嘉宾详情
+        INITSPEAKERDETAIL(state, { speakerDetail }) {
+            console.log(speakerDetail);
+            state.SpeakerDetail = speakerDetail;
+        },
         // 初始化展商列表
         INITEXHIBITORLIST(state, { exhibitorList }) {
             state.ExhibitorList = exhibitorList;
         },
         // 获取展商详情
         INITEXHIBITORDETAIL(state, { detail }) {
-            let contactList = detail.ContactList;
-            let ContactPeople = contactList.filter(item => item.Id == 8)[0].Name;
-            let ContactMobile = contactList.filter(item => item.Id == 1)[0].Name;
-            let ContactEmail = contactList.filter(item => item.Id == 2)[0].Name;
-            let ContactPhone = contactList.filter(item => item.Id == 10)[0].Name;
-            let ContactSite = contactList.filter(item => item.Id == 9)[0].Name;
+            console.log(detail)
+            let ContactList = detail.ContactList,
+                contactList = Array.from(new Array(10).keys()).map((i) => []);
+
+            ContactList.map(item => {
+                contactList[item.Id - 1] = item.Name
+            });
+
+            console.log(contactList)
+
             state.ExhibitorDetail = detail;
-            Vue.set(state.ExhibitorDetail, "ContactPeople", ContactPeople);
-            Vue.set(state.ExhibitorDetail, "ContactMobile", ContactMobile);
-            Vue.set(state.ExhibitorDetail, "ContactEmail", ContactEmail);
-            Vue.set(state.ExhibitorDetail, "ContactPhone", ContactPhone);
-            Vue.set(state.ExhibitorDetail, "ContactSite", ContactSite);
+            Vue.set(state.ExhibitorDetail, "localContactList", contactList);
+            console.log(state.ExhibitorDetail)
         },
         // 获取产品详情
         INITPRODUCTDETAIL(state, { product }) {
@@ -151,6 +164,12 @@ export default new Vuex.Store({
         getProgramDetail({ commit }, { eventNo, id, token, lang }) {
             getProgramDetail(eventNo, id, token, lang).then(res => {
                 commit("INITPROGRAMDETAIL", { programDetail: res.data })
+            })
+        },
+        // 获取演讲嘉宾详情
+        getSpeakerDetail({ commit }, { eventNo, id, token, lang}) {
+            getSpeakerDetail(eventNo, id, token, lang).then(res => {
+                commit("INITSPEAKERDETAIL", { speakerDetail: res.data.Data })
             })
         },
         // 获取展商列表
