@@ -24,11 +24,15 @@
                         <div class="detailSpeakerList">
                             <template v-for="(speaker, idx) in programDetail.Details">
                                 <p v-if="speaker.DataType.Title != programDetail.Details[0].DataType.Title || idx == 0" :key="idx" class="speakerType">{{ speaker.DataType.Title }}</p>
-                                <router-link class="detailSpeaker" v-bind:to="'/speaker?speakerId=' + speaker.Speaker.Id" v-bind:key="speaker.Speaker.Id">
-                                    <span class="detailSpeakerAvatar">
+                                <router-link class="detailSpeaker" v-bind:to="speaker.Speaker.SocialId > 0 ? '/guest?guestId=' + speaker.Speaker.SocialId : '/speaker?speakerId=' + speaker.Speaker.Id" v-bind:key="speaker.Speaker.Id">
+                                    <div class="detailSpeakerAvatar">
                                         <img class="detailSpeakerPhoto" v-bind:src="speaker.Speaker.Photo" alt="">
-                                    </span>
-                                    <span class="detailSpeakerName">{{ speaker.Speaker.Company }} {{ speaker.Speaker.JobTitle }} {{ speaker.Speaker.Name }}</span>
+                                    </div>
+                                    <div class="detailSpeakerInfo">
+                                        <h4 class="detailSpeakerName">{{ speaker.Speaker.Name }}</h4>
+                                        <p class="detailSpeakerCompany">{{ speaker.Speaker.Company }}</p>
+                                        <p class="detailSpeakerJob">{{ speaker.Speaker.JobTitle }}</p>
+                                    </div>
                                 </router-link>
                             </template>
                         </div>
@@ -188,7 +192,7 @@ export default {
 }
 .detailBannerTitle {
     margin-bottom: 0.4rem;
-    font-size: 0.4rem;
+    font-size: 0.32rem;
     font-weight: normal;
     text-align: center;
 }
@@ -266,21 +270,27 @@ export default {
     margin-bottom: 0.2rem;
     font-size: 0;
 }
-.detailSpeakerAvatar, .detailSpeakerName {
+.detailSpeakerAvatar, .detailSpeakerInfo {
     display: inline-block;
     vertical-align: middle;
 }
 .detailSpeakerAvatar {
-    width: 0.6rem;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.2rem;
+    border-radius: 100%;
     overflow: hidden;
 }
 .detailSpeakerPhoto {
 	width: 100%;
 }
-.detailSpeakerName {
-    width: calc(100% - 0.9rem);
-	margin-left: 0.3rem;
+.detailSpeakerInfo {
+    width: calc(100% - 1.2rem);
 	font-size: 0.28rem;
+}
+.detailSpeakerName, .detailSpeakerCompany, .detailSpeakerJob {
+    font-size: 0.28rem;
+    line-height: 0.4rem;
 	color: #2c3e50;
 }
 .noArticle, .noPPT {

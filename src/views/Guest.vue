@@ -2,12 +2,18 @@
     <div class="guest">
         <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="guestBox">
-            <div class="container">
-                <div class="guestChunk">
-                    <div class="guestAvatar">
-                        <img class="guestPhoto" src="../assets/avatar.jpg" alt="">
-                    </div>
+            <div class="guestChunk">
+                <div class="guestAvatar">
+                    <img class="guestPhoto" src="../assets/avatar.jpg" alt="">
                 </div>
+                <div class="guestInfo">
+                    <h4 class="guestName">张三</h4>
+                    <p class="guestJob">警察</p>
+                    <p class="guestCompany">公安局</p>
+                </div>
+            </div>
+            <div class="guestChunk">
+                <h4 class="guestChunkCaption">简介</h4>
             </div>
         </div>
     </div>
@@ -49,13 +55,37 @@ export default {
     width: 100%;
     height: 100%;
     padding: 1.2rem 0 1rem;
-}
-.guestBox > .container {
-    width: 95%;
+    overflow: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 .guestChunk {
-    margin-bottom: 0.2rem;
+    box-sizing: border-box;
+    width: 95%;
+    margin: 0 auto 0.2rem;
     padding: 0.4rem 0.2rem;
+    font-size: 0;
     background-color: #fff;
+}
+.guestAvatar, .guestInfo {
+    display: inline-block;
+    vertical-align: top;
+}
+.guestAvatar {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.2rem;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.guestPhoto {
+    width: 100%;
+}
+.guestInfo {
+    width: calc(100% - 1.2rem);
+}
+.guestName, .guestJob, .guestCompany {
+    font-size: 0.28rem;
+    line-height: 0.4rem;
 }
 </style>

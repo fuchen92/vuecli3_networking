@@ -90,7 +90,7 @@
 							<div class="programItem" v-bind:key="index">
 								<div class="programItemHead">
 									<p class="programItemTime">{{ prg.Begin.split("T")[1].substr(0, 5) }} - {{ prg.End.split("T")[1].substr(0, 5) }}</p>
-									<p class="programItemType">{{ prg.Type }}</p>
+									<p class="programItemType">{{ prg.TypeName }}</p>
 									<router-link v-if="prg.Topic != ''" class="programItemTitle" :to="'/programdetail?programId=' + prg.Id">
 										{{ prg.Topic }}
 									</router-link>
@@ -100,7 +100,13 @@
 										<div class="programItemSpeakerList">
 											<template v-for="(detail, idx) in prg.Details">
 												<p v-if="detail.DataType != prg.Details[0].DataType || idx == 0" v-bind:key="idx" class="speakerType">{{ detail.DataType }}</p>
-												<router-link class="programItemSpeaker" v-bind:to="'/speaker?speakerId=' + detail.Speaker.Id" v-bind:key="detail.Speaker.Id">
+												<router-link class="programItemSpeaker" v-if="detail.Speaker.SocialId > 0" v-bind:to="'/guest?guestId=' + detail.Speaker.SocialId" v-bind:key="detail.Speaker.SocialId">
+													<span class="programItemSpeakerAvatar">
+														<img class="programItemSpeakerPhoto" v-bind:src="detail.Speaker.Photo" alt="">
+													</span>
+													<span class="programItemSpeakerName">{{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}</span>
+												</router-link>
+												<router-link class="programItemSpeaker" v-else v-bind:to="'/speaker?speakerId=' + detail.Speaker.Id" v-bind:key="detail.Speaker.Id">
 													<span class="programItemSpeakerAvatar">
 														<img class="programItemSpeakerPhoto" v-bind:src="detail.Speaker.Photo" alt="">
 													</span>

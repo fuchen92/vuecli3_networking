@@ -18,7 +18,7 @@ import {
 
 export default new Vuex.Store({
     state: {
-        eventNo: 63,
+        eventNo: 68,
         Lang: localStorage.getItem("localeLanguage") || "zh",
         Account: {
             Token: localStorage.getItem("token") || "",
@@ -47,13 +47,16 @@ export default new Vuex.Store({
         },
         // 初始化日程列表
         INITPROGRAMLIST(state, { programList }) {
+            // console.log(programList)
             let data = programList;
             let arr = [];
-            let firstDay = data[4]["2018-9-20"];
-            let secondDay = data[5]["2018-9-21"];
-            let thirdDay = data[6]["2018-9-21"];
+            let firstDay = data[4]["2019-8-28"];
+            let secondDay = data[5]["2019-8-29"];
+            let thirdDay = data[6]["2019-8-29"];
             arr.push(firstDay, secondDay, thirdDay);
-            state.ProgramList = arr;          
+            state.ProgramList = arr;     
+            
+            // console.log(state.ProgramList)
         },
         // 获取日程详情
         INITPROGRAMDETAIL(state, { programDetail }) {
@@ -86,7 +89,6 @@ export default new Vuex.Store({
         },
         // 获取展商详情
         INITEXHIBITORDETAIL(state, { detail }) {
-            console.log(detail)
             let contactList = detail.ContactList;
             let ContactPeople = contactList.filter(item => item.Id == 8)[0].Name;
             let ContactMobile = contactList.filter(item => item.Id == 1)[0].Name;
@@ -99,21 +101,17 @@ export default new Vuex.Store({
             Vue.set(state.ExhibitorDetail, "ContactEmail", ContactEmail);
             Vue.set(state.ExhibitorDetail, "ContactPhone", ContactPhone);
             Vue.set(state.ExhibitorDetail, "ContactSite", ContactSite);
-            console.log(state.ExhibitorDetail)
         },
         // 获取产品详情
         INITPRODUCTDETAIL(state, { product }) {
             state.ProductDetail = product;
-            console.log(state.ProductDetail);
         },
         // 我的需求页面获取我的需求
         INITMYSOLUTIONLIST(state, { solutionList }) {
-            console.log(solutionList)
             state.SolutionList = solutionList;
         },
         // 我的页面个人信息简要
         INITMYINFOMATION(state, { infomation }) {
-            // console.log(infomation)
             let Mobile = infomation.ContactList.filter(item => item.Id == 1)[0].Name;
             let Email = infomation.ContactList.filter(item => item.Id == 2)[0].Name;
             let WeChat = infomation.ContactList.filter(item => item.Id == 3)[0].Name;

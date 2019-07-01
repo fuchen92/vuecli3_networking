@@ -20,7 +20,36 @@
             </div>
             <div class="speakerChunk">
                 <h4 class="speakerChunkCaption">参与的环节</h4>
-                
+                <ul class="participateList">
+                    <li class="participateItem"> 
+                        <div class="participateInfo">
+                            <p class="participateTime">
+                                11:25 - 12:00
+                            </p>
+                            <p class="participateType">
+                                圆桌座谈
+                            </p>
+                            <h4 class="participateTopic">今天，全球旅行消费者到底要什么？</h4>
+                        </div>
+                        <router-link class="participateLink" to="/">
+                            立即查看
+                        </router-link>
+                    </li>
+                    <li class="participateItem"> 
+                        <div class="participateInfo">
+                            <p class="participateTime">
+                                11:25 - 12:00
+                            </p>
+                            <p class="participateType">
+                                圆桌座谈
+                            </p>
+                            <h4 class="participateTopic">今天，全球旅行消费者到底要什么？</h4>
+                        </div>
+                        <router-link class="participateLink" to="/">
+                            立即查看
+                        </router-link>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -101,5 +130,40 @@ export default {
     margin-top: 0.1rem;
     font-size: 0.24rem;
     line-height: 0.4rem;
+}
+.participateList {
+    margin-top: 0.2rem;
+}
+.participateItem {
+    margin-bottom: 0.2rem;
+    font-size: 0;
+}
+.participateInfo, .participateLink {
+    display: inline-block;
+    vertical-align: middle;
+}
+.participateLink {
+    box-sizing: border-box;
+    width: 2rem;
+    height: 0.6rem;
+    margin-left: 0.2rem;
+    font-size: 0.28rem;
+    line-height: 0.56rem;
+    text-align: center;
+    border: 0.02rem solid #f0f1f2;
+    border-radius: 0.3rem;
+    color: #999;
+}
+.participateInfo {
+    width: calc(100% - 2.2rem);
+}
+.participateType, .participateTime {
+    font-size: 0.24rem;
+    line-height: 0.4rem;
+}
+.participateTopic {
+    font-size: 0.28rem;
+    line-height: 0.4rem;
+    color: var(--themeColor);
 }
 </style>
