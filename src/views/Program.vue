@@ -100,7 +100,7 @@
 										<div class="programItemSpeakerList">
 											<template v-for="(detail, idx) in prg.Details">
 												<p v-if="detail.DataType != prg.Details[0].DataType || idx == 0" v-bind:key="idx" class="speakerType">{{ detail.DataType }}</p>
-												<router-link class="programItemSpeaker" v-bind:to="'/guest?guestId=' + detail.Speaker.Id" v-bind:key="detail.Speaker.Id">
+												<router-link class="programItemSpeaker" v-bind:to="'/speaker?speakerId=' + detail.Speaker.Id" v-bind:key="detail.Speaker.Id">
 													<span class="programItemSpeakerAvatar">
 														<img class="programItemSpeakerPhoto" v-bind:src="detail.Speaker.Photo" alt="">
 													</span>
@@ -116,91 +116,6 @@
 					</div>
 				</div>
 			</template>
-            <!-- <div class="programList active">
-                <div class="container">
-                    <div class="programItem programItemSite">
-                        会议地点：上海国际会议中心7楼-上海厅2 &amp; 3
-                    </div>
-                    <div class="programItem">
-                        <div class="programItemHead">
-                            <p class="programItemTime">09:00 - 09:15</p>
-                            <p class="programItemType">主题演讲</p>
-                            <router-link class="programItemTitle" v-bind:to="'/programdetail?id=' + 11 ">
-                                弱冠之年，携程的新挑战
-                            </router-link>
-                        </div>
-						<div class="programItemBody">
-							<div class="programItemSpeakerList">
-								<p class="speakerType">对话嘉宾</p>
-								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
-									<span class="programItemSpeakerPhoto">
-										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
-									</span>
-									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
-								</router-link>
-								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
-									<span class="programItemSpeakerPhoto">
-										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
-									</span>
-									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
-								</router-link>
-								<p class="speakerType">主持嘉宾</p>
-								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
-									<span class="programItemSpeakerPhoto">
-										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
-									</span>
-									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
-								</router-link>
-							</div>
-						</div>
-                    </div>
-                    <div class="programItem">
-                        <div class="programItemHead">
-                            <p class="programItemTime">12:00-14:00</p>
-                            <p class="programItemType">午餐交流</p>
-                        </div>
-                    </div>
-                    <div class="programItem">
-                        <div class="programItemHead">
-                            <p class="programItemTime">09:00 - 09:15</p>
-                            <p class="programItemType">主题演讲</p>
-                            <router-link class="programItemTitle" v-bind:to="'/programdetail?id=' + 11 ">
-                                弱冠之年，携程的新挑战
-                            </router-link>
-                        </div>
-						<div class="programItemBody">
-							<div class="programItemSpeakerList">
-								<p class="speakerType">对话嘉宾</p>
-								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
-									<span class="programItemSpeakerPhoto">
-										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
-									</span>
-									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
-								</router-link>
-								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
-									<span class="programItemSpeakerPhoto">
-										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
-									</span>
-									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
-								</router-link>
-								<p class="speakerType">主持嘉宾</p>
-								<router-link class="programItemSpeaker" v-bind:to="'/speaker?id=' + 22 ">
-									<span class="programItemSpeakerPhoto">
-										<img class="programItemSpeakerPhotoImg" src="../assets/jiqi.png" alt="">
-									</span>
-									<span class="programItemSpeakerName">携程集团 CEO 孙洁</span>
-								</router-link>
-							</div>
-						</div>
-                    </div>
-                    <div class="programItem">
-                        <div class="programItemHead">
-                            <p class="programItemTime">12:00-14:00</p>
-                            <p class="programItemType">午餐交流</p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </template>

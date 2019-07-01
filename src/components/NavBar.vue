@@ -9,7 +9,7 @@
             </template>
             <template v-else>
                 <div class="navBarLinks lt">
-                    <router-link class="navBarLink navBarBack" v-bind:to="backUrl"></router-link>
+                    <div class="navBarLink navBarBack" @click="goBack"></div>
                     <b class="navBarLinkDivide"></b>
                     <router-link class="navBarLink navBarHome" to="/"></router-link>
                 </div>
@@ -26,11 +26,13 @@ export default {
             type: Boolean,
             default: true
         },
-        backUrl: {
-            type: String
-        },
         navBarTitle: {
             type: String
+        }
+    },
+    methods: {
+        goBack: function() {
+            this.$router.go(-1);
         }
     }
 }

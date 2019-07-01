@@ -1,6 +1,6 @@
 <template>
     <div class="myNeed">
-        <NavBar :showSearch="false" :backUrl="backUrl" :navBarTitle="navBarTitle"></NavBar>
+        <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="myNeedWrapper">
             <template v-if="needList.length <= 0">
                 <div class="emptyNeed">
@@ -23,7 +23,6 @@ export default {
     name: "MyNeed",
     data: function() {
         return {
-            backUrl: "/me",
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].myneed.navBarTitle,
             // needList: [
             //     {

@@ -1,6 +1,6 @@
 <template>
     <div class="product">
-        <NavBar :showSearch="false" :backUrl="'/exhibitor?exhibitorId=' + backId" :navBarTitle="navBarTitle"></NavBar>
+        <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="productBox">
             <div class="container">
                 <div class="productLogo">
@@ -22,7 +22,6 @@ export default {
     data: function() {
         return {
             productId: this.$route.query.productId,
-            backId: this.$route.query.backId,
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].product.navBarTitle
         }
     },

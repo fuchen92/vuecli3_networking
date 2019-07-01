@@ -1,6 +1,6 @@
 <template>
     <div class="publish">
-        <NavBar :showSearch="false" :backUrl="backUrl" :navBarTitle="navBarTitle"></NavBar>
+        <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="publishBox">
             <div class="container">
                 <div class="publishChunk clear">
@@ -44,7 +44,6 @@ export default {
     name: "Publish",
     data: function() {
         return  {
-            backUrl: "/plaza",
             publishType: this.$route.query.type,
             publishContent: "",
             publicMobile: true,

@@ -1,6 +1,6 @@
 <template>
     <div class="guest">
-        <NavBar :showSearch="false" :backUrl="'/'" :navBarTitle="navBarTitle"></NavBar>
+        <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="guestBox">
             <div class="container">
                 <div class="guestChunk">

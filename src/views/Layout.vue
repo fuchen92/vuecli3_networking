@@ -1,6 +1,6 @@
 <template>
     <div class="layout">
-        <NavBar :showSearch="true" backUrl="" navBarTitle=""></NavBar>
+        <NavBar :showSearch="true" navBarTitle=""></NavBar>
         <!-- <keep-alive> -->
             <router-view></router-view>
         <!-- </keep-alive> -->

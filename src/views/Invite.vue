@@ -1,6 +1,6 @@
 <template>
     <div class="invite">
-        <NavBar :showSearch="false" :backUrl="backUrl" :navBarTitle="navBarTitle"></NavBar>
+        <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="inviteBox">
             <div class="container">
 
@@ -15,7 +15,6 @@ export default {
     name: "Invite",
     data: function() {
         return {
-            backUrl: "/attendees",
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].invite.navBarTitle,
         }
     },

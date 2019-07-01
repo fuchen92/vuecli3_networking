@@ -1,6 +1,6 @@
 <template>
     <div class="qrCode">
-        <NavBar :showSearch="false" :backUrl="backUrl" :navBarTitle="navBarTitle"></NavBar>
+        <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="qrCodeWrapper">
             <div class="qrCodeBox">
                 <img class="qrCodeImg" v-bind:src="qrcode" alt="">
@@ -17,7 +17,6 @@ export default {
     name: "QrCode",
     data: function() {
         return {
-            backUrl: "/me",
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].qrcode.navBarTitle
         }
     },

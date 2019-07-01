@@ -11,9 +11,6 @@
 						<p class="meName">{{ myInfo.Name }}</p>
 						<p class="meCompany">{{ myInfo.Company }}</p>
 						<p class="meJob">{{ myInfo.JobTitle }}</p>
-						<!-- <p class="meName">宇智波 ● 鼬</p>
-						<p class="meCompany">木叶暗部</p>
-						<p class="meJob">暗部杀手</p> -->
 					</div>
 				</router-link>
 				<div class="qrCode">

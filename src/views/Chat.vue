@@ -1,6 +1,6 @@
 <template>
     <div class="chat">
-        <NavBar :showSearch="false" :backUrl="backUrl" :navBarTitle="navBarTitle"></NavBar>
+        <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="chatBox">
             <div class="container">
                 <div class="chatRules">
@@ -99,7 +99,6 @@ export default {
     name: "Chat",
     data: function() {
         return {
-            backUrl: "/message",
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].chat.navBarTitle,
             chatId: this.$route.query.chatId,
             chatUserPhoto: "",

@@ -1,6 +1,6 @@
 <template>
     <div class="meInfomation">
-        <NavBar :showSearch="false" :backUrl="backUrl" :navBarTitle="navBarTitle"></NavBar>
+        <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="infomationWrapper">
             <div class="infomationCard">
                 <div class="infomationAvatar">                
@@ -60,7 +60,6 @@ export default {
     name: "MeInfomation",
     data: function() {
         return {
-            backUrl: "/me",
             navBarTitle: this.$i18n.messages[this.$store.state.Lang].meinfomation.navBarTitle,
             // wechat: "111",
             // intro: ""

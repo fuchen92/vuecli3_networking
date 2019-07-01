@@ -44,6 +44,10 @@ export default new Router({
 			component: () => import(/* webpackChunkName: "programdetail" */ "@/views/ProgramDetail.vue")
 		},
 		{
+			path: "/speaker",
+			component: () => import(/* webpackChunkName: "speaker" */ "@/views/Speaker.vue")
+		},
+		{
 			path: "/guest",
 			component: () => import(/* webpackChunkName: "guest" */ "@/views/Guest.vue")
 		},

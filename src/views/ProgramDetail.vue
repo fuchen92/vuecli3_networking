@@ -24,7 +24,7 @@
                         <div class="detailSpeakerList">
                             <template v-for="(speaker, idx) in programDetail.Details">
                                 <p v-if="speaker.DataType.Title != programDetail.Details[0].DataType.Title || idx == 0" :key="idx" class="speakerType">{{ speaker.DataType.Title }}</p>
-                                <router-link class="detailSpeaker" v-bind:to="'/speaker?id=' + speaker.Speaker.Id" v-bind:key="speaker.Speaker.Id">
+                                <router-link class="detailSpeaker" v-bind:to="'/speaker?speakerId=' + speaker.Speaker.Id" v-bind:key="speaker.Speaker.Id">
                                     <span class="detailSpeakerAvatar">
                                         <img class="detailSpeakerPhoto" v-bind:src="speaker.Speaker.Photo" alt="">
                                     </span>
