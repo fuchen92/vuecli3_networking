@@ -7,6 +7,7 @@ import {
     getProgramList,
     getProgramDetail,
     getSpeakerDetail,
+    getGuestDetail,
     getExhibitorList,
     getExhibitorDetail,
     getProductDetail,
@@ -29,6 +30,10 @@ export default new Vuex.Store({
         ProgramDetail: {},
         SpeakerDetail: {
             ProgramList: []
+        },
+        GuestDetail: {
+            ProgramList: [],
+            ContactList: []
         },
         ExhibitorList: [],
         ExhibitorDetail: {
@@ -88,12 +93,15 @@ export default new Vuex.Store({
             Vue.set(state.ProgramDetail, "IsEnd", isEnd);
             Vue.set(state.ProgramDetail, "IsSpeaker", isSpeaker);
             Vue.set(state.ProgramDetail, "LocalTime", time);
-            console.log(state.ProgramDetail)
         },
         // 获取演讲嘉宾详情
         INITSPEAKERDETAIL(state, { speakerDetail }) {
-            console.log(speakerDetail);
             state.SpeakerDetail = speakerDetail;
+        },
+        // 获取参会嘉宾详情
+        INITGUESTDETAIL(state, { guestDetail }) {
+            console.log(guestDetail);
+            state.GuestDetail = guestDetail;
         },
         // 初始化展商列表
         INITEXHIBITORLIST(state, { exhibitorList }) {
@@ -101,7 +109,6 @@ export default new Vuex.Store({
         },
         // 获取展商详情
         INITEXHIBITORDETAIL(state, { detail }) {
-            console.log(detail)
             let ContactList = detail.ContactList,
                 contactList = Array.from(new Array(10).keys()).map((i) => []);
 
@@ -109,11 +116,8 @@ export default new Vuex.Store({
                 contactList[item.Id - 1] = item.Name
             });
 
-            console.log(contactList)
-
             state.ExhibitorDetail = detail;
             Vue.set(state.ExhibitorDetail, "localContactList", contactList);
-            console.log(state.ExhibitorDetail)
         },
         // 获取产品详情
         INITPRODUCTDETAIL(state, { product }) {
@@ -170,6 +174,12 @@ export default new Vuex.Store({
         getSpeakerDetail({ commit }, { eventNo, id, token, lang}) {
             getSpeakerDetail(eventNo, id, token, lang).then(res => {
                 commit("INITSPEAKERDETAIL", { speakerDetail: res.data.Data })
+            })
+        },
+        // 获取参会嘉宾详情
+        getGuestDetail({ commit }, { eventNo, id, token, lang }) {
+            getGuestDetail(eventNo, id, token, lang).then(res => {
+                commit("INITGUESTDETAIL", { guestDetail: res.data.Data })
             })
         },
         // 获取展商列表
