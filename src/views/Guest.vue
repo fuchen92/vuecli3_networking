@@ -40,7 +40,7 @@
             <div class="guestChunk" v-if="guest.Role != 4 || guest.ContactList.length > 0">
                 <div class="guestChunkContactTitle clear">
                     <h4 class="guestChunkCaption lt">{{ $t("guest.contactLabel") }}</h4>
-                    <span class="sendCardLabel rt">{{ $t("guest.sendCard") }}</span>
+                    <span class="sendCardLabel rt" v-if="guest.Id != ">{{ $t("guest.sendCard") }}</span>
                 </div>
                 <div class="guestContact">
                     <div class="guestContactItem clear">
