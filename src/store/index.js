@@ -11,6 +11,7 @@ import {
     getExhibitorList,
     getExhibitorDetail,
     getProductDetail,
+    getPlazaList,
     getMySolutionList,
     getMyInfo,
     saveMyInfo,
@@ -41,6 +42,8 @@ export default new Vuex.Store({
             Attendees: [],
             localContactList: []
         },
+        SupplyList: [],
+        DemandList: [],
         MyInfomation: {},
         SolutionList: [],
         ProductDetail: {},
@@ -101,6 +104,7 @@ export default new Vuex.Store({
         },
         // 获取参会嘉宾详情
         INITGUESTDETAIL(state, { guestDetail }) {
+            console.log(guestDetail)
             state.GuestDetail = guestDetail;
         },
         // 初始化展商列表
@@ -122,6 +126,15 @@ export default new Vuex.Store({
         // 获取产品详情
         INITPRODUCTDETAIL(state, { product }) {
             state.ProductDetail = product;
+        },
+        // 获取广场供应帖子
+        INITSUPPLYLIST(state, { plazaList }) {
+            console.log(plazaList)
+            state.SupplyList = plazaList;
+        },
+        // 获取广场需求帖子
+        INITDEMANDLIST(state, { plazaList }) {
+            state.DemandList = plazaList
         },
         // 我的需求页面获取我的需求
         INITMYSOLUTIONLIST(state, { solutionList }) {
@@ -198,6 +211,16 @@ export default new Vuex.Store({
         getProductDetail({ commit }, { eventNo, id, token, lang }) {
             getProductDetail(eventNo, id, token, lang).then(res => {
                 commit("INITPRODUCTDETAIL", { product: res.data.Data })
+            })
+        },
+        // 获取广场供需帖子
+        getPlazaList({ commit }, { eventNo, index, size, type, token, lang }) {
+            getPlazaList(eventNo, index, size, type, token, lang).then(res => {
+                if(type == 1) {
+                    commit("INITSUPPLYLIST", { plazaList: res.data.Data })
+                } else if (type == 2) {
+                    commit("INITDEMANDLIST", { plazaList: res.data.Data })
+                }
             })
         },
         // 我的需求页面获取我的需求

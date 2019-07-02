@@ -66,6 +66,17 @@ export function getProductDetail(eventNo, id, token, lang) {
     })
 }
 
+export function getPlazaList(eventNo, index, size, type, token, lang) {
+    return axios.post(`${apiDomain}/Plaza/List`, {
+        eventNo: eventNo,
+        index: index,
+        size: size,
+        type: type,
+        token: token,
+        lang: lang
+    })
+}
+
 export function getMySolutionList(eventNo, index, size, token, lang) {
     return axios.post(`http://192.168.1.21:89/Me/SolutionList`, {
         eventNo: eventNo,

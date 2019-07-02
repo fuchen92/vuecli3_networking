@@ -10,8 +10,8 @@ export default {
         "me": "我的"
     },
     "login": {
-        "account": "请输入报名时提交的手机号/邮箱",
-        "valicode": "输入验证码",
+        "accountPlaceholder": "请输入报名时提交的手机号/邮箱",
+        "valicodePlaceholder": "输入验证码",
         "getCode": ["获取验证码", "重新发送"],
         "errTip": {
             "empty": "请输入报名时提交的手机号/邮箱",
@@ -132,6 +132,10 @@ export default {
         "emptySupplyDesc": "您暂未发布供应",
         "emptyRequirementDesc": "您暂未发布需求",
         "attendExpected": "等{count}人出席",
+    },
+    postCard: {
+        tel: "联系",
+        interest: "{count}人感兴趣"
     },
     "publish": {
         "navBarSupplyTitle": "发布供应",

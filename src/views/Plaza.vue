@@ -39,20 +39,48 @@
                 </div>
             </div>
             <div class="plazaList supplyList" v-bind:class="{ active: currentIndex == 1, empty: supplyList.length == 0 }">
-                <div class="container">
-                    <div class="emptyList" v-if="supplyList.length == 0">
-                        <img class="emptyListImg" src="../assets/nullState.png" alt="">
-                        <p class="emptyListDesc">{{ $t("plaza.emptySupplyDesc") }}</p>
-                    </div>
+                <div class="emptyList" v-if="supplyList.length == 0">
+                    <img class="emptyListImg" src="../assets/nullState.png" alt="">
+                    <p class="emptyListDesc">{{ $t("plaza.emptySupplyDesc") }}</p>
                 </div>
+                <template v-else>
+                    <PostCard v-for="(post, index) in supplyList" :key="index" :post="post">
+                        <div class="postCardHead" slot="postCardHead">
+                            <router-link class="postUser" v-bind:to="'/guest?guestId=' + post.User.Id">
+                                <div class="postUserAvatar">
+                                    <img class="postUserPhoto" v-bind:src="post.User.Photo" alt="">
+                                </div>
+                                <div class="postUserInfo">
+                                    <p class="postUserName">{{ post.User.Name }}</p>
+                                    <p class="postUserJob">{{ post.User.JobTitle }}</p>
+                                    <p class="postUserCompany">{{ post.User.Company }}</p>
+                                </div>
+                            </router-link>
+                        </div>
+                    </PostCard>
+                </template>
             </div>
-            <div class="plazaList requirementList" v-bind:class="{ active: currentIndex == 2, empty: requirementList.length == 0 }">
-                <div class="container">
-                    <div class="emptyList" v-if="requirementList.length == 0">
-                        <img class="emptyListImg" src="../assets/nullState.png" alt="">
-                        <p class="emptyListDesc">{{ $t("plaza.emptyRequirementDesc") }}</p>
-                    </div>
+            <div class="plazaList demandList" v-bind:class="{ active: currentIndex == 2, empty: demandList.length == 0 }">
+                <div class="emptyList" v-if="demandList.length == 0">
+                    <img class="emptyListImg" src="../assets/nullState.png" alt="">
+                    <p class="emptyListDesc">{{ $t("plaza.emptyRequirementDesc") }}</p>
                 </div>
+                <template v-else>
+                    <PostCard v-for="(post, index) in demandList" :key="index" :post="post">
+                        <div class="postCardHead" slot="postCardHead">
+                            <router-link class="postUser" v-bind:to="'/guest?guestId=' + post.User.Id">
+                                <div class="postUserAvatar">
+                                    <img class="postUserPhoto" v-bind:src="post.User.Photo" alt="">
+                                </div>
+                                <div class="postUserInfo">
+                                    <p class="postUserName">{{ post.User.Name }}</p>
+                                    <p class="postUserJob">{{ post.User.JobTitle }}</p>
+                                    <p class="postUserCompany">{{ post.User.Company }}</p>
+                                </div>
+                            </router-link>
+                        </div>
+                    </PostCard>
+                </template>
             </div>
         </div>
         <div class="publishTabs">
@@ -74,14 +102,16 @@
 </template>
 <script>
 import { mapActions, mapState } from "vuex";
+import PostCard from "@/components/PostCard.vue";
 export default {
     name: "Plaza",
     data: function() {
         return {
-            currentIndex: 0,
-            supplyList: [],
-            requirementList: []
+            currentIndex: 0
         }
+    },
+    components: {
+        PostCard
     },
     computed: {
         tabs: function() {
@@ -92,16 +122,21 @@ export default {
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
-            exhibitorList: state => state.ExhibitorList
+            exhibitorList: state => state.ExhibitorList,
+            supplyList: state => state.SupplyList,
+            demandList: state => state.DemandList
         })
     },
     methods: {
         ...mapActions([
-            "getExhibitorList"
+            "getExhibitorList",
+            "getPlazaList"
         ])
     },
     created: function() {
         this.getExhibitorList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2});
+        this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 1, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
+        this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 2, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
     }
 }
 </script>
@@ -220,6 +255,7 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #666666;
 }
 .interestList {
     margin-top: 0.1rem;
@@ -243,8 +279,8 @@ export default {
 }
 .supplyList.empty,
 .supplyList.empty > .container,
-.requirementList.empty,
-.requirementList.empty > .container {
+.demandList.empty,
+.demandList.empty > .container {
     width: 100%;
     height: 100%;
 }

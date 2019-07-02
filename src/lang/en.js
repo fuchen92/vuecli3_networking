@@ -10,8 +10,8 @@ export default {
         "me": "Me"
     },
     "login": {
-        "account": "Please enter your email adress for sign-up",
-        "valicode": "Enter the verification code",
+        "accountPlaceholder": "Please enter your email adress for sign-up",
+        "valicodePlaceholder": "Enter the verification code",
         "getCode": ["Get Code", "Resend"],
         "errTip": {
             "empty": "Please enter your email adress for sign-up",
@@ -132,6 +132,10 @@ export default {
         "emptySupplyDesc": "You have not released the supply yet",
         "emptyRequirementDesc": "You have not published requirements yet",
         "attendExpected": "{count} people are expected to attend"
+    },
+    postCard: {
+        tel: "Tel",
+        interest: "{count} People Are interested"
     },
     "publish": {
         "navBarSupplyTitle": "Publish Supply",

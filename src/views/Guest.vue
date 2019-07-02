@@ -18,7 +18,7 @@
                     {{ (guest.Intro == "" || guest.Intro == null) ? $t("guest.emptyVal") : guest.Intro }}
                 </p>
             </div>
-            <div class="guestChunk" v-if="guest.ProgramList.length != 0">
+            <div class="guestChunk" v-if="guest.ProgramList != null && guest.ProgramList.length != 0">
                 <h4 class="guestChunkCaption">{{ $t("guest.participateCaption") }}</h4>
                 <ul class="participateList">
                     <li class="participateItem" v-for="(participate, index) in guest.ProgramList" :key="index">
@@ -194,5 +194,16 @@ export default {
     font-size: 0.28rem;
     line-height: 0.4rem;
     color: var(--themeColor);
+}
+.sendCardLabel {
+    box-sizing: border-box;
+    font-size: 0.28rem;
+    line-height: 0.56rem;
+    text-align: center;
+    border: 0.02rem solid #f0f1f2;
+    border-radius: 0.3rem;
+}
+.guestContactItemName {
+    font-size: 0.28rem;
 }
 </style>

@@ -42,7 +42,6 @@ export default {
         ])
     },
     created: function() {
-        console.log(this)
         this.getProductDetail({ eventNo: this.eventNo, id: this.productId, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
     }
 }

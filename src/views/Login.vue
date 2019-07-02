@@ -18,10 +18,10 @@
 		</div>
 		<div class="loginBox">
 			<div class="formGroup">
-				<input class="formInput" type="text" ref="account" v-bind:placeholder="accountPlaceholder" v-model.trim="account">
+				<input class="formInput" type="text" ref="account" v-bind:placeholder="$t('login.accountPlaceholder')" v-model.trim="account">
 			</div>
 			<div class="formGroup clear">
-				<input class="formInput valicodeInput lt" type="text" maxlength="6" ref="valicode" v-bind:placeholder="valicodePlaceholder" v-model.trim="valicode">
+				<input class="formInput valicodeInput lt" type="text" maxlength="6" ref="valicode" v-bind:placeholder="$t('login.valicodePlaceholder')" v-model.trim="valicode">
 				<!-- <button class="btn btnRed getValicode rt" @click="getValicode" v-t="{ path: 'login.getValicode', locale: language }">{{ $t('login.getValicode') }}</button> -->
 				<button class="btn btnRed getValicode rt" @click="getValicode" v-bind:disabled="isGettedCode">{{ isGettedCode ? (countDown + "s") : $t("login.getCode[" + valicodeTipIndex + "]") }}</button>
 				<!-- <button class="btn btnRed getValicode rt" @click="getValicode" v-t="'login.getValicode'"></button> -->
@@ -40,7 +40,7 @@
 	</div>
 </template>
 <script>
-import { mapActions } from "vuex"
+import { mapActions, mapState } from "vuex"
 export default {
 	name: "login",
 	data: function() {
@@ -67,24 +67,17 @@ export default {
 				localStorage.setItem("localeLanguage", value);
 			}
 		},
-		eventNo: function() {
-			return this.$store.state.eventNo
-		},
-		lang: function() {
-			return this.$i18n.messages[this.$store.state.Lang]
-		},
-		accountPlaceholder: function() {
-			return this.lang.login.account
-		},
-		valicodePlaceholder: function() {
-			return this.lang.login.valicode
-		}
+		...mapState({
+			eventNo: state => state.eventNo,
+			lang: state => state.Lang
+		}),
 	},
 	methods: {
 		// 使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
 		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
 		...mapActions({
 			initProgram: "getProgramList",
+			initMyInfo: "getMyInfo",
 			initToken: "initToken"
 		}),
 		_validate: function(type) {
@@ -221,6 +214,8 @@ export default {
 		// 初始化日程列表
 		// 应在此处根据语言初始化日程列表，暂时注释，后续再放开
 		// this.initProgram({ eventNo: 63, token: "", lang: this.lang == 'zh' ? 1 : 2 });
+
+		this.initMyInfo({ eventNo: this.$store.state.eventNo, token: this.$state.Account.Token })
 	}
 }
 </script>
