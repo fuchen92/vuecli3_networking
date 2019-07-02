@@ -15,7 +15,7 @@
             <div class="speakerChunk">
                 <h4 class="speakerChunkCaption">{{ $t("speaker.introCaption") }}</h4>
                 <p class="speakerIntro">
-                    {{ speakerDetail.Resume == null ? $t("speaker.emptyVal") : speakerDetail.Resume }}
+                    {{ (speakerDetail.Resume == null || speakerDetail.Resume == "") ? $t("speaker.emptyVal") : speakerDetail.Resume }}
                 </p>
             </div>
             <div class="speakerChunk" v-if="speakerDetail.ProgramList.length != 0">

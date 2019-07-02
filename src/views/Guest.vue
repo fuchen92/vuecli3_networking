@@ -4,22 +4,22 @@
         <div class="guestBox">
             <div class="guestChunk">
                 <div class="guestAvatar">
-                    <img class="guestPhoto" src="../assets/avatar.jpg" alt="">
+                    <img class="guestPhoto" :src="guest.Photo" alt="">
                 </div>
                 <div class="guestInfo">
-                    <h4 class="guestName">张三</h4>
-                    <p class="guestJob">警察</p>
-                    <p class="guestCompany">公安局</p>
+                    <h4 class="guestName">{{ guest.Name }}</h4>
+                    <p class="guestJob">{{ guest.JobTitle }}</p>
+                    <p class="guestCompany">{{ guest.Company }}</p>
                 </div>
             </div>
             <div class="guestChunk">
-                <h4 class="guestChunkCaption">简介</h4>
+                <h4 class="guestChunkCaption">{{ $t("guest.introLabel") }}</h4>
                 <p class="guestIntro">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam eum, cumque animi sapiente minus molestias non ullam, tempora nihil explicabo dolores maiores cum vero, voluptatibus provident maxime voluptatum! Facilis, quod.
+                    {{ (guest.Intro == "" || guest.Intro == null) ? $t("guest.emptyVal") : guest.Intro }}
                 </p>
             </div>
             <div class="guestChunk" v-if="guest.ProgramList.length != 0">
-                <h4 class="guestChunkCaption">参与的环节</h4>
+                <h4 class="guestChunkCaption">{{ $t("guest.participateCaption") }}</h4>
                 <ul class="participateList">
                     <li class="participateItem" v-for="(participate, index) in guest.ProgramList" :key="index">
                         <div class="participateInfo">
@@ -39,33 +39,33 @@
             </div>
             <div class="guestChunk" v-if="guest.Role != 4 || guest.ContactList.length > 0">
                 <div class="guestChunkContactTitle clear">
-                    <h4 class="guestChunkCaption lt">联系方式</h4>
-                    <span class="sendCardLabel rt">发送名片</span>
+                    <h4 class="guestChunkCaption lt">{{ $t("guest.contactLabel") }}</h4>
+                    <span class="sendCardLabel rt">{{ $t("guest.sendCard") }}</span>
                 </div>
                 <div class="guestContact">
                     <div class="guestContactItem clear">
-                        <p class="guestContactItemName lt">手机</p>
-                        <p class="guestContactItemVal rt">{{ guest.ContactList[0].Name || '未填写' }}</p>
+                        <p class="guestContactItemName lt">{{ $t("guest.mobileLabel") }}</p>
+                        <p class="guestContactItemVal rt">{{ (guest.ContactList[0] == "" || guest.ContactList[0] == null) ? $t("guest.emptyVal") : guest.ContactList[0].Name }}</p>
                     </div>
                     <div class="guestContactItem clear">
-                        <p class="guestContactItemName lt">邮箱</p>
-                        <p class="guestContactItemVal rt">{{ guest.ContactList[1].Name || '未填写' }}</p>
+                        <p class="guestContactItemName lt">{{ $t("guest.emailLabel") }}</p>
+                        <p class="guestContactItemVal rt">{{ (guest.ContactList[1] == "" || guest.ContactList[1] == null) ? $t("guest.emptyVal") : guest.ContactList[1].Name }}</p>
                     </div>
                     <div class="guestContactItem clear">
-                        <p class="guestContactItemName lt">微信</p>
-                        <p class="guestContactItemVal rt">{{ guest.ContactList[2].Name || '未填写' }}</p>
+                        <p class="guestContactItemName lt">{{ $t("guest.wechatLabel") }}</p>
+                        <p class="guestContactItemVal rt">{{ (guest.ContactList[2] == "" || guest.ContactList[2] == null) ? $t("guest.emptyVal") : guest.ContactList[2].Name }}</p>
                     </div>
                 </div>
             </div>
             <template v-if="guest.SolutionList.length != 0">                
-                <div class="guestChunk" v-for="(solution, index) guest.SolutionList" :key="solution.Id">
-                    <h4 class="guestChunkCaption" v-if="index == 0">需求</h4>
+                <div class="guestChunk" v-for="(solution, index) in guest.SolutionList" :key="solution.Id">
+                    <h4 class="guestChunkCaption" v-if="index == 0">{{ $t("guest.demandLabel") }}</h4>
                     <div class="guestDemand">
                         <p class="demandContent">{{ solution.Intro }}</p>
                         <div class="demandBottom clear">
                             <p class="demandTime lt">{{ solution.Time }}</p>
-                            <div class="demandLike" :data-id="solution.Id" :data-index="index">
-                                
+                            <div class="demandLike rt" :class="{ active: solution.IsLike }" :data-id="solution.Id" :data-index="index">
+                                {{ $tc("guest.interest", solution.Like) }}
                             </div>
                         </div>
                     </div>

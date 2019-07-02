@@ -89,6 +89,16 @@ export default {
     },
     guest: {
         "navBarTitle": "Guest Details",
+        "introLabel": "Intro",
+        participateCaption: "Participation Process",
+        contactLabel: "Contact",
+        sendCard: "SendContact",
+        mobileLabel: "Mobile",
+        emailLabel: "Email",
+        wechatLabel: "WeChat",
+        demandLabel: "Demand",
+        emptyVal: "Not Filled",
+        "interest": "{count} People Are Interested"
     },
     attendees: {
         "tabs": [

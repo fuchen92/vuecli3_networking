@@ -33,7 +33,8 @@ export default new Vuex.Store({
         },
         GuestDetail: {
             ProgramList: [],
-            ContactList: []
+            ContactList: [],
+            SolutionList: []
         },
         ExhibitorList: [],
         ExhibitorDetail: {
@@ -100,7 +101,6 @@ export default new Vuex.Store({
         },
         // 获取参会嘉宾详情
         INITGUESTDETAIL(state, { guestDetail }) {
-            console.log(guestDetail);
             state.GuestDetail = guestDetail;
         },
         // 初始化展商列表

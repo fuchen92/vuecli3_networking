@@ -89,6 +89,16 @@ export default {
     },
     guest: {
         "navBarTitle": "嘉宾详情",
+        "introLabel": "简介",
+        participateCaption: "参与的环节",
+        contactLabel: "联系方式",
+        sendCard: "发送名片",
+        mobileLabel: "手机",
+        emailLabel: "邮箱",
+        wechatLabel: "微信",
+        demandLabel: "需求",
+        emptyVal: "未填写",
+        "interest": "{count}人感兴趣",
     },
     attendees: {
         "tabs": [
