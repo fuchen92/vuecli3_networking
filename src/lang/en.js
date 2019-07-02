@@ -98,7 +98,9 @@ export default {
         wechatLabel: "WeChat",
         demandLabel: "Demand",
         emptyVal: "Not Filled",
-        "interest": "{count} People Are Interested"
+        "interest": "{count} People Are Interested",
+        inviteLabel: "Invitations",
+        chatLabel: "Chat"
     },
     attendees: {
         "tabs": [

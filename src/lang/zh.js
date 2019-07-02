@@ -99,6 +99,8 @@ export default {
         demandLabel: "需求",
         emptyVal: "未填写",
         "interest": "{count}人感兴趣",
+        inviteLabel: "邀约会面",
+        chatLabel: "聊一聊"
     },
     attendees: {
         "tabs": [

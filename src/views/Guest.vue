@@ -40,7 +40,7 @@
             <div class="guestChunk" v-if="guest.Role != 4 || guest.ContactList.length > 0">
                 <div class="guestChunkContactTitle clear">
                     <h4 class="guestChunkCaption lt">{{ $t("guest.contactLabel") }}</h4>
-                    <span class="sendCardLabel rt" v-if="guest.Id != ">{{ $t("guest.sendCard") }}</span>
+                    <span class="sendCardLabel rt" v-if="guest.Id != userInfomation.Id">{{ $t("guest.sendCard") }}</span>
                 </div>
                 <div class="guestContact">
                     <div class="guestContactItem clear">
@@ -63,7 +63,7 @@
                     <div class="guestDemand">
                         <p class="demandContent">{{ solution.Intro }}</p>
                         <div class="demandBottom clear">
-                            <p class="demandTime lt">{{ solution.Time }}</p>
+                            <p class="demandTime lt">{{ solution.Time.split("T")[0].substr(5, 5) + " " + solution.Time.split("T")[1].substr(0, 5) }}</p>
                             <div class="demandLike rt" :class="{ active: solution.IsLike }" :data-id="solution.Id" :data-index="index">
                                 {{ $tc("guest.interest", solution.Like) }}
                             </div>
@@ -71,6 +71,15 @@
                     </div>
                 </div>
             </template>
+        </div>
+        <div class="guestLinks" v-if="guest.Id != userInfomation.Id">
+            <router-link v-if="guest.Role == 2" class="guestLink inviteLink" :to="`/invite?inviteId=${guest.Id}&uName=${guest.Name}&uCompany=${guest.Company}&uJob=${guest.JobTitle}&uPhoto=${guest.Photo}`">
+                {{ $t("guest.inviteLabel") }}
+            </router-link>
+            <b class="guestLinkDivide" v-if="guest.Role == 2"></b>
+            <router-link class="guestLink chatLink" :class="{ large: guest.Role != 2 }" :to="`/chat?chatId=${guest.Id}`">
+                {{ $t("guest.chatLabel") }}
+            </router-link>
         </div>
     </div>
 </template>
@@ -95,7 +104,8 @@ export default {
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
-            guest: state => state.GuestDetail
+            guest: state => state.GuestDetail,
+            userInfomation: state => state.MyInfomation
         })
     },
     methods: {
@@ -104,6 +114,7 @@ export default {
         ])
     },
     created: function() {
+        console.log(this.userInfomation)
         this.getGuestDetail({ eventNo: this.eventNo, id: this.guestId, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
     }
 }
@@ -127,7 +138,7 @@ export default {
     box-sizing: border-box;
     width: 95%;
     margin: 0 auto 0.2rem;
-    padding: 0.4rem 0.2rem;
+    padding: 0.3rem 0.2rem;
     font-size: 0;
     background-color: #fff;
 }
@@ -176,7 +187,7 @@ export default {
     width: 2rem;
     height: 0.6rem;
     margin-left: 0.2rem;
-    font-size: 0.28rem;
+    font-size: 0.24rem;
     line-height: 0.56rem;
     text-align: center;
     border: 0.02rem solid #f0f1f2;
@@ -197,13 +208,76 @@ export default {
 }
 .sendCardLabel {
     box-sizing: border-box;
-    font-size: 0.28rem;
-    line-height: 0.56rem;
+    height: 0.4rem;
+    padding: 0 0.2rem;
+    font-size: 0.24rem;
+    line-height: 0.36rem;
     text-align: center;
     border: 0.02rem solid #f0f1f2;
     border-radius: 0.3rem;
 }
+.guestContact {
+    margin-top: 0.2rem;
+}
+.guestContactItem {
+    margin-bottom: 0.2rem;
+    padding: 0 0.2rem;
+    font-size: 0.24rem;
+    line-height: 0.8rem;
+    border: 0.02rem solid #f0f1f2;
+}
+.guestContactItemName, .guestContactItemVal {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .guestContactItemName {
+    width: 2.4rem;
+}
+.guestContactItemVal {
+    width: calc(100% - 2.4rem);
+    text-align: right;
+}
+.guestDemand {
+    margin-top: 0.2rem;
+}
+.demandContent {
+    font-size: 0.24rem;
+}
+.demandBottom {
+    margin-top: 0.2rem;
+    padding-top: 0.2rem;
+    font-size: 0.24rem;
+    border-top: 0.02rem solid #f0f1f2;
+}
+.guestLinks {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1rem;
+    font-size: 0;
+    background-color: #fff;
+}
+.guestLink, .guestLinkDivide {
+    display: inline-block;
+    vertical-align: middle;
+}
+.guestLinkDivide {
+    width: 0.02rem;
+    height: 0.4rem;
+    margin: 0 0.1rem;
+    background-color: #f0f1f2;
+}
+.guestLink {
+    width: calc((100% - 0.22rem) / 2);
+    height: 1rem;
     font-size: 0.28rem;
+    line-height: 1rem;
+    text-align: center;
+    color: #2c3e50;
+}
+.guestLink.large {
+    width: 100%;
 }
 </style>
