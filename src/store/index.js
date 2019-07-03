@@ -8,6 +8,7 @@ import {
     getProgramDetail,
     getSpeakerDetail,
     getGuestDetail,
+    getAttendsFilter,
     getExhibitorList,
     getExhibitorDetail,
     getProductDetail,
@@ -37,6 +38,7 @@ export default new Vuex.Store({
             ContactList: [],
             SolutionList: []
         },
+        FilterMenu: [],
         ExhibitorList: [],
         ExhibitorDetail: {
             Attendees: [],
@@ -106,6 +108,10 @@ export default new Vuex.Store({
         INITGUESTDETAIL(state, { guestDetail }) {
             console.log(guestDetail)
             state.GuestDetail = guestDetail;
+        },
+        INITATTENDSFILTERMENU(state, { filterMenu }) {
+            console.log(filterMenu)
+            state.FilterMenu = filterMenu;
         },
         // 初始化展商列表
         INITEXHIBITORLIST(state, { exhibitorList }) {
@@ -193,6 +199,12 @@ export default new Vuex.Store({
         getGuestDetail({ commit }, { eventNo, id, token, lang }) {
             getGuestDetail(eventNo, id, token, lang).then(res => {
                 commit("INITGUESTDETAIL", { guestDetail: res.data.Data })
+            })
+        },
+        // 获取人脉页推荐面板选项
+        getAttendsFilter({ commit }, { eventNo, token, lang }) {
+            getAttendsFilter(eventNo, token, lang).then(res => {
+                commit("INITATTENDSFILTERMENU", { filterMenu: res.data.Data })
             })
         },
         // 获取展商列表

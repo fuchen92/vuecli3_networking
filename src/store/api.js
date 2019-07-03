@@ -38,6 +38,14 @@ export function getGuestDetail(eventNo, id, token, lang) {
     })
 }
 
+export function getAttendsFilter(eventNo, token, lang) {
+    return axios.post(`${apiDomain}/Attendees/FilterMenu`, {
+        eventNo: eventNo,
+        token: token,
+        lang: lang
+    })
+}
+
 export function getExhibitorList(eventNo, index, size, token, lang) {
     return axios.post(`${apiDomain}/Exhibitors/List`, {
         eventNo: eventNo,

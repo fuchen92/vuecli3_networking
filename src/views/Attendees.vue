@@ -10,9 +10,56 @@
                 <div class="emptyList" v-if="recommendList.length == 0">
                     <img class="emptyListImg" src="../assets/nullState.png" alt="">
                     <p class="emptyListDesc">{{ $t("attendees.emptyListDesc") }}</p>
-                    <button class="openRecommend">{{ $t("attendees.openRecommend") }}</button>
+                    <button class="openFilter" @click="openFilter">{{ $t("attendees.openFilter") }}</button>
                 </div>
             </div>
+        </div>
+        <div class="filterPanel" v-show="showFilter">
+            <form class="filterForm" @submit.prevent="submitFilter" @reset="reset">
+                <div class="filterBox">
+                    <template v-for="(category, index) in filterMenu">
+                        <template v-if="category.Id > 100">
+                            <template v-for="(industry, industryIndex) in category.Value">
+                                <div class="filterCard" :key="industryIndex">
+                                    <p class="filterCardCaption">
+                                        {{ industry.Name }}
+                                        <span class="filterCaptionTip">（可多选）</span>
+                                    </p>
+                                    <div class="filterTags">
+                                        <label class="filterLabel" v-for="(tag, tagidx) in industry.Value" :key="tagidx" :value="tag.Id">
+                                            <input class="filterCheckBox" type="checkbox" :value="tag.Id" v-model="industryArr">
+                                            <i class="filterTag">{{ tag.Name }}</i>
+                                        </label>
+                                    </div>
+                                </div>                
+                            </template>
+                        </template>
+                        <template v-else>
+                            <div class="filterCard" :key="index">
+                                <p class="filterCardCaption">
+                                    {{ category.Name }}
+                                    <span class="filterCaptionTip">（可多选）</span>
+                                </p>
+                                <div class="filterTags">
+                                    <label class="filterLabel" v-for="(tag, tagidx) in category.Value" :key="tagidx" :value="tag.Id">
+                                        <template v-if="index == 1">
+                                            <input class="filterCheckBox" type="checkbox" :value="tag.Id" v-model="functionArr">
+                                        </template>
+                                        <template v-else-if="index == 2">
+                                            <input class="filterCheckBox" type="checkbox" :value="tag.Id" v-model="identityArr">
+                                        </template>
+                                        <i class="filterTag">{{ tag.Name }}</i>
+                                    </label>
+                                </div>
+                            </div> 
+                        </template>
+                    </template>       
+                </div>
+                <div class="filterBtns">
+                    <button class="filterBtn" type="reset">重置</button>
+                    <button class="filterBtn submitFilterBtn" type="submit">完成</button>
+                </div>
+            </form>
         </div>
     </div>
 </template>
@@ -23,7 +70,11 @@ export default {
     data: function() {
         return {
             currentIndex: 0,
-            recommendList: []
+            recommendList: [],
+            industryArr: [],
+            functionArr: [],
+            identityArr: [],
+            showFilter: false
         }
     },
     computed: {
@@ -33,8 +84,34 @@ export default {
         ...mapState({
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
-            token: state => state.Account.Token
+            token: state => state.Account.Token,
+            filterMenu: state => state.FilterMenu
         })
+    },
+    methods: {
+        ...mapActions([
+            "getAttendsFilter"
+        ]),
+        openFilter: function() {
+            this.showFilter = true;
+        },
+        reset: function() {
+            this.industryArr.length = 0;
+            this.functionArr.length = 0;
+            this.identityArr.length = 0;
+        },
+        submitFilter: function() {
+            if(this.industryArr.length == 0 && this.functionArr.length == 0 && this.identityArr.length == 0) {
+                alert("请选中任意筛选项");
+                return false;
+            }
+            console.log(this.industryArr)
+            console.log(this.functionArr)
+            console.log(this.identityArr)
+        }
+    },
+    created: function() {
+        this.getAttendsFilter({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
     }
 }
 </script>
@@ -98,7 +175,7 @@ export default {
     text-align: center;
     color: #666666;
 }
-.openRecommend {
+.openFilter {
     margin-top: 0.2rem;
     padding: 0 0.8rem;
     font-size: 0.24rem;
@@ -106,5 +183,97 @@ export default {
     background-color: var(--themeColor);
     border-radius: 0.4rem;
     color: #fff;
+}
+.filterPanel {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 0;
+    background-color: #f0f1f2;
+    z-index: 100;
+}
+.filterForm {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.filterBox {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 0.2rem 0 1.2rem;
+    overflow: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+.filterCard {
+    box-sizing: border-box;
+    width: 95%;
+    margin: 0 auto 0.2rem;
+    padding: 0.2rem;
+    background-color: #fff;
+}
+.filterCard:last-child {
+    margin-bottom: 0;
+}
+.filterCardCaption {
+    padding-bottom: 0.1rem;
+    font-size: 0.28rem;
+    border-bottom: 0.02rem solid #f0f1f2;
+}
+.filterCaptionTip {
+    font-size: 0.24rem;
+}
+.filterTags {
+    margin-top: 0.2rem;
+    font-size: 0;
+}
+.filterLabel {
+    display: inline-block;
+    margin: 0 0.3rem 0.2rem 0;
+}
+.filterCheckBox {
+    display: none;
+}
+.filterTag {
+    box-sizing: border-box;
+    display: block;
+    height: 0.4rem;
+    padding: 0 0.2rem;
+    font-style: normal;
+    font-size: 0.24rem;
+    line-height: 0.4rem;
+    background-color: #f0f1f2;
+    border-radius: 0.4rem;
+    color: #666;
+}
+.filterCheckBox:checked + .filterTag {
+    background-color: var(--themeColor);
+    color: #ffffff;
+}
+.filterBtns {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1rem;
+    font-size: 0;
+}
+.filterBtn {
+    display: inline-block;
+    width: 50%;
+    height: 1rem;
+    font-size: 0.28rem;
+    line-height: 1rem;
+    text-align: center;
+    background-color: #fff;
+    color: #2c3e50;
+}
+.submitFilterBtn {
+    background-color: var(--themeColor);
+    color: #ffffff;
 }
 </style>

@@ -15,13 +15,16 @@ export default {
     name: "Invite",
     data: function() {
         return {
-            navBarTitle: this.$i18n.messages[this.$store.state.Lang].invite.navBarTitle,
+            
         }
     },
     components: {
         NavBar
     },
     computed: {
+        navBarTitle: function() {
+            return this.$i18n.messages[this.lang].invite.navBarTitle
+        },
          ...mapState({
             lang: state => state.Lang,
             eventNo: state => state.eventNo,

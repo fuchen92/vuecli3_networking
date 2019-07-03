@@ -112,7 +112,7 @@ export default {
             }
         ],
         emptyListDesc: "There is no recommended guest, please select the label",
-        openRecommend: "Open the recommended"
+        openFilter: "Open the recommended"
     },
     invite: {
         navBarTitle: "Invite"

@@ -112,7 +112,7 @@ export default {
             }
         ],
         emptyListDesc: "暂无推荐嘉宾，请筛选标签",
-        openRecommend: "开启推荐"
+        openFilter: "开启推荐"
     },
     invite: {
         navBarTitle: "邀约会面"

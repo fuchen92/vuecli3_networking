@@ -142,7 +142,7 @@ export default {
     width: 2rem;
     height: 0.6rem;
     margin-left: 0.2rem;
-    font-size: 0.28rem;
+    font-size: 0.24rem;
     line-height: 0.56rem;
     text-align: center;
     border: 0.02rem solid #f0f1f2;

@@ -110,11 +110,12 @@ export default {
     },
     methods: {
         ...mapActions([
-            "getGuestDetail"
+            "getGuestDetail",
+            "getMyInfo"
         ])
     },
     created: function() {
-        console.log(this.userInfomation)
+        this.getMyInfo({ eventNo: this.eventNo, token: this.token })
         this.getGuestDetail({ eventNo: this.eventNo, id: this.guestId, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
     }
 }

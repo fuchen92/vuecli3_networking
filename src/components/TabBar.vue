@@ -30,6 +30,7 @@ export default {
 </script>
 <style>
 .tabBar {
+    box-sizing: border-box;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -39,6 +40,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     background-color: #ffffff;
+    border-top: 0.02rem solid #f0f1f2;
     z-index: 1000;
 }
 .tabBarItemLink {
