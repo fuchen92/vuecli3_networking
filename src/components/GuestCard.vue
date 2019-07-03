@@ -11,17 +11,18 @@
             </div>
         </router-link>
         <div class="guestOpts">
-            <router-link class="inviteLink" :to="'/invite?inviteId=' + guest.Id" v-if="guest.Role != 4">
-                邀约会面
-            </router-link>
+            <button class="inviteLink" :data-id="guest.Id" v-if="guest.Role != 4" @click.stop="toInvite($event)">
+                {{ $t("guestCard.inviteBtn") }}
+            </button>
             <b class="guestOptDivide" v-if="guest.Role != 4"></b>
-            <router-link class="guestChatLink" :class="{ large: guest.Role == 4 }" :to="'/chat?chatId=' + guest.Id">
-                发消息
-            </router-link>
+            <button class="guestChatLink" :data-id="guest.Id" :class="{ large: guest.Role == 4 }" @click.stop="toChat($event)">
+                {{ $t("guestCard.chatBtn") }}
+            </button>
         </div>
     </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
     name: "GuestCard",
     data: function() {
@@ -32,6 +33,29 @@ export default {
     props: {
         guest: {
             type: Object
+        }
+    },
+    computed: {
+        ...mapState({
+            myInfo: state => state.MyInfomation
+        })
+    },
+    methods: {
+        toInvite: function(event) {
+            var id = event.target.dataset.id;
+            if(id == this.myInfo.Id) {
+                alert("无法对自己进行操作");
+                return false;
+            }
+            this.$router.push({ path: "/invite", query: { inviteId: id } });
+        },
+        toChat: function(event) {
+            var id = event.target.dataset.id;
+            if(id == this.myInfo.Id) {
+                alert("无法对自己进行操作");
+                return false;
+            }
+            this.$router.push({ path: "/chat", query: { chatId: id } });
         }
     }
 }
@@ -94,6 +118,7 @@ export default {
     font-size: 0.24rem;
     line-height: 0.8rem;
     text-align: center;
+    background-color: transparent;
     color: var(--themeColor);
 }
 .guestChatLink.large {

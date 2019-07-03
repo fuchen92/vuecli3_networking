@@ -26,7 +26,7 @@
                                 <div class="filterCard" :key="industryIndex">
                                     <p class="filterCardCaption">
                                         {{ industry.Name }}
-                                        <span class="filterCaptionTip">（可多选）</span>
+                                        <span class="filterCaptionTip">（{{ $t("attendees.multiTip") }}）</span>
                                     </p>
                                     <div class="filterTags">
                                         <label class="filterLabel" v-for="(tag, tagidx) in industry.Value" :key="tagidx" :value="tag.Id">
@@ -41,7 +41,7 @@
                             <div class="filterCard" :key="index">
                                 <p class="filterCardCaption">
                                     {{ category.Name }}
-                                    <span class="filterCaptionTip">（可多选）</span>
+                                    <span class="filterCaptionTip">（{{ $t("attendees.multiTip") }}）</span>
                                 </p>
                                 <div class="filterTags">
                                     <label class="filterLabel" v-for="(tag, tagidx) in category.Value" :key="tagidx" :value="tag.Id">
@@ -59,8 +59,8 @@
                     </template>       
                 </div>
                 <div class="filterBtns">
-                    <button class="filterBtn" type="reset">重置</button>
-                    <button class="filterBtn submitFilterBtn" type="submit">完成</button>
+                    <button class="filterBtn" type="reset">{{ $t("attendees.resetBtn") }}</button>
+                    <button class="filterBtn submitFilterBtn" type="submit">{{ $t("attendees.submit") }}</button>
                 </div>
             </form>
         </div>

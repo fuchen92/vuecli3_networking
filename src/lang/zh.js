@@ -2,6 +2,14 @@ export default {
     "navBar": {
         "search": "搜索参会嘉宾或企业"
     },
+    postCard: {
+        tel: "联系",
+        interest: "{count}人感兴趣"
+    },
+    guestCard: {
+        inviteBtn: "邀约会面",
+        chatBtn: "聊一聊"
+    },
     "tabBar": {
         "home": "日程",
         "attendees": "人脉",
@@ -112,7 +120,10 @@ export default {
             }
         ],
         emptyListDesc: "暂无推荐嘉宾，请筛选标签",
-        openFilter: "开启推荐"
+        openFilter: "开启推荐",
+        multiTip: "可多选",
+        resetBtn: "重置",
+        submit: "完成"
     },
     invite: {
         navBarTitle: "邀约会面"
@@ -134,10 +145,6 @@ export default {
         "emptySupplyDesc": "您暂未发布供应",
         "emptyRequirementDesc": "您暂未发布需求",
         "attendExpected": "等{count}人出席",
-    },
-    postCard: {
-        tel: "联系",
-        interest: "{count}人感兴趣"
     },
     "publish": {
         "navBarSupplyTitle": "发布供应",

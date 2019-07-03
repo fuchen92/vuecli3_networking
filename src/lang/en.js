@@ -2,6 +2,14 @@ export default {
     "navBar": {
         "search": "Search"
     },
+    postCard: {
+        tel: "Tel",
+        interest: "{count} People Are interested"
+    },
+    guestCard: {
+        inviteBtn: "Invitations Meet",
+        chatBtn: "Chat"
+    },
     "tabBar": {
         "home": "Program",
         "attendees": "Attendees",
@@ -112,7 +120,10 @@ export default {
             }
         ],
         emptyListDesc: "There is no recommended guest, please select the label",
-        openFilter: "Open the recommended"
+        openFilter: "Open the recommended",
+        multiTip: "Multiple Choices",
+        resetBtn: "Reset",
+        submit: "Submit"
     },
     invite: {
         navBarTitle: "Invite"
@@ -134,10 +145,6 @@ export default {
         "emptySupplyDesc": "You have not released the supply yet",
         "emptyRequirementDesc": "You have not published requirements yet",
         "attendExpected": "{count} people are expected to attend"
-    },
-    postCard: {
-        tel: "Tel",
-        interest: "{count} People Are interested"
     },
     "publish": {
         "navBarSupplyTitle": "Publish Supply",
