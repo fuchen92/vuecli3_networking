@@ -8,6 +8,7 @@ import {
     getProgramDetail,
     getSpeakerDetail,
     getGuestDetail,
+    getAttendsList,
     getAttendsFilter,
     getExhibitorList,
     getExhibitorDetail,
@@ -38,6 +39,7 @@ export default new Vuex.Store({
             ContactList: [],
             SolutionList: []
         },
+        AttendsList: [],
         FilterMenu: [],
         ExhibitorList: [],
         ExhibitorDetail: {
@@ -109,8 +111,13 @@ export default new Vuex.Store({
             console.log(guestDetail)
             state.GuestDetail = guestDetail;
         },
+        // 获取人脉页所有嘉宾列表
+        INITATTENDSLIST(state, { attendsList }) {
+            console.log(attendsList);
+            state.AttendsList = attendsList;
+        },
+        // 获取人脉页推荐面板筛选选项
         INITATTENDSFILTERMENU(state, { filterMenu }) {
-            console.log(filterMenu)
             state.FilterMenu = filterMenu;
         },
         // 初始化展商列表
@@ -135,7 +142,6 @@ export default new Vuex.Store({
         },
         // 获取广场供应帖子
         INITSUPPLYLIST(state, { plazaList }) {
-            console.log(plazaList)
             state.SupplyList = plazaList;
         },
         // 获取广场需求帖子
@@ -201,7 +207,13 @@ export default new Vuex.Store({
                 commit("INITGUESTDETAIL", { guestDetail: res.data.Data })
             })
         },
-        // 获取人脉页推荐面板选项
+        // 获取人脉页所有嘉宾列表
+        getAttendsList({ commit }, { eventNo, index, size, token, lang }) {
+            getAttendsList(eventNo, index, size, token, lang).then(res => {
+                commit("INITATTENDSLIST", { attendsList: res.data.Data })
+            })
+        },
+        // 获取人脉页推荐面板筛选选项
         getAttendsFilter({ commit }, { eventNo, token, lang }) {
             getAttendsFilter(eventNo, token, lang).then(res => {
                 commit("INITATTENDSFILTERMENU", { filterMenu: res.data.Data })

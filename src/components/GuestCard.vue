@@ -1,21 +1,21 @@
 <template>
     <div class="guestCard">
-        <router-link class="guestLink" :to="'/guest?guestId=' + guestId">
+        <router-link class="guestCardLink" :to="'/guest?guestId=' + guest.Id">
             <div class="guestAvatar">
-                <img class="guestPhoto" src="../assets/avatar.jpg" alt="">
+                <img class="guestPhoto" :src="guest.Photo" alt="">
             </div>
             <div class="guestInfo">
-                <p class="guestName">张三</p>
-                <p class="guestCompany">公安局</p>
-                <p class="guestJob">警察</p>
+                <p class="guestName">{{ guest.Name }}</p>
+                <p class="guestCompany">{{ guest.Company }}</p>
+                <p class="guestJob">{{ guest.JobTitle }}</p>
             </div>
         </router-link>
         <div class="guestOpts">
-            <router-link class="inviteLink" :to="'/invite?inviteId=' + guestId">
+            <router-link class="inviteLink" :to="'/invite?inviteId=' + guest.Id" v-if="guest.Role != 4">
                 邀约会面
             </router-link>
-            <b class="guestOptDivide"></b>
-            <router-link class="guestChatLink" :to="'/chat?chatId=' + guestId">
+            <b class="guestOptDivide" v-if="guest.Role != 4"></b>
+            <router-link class="guestChatLink" :class="{ large: guest.Role == 4 }" :to="'/chat?chatId=' + guest.Id">
                 发消息
             </router-link>
         </div>
@@ -30,22 +30,23 @@ export default {
         }
     },
     props: {
-        guestId: {
-            type: Number
+        guest: {
+            type: Object
         }
     }
 }
 </script>
 <style>
 .guestCard {
-    margin-bottom: 0.2rem;
+    width: 95%;
+    margin: 0 auto 0.2rem;
     background-color: #fff;
 }
 .guestCard:last-child {
     margin-bottom: 0;
 }
-.guestLink {
-    padding: 0.4rem 0.2rem 0.2rem;
+.guestCardLink {
+    padding: 0.2rem;
     font-size: 0;
 }
 .guestAvatar, .guestInfo {
@@ -77,6 +78,7 @@ export default {
     font-weight: bold;
 }
 .guestOpts {
+    font-size: 0;
     border-top: 0.02rem solid #f0f1f2;
 }
 .inviteLink, .guestOptDivide, .guestChatLink {
@@ -89,9 +91,12 @@ export default {
 }
 .inviteLink, .guestChatLink {
     width: calc((100% - 0.02rem) / 2);
-    font-size: 0.28rem;
+    font-size: 0.24rem;
     line-height: 0.8rem;
     text-align: center;
-    color: #2c3e50;
+    color: var(--themeColor);
+}
+.guestChatLink.large {
+    width: 100%;
 }
 </style>

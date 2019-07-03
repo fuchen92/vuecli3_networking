@@ -13,6 +13,9 @@
                     <button class="openFilter" @click="openFilter">{{ $t("attendees.openFilter") }}</button>
                 </div>
             </div>
+            <div class="attendList" :class="{ active: currentIndex == 1 }">
+                <GuestCard v-for="(guest, index) in Attends" :key="index" :guest="guest"></GuestCard>
+            </div>
         </div>
         <div class="filterPanel" v-show="showFilter">
             <form class="filterForm" @submit.prevent="submitFilter" @reset="reset">
@@ -65,6 +68,7 @@
 </template>
 <script>
 import { mapActions, mapState } from "vuex";
+import GuestCard from "@/components/GuestCard";
 export default {
     name: "Attendees",
     data: function() {
@@ -77,6 +81,9 @@ export default {
             showFilter: false
         }
     },
+    components: {
+        GuestCard
+    },
     computed: {
         tabs: function() {
             return this.$i18n.messages[this.lang].attendees.tabs
@@ -85,12 +92,14 @@ export default {
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
-            filterMenu: state => state.FilterMenu
+            filterMenu: state => state.FilterMenu,
+            Attends: state => state.AttendsList
         })
     },
     methods: {
         ...mapActions([
-            "getAttendsFilter"
+            "getAttendsFilter",
+            "getAttendsList"
         ]),
         openFilter: function() {
             this.showFilter = true;
@@ -111,6 +120,7 @@ export default {
         }
     },
     created: function() {
+        this.getAttendsList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
         this.getAttendsFilter({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
     }
 }
@@ -148,13 +158,19 @@ export default {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: 1rem 0 0;
+    padding: 1rem 0 0.2rem;
     overflow: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
-.recommendList.empty {
+.attendList {
+    display: none;
     width: 100%;
+}
+.attendList.active {
+    display: block;
+}
+.recommendList.empty {
     height: 100%;
 }
 .emptyList {

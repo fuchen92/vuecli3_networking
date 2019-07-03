@@ -120,7 +120,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .guest {
     position: relative;
     width: 100%;
@@ -265,13 +265,11 @@ export default {
     vertical-align: middle;
 }
 .guestLinkDivide {
-    width: 0.02rem;
     height: 0.4rem;
-    margin: 0 0.1rem;
-    background-color: #f0f1f2;
+    border-left: 0.02rem solid #f0f1f2;
 }
 .guestLink {
-    width: calc((100% - 0.22rem) / 2);
+    width: calc((100% - 0.02rem) / 2);
     height: 1rem;
     font-size: 0.28rem;
     line-height: 1rem;
