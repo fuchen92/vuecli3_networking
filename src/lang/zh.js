@@ -123,7 +123,9 @@ export default {
         openFilter: "开启推荐",
         multiTip: "可多选",
         resetBtn: "重置",
-        submit: "完成"
+        submit: "完成",
+        notFind: "找不到感兴趣的人",
+        reRecommend: "重新推荐"
     },
     invite: {
         navBarTitle: "邀约会面"

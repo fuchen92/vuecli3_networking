@@ -123,7 +123,9 @@ export default {
         openFilter: "Open the recommended",
         multiTip: "Multiple Choices",
         resetBtn: "Reset",
-        submit: "Submit"
+        submit: "Submit",
+        notFind: "Can't find anyone who is interested",
+        reRecommend: "Recommend"
     },
     invite: {
         navBarTitle: "Invite"

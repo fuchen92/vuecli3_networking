@@ -119,7 +119,6 @@ export default new Vuex.Store({
         },
         // 人脉页推荐列表
         INITRECOMMENDLIST(state, { recommendList }) {
-            console.log(recommendList);
             state.RecommendList = recommendList
         },
         // 获取人脉页推荐面板筛选选项

@@ -5,10 +5,11 @@
                 {{ tab.name }}
             </div>
         </div>
-        <div class="reRecommend clear" v-show="(currentIndex == 0 && (recommends != null) && showRecommendBar)">
-            <p class="reRecommendText lt">找不到感兴趣的人</p>
+        <div class="reRecommend clear" v-show="(currentIndex == 0 && (recommends != null) && showTopRecommend)">
+        <!-- <div class="reRecommend clear" v-show="showRecommendBar"> -->
+            <p class="reRecommendText lt">{{ $t("attendees.notFind") }}</p>
             <span class="closeReRecommend rt" @click="hideRecommendBar"></span>
-            <button class="reRecommendBtn rt" @click="showFilter = true">重新推荐</button>
+            <button class="reRecommendBtn rt" @click="showFilter = true">{{ $t("attendees.reRecommend") }}</button>
         </div>
         <div class="attendBox">
             <div class="attendWrapper" v-bind:class="{ active: currentIndex == 0, empty: recommends == null }">
@@ -17,7 +18,7 @@
                     <p class="emptyListDesc">{{ $t("attendees.emptyListDesc") }}</p>
                     <button class="openFilter" @click="openFilter">{{ $t("attendees.openFilter") }}</button>
                 </div>
-                <div class="recommendList" v-else :class="{ hasRecommendBar: showRecommendBar }">
+                <div class="recommendList" v-else :class="{ hasRecommendBar: showTopRecommend }">
                     <GuestCard v-for="(guest, index) in recommends" :key="index" :guest="guest"></GuestCard>
                 </div>
             </div>
@@ -89,7 +90,7 @@ export default {
             functionArr: filterObj != null ? filterObj.filter2 : [],
             identityArr: filterObj != null ? filterObj.filter3 : [],
             showFilter: false,
-            showRecommendBar: localStorage.getItem("showRecommendBar") != null ? localStorage.getItem("showRecommendBar") : true,
+            showTopRecommend: localStorage.getItem("showTopRecommend") != null ? localStorage.getItem("showTopRecommend") : true,
         }
     },
     components: {
@@ -99,6 +100,10 @@ export default {
         tabs: function() {
             return this.$i18n.messages[this.lang].attendees.tabs
         },
+        showRecommendBar: function() {
+            return (this.currentIndex == 0 && this.recommends != null && this.showTopRecommend == true);
+            // return true;
+        },
         ...mapState({
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
@@ -106,7 +111,6 @@ export default {
             filterMenu: state => state.FilterMenu,
             attends: state => state.AttendsList,
             recommends: state => state.RecommendList
-
         })
     },
     methods: {
@@ -124,8 +128,8 @@ export default {
             this.identityArr.length = 0;
         },
         hideRecommendBar: function() {
-            this.showRecommendBar = false;
-            localStorage.setItem("showRecommendBar", false);
+            this.showTopRecommend = false;
+            localStorage.setItem("showTopRecommend", false);
         },
         submitFilter: function() {
             if(this.industryArr.length == 0 && this.functionArr.length == 0 && this.identityArr.length == 0) {
@@ -159,7 +163,6 @@ export default {
         }
     },
     created: function() {
-        console.log(this.showRecommendBar)
         this.getRecommendList({
             eventNo: this.eventNo,
             keyword: "",
