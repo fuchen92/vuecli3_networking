@@ -128,7 +128,8 @@ export default {
         reRecommend: "重新推荐"
     },
     invite: {
-        navBarTitle: "邀约会面"
+        navBarTitle: "邀约会面",
+        matterInput: "我有一个项目，和贵公司的产品十分匹配，希望能有机会洽谈合作！"
     },
     "plaza": {
         "tabs": [
