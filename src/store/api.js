@@ -48,6 +48,20 @@ export function getAttendsList(eventNo, index, size, token, lang) {
     })
 }
 
+export function getRecommendList(eventNo, keyword, filter1, index, size, filter2, filter3, token, lang) {
+    return axios.post(`${apiDomain}/Attendees/Search`, {
+        eventNo: eventNo,
+        keyword: keyword,
+        filter1: filter1,
+        index: index,
+        size: size,
+        filter2: filter2,
+        filter3: filter3,
+        token: token,
+        lang: lang
+    })
+}
+
 export function getAttendsFilter(eventNo, token, lang) {
     return axios.post(`${apiDomain}/Attendees/FilterMenu`, {
         eventNo: eventNo,

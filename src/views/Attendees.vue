@@ -5,16 +5,26 @@
                 {{ tab.name }}
             </div>
         </div>
+        <div class="reRecommend clear" v-show="(currentIndex == 0 && (recommends != null) && showRecommendBar)">
+            <p class="reRecommendText lt">找不到感兴趣的人</p>
+            <span class="closeReRecommend rt" @click="hideRecommendBar"></span>
+            <button class="reRecommendBtn rt" @click="showFilter = true">重新推荐</button>
+        </div>
         <div class="attendBox">
-            <div class="attendList recommendList" v-bind:class="{ active: currentIndex == 0, empty: recommendList.length == 0 }">
-                <div class="emptyList" v-if="recommendList.length == 0">
+            <div class="attendWrapper" v-bind:class="{ active: currentIndex == 0, empty: recommends == null }">
+                <div class="emptyList" v-if="recommends == null">
                     <img class="emptyListImg" src="../assets/nullState.png" alt="">
                     <p class="emptyListDesc">{{ $t("attendees.emptyListDesc") }}</p>
                     <button class="openFilter" @click="openFilter">{{ $t("attendees.openFilter") }}</button>
                 </div>
+                <div class="recommendList" v-else :class="{ hasRecommendBar: showRecommendBar }">
+                    <GuestCard v-for="(guest, index) in recommends" :key="index" :guest="guest"></GuestCard>
+                </div>
             </div>
-            <div class="attendList" :class="{ active: currentIndex == 1 }">
-                <GuestCard v-for="(guest, index) in Attends" :key="index" :guest="guest"></GuestCard>
+            <div class="attendWrapper" :class="{ active: currentIndex == 1 }">
+                <div class="attendsList">
+                    <GuestCard v-for="(guest, index) in attends" :key="index" :guest="guest"></GuestCard>
+                </div>
             </div>
         </div>
         <div class="filterPanel" v-show="showFilter">
@@ -72,13 +82,14 @@ import GuestCard from "@/components/GuestCard";
 export default {
     name: "Attendees",
     data: function() {
+        var filterObj = JSON.parse(localStorage.getItem("filter"));
         return {
-            currentIndex: 0,
-            recommendList: [],
-            industryArr: [],
-            functionArr: [],
-            identityArr: [],
-            showFilter: false
+            currentIndex: 1,
+            industryArr: filterObj != null ? filterObj.filter1 : [],
+            functionArr: filterObj != null ? filterObj.filter2 : [],
+            identityArr: filterObj != null ? filterObj.filter3 : [],
+            showFilter: false,
+            showRecommendBar: localStorage.getItem("showRecommendBar") != null ? localStorage.getItem("showRecommendBar") : true,
         }
     },
     components: {
@@ -93,13 +104,16 @@ export default {
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
             filterMenu: state => state.FilterMenu,
-            Attends: state => state.AttendsList
+            attends: state => state.AttendsList,
+            recommends: state => state.RecommendList
+
         })
     },
     methods: {
         ...mapActions([
             "getAttendsFilter",
-            "getAttendsList"
+            "getAttendsList",
+            "getRecommendList"
         ]),
         openFilter: function() {
             this.showFilter = true;
@@ -109,17 +123,54 @@ export default {
             this.functionArr.length = 0;
             this.identityArr.length = 0;
         },
+        hideRecommendBar: function() {
+            this.showRecommendBar = false;
+            localStorage.setItem("showRecommendBar", false);
+        },
         submitFilter: function() {
             if(this.industryArr.length == 0 && this.functionArr.length == 0 && this.identityArr.length == 0) {
                 alert("请选中任意筛选项");
                 return false;
             }
-            console.log(this.industryArr)
-            console.log(this.functionArr)
-            console.log(this.identityArr)
+            var filterObj = {
+                eventNo: this.eventNo,
+                keyword: "",
+                filter1: this.industryArr,
+                index: 1,
+                size: -1,
+                filter2: this.functionArr,
+                filter3: this.identityArr,
+                token: this.token,
+                lang: this.lang == "zh" ? 1 : 2
+            }
+            localStorage.setItem("filter", JSON.stringify(filterObj));
+            this.getRecommendList({
+                eventNo: this.eventNo,
+                keyword: "",
+                filter1: this.industryArr.join(","),
+                index: 1,
+                size: 9999,
+                filter2: this.functionArr.join(","),
+                filter3: this.identityArr.join(","),
+                token: this.token,
+                lang: this.lang == "zh" ? 1 : 2
+            });
+            this.showFilter = false;
         }
     },
     created: function() {
+        console.log(this.showRecommendBar)
+        this.getRecommendList({
+            eventNo: this.eventNo,
+            keyword: "",
+            filter1: this.industryArr.join(","),
+            index: 1,
+            size: -1,
+            filter2: this.functionArr.join(","),
+            filter3: this.identityArr.join(","),
+            token: this.token,
+            lang: this.lang == "zh" ? 1 : 2
+        })
         this.getAttendsList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
         this.getAttendsFilter({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
     }
@@ -143,6 +194,7 @@ export default {
     width: 100%;
     height: 0.8rem;
     background-color: #fff;
+    z-index: 100;
 }
 .attendTab {
     padding: 0 0.2rem;
@@ -154,6 +206,40 @@ export default {
     color: var(--themeColor);
     border-bottom-color: var(--themeColor);
 }
+.reRecommend {
+    box-sizing: border-box;
+    position: absolute;
+    top: 1.8rem;
+    left: 0;
+    width: 100%;
+    height: 0.8rem;
+    padding: 0 2.5%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 100;
+}
+.closeReRecommend {
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0.2rem 0.1rem 0 0.3rem;
+    border-radius: 100%;
+    background: url(../assets/iconCloseBlack.svg) #ffffff center center/0.3rem auto no-repeat;
+}
+.reRecommendText {
+    font-size: 0.24rem;
+    line-height: 0.8rem;
+    color: #fff;
+}
+.reRecommendBtn {
+    width: 2rem;
+    height: 0.5rem;
+    margin: 0.15rem 0 0;
+    font-size: 0.24rem;
+    line-height: 0.5rem;
+    text-align: center;
+    border-radius: 0.4rem;
+    background-color: var(--themeColor);
+    color: #fff;
+}
 .attendBox {
     box-sizing: border-box;
     width: 100%;
@@ -163,14 +249,14 @@ export default {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
-.attendList {
+.attendWrapper {
     display: none;
     width: 100%;
 }
-.attendList.active {
+.attendWrapper.active {
     display: block;
 }
-.recommendList.empty {
+.attendWrapper.empty {
     height: 100%;
 }
 .emptyList {
@@ -190,6 +276,9 @@ export default {
     font-size: 0.24rem;
     text-align: center;
     color: #666666;
+}
+.recommendList.hasRecommendBar {
+    padding-top: 0.8rem;
 }
 .openFilter {
     margin-top: 0.2rem;

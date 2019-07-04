@@ -10,6 +10,7 @@ import {
     getGuestDetail,
     getAttendsList,
     getAttendsFilter,
+    getRecommendList,
     getExhibitorList,
     getExhibitorDetail,
     getProductDetail,
@@ -41,6 +42,7 @@ export default new Vuex.Store({
         },
         AttendsList: [],
         FilterMenu: [],
+        RecommendList: [],
         ExhibitorList: [],
         ExhibitorDetail: {
             Attendees: [],
@@ -113,8 +115,12 @@ export default new Vuex.Store({
         },
         // 获取人脉页所有嘉宾列表
         INITATTENDSLIST(state, { attendsList }) {
-            console.log(attendsList);
             state.AttendsList = attendsList;
+        },
+        // 人脉页推荐列表
+        INITRECOMMENDLIST(state, { recommendList }) {
+            console.log(recommendList);
+            state.RecommendList = recommendList
         },
         // 获取人脉页推荐面板筛选选项
         INITATTENDSFILTERMENU(state, { filterMenu }) {
@@ -217,6 +223,12 @@ export default new Vuex.Store({
         getAttendsFilter({ commit }, { eventNo, token, lang }) {
             getAttendsFilter(eventNo, token, lang).then(res => {
                 commit("INITATTENDSFILTERMENU", { filterMenu: res.data.Data })
+            })
+        },
+        // 人脉页推荐列表
+        getRecommendList({ commit }, { eventNo, keyword, filter1, index, size, filter2, filter3, token, lang }) {
+            getRecommendList(eventNo, keyword, filter1, index, size, filter2, filter3, token, lang).then(res => {
+                commit("INITRECOMMENDLIST", { recommendList: res.data.Data })
             })
         },
         // 获取展商列表
