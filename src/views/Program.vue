@@ -139,7 +139,6 @@ export default {
     computed: {
         tabs: function() {
             return this.$i18n.messages[this.lang].program.tabs
-            // return this.$i18n.messages[this.$store.state.Lang].program.tabs
         },
         ...mapState({
             lang: state => state.Lang,

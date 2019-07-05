@@ -109,6 +109,26 @@ export function getPlazaList(eventNo, index, size, type, token, lang) {
     })
 }
 
+export function getChatList(eventNo, token, lang) {
+    return axios.post(`${apiDomain}/Message/ChatList`, {
+        eventNo: eventNo,
+        token: token,
+        lang: lang
+    })
+}
+
+export function getMessageList(eventNo, target, before, size, token, after, lang) {
+    return axios.post(`${apiDomain}/Attendees/UserChat`, {
+        eventNo: eventNo,
+        target: target,
+        before: before,
+        size: size,
+        token: token,
+        after: after,
+        lang: lang
+    })
+}
+
 export function getMySolutionList(eventNo, index, size, token, lang) {
     return axios.post(`http://192.168.1.21:89/Me/SolutionList`, {
         eventNo: eventNo,
@@ -143,12 +163,6 @@ export function getMyQrcode(token, lang) {
     })
 }
 
-export function getChatList(token, lang) {
-    return axios.post(`http://192.168.1.21:89/Message/ChatList`, {
-        token: token,
-        lang: lang
-    })
-}
 // export function getProgramList(no, token, lang) {
 //     return axios.post(`http://localhost:8089/Program/List`, {
 //         eventNo: no,

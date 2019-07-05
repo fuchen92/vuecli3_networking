@@ -15,11 +15,12 @@ import {
     getExhibitorDetail,
     getProductDetail,
     getPlazaList,
+    getChatList,
+    getMessageList,
     getMySolutionList,
     getMyInfo,
     saveMyInfo,
-    getMyQrcode,
-    getChatList
+    getMyQrcode
 } from "./api";
 
 export default new Vuex.Store({
@@ -55,6 +56,7 @@ export default new Vuex.Store({
         ProductDetail: {},
         QrCode: "",
         ChatList: [],
+        MessageList: [],
     },
     mutations: {
         // 修改语言
@@ -179,7 +181,25 @@ export default new Vuex.Store({
         },
         // 获取聊天用户列表
         INITCHATLIST(state, chatList) {
+            console.log(chatList)
             state.ChatList = chatList;
+        },
+        // 获取用户聊天的消息
+        INITMESSAGELIST(state, { msgList }) {
+            console.log(msgList);
+            msgList.sort(function(a, b) {
+                return a.Id - b.Id
+            });
+            msgList.map(item => {
+                if(item.Type == 1 || item.Type == 2) {
+                    console.log(JSON.parse(item.Content))
+                    item.Content = JSON.parse(item.Content)
+                    if(item.Type == 2) {
+                        item.Content.Time = item.Content.Time.split("T")[0].substr(5, 5) + " " + item.Content.Time.split("T")[1].substr(0, 5)
+                    }
+                }
+            });
+            state.MessageList = msgList;
         }
     },
     actions: {
@@ -281,9 +301,15 @@ export default new Vuex.Store({
             })
         },
         // 获取用户聊天列表
-        getChatList({ commit }, { token, lang }) {
-            getChatList(token, lang).then(res => {
+        getChatList({ commit }, { eventNo, token, lang }) {
+            getChatList(eventNo, token, lang).then(res => {
                 commit("INITCHATLIST", res.data.Data);
+            })
+        },
+        // 获取用户聊天的消息列表
+        getMessageList({ commit }, { eventNo, target, before, size, token, after, lang }) {
+            getMessageList(eventNo, target, before, size, token, after, lang).then(res => {
+                commit("INITMESSAGELIST", { msgList: res.data.Data })
             })
         }
     },

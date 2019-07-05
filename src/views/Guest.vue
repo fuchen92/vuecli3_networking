@@ -77,7 +77,7 @@
                 {{ $t("guest.inviteLabel") }}
             </router-link>
             <b class="guestLinkDivide" v-if="guest.Role == 2"></b>
-            <router-link class="guestLink chatLink" :class="{ large: guest.Role != 2 }" :to="`/chat?chatId=${guest.Id}`">
+            <router-link class="guestLink chatLink" :class="{ large: guest.Role != 2 }" :to="`/chat?chatId=${guest.Id}&uName=${guest.Name}&uCompany=${guest.Company}&uJob=${guest.JobTitle}&uPhoto=${guest.Photo}`">
                 {{ $t("guest.chatLabel") }}
             </router-link>
         </div>

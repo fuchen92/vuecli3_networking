@@ -28,7 +28,8 @@
 						<p class="latestTime">22:00</p>
 					</div>
 				</router-link>
-				<router-link class="messageItem clear" v-for="chat in chatList" v-bind:key="chat.id" v-bind:to="'/chat?chatId=' + chat.Id">
+				<!-- <router-link class="messageItem clear" v-for="chat in chatList" v-bind:key="chat.id" v-bind:to="`'/chat?chatId=${chat.Id}'`"> -->
+				<router-link class="messageItem clear" v-for="chat in chatList" v-bind:key="chat.id" v-bind:to="`/chat?chatId=${chat.Id}&uName=${chat.Name}&uCompany=${chat.Company}&uJob=${chat.JobTitle}&uPhoto=${chat.Photo}`">
 					<div class="messageUser lt">
 						<div class="messageUserAvatar">
 							<img class="messageUserPhoto" v-bind:src="chat.Photo" alt="">
@@ -52,6 +53,11 @@
 import { mapActions, mapState } from "vuex";
 export default {
 	name: "Message",
+	data: function() {
+		return  {
+
+		}
+	},
 	computed: {
 		...mapState({
 			lang: state => state.Lang,
@@ -66,7 +72,7 @@ export default {
 		])
 	},
 	created: function() {
-		this.getChatList({ token: this.token, lang: this.lang == "zh" ? 1 : 2 });
+		this.getChatList({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
 	}
 }
 </script>
@@ -192,6 +198,9 @@ export default {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+.lastMessage {
+	font-size: 0.24rem;
 }
 .messageUserName {
 	margin-bottom: 0.1rem;

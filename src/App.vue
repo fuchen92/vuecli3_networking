@@ -100,7 +100,7 @@ input:disabled, select:disabled, button:disabled {
 #app {
     width: 100%;
     height: 100%;
-    background-color: #F8F8F8;
+    background-color: #f0f1f2;
     color: #2c3e50;
 }
 #nav {
