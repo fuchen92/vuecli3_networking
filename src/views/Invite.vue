@@ -41,7 +41,7 @@
                     <div class="inviteCardItem">
                         <img class="inviteCardItemIcon" src="../assets/iconLocation.svg" alt="">
                         <div class="inviteCardItemContent">
-                            <input class="inviteAddr" type="text" :placeholder="$t('invite.inviteAddr')" v-model="inviteAddr">
+                            <input class="inviteAddr" type="text" :placeholder="$t('invite.inviteAddr')" ref="addr" v-model.trim="inviteAddr">
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
             <div class="inviteChunk">
                 <h4 class="inviteChunkCaption">{{ $t("invite.matterCaption") }}</h4>
                 <div class="inviteMatter">
-                    <textarea class="inviteMatterInput" :placeholder="$t('invite.matterInput')" v-model="matter"></textarea>
+                    <textarea class="inviteMatterInput" :placeholder="$t('invite.matterInput')" ref="matter" v-model.trim="matter"></textarea>
                 </div>
             </div>
             <button class="inviteSubmitBtn" @click="submitInvite">{{ $t("invite.inviteBtn") }}</button>
@@ -73,7 +73,7 @@ export default {
             },
             inviteAddr: "",
             inviteDate: "2019-08-27",
-            inviteTime: "12:00",
+            inviteTime: "12:00:00",
             matter: ""
         }
     },
@@ -96,11 +96,48 @@ export default {
             "getMyInfo"
         ]),
         submitInvite: function() {
-            console.log(this.inviteDate)
-            console.log(this.inviteTime)
-            console.log(this.inviteAddr)
-            console.log(this.matter)
-            
+            console.log({
+                eventNo: this.eventNo,
+                target: this.invitePeople.id,
+                time: this.inviteDate + " " + this.inviteTime + ":00",
+                content: this.matter,
+                location: this.inviteAddr,    
+                token: this.token,
+                lang: this.lang == "zh" ? 1 : 2
+
+            })
+            if(this.inviteAddr.length == 0 || this.inviteAddr == "") {
+                this.$refs.addr.focus();
+                alert("请输入邀约地址")
+                return false;
+            }
+            if(this.matter.length == 0 || this.matter == "") {
+                this.$refs.matter.focus();
+                alert("请输入邀约事项");
+                return false;
+            }
+            if(this.invitePeople.id == 0) {
+                return false;
+            }
+
+            this.$http.post(`https://socialapi.traveldaily.cn/Attendees/InviteSend`, {
+                eventNo: this.eventNo,
+                target: this.invitePeople.id,
+                time: this.inviteDate + " " + this.inviteTime + ":00",
+                content: this.matter,
+                location: this.inviteAddr,    
+                token: this.token,
+                lang: this.lang == "zh" ? 1 : 2
+            }).then(res => {
+                if(res.data.Code == 0) {
+                    this.$router.push({ path: "/chat", query: { chatId: this.invitePeople.id } })
+                } else if(res.data.Code != 0) {
+                    alert(res.data.Message);
+                }
+            }).catch(err => {
+                alert(err)
+            })
+
         }
     },
     created: function() {
@@ -208,6 +245,9 @@ export default {
     height: 0.8rem;
     border: 0;
 }
+/* .inviteAddr:focus::placeholder {
+    color: var(--themeColor);
+} */
 .inviteMatter {
     margin-top: 0.2rem;
 }

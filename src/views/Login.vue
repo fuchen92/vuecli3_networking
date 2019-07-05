@@ -181,11 +181,12 @@ export default {
 						};
 						localStorage.setItem("user", JSON.stringify(logininfo))
 						let _redirect = this.$route.query.redirect
-						if (_redirect) {
-							this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
-						} else {
-							this.$router.push({ path: "/" })
-						}
+						// if (_redirect) {
+						// 	this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
+						// } else {
+						// 	this.$router.push({ path: "/" })
+						// }
+						this.$router.push({ path: "/" })
 					} else if(res.data.Code != 0) {
 						alert(res.data.Message)
 					}

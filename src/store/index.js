@@ -110,7 +110,6 @@ export default new Vuex.Store({
         },
         // 获取参会嘉宾详情
         INITGUESTDETAIL(state, { guestDetail }) {
-            console.log(guestDetail)
             state.GuestDetail = guestDetail;
         },
         // 获取人脉页所有嘉宾列表
