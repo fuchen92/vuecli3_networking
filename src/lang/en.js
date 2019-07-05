@@ -128,7 +128,14 @@ export default {
         reRecommend: "Recommend"
     },
     invite: {
-        navBarTitle: "Invite"
+        navBarTitle: "Invite",
+        peopleCaption: "Invite People",
+        cardCaption: "Invite Card",
+        inviteDesc: "The following information will be sent to the other party, including your mobile phone number and email address.",
+        matterCaption: "Invite Matter",
+        inviteAddr: "Address of invitation",
+        matterInput: "I have a project that matches your company's products very well. I hope to have the opportunity to discuss cooperation.",
+        inviteBtn: "Send invitations"
     },
     "plaza": {
         "tabs": [

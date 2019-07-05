@@ -3,7 +3,7 @@
         <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="inviteBox">
             <div class="inviteChunk">
-                <h4 class="inviteChunkCaption">邀约对象</h4>
+                <h4 class="inviteChunkCaption">{{ $t("invite.peopleCaption") }}</h4>
                 <div class="invitePeople">
                     <div class="invitePeopleAvatar">
                         <img class="invitePeoplePhoto" :src="invitePeople.photo" alt="">
@@ -16,8 +16,8 @@
                 </div>
             </div>
             <div class="inviteChunk">
-                <h4 class="inviteChunkCaption">邀约卡片</h4>
-                <p class="inviteDesc">以下信息将发送给对方，包括您的手机号码和邮箱。</p>
+                <h4 class="inviteChunkCaption">{{ $t("invite.cardCaption") }}</h4>
+                <p class="inviteDesc">{{ $t("invite.inviteDesc") }}</p>
                 <div class="inviteCard">
                     <div class="inviteCardItem">
                         <img class="inviteCardItemIcon" src="../assets/iconName.svg" alt="">
@@ -34,25 +34,25 @@
                     <div class="inviteCardItem">
                         <img class="inviteCardItemIcon" src="../assets/iconTime.svg" alt="">
                         <div class="inviteCardItemContent">
-                            <input class="inviteDate" type="date" v-model="inviteDate">
+                            <input class="inviteDate" type="date" min="2019-08-27" max="2019-08-29" v-model="inviteDate">
                             <input class="inviteTime" type="time" v-model="inviteTime">
                         </div>
                     </div>
                     <div class="inviteCardItem">
                         <img class="inviteCardItemIcon" src="../assets/iconLocation.svg" alt="">
                         <div class="inviteCardItemContent">
-                            <input class="inviteAddr" type="text" placeholder="请输入邀约地址">
+                            <input class="inviteAddr" type="text" :placeholder="$t('invite.inviteAddr')" v-model="inviteAddr">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="inviteChunk">
-                <h4 class="inviteChunkCaption">邀约事项</h4>
+                <h4 class="inviteChunkCaption">{{ $t("invite.matterCaption") }}</h4>
                 <div class="inviteMatter">
-                    <textarea class="inviteMatterInput" :placeholder="$t('invite.matterInput')"></textarea>
+                    <textarea class="inviteMatterInput" :placeholder="$t('invite.matterInput')" v-model="matter"></textarea>
                 </div>
             </div>
-            <button class="inviteSubmitBtn">发出邀约</button>
+            <button class="inviteSubmitBtn" @click="submitInvite">{{ $t("invite.inviteBtn") }}</button>
         </div>
     </div>
 </template>
@@ -71,8 +71,10 @@ export default {
                 job: uJob,
                 photo: uPhoto
             },
+            inviteAddr: "",
             inviteDate: "2019-08-27",
-            inviteTime: "12:00"
+            inviteTime: "12:00",
+            matter: ""
         }
     },
     components: {
@@ -92,7 +94,14 @@ export default {
     methods: {
         ...mapActions([
             "getMyInfo"
-        ])
+        ]),
+        submitInvite: function() {
+            console.log(this.inviteDate)
+            console.log(this.inviteTime)
+            console.log(this.inviteAddr)
+            console.log(this.matter)
+            
+        }
     },
     created: function() {
         this.getMyInfo({ eventNo: this.eventNo, token: this.token })

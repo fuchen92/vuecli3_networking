@@ -129,7 +129,13 @@ export default {
     },
     invite: {
         navBarTitle: "邀约会面",
-        matterInput: "我有一个项目，和贵公司的产品十分匹配，希望能有机会洽谈合作！"
+        peopleCaption: "邀约对象",
+        cardCaption: "邀约卡片",
+        inviteDesc: "以下信息将发送给对方，包括您的手机号码和邮箱。",
+        matterCaption: "邀约事项",
+        inviteAddr: "请输入邀约地址",
+        matterInput: "我有一个项目，和贵公司的产品十分匹配，希望能有机会洽谈合作！",
+        inviteBtn: "发出邀约"
     },
     "plaza": {
         "tabs": [
