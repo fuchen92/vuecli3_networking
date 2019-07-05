@@ -181,18 +181,15 @@ export default new Vuex.Store({
         },
         // 获取聊天用户列表
         INITCHATLIST(state, chatList) {
-            console.log(chatList)
             state.ChatList = chatList;
         },
         // 获取用户聊天的消息
         INITMESSAGELIST(state, { msgList }) {
-            console.log(msgList);
             msgList.sort(function(a, b) {
                 return a.Id - b.Id
             });
             msgList.map(item => {
                 if(item.Type == 1 || item.Type == 2) {
-                    console.log(JSON.parse(item.Content))
                     item.Content = JSON.parse(item.Content)
                     if(item.Type == 2) {
                         item.Content.Time = item.Content.Time.split("T")[0].substr(5, 5) + " " + item.Content.Time.split("T")[1].substr(0, 5)

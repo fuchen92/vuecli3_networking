@@ -40,7 +40,7 @@
             <div class="guestChunk" v-if="guest.Role != 4 || guest.ContactList.length > 0">
                 <div class="guestChunkContactTitle clear">
                     <h4 class="guestChunkCaption lt">{{ $t("guest.contactLabel") }}</h4>
-                    <span class="sendCardLabel rt" v-if="guest.Id != userInfomation.Id">{{ $t("guest.sendCard") }}</span>
+                    <span class="sendCardLabel rt" v-if="guest.Id != myInfo.Id">{{ $t("guest.sendCard") }}</span>
                 </div>
                 <div class="guestContact">
                     <div class="guestContactItem clear">
@@ -72,7 +72,7 @@
                 </div>
             </template>
         </div>
-        <div class="guestLinks" v-if="guest.Id != userInfomation.Id">
+        <div class="guestLinks" v-if="guest.Id != myInfo.Id">
             <router-link v-if="guest.Role == 2" class="guestLink inviteLink" :to="`/invite?inviteId=${guest.Id}&uName=${guest.Name}&uCompany=${guest.Company}&uJob=${guest.JobTitle}&uPhoto=${guest.Photo}`">
                 {{ $t("guest.inviteLabel") }}
             </router-link>
@@ -105,7 +105,7 @@ export default {
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
             guest: state => state.GuestDetail,
-            userInfomation: state => state.MyInfomation
+            myInfo: state => state.MyInfomation
         })
     },
     methods: {

@@ -13,7 +13,7 @@
                     <template v-if="chat.Type == 0">
                         <div class="chatItem clear" v-bind:id="'msg' + chat.Id" v-bind:class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" v-bind:key="chat.Id">
                             <div class="chatUserAvatar">
-                                <img class="chatUserPhoto" v-bind:src="chat.NetUserId == chatUser.id ? chatUser.photo : myPhoto" alt="">
+                                <img class="chatUserPhoto" v-bind:src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
                             </div>
                             <div class="chatContent">
                                 {{ chat.Content }}
@@ -23,7 +23,7 @@
                     <template v-else-if="chat.Type == 1">
                         <div class="chatItem clear" v-bind:id="'msg' + chat.Id" v-bind:class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" v-bind:key="chat.Id">
                             <div class="chatUserAvatar">
-                                <img class="chatUserPhoto" v-bind:src="chat.NetUserId == chatUser.id ? chatUser.photo : myPhoto" alt="">
+                                <img class="chatUserPhoto" v-bind:src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
                             </div>
                             <div class="chatContent">
                                 <p class="chatCardCaption">{{ $t("chat.businessCard") }}</p>
@@ -59,7 +59,7 @@
                     <template v-else-if="chat.Type == 2">
                         <div class="chatItem clear" v-bind:id="'msg' + chat.Id" v-bind:class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" v-bind:key="chat.Id">
                             <div class="chatUserAvatar">
-                                <img class="chatUserPhoto" v-bind:src="chat.NetUserId == chatUser.id ? chatUser.photo : myPhoto" alt="">
+                                <img class="chatUserPhoto" v-bind:src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
                             </div>
                             <div class="chatContent">
                                 <p class="chatCardCaption inviteCaption">{{ $t("chat.invite") }}</p>
@@ -121,7 +121,8 @@ export default {
 			lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
-            chatList: state => state.MessageList
+            chatList: state => state.MessageList,
+            myInfo: state => state.MyInfomation
 		})
     },
     methods: {

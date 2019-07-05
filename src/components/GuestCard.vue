@@ -11,11 +11,11 @@
             </div>
         </router-link>
         <div class="guestOpts">
-            <button class="inviteLink" :data-id="guest.Id" v-if="guest.Role != 4" @click.stop="toInvite($event)">
+            <button class="toInviteBtn" :data-id="guest.Id" v-if="guest.Role != 4" @click.stop="toInvite($event)">
                 {{ $t("guestCard.inviteBtn") }}
             </button>
             <b class="guestOptDivide" v-if="guest.Role != 4"></b>
-            <button class="guestChatLink" :data-id="guest.Id" :class="{ large: guest.Role == 4 }" @click.stop="toChat($event)">
+            <button class="toChatBtn" :data-id="guest.Id" :class="{ large: guest.Role == 4 }" @click.stop="toChat($event)">
                 {{ $t("guestCard.chatBtn") }}
             </button>
         </div>
@@ -105,7 +105,7 @@ export default {
     font-size: 0;
     border-top: 0.02rem solid #f0f1f2;
 }
-.inviteLink, .guestOptDivide, .guestChatLink {
+.toInviteBtn, .guestOptDivide, .toChatBtn {
     display: inline-block;
     vertical-align: middle;
 }
@@ -113,7 +113,7 @@ export default {
     height: 0.4rem;
     border-left: 0.02rem solid #f0f1f2;
 }
-.inviteLink, .guestChatLink {
+.toInviteBtn, .toChatBtn {
     width: calc((100% - 0.02rem) / 2);
     font-size: 0.24rem;
     line-height: 0.8rem;
@@ -121,7 +121,7 @@ export default {
     background-color: transparent;
     color: var(--themeColor);
 }
-.guestChatLink.large {
+.toChatBtn.large {
     width: 100%;
 }
 </style>

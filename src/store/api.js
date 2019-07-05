@@ -130,7 +130,7 @@ export function getMessageList(eventNo, target, before, size, token, after, lang
 }
 
 export function getMySolutionList(eventNo, index, size, token, lang) {
-    return axios.post(`http://192.168.1.21:89/Me/SolutionList`, {
+    return axios.post(`${apiDomain}/Me/SolutionList`, {
         eventNo: eventNo,
         index: index,
         size: size,
