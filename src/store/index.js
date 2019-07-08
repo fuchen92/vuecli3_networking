@@ -12,6 +12,7 @@ import {
     getAttendsFilter,
     getRecommendList,
     getExhibitorList,
+    getExhibitorFilter,
     getExhibitorDetail,
     getProductDetail,
     getPlazaList,
@@ -46,6 +47,7 @@ export default new Vuex.Store({
         FilterMenu: [],
         RecommendList: [],
         ExhibitorList: [],
+        ExhibitorFilterMenu: [],
         ExhibitorDetail: {
             Attendees: [],
             localContactList: []
@@ -151,6 +153,11 @@ export default new Vuex.Store({
 
             state.ExhibitorDetail = detail;
             Vue.set(state.ExhibitorDetail, "localContactList", contactList);
+        },
+        // 获取搜索页展商筛选选项
+        INITEXHIBITORFILTERMENU(state, { filterMenu }) {
+            console.log(filterMenu);
+            state.ExhibitorFilterMenu = filterMenu;
         },
         // 获取产品详情
         INITPRODUCTDETAIL(state, { product }) {
@@ -264,6 +271,12 @@ export default new Vuex.Store({
         getExhibitorList({ commit }, { eventNo, index, size, token, lang }) {
             getExhibitorList(eventNo, index, size, token, lang).then(res => {
                 commit("INITEXHIBITORLIST", { exhibitorList: res.data.Data })
+            })
+        },
+        // 获取搜索页展商筛选选项
+        getExhibitorFilter({ commit }, { eventNo, token, lang }) {
+            getExhibitorFilter(eventNo, token, lang).then(res => {
+                commit("INITEXHIBITORFILTERMENU", { filterMenu: res.data.Data })
             })
         },
         // 获取展商详情

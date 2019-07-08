@@ -80,6 +80,14 @@ export function getExhibitorList(eventNo, index, size, token, lang) {
     })
 }
 
+export function getExhibitorFilter(eventNo, token, lang) {
+    return axios.post(`${apiDomain}/Exhibitors/FilterMenu`, {
+        eventNo: eventNo,
+        token: token,
+        lang: lang
+    })
+}
+
 export function getExhibitorDetail(eventNo, id, token, lang) {
     return axios.post(`${apiDomain}/Exhibitors/Details`, {
         eventNo: eventNo,
