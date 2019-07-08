@@ -88,6 +88,10 @@ export default new Router({
 			component: () => import(/* webpackChunkName: "myneed" */ "@/views/MyNeed.vue")
 		},
 		{
+			path: "/search",
+			component: () => import(/* webpackChunkName: "search" */ "@/views/Search.vue")
+		},
+		{
 			path: "/login",
 			name: "login",
 			component: Login

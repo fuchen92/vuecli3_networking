@@ -48,7 +48,7 @@ export default {
     z-index: 1000;
 }
 .navBar > .container {
-    width: 90%;
+    width: 95%;
 }
 .searchLink {        
     height: 0.6rem;
