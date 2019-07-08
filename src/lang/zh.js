@@ -137,6 +137,9 @@ export default {
         matterInput: "我有一个项目，和贵公司的产品十分匹配，希望能有机会洽谈合作！",
         inviteBtn: "发出邀约"
     },
+    inviteDetail: {
+        navBarTitle: "邀约详情"
+    },
     "plaza": {
         "tabs": [
             {

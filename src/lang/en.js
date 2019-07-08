@@ -137,6 +137,9 @@ export default {
         matterInput: "I have a project that matches your company's products very well. I hope to have the opportunity to discuss cooperation.",
         inviteBtn: "Send invitations"
     },
+    inviteDetail: {
+        navBarTitle: "Invite Details"
+    },
     "plaza": {
         "tabs": [
             {

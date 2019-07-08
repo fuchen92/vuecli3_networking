@@ -17,6 +17,7 @@ import {
     getPlazaList,
     getChatList,
     getMessageList,
+    getInviteDetail,
     getMySolutionList,
     getMyInfo,
     saveMyInfo,
@@ -57,6 +58,15 @@ export default new Vuex.Store({
         QrCode: "",
         ChatList: [],
         MessageList: [],
+        InviteDetail: {
+            NetUserInfo: {
+                ContactList: [
+                    {},
+                    {}
+                ]
+            },
+            Time: ""
+        },
     },
     mutations: {
         // 修改语言
@@ -197,6 +207,10 @@ export default new Vuex.Store({
                 }
             });
             state.MessageList = msgList;
+        },
+        // 获取邀约详情
+        GETINVITEDETAIL(state, { inviteDetail }) {
+            state.InviteDetail = inviteDetail;
         }
     },
     actions: {
@@ -307,6 +321,12 @@ export default new Vuex.Store({
         getMessageList({ commit }, { eventNo, target, before, size, token, after, lang }) {
             getMessageList(eventNo, target, before, size, token, after, lang).then(res => {
                 commit("INITMESSAGELIST", { msgList: res.data.Data })
+            })
+        },
+        // 获取邀约详情
+        getInviteDetail({ commit }, { eventNo, id, token, lang }) {
+            getInviteDetail(eventNo, id, token, lang).then(res => {
+                commit("GETINVITEDETAIL", { inviteDetail: res.data.Data })
             })
         }
     },

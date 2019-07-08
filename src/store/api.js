@@ -129,6 +129,15 @@ export function getMessageList(eventNo, target, before, size, token, after, lang
     })
 }
 
+export function getInviteDetail(eventNo, id, token, lang) {
+    return axios.post(`${apiDomain}/Attendees/InviteInfo`, {
+        eventNo: eventNo,
+        id: id,
+        token: token,
+        lang: lang
+    })
+}
+
 export function getMySolutionList(eventNo, index, size, token, lang) {
     return axios.post(`${apiDomain}/Me/SolutionList`, {
         eventNo: eventNo,

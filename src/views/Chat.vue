@@ -1,7 +1,7 @@
 <template>
     <div class="chat">
         <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
-        <div class="chatBox">
+        <div class="chatBox" ref="chatBox">
             <div class="chatRules">
                 <p class="ruleCaption">{{ $t("chat.chatRule") }}</p>
                 <p class="ruleItem">1. {{ $t("chat.rule1") }}</p>
@@ -73,7 +73,7 @@
                                         <span class="chatCardText">{{ chat.Content.Time }}</span>
                                     </div>
                                 </div>
-                                <router-link class="inviteLink clear" v-bind:to="'/invite?inviteId=' + chat.Content.Id">
+                                <router-link class="inviteLink clear" v-bind:to="'/invitedetail?id=' + chat.Content.Id">
                                     <span class="inviteLinkText lt">{{ $t("chat.checkDetail") }}</span>
                                     <span class="inviteLinkRightArrow rt"></span>
                                 </router-link>
@@ -107,6 +107,7 @@ export default {
                 job: this.$route.query.uJob,
                 photo: this.$route.query.uPhoto
             },
+            timer: null,
             myPhoto: require("../assets/avatar.jpg")
         }
     },
@@ -131,7 +132,6 @@ export default {
         ])
     },
     created: function() {
-        console.log(this.chatUser)
         this.getMessageList({
             eventNo: this.eventNo,
             target: this.chatUser.id,
@@ -141,6 +141,15 @@ export default {
             after: -1,
             lang: this.lang == "zh" ? 1 : 2
         })
+    },
+    mounted: function() {
+        this.timer = setTimeout(() => {
+            this.$refs.chatBox.scrollTop = 99999;
+        }, 1);
+    },
+    beforeDestroy: function() {
+        clearTimeout(this.timer);
+        this.timer = null;
     }
 }
 </script>
