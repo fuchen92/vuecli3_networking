@@ -174,7 +174,7 @@ export function saveMyInfo(intro, contactList, token, lang) {
 }
 
 export function getMyQrcode(token, lang) {
-    return axios.post(`http://192.168.1.21:89/Me/UserQRCode`, {
+    return axios.post(`${apiDomain}/Me/UserQRCode`, {
         token: token,
         lang: lang
     })

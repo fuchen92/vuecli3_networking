@@ -15,12 +15,14 @@
 	<meta name="x5-fullscreen" content="true">
 	<meta name="x5-page-mode" content="app">
 	<meta name="renderer" content="webkit">
-	<link rel="icon" href="<%= BASE_URL %>favicon.ico">
-	<title>vue_networking</title>
+	<!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
+	<link rel="icon" href="https://img.traveldaily.cn/favicon.ico">
+	<title>会议交流平台 - 环球旅讯(TravelDaily)</title>
 	<script>
 		function resize() {
 			if (document.documentElement.clientWidth > 750) {
-				document.documentElement.removeAttribute("style");
+				// document.documentElement.removeAttribute("style");
+				document.documentElement.style.fontSize = "50px";
 				return;
 			}
 			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + "px";

@@ -3,7 +3,7 @@
         <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="qrCodeWrapper">
             <div class="qrCodeBox">
-                <img class="qrCodeImg" v-bind:src="qrcode" alt="">
+                <img class="qrCodeImg" :src="'data:image/jpeg;base64,' + qrcode.Image" alt="">
                 <p class="qrCodeName">{{ $t("qrcode.name") }}</p>
             </div>
             <p class="qrCodeDesc" v-html="$t('qrcode.qrcodeDesc')"></p>
@@ -17,19 +17,20 @@ export default {
     name: "QrCode",
     data: function() {
         return {
-            navBarTitle: this.$i18n.messages[this.$store.state.Lang].qrcode.navBarTitle
+            
         }
     },
     components: {
         NavBar
     },
     computed: {
-        qrcode: function() {
-            return this.$store.state.QrCode
+        navBarTitle: function() {
+            return this.$i18n.messages[this.lang].qrcode.navBarTitle
         },
         ...mapState({
             lang: state => state.Lang,
-            token: state => state.Account.Token
+            token: state => state.Account.Token,
+            qrcode: state => state.QrCode
         })
     },
     methods: {

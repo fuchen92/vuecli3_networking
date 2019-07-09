@@ -87,6 +87,7 @@ export default {
     color: var(--themeColor);
 }
 .exhibitorTags {
+    height: 0.4rem;
     margin: 0.15rem 0 0;
     font-size: 0;
     overflow: hidden;
@@ -102,6 +103,7 @@ export default {
     color: var(--themeColor);
 }
 .exhibitorSlogan {
+    margin-top: 0.2rem;
     padding-left: 0.2rem;
     font-size: 0.24rem;
     line-height: 0.4rem;

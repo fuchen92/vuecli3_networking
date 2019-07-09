@@ -62,6 +62,7 @@ export default {
             return this.$i18n.messages[this.lang].publish.tagList
         },
         ...mapState({
+            apiDomain: state => state.ApiDomain,
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
@@ -88,7 +89,7 @@ export default {
             }
             console.log(data);
             // return false;
-            this.$http.post(`http://192.168.1.21:89/Plaza/SolutionSave`, {
+            this.$http.post(`${this.apiDomain}/Plaza/SolutionSave`, {
                 eventNo: this.eventNo,
                 token: this.token,
                 solution: data

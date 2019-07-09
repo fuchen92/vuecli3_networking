@@ -23,14 +23,15 @@
                     <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.companyCaption") }}</h4>
                     <p class="exhibitorIntro">{{ exhibitor.Intro }}</p>
                 </div>
-                <div class="exhibitorChunk">
-                    <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.boothCaption") }} &gt;</h4>
+                <div class="exhibitorChunk clear">
+                    <h4 class="exhibitorChunkCaption venueCaption lt">{{ $t("exhibitor.boothCaption") }}</h4>
+                    <p class="venueCaret rt"></p>
                 </div>
-                <div class="exhibitorChunk">
-                <!-- <div class="exhibitorChunk" v-if="exhibitor.Products.length != 0"> -->
+                <!-- <div class="exhibitorChunk"> -->
+                <div class="exhibitorChunk" v-if="exhibitor.Products.length != 0">
                     <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.schemeCaption") }}</h4>
                     <div class="schemeList">
-                        <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="'/product?productId=' + scheme.Id" class="schemeItem">
+                        <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="`/product?productId=${scheme.Id}`" class="schemeItem">
                         <!-- <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="'/product?productId=' + scheme.Id + '&backId=' + exhibitorId" class="schemeItem"> -->
                             <div class="schemeLogo">
                                 <img class="schemeLogoImg" :src="scheme.Logo" alt="">
@@ -93,8 +94,7 @@ export default {
     name: "Exhibitor",
     data: function() {
         return {
-            exhibitorId: this.$route.query.exhibitorId,
-            navBarTitle: this.$i18n.messages[this.$store.state.Lang].exhibitor.navBarTitle
+            exhibitorId: this.$route.query.exhibitorId
         }
     },
     components: {
@@ -102,6 +102,9 @@ export default {
         GuestCard
     },
     computed: {
+        navBarTitle: function() {
+            return this.$i18n.messages[this.lang].exhibitor.navBarTitle
+        },
         ...mapState({
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
@@ -183,7 +186,8 @@ export default {
     line-height: 0.4rem;
     color: var(--themeColor);
 }
-.exhibitorTags {
+.exhibitorChunk .exhibitorTags {
+    height: auto;
     margin: 0.15rem 0 0;
     font-size: 0;
     overflow: hidden;
@@ -209,6 +213,15 @@ export default {
 .exhibitorChunkCaption {
     font-size: 0.28rem;
 }
+.venueCaption {
+    padding-left: 0.6rem;
+    background: url(../assets/iconVenue.svg) left 0.1rem center/0.4rem auto no-repeat;
+}
+.venueCaret {
+    width: 0.6rem;
+    height: 0.4rem;
+    background: url(../assets/rightArrow32.png) right 0.1rem center/0.3rem auto no-repeat;
+}
 .exhibitorIntro {
     margin-top: 0.1rem;
     font-size: 0.24rem;
@@ -220,7 +233,6 @@ export default {
 .schemeItem {
     margin-bottom: 0.2rem;
     padding: 0.2rem;
-    background-color: #f0f1f2;
 }
 .schemeItem:last-child {
     margin-bottom: 0;

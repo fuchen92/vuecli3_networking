@@ -1,12 +1,13 @@
 <template>
     <div class="program">
         <div class="programTabs">
-            <div class="programTabsWrapper">                
+            <div class="programTabsWrapper" ref="tabWrapper">                
                 <div v-for="(tab, index) in tabs" v-bind:key="index" class="programTab" v-bind:class="{ active: currentIndex == index, en: lang == 'en' }" v-on:click="currentIndex = index">
                     <span class="programTabTime">{{ tab.time }}</span>
                     <span class="programTabName">{{ tab.name }}</span>
                 </div>
             </div>
+            <div class="rightTip" @click="showAllTab"></div>
         </div>
         <div class="programBox">
             <div class="programList" v-bind:class="{ active: currentIndex == 0 }">
@@ -152,7 +153,10 @@ export default {
 		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
 		...mapActions({
 			initProgram: "getProgramList"
-        })
+        }),
+        showAllTab: function() {
+            this.$refs.tabWrapper.scrollLeft = 9999;
+        }
     },
     created: function() {
         console.log("created")
@@ -199,11 +203,12 @@ export default {
     overflow: hidden;
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
 }
 .programTabsWrapper::-webkit-scrollbar {
     display: none;
 }
-.programTabs::after {
+.rightTip {
     position: absolute;
     top: 0;
     right: 0;
@@ -215,7 +220,7 @@ export default {
     box-shadow: -0.2rem 0 0.4rem #ccc;
     z-index: 900;
 }
-.programTabs::before {
+.rightTip::before {
     position: absolute;
     top: 0.4rem;
     right: 0.15rem;

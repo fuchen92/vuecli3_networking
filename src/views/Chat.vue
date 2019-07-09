@@ -306,8 +306,8 @@ export default {
 }
 .chatInput {
     width: calc(100% - 2.4rem);
-    height: 0.8rem;
-    margin: 0.1rem 0 0;
+    height: 0.6rem;
+    margin: 0.3rem 0 0;
     border: 0;
     border-bottom: 1px solid #f0f1f2;
 }

@@ -52,7 +52,8 @@ export default new Vuex.Store({
         ExhibitorFilterMenu: [],
         ExhibitorDetail: {
             Attendees: [],
-            localContactList: []
+            localContactList: [],
+            Products: []
         },
         SupplyList: [],
         DemandList: [],
@@ -195,6 +196,7 @@ export default new Vuex.Store({
             Vue.set(state.MyInfomation, "Intro", intro)
         },
         GETMYQRCODE(state, code) {
+            console.log(code)
             state.QrCode = code;
         },
         // 获取聊天用户列表
@@ -322,7 +324,7 @@ export default new Vuex.Store({
         getMyQrcode({ commit }, { token, lang }) {
             getMyQrcode(token, lang).then(res => {
                 // console.log(res);
-                // commit("GETMYQRCODE", res.data.)
+                commit("GETMYQRCODE", res.data.Data);
             })
         },
         // 获取用户聊天列表

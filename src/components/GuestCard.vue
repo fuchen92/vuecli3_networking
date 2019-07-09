@@ -114,7 +114,7 @@ export default {
     border-left: 0.02rem solid #f0f1f2;
 }
 .toInviteBtn, .toChatBtn {
-    width: calc((100% - 0.02rem) / 2);
+    width: calc((100% - 0.04rem) / 2);
     font-size: 0.24rem;
     line-height: 0.8rem;
     text-align: center;

@@ -189,7 +189,6 @@ export default {
                         token: this.token,
                         lang: this.lang == "zh" ? 1 : 2
                     }).then(res => {
-                        console.log(res)
                         this.resultList = res.data.Data;
                         this.resultType = 1;
                         this.showFilter = false;
@@ -210,7 +209,6 @@ export default {
                         index: 1,
                         size: 9999
                     }).then(res => {
-                        console.log(res)
                         this.resultList = res.data.Data;
                         this.resultType = 2;
                         this.showFilter = false;

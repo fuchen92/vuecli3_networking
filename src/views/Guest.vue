@@ -266,7 +266,7 @@ export default {
 }
 .guestLinkDivide {
     height: 0.4rem;
-    border-left: 0.02rem solid #f0f1f2;
+    border-left: 0.02rem solid #8d8d8d;
 }
 .guestLink {
     width: calc((100% - 0.02rem) / 2);
