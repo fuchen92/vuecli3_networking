@@ -33,7 +33,17 @@ export default {
         "loginTip": "Call 0086 20-2882 9750 or email register@traveldaily.cn if you still can't log in."
     },
     search: {
-        navBarTitle: "Search"
+        navBarTitle: "Search",
+        searchInput: "Search Attendees Businesses",
+        attendOption: "Attendees",
+        exhibitorOption: "Exhibitor",
+        openFilterBtn: "Filter",
+        cancelFilterBtn: "Cancel",
+        emptyDesc: "Please Enter a keyword or select any filter",
+        categoryTabs: ["Industry", "Products/Services"],
+        multiTip: "Multiple Choices",
+        resetBtn: "Reset",
+        submitBtn: "Submit"
     },
     "program": {
         "tabs": [

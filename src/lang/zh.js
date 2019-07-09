@@ -33,7 +33,17 @@ export default {
         "loginTip": "如有疑问，请联系 020-2882 9750"
     },
     search: {
-        navBarTitle: "搜索"
+        navBarTitle: "搜索",
+        searchInput: "搜索参会嘉宾或企业",
+        attendOption: "参会嘉宾",
+        exhibitorOption: "现场展商",
+        openFilterBtn: "筛选",
+        cancelFilterBtn: "取消",
+        emptyDesc: "请输入关键字或选中任意筛选项",
+        categoryTabs: ["行业", "产品/服务"],
+        multiTip: "可多选",
+        resetBtn: "重置",
+        submitBtn: "完成"
     },
     "program": {
         "tabs": [

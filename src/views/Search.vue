@@ -3,18 +3,18 @@
         <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="searchBox">
             <div class="searchBar">
-                <input class="searchInput" type="text" placeholder="搜索参会嘉宾或企业" v-model.trim="keyWord" @keyup.enter="submitFilter">
+                <input class="searchInput" type="text" :placeholder="$t('search.searchInput')" v-model.trim="keyWord" @keyup.enter="submitFilter">
                 <select class="searchSelect" v-model="identity">
-                    <option value="1">参会嘉宾</option>
-                    <option value="2">现场展商</option>
+                    <option value="1">{{ $t("search.attendOption") }}</option>
+                    <option value="2">{{ $t("search.exhibitorOption") }}</option>
                 </select>
-                <button class="openFilterBtn" @click="showFilter = !showFilter">{{ showFilter ? "取消" : "筛选" }}</button>
+                <button class="openFilterBtn" @click="showFilter = !showFilter">{{ showFilter ? $t("search.cancelFilterBtn") : $t("search.openFilterBtn") }}</button>
             </div>
             <div class="searchWrapper">
                 <div class="resultBox">
                     <div class="emptyResult" v-if="resultList.length == 0">
                         <img class="emptyResultImg" src="../assets/nullState.png" alt="">
-                        <p class="emptyResultDesc">请输入关键字或选中任意筛选项</p>
+                        <p class="emptyResultDesc">{{ $t("search.emptyDesc") }}</p>
                     </div>
                     <div class="resultList" v-else>
                         <template v-if="resultType == 1">
@@ -35,7 +35,7 @@
                                             <div class="filterCard" :key="industryIndex">
                                                 <p class="filterCardCaption">
                                                     {{ industry.Name }}
-                                                    <span class="filterCaptionTip">（{{ $t("attendees.multiTip") }}）</span>
+                                                    <span class="filterCaptionTip">（{{ $t("search.multiTip") }}）</span>
                                                 </p>
                                                 <div class="filterTags">
                                                     <label class="filterLabel" v-for="(tag, tagidx) in industry.Value" :key="tagidx" :value="tag.Id">
@@ -50,7 +50,7 @@
                                         <div class="filterCard" :key="index">
                                             <p class="filterCardCaption">
                                                 {{ category.Name }}
-                                                <span class="filterCaptionTip">（{{ $t("attendees.multiTip") }}）</span>
+                                                <span class="filterCaptionTip">（{{ $t("search.multiTip") }}）</span>
                                             </p>
                                             <div class="filterTags">
                                                 <label class="filterLabel" v-for="(tag, tagidx) in category.Value" :key="tagidx" :value="tag.Id">
@@ -81,7 +81,7 @@
                                             <div class="filterCard" :key="industry2.Id" v-show="filterTabIndex == 0">
                                                 <p class="filterCardCaption">
                                                     {{ industry2.Name }}
-                                                    <span class="filterCaptionTip">（{{ $t("attendees.multiTip") }}）</span>
+                                                    <span class="filterCaptionTip">（{{ $t("search.multiTip") }}）</span>
                                                 </p>
                                                 <div class="filterTags">
                                                     <label class="filterLabel" v-for="(tag2, tagidx2) in industry2.Value" :key="tagidx2" :value="tag2.Id">
@@ -97,7 +97,7 @@
                                             <div class="filterCard" :key="product.Id" v-show="filterTabIndex == 1">
                                                 <p class="filterCardCaption">
                                                     {{ product.Name }}
-                                                    <span class="filterCaptionTip">（{{ $t("attendees.multiTip") }}）</span>
+                                                    <span class="filterCaptionTip">（{{ $t("search.multiTip") }}）</span>
                                                 </p>
                                                 <div class="filterTags">
                                                     <label class="filterLabel" v-for="(pro, proIdx) in product.Value" :key="proIdx" :value="pro.Id">                                                        
@@ -112,8 +112,8 @@
                             </div>
                         </div>
                         <div class="filterBtns">
-                            <button class="filterBtn" type="reset">重置</button>
-                            <button class="filterBtn submitFilterBtn" type="submit">完成</button>
+                            <button class="filterBtn" type="reset">{{ $t("search.resetBtn") }}</button>
+                            <button class="filterBtn submitFilterBtn" type="submit">{{ $t("search.submitBtn") }}</button>
                         </div>
                     </form>
                 </div>
@@ -138,7 +138,7 @@ export default {
             industryArr: [],
             functionArr: [],
             identityArr: [],
-            categoryTabs: ["行业", "产品/服务"],
+            // categoryTabs: ["行业", "产品/服务"],
             filterTabIndex: 0,
             exhibitorIdstryArr: [],
             exhibitorProArr: []
@@ -153,15 +153,16 @@ export default {
         navBarTitle: function() {
             return this.$i18n.messages[this.lang].search.navBarTitle
         },
+        categoryTabs: function() {
+            return this.$i18n.messages[this.lang].search.categoryTabs
+        },
         ...mapState({
             apiDomain: state => state.ApiDomain,
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
             attendFilterMenu: state => state.FilterMenu,
-            exhibitorFilterMenu: state => state.ExhibitorFilterMenu,
-            // attends: state => state.AttendsList,
-            // recommends: state => state.RecommendList
+            exhibitorFilterMenu: state => state.ExhibitorFilterMenu
         })
     },
     methods: {
@@ -173,7 +174,6 @@ export default {
         submitFilter: function() {
             switch(Number(this.identity)) {
                 case 1:
-                    console.log(111)
                     if(this.keyWord.length == 0 && this.industryArr.length == 0 && this.functionArr.length == 0 && this.identityArr.length == 0) {
                         alert("请输入关键字或选中任意筛选项");
                         return false;
@@ -196,7 +196,6 @@ export default {
                     })
                     break;
                 case 2:
-                    console.log(222)
                     if(this.keyWord.length == 0 && this.exhibitorIdstryArr.length == 0 && this.exhibitorProArr.length == 0) {
                         alert("请输入关键字或选中任意筛选项");
                         return false;
