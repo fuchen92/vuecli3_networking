@@ -42,8 +42,8 @@ export default {
 <style>
 .exhibitorLink {
     box-sizing: border-box;
-    width: 100%;
-    margin-bottom: 0.2rem;
+    width: 95%;
+    margin: 0 auto 0.2rem;
     padding: 0.4rem 0.2rem;
     font-size: 0;
     background-color: #fff;
@@ -102,11 +102,13 @@ export default {
     color: var(--themeColor);
 }
 .exhibitorSlogan {
+    padding-left: 0.2rem;
     font-size: 0.24rem;
     line-height: 0.4rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    background: linear-gradient(left,#f0f1f2,#ffffff);
     color: #666666;
 }
 .interestList {

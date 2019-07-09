@@ -3,8 +3,8 @@
         <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="searchBox">
             <div class="searchBar">
-                <input class="searchInput" type="text" placeholder="搜索参会嘉宾或企业">
-                <select class="searchSelect" v-model="category">
+                <input class="searchInput" type="text" placeholder="搜索参会嘉宾或企业" v-model.trim="keyWord" @keyup.enter="submitFilter">
+                <select class="searchSelect" v-model="identity">
                     <option value="1">参会嘉宾</option>
                     <option value="2">现场展商</option>
                 </select>
@@ -12,17 +12,22 @@
             </div>
             <div class="searchWrapper">
                 <div class="resultBox">
-                    <div class="emptyResult" v-if="attends.length == 0">
+                    <div class="emptyResult" v-if="resultList.length == 0">
                         <img class="emptyResultImg" src="../assets/nullState.png" alt="">
                         <p class="emptyResultDesc">请输入关键字或选中任意筛选项</p>
                     </div>
                     <div class="resultList" v-else>
-                        <GuestCard v-for="(guest, index) in attends" :key="index" :guest="guest"></GuestCard>
+                        <template v-if="resultType == 1">
+                            <GuestCard v-for="(guest, index) in resultList" :key="index" :guest="guest"></GuestCard>
+                        </template>
+                        <template v-else-if="resultType == 2">
+                            <ExhibitorCard v-for="exhibitor in resultList" :key="exhibitor.Id" :exhibitor="exhibitor"></ExhibitorCard>
+                        </template>
                     </div>
                 </div>
                 <div class="filterPanel" v-show="showFilter">
                     <form class="filterForm" @submit.prevent="submitFilter" @reset="reset">
-                        <div class="filterCategory" v-show="category == 1">
+                        <div class="filterCategory" v-show="identity == 1">
                             <div class="filterCategoryList">
                                 <template v-for="(category, index) in attendFilterMenu">
                                     <template v-if="category.Id > 100">
@@ -63,15 +68,52 @@
                                 </template>
                             </div>
                         </div>
-                        <div class="filterCategory" v-show="category == 2">
+                        <div class="filterCategory" v-show="identity == 2">
                             <div class="filterCategoryTabs">
-                                <div v-for="(filterTab, index) in filterCategory" :key="index" class="filterCategoryTab" :class="{ active: filterTabIndex == index }" @click="filterTabIndex = index">
+                                <div v-for="(filterTab, index) in categoryTabs" :key="index" class="filterCategoryTab" :class="{ active: filterTabIndex == index }" @click="filterTabIndex = index">
                                     {{ filterTab }}
                                 </div>
                             </div>
                             <div class="filterCategoryList exhibitorCategoryList">
-                                
+                                <template v-for="category2 in exhibitorFilterMenu">
+                                    <template v-if="category2.Id > 100">
+                                        <template v-for="industry2 in category2.Value">
+                                            <div class="filterCard" :key="industry2.Id" v-show="filterTabIndex == 0">
+                                                <p class="filterCardCaption">
+                                                    {{ industry2.Name }}
+                                                    <span class="filterCaptionTip">（{{ $t("attendees.multiTip") }}）</span>
+                                                </p>
+                                                <div class="filterTags">
+                                                    <label class="filterLabel" v-for="(tag2, tagidx2) in industry2.Value" :key="tagidx2" :value="tag2.Id">
+                                                        <input class="filterCheckBox" type="checkbox" :value="tag2.Id" v-model="exhibitorIdstryArr">
+                                                        <i class="filterTag">{{ tag2.Name }}</i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </template>
+                                    <template v-else-if="category2.Id == 3">
+                                        <template v-for="product in category2.Value">
+                                            <div class="filterCard" :key="product.Id" v-show="filterTabIndex == 1">
+                                                <p class="filterCardCaption">
+                                                    {{ product.Name }}
+                                                    <span class="filterCaptionTip">（{{ $t("attendees.multiTip") }}）</span>
+                                                </p>
+                                                <div class="filterTags">
+                                                    <label class="filterLabel" v-for="(pro, proIdx) in product.Value" :key="proIdx" :value="pro.Id">                                                        
+                                                        <input class="filterCheckBox" type="checkbox" :value="pro.Id" v-model="exhibitorProArr">                                                        
+                                                        <i class="filterTag">{{ pro.Name }}</i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </template>
+                                </template>
                             </div>
+                        </div>
+                        <div class="filterBtns">
+                            <button class="filterBtn" type="reset">重置</button>
+                            <button class="filterBtn submitFilterBtn" type="submit">完成</button>
                         </div>
                     </form>
                 </div>
@@ -88,14 +130,18 @@ export default {
     name: "Search",
     data: function() {
         return {
+            keyWord: "",
+            identity: 1,
             resultList: [],
+            resultType: 1,
             showFilter: false,
             industryArr: [],
             functionArr: [],
             identityArr: [],
-            category: 1,
-            filterCategory: ["行业", "产品/服务"],
-            filterTabIndex: 0
+            categoryTabs: ["行业", "产品/服务"],
+            filterTabIndex: 0,
+            exhibitorIdstryArr: [],
+            exhibitorProArr: []
         }
     },
     components: {
@@ -107,26 +153,78 @@ export default {
         navBarTitle: function() {
             return this.$i18n.messages[this.lang].search.navBarTitle
         },
-         ...mapState({
+        ...mapState({
+            apiDomain: state => state.ApiDomain,
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
             attendFilterMenu: state => state.FilterMenu,
             exhibitorFilterMenu: state => state.ExhibitorFilterMenu,
-            attends: state => state.AttendsList,
-            recommends: state => state.RecommendList
+            // attends: state => state.AttendsList,
+            // recommends: state => state.RecommendList
         })
     },
     methods: {
         ...mapActions([
             "getAttendsFilter",
-            "getExhibitorFilter"
+            "getExhibitorFilter",
+            "getRecommendList",
         ]),
         submitFilter: function() {
-
+            switch(Number(this.identity)) {
+                case 1:
+                    console.log(111)
+                    if(this.keyWord.length == 0 && this.industryArr.length == 0 && this.functionArr.length == 0 && this.identityArr.length == 0) {
+                        alert("请输入关键字或选中任意筛选项");
+                        return false;
+                    }
+                    this.$http.post(`${this.apiDomain}/Attendees/Search`, {
+                        eventNo: this.eventNo,
+                        keyword: this.keyWord,
+                        filter1: this.industryArr.join(","),
+                        index: 1,
+                        size: 9999,
+                        filter2: this.functionArr.join(","),
+                        filter3: this.identityArr.join(","),
+                        token: this.token,
+                        lang: this.lang == "zh" ? 1 : 2
+                    }).then(res => {
+                        console.log(res)
+                        this.resultList = res.data.Data;
+                        this.resultType = 1;
+                        this.showFilter = false;
+                    })
+                    break;
+                case 2:
+                    console.log(222)
+                    if(this.keyWord.length == 0 && this.exhibitorIdstryArr.length == 0 && this.exhibitorProArr.length == 0) {
+                        alert("请输入关键字或选中任意筛选项");
+                        return false;
+                    }
+                    this.$http.post(`${this.apiDomain}/Exhibitors/Search`, {
+                        eventNo: this.eventNo,
+                        keyword: this.keyWord,
+                        filter1: this.exhibitorIdstryArr.join(","),
+                        filter2: this.exhibitorProArr.join(","),
+                        token: this.token,
+                        lang: this.lang == "zh" ? 1 : 2,
+                        index: 1,
+                        size: 9999
+                    }).then(res => {
+                        console.log(res)
+                        this.resultList = res.data.Data;
+                        this.resultType = 2;
+                        this.showFilter = false;
+                    })
+                    break;
+            }
         },
         reset: function() {
-
+            this.industryArr.length == 0;
+            this.functionArr.length == 0;
+            this.identityArr.length == 0;
+            this.exhibitorIdstryArr.length == 0;
+            this.exhibitorProArr.length == 0;
         }
     },
     created: function() {
@@ -216,7 +314,7 @@ export default {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: 0.2rem 0 1rem;
+    padding: 0.2rem 0;
     overflow: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -248,6 +346,7 @@ export default {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    padding-top: 1rem;
     overflow: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -255,6 +354,7 @@ export default {
 .filterCategoryTabs {
     box-sizing: border-box;
     position: absolute;
+    top: 0.8rem;
     left: 0;
     display: flex;
     justify-content: space-around;
@@ -275,7 +375,7 @@ export default {
     border-bottom-color: var(--themeColor);
 }
 .exhibitorCategoryList {
-    padding-top: 1rem;
+    padding-top: 1.8rem;
 }
 .filterCard {
     box-sizing: border-box;
@@ -284,9 +384,9 @@ export default {
     padding: 0.2rem;
     background-color: #fff;
 }
-.filterCard:last-child {
+/* .filterCard:last-child {
     margin-bottom: 0;
-}
+} */
 .filterCardCaption {
     padding-bottom: 0.1rem;
     font-size: 0.28rem;

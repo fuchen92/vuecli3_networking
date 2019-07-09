@@ -27,6 +27,8 @@ import {
 
 export default new Vuex.Store({
     state: {
+        LocalApiDomain: "http://192.168.1.21:89",
+        ApiDomain: "https://socialapi.traveldaily.cn",
         eventNo: 68,
         Lang: localStorage.getItem("localeLanguage") || "zh",
         Account: {
@@ -156,7 +158,6 @@ export default new Vuex.Store({
         },
         // 获取搜索页展商筛选选项
         INITEXHIBITORFILTERMENU(state, { filterMenu }) {
-            console.log(filterMenu);
             state.ExhibitorFilterMenu = filterMenu;
         },
         // 获取产品详情

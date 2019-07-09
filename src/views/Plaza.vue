@@ -7,7 +7,6 @@
         </div>
         <div class="plazaBox">
             <div class="plazaList" v-bind:class="{ active: currentIndex == 0 }">
-                <div class="container">
                     <!-- <router-link v-for="exhibitor in exhibitorList" class="exhibitorLink" v-bind:key="exhibitor.Id" v-bind:to="'/exhibitor?exhibitorId=' + exhibitor.Id">
                         <div class="exhibitorAvatar">
                             <img class="exhibitorLogo" :src="exhibitor.Photo" alt="">
@@ -34,8 +33,7 @@
                             </div>
                         </div>
                     </router-link> -->
-                    <ExhibitorCard v-for="exhibitor in exhibitorList" :key="exhibitor.Id" :exhibitor="exhibitor"></ExhibitorCard>
-                </div>
+                <ExhibitorCard v-for="exhibitor in exhibitorList" :key="exhibitor.Id" :exhibitor="exhibitor"></ExhibitorCard>
             </div>
             <div class="plazaList supplyList" v-bind:class="{ active: currentIndex == 1, empty: supplyList.length == 0 }">
                 <div class="emptyList" v-if="supplyList.length == 0">
@@ -185,10 +183,6 @@ export default {
     display: block;
     width: 100%;
 }
-.plazaList > .container {
-    width: 95%;
-}
-
 .supplyList.empty,
 .supplyList.empty > .container,
 .demandList.empty,

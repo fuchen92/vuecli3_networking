@@ -73,7 +73,7 @@ export default {
             },
             inviteAddr: "",
             inviteDate: "2019-08-27",
-            inviteTime: "12:00:00",
+            inviteTime: "14:35",
             matter: ""
         }
     },
@@ -96,6 +96,8 @@ export default {
             "getMyInfo"
         ]),
         submitInvite: function() {
+            // console.log(this.inviteTime)
+            // console.log(this.inviteDate + " " + this.inviteTime + ":00")
             console.log({
                 eventNo: this.eventNo,
                 target: this.invitePeople.id,
@@ -104,7 +106,6 @@ export default {
                 location: this.inviteAddr,    
                 token: this.token,
                 lang: this.lang == "zh" ? 1 : 2
-
             })
             if(this.inviteAddr.length == 0 || this.inviteAddr == "") {
                 this.$refs.addr.focus();
