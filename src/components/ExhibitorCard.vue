@@ -110,7 +110,7 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    background: linear-gradient(left,#f0f1f2,#ffffff);
+    background: linear-gradient(to right,#f0f1f2,#ffffff);
     color: #666666;
 }
 .interestList {

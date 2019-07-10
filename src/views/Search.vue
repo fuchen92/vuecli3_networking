@@ -134,7 +134,7 @@ export default {
             identity: 1,
             resultList: [],
             resultType: 1,
-            showFilter: false,
+            showFilter: true,
             industryArr: [],
             functionArr: [],
             identityArr: [],
