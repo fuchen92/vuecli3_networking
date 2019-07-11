@@ -12,7 +12,7 @@ import { mapActions, mapState, mapMutations } from "vuex";
 export default {
     data: function() {
         return {
-            websocket: null,
+            socket: null,
             isOpenSocket: false
         }
     },
@@ -27,7 +27,7 @@ export default {
     watch: {
         token: function() {
             if(this.token != "" || this.token != null) {
-                this.initWebsocket(this.token)
+                this.initSocket(this.token)
             }
         }
     },
@@ -38,24 +38,24 @@ export default {
         // ...mapActions([
         //     "getNewChatCount"
         // ]),
-        initWebsocket(token) {
+        initSocket(token) {
             const socketUrl = `wss://socialapi.traveldaily.cn/WebSocket/Index?token=${encodeURIComponent(token)}`
-            this.websocket = new WebSocket(socketUrl);
-            this.websocket.onopen = this.websocketonopen;
-            this.websocket.onmessage = this.websocketonmessage;
-            this.websocket.onerror = this.websocketonerror;
-            this.websocket.onclose = this.websocketclose;
+            this.socket = new WebSocket(socketUrl);
+            this.socket.onopen = this.onOpen;
+            this.socket.onmessage = this.onMessage;
+            this.socket.onerror = this.onError;
+            this.socket.onclose = this.onClose;
             return true;
         },
-        websocketonopen(){ //连接建立之后执行send方法发送数据
+        onOpen(){ //连接建立之后执行send方法发送数据
             console.log("socket链接打开")
             let actions = {"test":"12345"};
-            this.websocketsend(JSON.stringify(actions));
+            this.socketSend(JSON.stringify(actions));
         },
-        websocketonerror(){//连接建立失败重连
-            this.initWebSocket(this.token);
+        onError(){//连接建立失败重连
+            this.initSocket(this.token);
         },
-        websocketonmessage(e){ //数据接收
+        onMessage(e){ //数据接收
             const redata = JSON.parse(e.data);
             let currentRoute = this.$route.path;
             if(currentRoute != "/message") {
@@ -63,17 +63,17 @@ export default {
             }
             console.log(redata)
         },
-        websocketsend(Data){//数据发送
-            this.websocket.send(Data);
+        socketSend(Data){//数据发送
+            this.socket.send(Data);
         },
-        websocketclose(e){  //关闭
+        onClose(e){  //关闭
             console.log('断开连接',e);
         },
     },
     created: function() {
         console.log("created")
         if(this.token != "") {
-            this.initWebsocket(this.token)
+            this.initSocket(this.token)
         }
     },
 }

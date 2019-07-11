@@ -111,6 +111,7 @@ export default {
             sendDisabled: false,
             timer: null,
             myPhoto: require("../assets/avatar.jpg"),
+            msgArr: []
         }
     },
     components: {
@@ -162,7 +163,9 @@ export default {
             token: this.token,
             after: -1,
             lang: this.lang == "zh" ? 1 : 2
-        })
+        });
+        let ws = this.$parent.websocket;
+        console.log(ws)
     },
     mounted: function() {
         this.timer = setTimeout(() => {
