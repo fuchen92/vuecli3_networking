@@ -7,7 +7,77 @@
 		<router-view></router-view>
     </div>
 </template>
-
+<script>
+import { mapActions, mapState, mapMutations } from "vuex";
+export default {
+    data: function() {
+        return {
+            websocket: null,
+            isOpenSocket: false
+        }
+    },
+    computed: {
+        ...mapState({
+			apiDomain: state => state.ApiDomain,
+			eventNo: state => state.eventNo,
+            lang: state => state.Lang,
+            token: state => state.Account.Token,
+		}),
+    },
+    watch: {
+        token: function() {
+            if(this.token != "" || this.token != null) {
+                this.initWebsocket(this.token)
+            }
+        }
+    },
+    methods: {
+        ...mapMutations([
+            "SETREDDOT"
+        ]),
+        // ...mapActions([
+        //     "getNewChatCount"
+        // ]),
+        initWebsocket(token) {
+            const socketUrl = `wss://socialapi.traveldaily.cn/WebSocket/Index?token=${encodeURIComponent(token)}`
+            this.websocket = new WebSocket(socketUrl);
+            this.websocket.onopen = this.websocketonopen;
+            this.websocket.onmessage = this.websocketonmessage;
+            this.websocket.onerror = this.websocketonerror;
+            this.websocket.onclose = this.websocketclose;
+            return true;
+        },
+        websocketonopen(){ //连接建立之后执行send方法发送数据
+            console.log("socket链接打开")
+            let actions = {"test":"12345"};
+            this.websocketsend(JSON.stringify(actions));
+        },
+        websocketonerror(){//连接建立失败重连
+            this.initWebSocket(this.token);
+        },
+        websocketonmessage(e){ //数据接收
+            const redata = JSON.parse(e.data);
+            let currentRoute = this.$route.path;
+            if(currentRoute != "/message") {
+                this.SETREDDOT("show")
+            }
+            console.log(redata)
+        },
+        websocketsend(Data){//数据发送
+            this.websocket.send(Data);
+        },
+        websocketclose(e){  //关闭
+            console.log('断开连接',e);
+        },
+    },
+    created: function() {
+        console.log("created")
+        if(this.token != "") {
+            this.initWebsocket(this.token)
+        }
+    },
+}
+</script>
 <style>
 :root {
 	--themeColor: #c30d23;

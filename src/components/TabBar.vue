@@ -13,6 +13,7 @@
             {{ $t('tabBar.plaza') }}
         </router-link>
         <router-link class="tabBarItemLink" to="/message" active-class="active">
+            <b class="tabBarRedDot" v-show="this.$route.path.substr(1) != 'message' && newMsg"></b>
             <span class="tabBarItemIcon tabBarMsg"></span>
             {{ $t('tabBar.message') }}
         </router-link>
@@ -24,8 +25,19 @@
     </div>
 </template>
 <script>
+import { masState, mapState } from "vuex";
 export default {
-    name: "TabBar"
+    name: "TabBar",
+    data: function() {
+        return {
+            // newMsg: true
+        }
+    },
+    computed: {
+        ...mapState({
+            newMsg: state => state.NewMsg
+        })
+    }
 }
 </script>
 <style>
@@ -44,6 +56,7 @@ export default {
     z-index: 1000;
 }
 .tabBarItemLink {
+    position: relative;
     width: 100%;
     height: 100%;
     font-size: 0.24rem;
@@ -52,6 +65,16 @@ export default {
 }
 .tabBarItemLink.active {
     color: var(--themeColor);
+}
+.tabBarRedDot {
+    position: absolute;
+    display: block;
+    width: 0.2rem;
+    height: 0.2rem;
+    top: 0.1rem;
+    right: 0.3rem;
+    border-radius: 100%;
+    background-color: var(--themeColor);
 }
 .tabBarItemIcon {
     display: block;

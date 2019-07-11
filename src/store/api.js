@@ -125,6 +125,14 @@ export function getChatList(eventNo, token, lang) {
     })
 }
 
+export function getNewChatCount(eventNo, token, lang) {
+    return axios.post(`${apiDomain}/Message/ChatCount`, {
+        eventNo: eventNo,
+        token: token,
+        lang: lang
+    })
+}
+
 export function getMessageList(eventNo, target, before, size, token, after, lang) {
     return axios.post(`${apiDomain}/Attendees/UserChat`, {
         eventNo: eventNo,

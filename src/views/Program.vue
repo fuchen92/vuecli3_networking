@@ -159,7 +159,6 @@ export default {
         }
     },
     created: function() {
-        console.log("created")
         let language = this.lang == "zh" ? 1 : 2;
         // if(this.programList.length == 0) {
             this.initProgram({ eventNo: this.eventNo, token: this.token, lang: language });

@@ -88,8 +88,8 @@
                 <img class="sendCardImg" src="../assets/iconSendcard.svg" alt="">
                 {{ $t("chat.cardBtn") }}
             </div>
-            <textarea class="chatInput"></textarea>
-            <button class="sendMsgBtn">{{ $t("chat.sendBtn") }}</button>
+            <textarea class="chatInput" v-model.trim="chatMsg"></textarea>
+            <button class="sendMsgBtn" @click="sendMsg" :disabled="sendDisabled">{{ $t("chat.sendBtn") }}</button>
         </div>
     </div>
 </template>
@@ -107,8 +107,10 @@ export default {
                 job: this.$route.query.uJob,
                 photo: this.$route.query.uPhoto
             },
+            chatMsg: "",
+            sendDisabled: false,
             timer: null,
-            myPhoto: require("../assets/avatar.jpg")
+            myPhoto: require("../assets/avatar.jpg"),
         }
     },
     components: {
@@ -119,6 +121,7 @@ export default {
             return this.$i18n.messages[this.lang].chat.navBarTitle
         },
         ...mapState({
+            apiDomain: state => state.ApiDomain,
 			lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
@@ -129,7 +132,26 @@ export default {
     methods: {
         ...mapActions([
             "getMessageList"
-        ])
+        ]),
+        sendMsg: function() {
+            console.log(this.chatMsg)
+            if(this.chatMsg == "" || this.chatMsg.length == 0) {
+                return false;
+            }
+            this.sendDisabled = true;
+            this.$http.post(`${this.apiDomain}/Attendees/ChatSend`, {
+                eventNo: this.eventNo,
+                target: this.chatUser.id,
+                type: 0,
+                content: this.chatMsg,
+                token: this.token,
+                lang: this.lang == "zh" ? 1 : 2
+            }).then(res => {
+                this.sendDisabled = false;
+                this.chatMsg = "";
+                this.$refs.chatBox.scrollTop = 99999;
+            })
+        }
     },
     created: function() {
         this.getMessageList({

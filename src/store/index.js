@@ -17,6 +17,7 @@ import {
     getProductDetail,
     getPlazaList,
     getChatList,
+    getNewChatCount,
     getMessageList,
     getInviteDetail,
     getMySolutionList,
@@ -31,6 +32,7 @@ export default new Vuex.Store({
         ApiDomain: "https://socialapi.traveldaily.cn",
         eventNo: 68,
         Lang: localStorage.getItem("localeLanguage") || "zh",
+        NewMsg: false,
         Account: {
             Token: localStorage.getItem("token") || "",
             IsFirstLogin: ""
@@ -80,7 +82,6 @@ export default new Vuex.Store({
         },
         // 初始化（token）
         INITTOKEN(state, { account }) {
-            localStorage.setItem("token", account.token);
             Vue.set(state.Account, "Token", account.token);
             Vue.set(state.Account, "IsFirstLogin", account.isFirstLogin);
         },
@@ -221,6 +222,14 @@ export default new Vuex.Store({
         // 获取邀约详情
         GETINVITEDETAIL(state, { inviteDetail }) {
             state.InviteDetail = inviteDetail;
+        },
+        // 设置tabBar组件红点
+        SETREDDOT(state, type) {
+            if(type == "show") {
+                state.NewMsg = true;
+            } else {
+                state.NewMsg = false
+            }
         }
     },
     actions: {
@@ -331,6 +340,19 @@ export default new Vuex.Store({
         getChatList({ commit }, { eventNo, token, lang }) {
             getChatList(eventNo, token, lang).then(res => {
                 commit("INITCHATLIST", res.data.Data);
+            })
+        },
+        // 获取tabBar新消息以控制显示红点
+        getNewChatCount({ commit }, { eventNo, token, lang }) {
+            getNewChatCount(eventNo, token, lang).then(res => {
+                let resData = res.data;
+                if(resData.Code == 0) {
+                    if(resData.Data > 0) {
+                        commit("SETREDDOT", "show");
+                    } else {
+                        commit("SETREDDOT", "hide");
+                    }
+                }
             })
         },
         // 获取用户聊天的消息列表

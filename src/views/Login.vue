@@ -68,6 +68,7 @@ export default {
 			}
 		},
 		...mapState({
+			apiDomain: state => state.ApiDomain,
 			eventNo: state => state.eventNo,
 			lang: state => state.Lang
 		}),
@@ -78,7 +79,8 @@ export default {
 		...mapActions({
 			initProgram: "getProgramList",
 			initMyInfo: "getMyInfo",
-			initToken: "initToken"
+			initToken: "initToken",
+			getNewChatCount: "getNewChatCount"
 		}),
 		_validate: function(type) {
 			let { account, valicode } = this;
@@ -129,7 +131,7 @@ export default {
 				this.hasError = false;
 				this.isGettedCode = true;
 				this.$refs.valicode.focus();
-				this.$http.post("https://socialapi.traveldaily.cn/Home/SendCode", {
+				this.$http.post(`${this.apiDomain}/Home/SendCode`, {
 					eventNo: this.eventNo,
 					loginName: this.account,
 					lang: this.language
@@ -162,7 +164,7 @@ export default {
 			}
 			if(this._validate("account") && this._validate("valicode")) {
 				this.hasError = false;
-				this.$http.post("https://socialapi.traveldaily.cn/Home/Login", {
+				this.$http.post(`${this.apiDomain}/Home/Login`, {
 					eventNo: this.eventNo,
 					loginName: this.account,
 					code: this.valicode,
@@ -175,11 +177,10 @@ export default {
 						}
 						// 触发初始化account的actions（token）
 						this.initToken({ account });
-
-						var logininfo = {
-							account: this.account
-						};
-						localStorage.setItem("user", JSON.stringify(logininfo))
+						this.getNewChatCount({ eventNo: this.eventNo, token: account.token, lang: this.language == "zh" ? 1 : 2 });
+						// let isOpenSocket = this.$parent.initWebsocket(res.data.Data);					
+						// this.$parent.isOpenSocket = true;
+            			localStorage.setItem("token", account.token);
 						let _redirect = this.$route.query.redirect
 						// if (_redirect) {
 						// 	this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
@@ -208,6 +209,9 @@ export default {
 			}
 			
 		}
+	},
+	created: function() {
+		console.log(this.$parent)
 	},
 	beforeDestroy() {
 		clearInterval(this.timer)

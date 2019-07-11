@@ -32,10 +32,11 @@ Vue.config.productionTip = false
 // 判断是否登陆
 router.beforeEach((to, from, next) => {
 	if (to.path === '/login') {
-		localStorage.removeItem('user')
+		localStorage.removeItem('token')
+		// localStorage.clear();
 	}
-	let user = JSON.parse(localStorage.getItem('user'))
-	if (!user && to.path !== '/login') {
+	let token = localStorage.getItem('token')
+	if (!token && to.path !== '/login') {
 		console.log("重定向到登录页")
 		next({ path: '/login' })
 		// if (to.path.substring(1)) {

@@ -50,7 +50,7 @@
     </div>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 export default {
 	name: "Message",
 	data: function() {
@@ -69,10 +69,14 @@ export default {
 	methods: {
 		...mapActions([
 			"getChatList"
+		]),
+		...mapMutations([
+			"SETREDDOT"
 		])
 	},
 	created: function() {
 		this.getChatList({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
+		this.SETREDDOT("hide")
 	}
 }
 </script>
