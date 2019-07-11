@@ -148,6 +148,7 @@ export default {
                 token: this.token,
                 lang: this.lang == "zh" ? 1 : 2
             }).then(res => {
+                console.log(res.data)
                 this.sendDisabled = false;
                 this.chatMsg = "";
                 this.$refs.chatBox.scrollTop = 99999;
@@ -164,8 +165,6 @@ export default {
             after: -1,
             lang: this.lang == "zh" ? 1 : 2
         });
-        let ws = this.$parent.websocket;
-        console.log(ws)
     },
     mounted: function() {
         this.timer = setTimeout(() => {

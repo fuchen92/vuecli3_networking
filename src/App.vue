@@ -61,7 +61,9 @@ export default {
             if(currentRoute != "/message") {
                 this.SETREDDOT("show")
             }
-            console.log(redata)
+            if(currentRoute == "/chat") {
+                console.log(this.$children[0])
+            }
         },
         socketSend(Data){//数据发送
             this.socket.send(Data);
