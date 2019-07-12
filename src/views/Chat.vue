@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="chatOpts">
-            <div class="sendCard">
+            <div class="sendCard" @click="sendCard">
                 <img class="sendCardImg" src="../assets/iconSendcard.svg" alt="">
                 {{ $t("chat.cardBtn") }}
             </div>
@@ -176,6 +176,43 @@ export default {
                 this.ADDNEWCHAT({ id: this.chatUser.id, item: temp });
                 this.chatMsg = "";
             })
+        },
+        sendCard: function() {
+            var r = window.confirm("即将发送您的联系方式（包括手机、邮箱、微信等）给对象，请确认");
+            if(r) {
+                console.log("确定发送名片")
+                this.$http.post(`${this.apiDomain}/Attendees/ChatSend`, {
+                    eventNo: this.eventNo,
+                    target: this.chatUser.id,
+                    type: 1,
+                    content: "",
+                    token: this.token,
+                    lang: this.lang == "zh" ? 1 : 2
+                }).then(res => {
+                    console.log(res.data)
+                    console.log(this.myInfo);
+                    let msgId = res.data.Data
+                    let { Name, Company, JobTitle, Mobile, Mail, WeChat } = this.myInfo;
+                    
+                    let temp = {
+                        Content: {
+                            Name: Name,
+                            Company: Company,
+                            JobTitle: JobTitle,
+                            Mobile: Mobile,
+                            Mail: Mail,
+                            WeChat: WeChat
+                        },
+                        Id: msgId,
+                        NetUserId: this.myInfo.Id,
+                        ReadTime: "0001-01-01T00:00:00",
+                        SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
+                        TargetNetUserId: this.chatUser.id,
+                        Type: 1
+                    }
+                    this.ADDNEWCHAT({ id: this.chatUser.id, item: temp });
+                })
+            }
         }
     },
     created: function() {

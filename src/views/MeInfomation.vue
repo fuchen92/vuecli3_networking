@@ -38,7 +38,7 @@
                     </div>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.email") }}</p>
-                        <p class="infomationItemValue rt">{{ myInfo.Email }}</p>
+                        <p class="infomationItemValue rt">{{ myInfo.Mail }}</p>
                     </div>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.wechat") }}</p>

@@ -183,11 +183,11 @@ export default new Vuex.Store({
         // 我的页面个人信息简要
         INITMYINFOMATION(state, { infomation }) {
             let Mobile = infomation.ContactList.filter(item => item.Id == 1)[0].Name;
-            let Email = infomation.ContactList.filter(item => item.Id == 2)[0].Name;
+            let Mail = infomation.ContactList.filter(item => item.Id == 2)[0].Name;
             let WeChat = infomation.ContactList.filter(item => item.Id == 3)[0].Name;
             state.MyInfomation = infomation;
             Vue.set(state.MyInfomation, "Mobile", Mobile);
-            Vue.set(state.MyInfomation, "Email", Email);
+            Vue.set(state.MyInfomation, "Mail", Mail);
             Vue.set(state.MyInfomation, "WeChat", WeChat);
         },
         // 修改个人资料页wechat

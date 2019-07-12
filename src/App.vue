@@ -58,14 +58,11 @@ export default {
         },
         onMessage(e){ //数据接收
             const socketData = JSON.parse(e.data);
-            console.log(socketData)
             let currentRoute = this.$route.path;
             if(currentRoute != "/message") {
                 this.SETREDDOT("show")
             }
             if(currentRoute == "/chat") {
-                // console.log(this.$route)
-                // console.log(this.$children[0])
                 let senderId = this.$route.query.chatId
                 if(socketData.Type == 1 && socketData.Sender == senderId) {
                     let temp = {
@@ -82,7 +79,7 @@ export default {
                         id: socketData.MsgId,
                         token: this.token
                     }).then(res => {
-                        console.log("已阅读当前消息")
+                        // console.log("已阅读当前消息")
                     })
                 } else if (socketData.Type == 2 && socketData.Sender == senderId) {
                     let temp = {
@@ -99,7 +96,7 @@ export default {
                         id: socketData.MsgId,
                         token: this.token
                     }).then(res => {
-                        console.log("已阅读当前消息")
+                        // console.log("已阅读当前消息")
                     })
                 }
             }
