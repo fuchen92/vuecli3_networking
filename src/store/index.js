@@ -32,7 +32,7 @@ export default new Vuex.Store({
         ApiDomain: "https://socialapi.traveldaily.cn",
         eventNo: 68,
         Lang: localStorage.getItem("localeLanguage") || "zh",
-        NewMsg: false,
+        showRedDot: false,
         Account: {
             Token: localStorage.getItem("token") || "",
             IsFirstLogin: ""
@@ -197,7 +197,6 @@ export default new Vuex.Store({
             Vue.set(state.MyInfomation, "Intro", intro)
         },
         GETMYQRCODE(state, code) {
-            console.log(code)
             state.QrCode = code;
         },
         // 获取聊天用户列表
@@ -226,9 +225,9 @@ export default new Vuex.Store({
         // 设置tabBar组件红点
         SETREDDOT(state, type) {
             if(type == "show") {
-                state.NewMsg = true;
+                state.showRedDot = true;
             } else {
-                state.NewMsg = false
+                state.showRedDot = false
             }
         }
     },
@@ -332,7 +331,6 @@ export default new Vuex.Store({
         },
         getMyQrcode({ commit }, { token, lang }) {
             getMyQrcode(token, lang).then(res => {
-                // console.log(res);
                 commit("GETMYQRCODE", res.data.Data);
             })
         },
@@ -377,11 +375,7 @@ export default new Vuex.Store({
                     Name: state.MyInfomation.Name,
                     Company: state.MyInfomation.Company,
                     JobTitle: state.MyInfomation.JobTitle,
-                    Photo: state.MyInfomation.Photo,
-                    // Mobile: state.MyInfomation.ContactList[0].Name,
-                    // Email: state.MyInfomation.ContactList[1].Name,
-                    // WeChat: state.MyInfomation.ContactList[2].Name
-                    // Intro: state.MyInfomation.ContactList[2].Name,
+                    Photo: state.MyInfomation.Photo
                 }
             }
             if(lang == "en") {

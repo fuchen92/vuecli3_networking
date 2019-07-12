@@ -35,9 +35,6 @@ export default {
         ...mapMutations([
             "SETREDDOT"
         ]),
-        // ...mapActions([
-        //     "getNewChatCount"
-        // ]),
         initSocket(token) {
             const socketUrl = `wss://socialapi.traveldaily.cn/WebSocket/Index?token=${encodeURIComponent(token)}`
             this.socket = new WebSocket(socketUrl);

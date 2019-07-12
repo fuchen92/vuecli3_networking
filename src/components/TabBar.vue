@@ -13,7 +13,7 @@
             {{ $t('tabBar.plaza') }}
         </router-link>
         <router-link class="tabBarItemLink" to="/message" active-class="active">
-            <b class="tabBarRedDot" v-show="this.$route.path.substr(1) != 'message' && newMsg"></b>
+            <b class="tabBarRedDot" v-show="this.$route.path.substr(1) != 'message' && showRedDot"></b>
             <span class="tabBarItemIcon tabBarMsg"></span>
             {{ $t('tabBar.message') }}
         </router-link>
@@ -30,12 +30,12 @@ export default {
     name: "TabBar",
     data: function() {
         return {
-            // newMsg: true
+            
         }
     },
     computed: {
         ...mapState({
-            newMsg: state => state.NewMsg
+            showRedDot: state => state.showRedDot
         })
     }
 }
