@@ -13,7 +13,7 @@ export default {
     data: function() {
         return {
             socket: null,
-            isOpenSocket: false
+            timer: null,
         }
     },
     computed: {
@@ -22,6 +22,7 @@ export default {
 			eventNo: state => state.eventNo,
             lang: state => state.Lang,
             token: state => state.Account.Token,
+            myInfo: state => state.MyInfomation,
 		}),
     },
     watch: {
@@ -33,7 +34,11 @@ export default {
     },
     methods: {
         ...mapMutations([
-            "SETREDDOT"
+            "SETREDDOT",
+            "ADDNEWCHAT"
+        ]),
+        ...mapActions([
+            "getMyInfo"
         ]),
         initSocket(token) {
             const socketUrl = `wss://socialapi.traveldaily.cn/WebSocket/Index?token=${encodeURIComponent(token)}`
@@ -42,7 +47,6 @@ export default {
             this.socket.onmessage = this.onMessage;
             this.socket.onerror = this.onError;
             this.socket.onclose = this.onClose;
-            return true;
         },
         onOpen(){ //连接建立之后执行send方法发送数据
             console.log("socket链接打开")
@@ -53,13 +57,51 @@ export default {
             this.initSocket(this.token);
         },
         onMessage(e){ //数据接收
-            const redata = JSON.parse(e.data);
+            const socketData = JSON.parse(e.data);
+            console.log(socketData)
             let currentRoute = this.$route.path;
             if(currentRoute != "/message") {
                 this.SETREDDOT("show")
             }
             if(currentRoute == "/chat") {
-                console.log(this.$children[0])
+                // console.log(this.$route)
+                // console.log(this.$children[0])
+                let senderId = this.$route.query.chatId
+                if(socketData.Type == 1 && socketData.Sender == senderId) {
+                    let temp = {
+                        Content: socketData.Content,
+                        Id: socketData.MsgId,
+                        NetUserId: senderId,
+                        ReadTime: "0001-01-01T00:00:00",
+                        SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
+                        TargetNetUserId: this.myInfo.Id,
+                        Type: 0
+                    }
+                    this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
+                    this.$http.post(`${this.apiDomain}/Attendees/ChatRead`, {
+                        id: socketData.MsgId,
+                        token: this.token
+                    }).then(res => {
+                        console.log("已阅读当前消息")
+                    })
+                } else if (socketData.Type == 2 && socketData.Sender == senderId) {
+                    let temp = {
+                        Content: JSON.parse(socketData.Content),
+                        Id: socketData.MsgId,
+                        NetUserId: senderId,
+                        ReadTime: "0001-01-01T00:00:00",
+                        SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
+                        TargetNetUserId: this.myInfo.Id,
+                        Type: 1
+                    }
+                    this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
+                    this.$http.post(`${this.apiDomain}/Attendees/ChatRead`, {
+                        id: socketData.MsgId,
+                        token: this.token
+                    }).then(res => {
+                        console.log("已阅读当前消息")
+                    })
+                }
             }
         },
         socketSend(Data){//数据发送
@@ -70,7 +112,7 @@ export default {
         },
     },
     created: function() {
-        console.log("created")
+        this.getMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });
         if(this.token != "") {
             this.initSocket(this.token)
         }

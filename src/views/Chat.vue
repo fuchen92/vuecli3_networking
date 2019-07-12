@@ -94,7 +94,7 @@
     </div>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 import NavBar from "@/components/NavBar";
 export default {
     name: "Chat",
@@ -121,21 +121,34 @@ export default {
         navBarTitle: function() {
             return this.$i18n.messages[this.lang].chat.navBarTitle
         },
+        chatList: function() {
+            return this.$store.getters.getChatListById(this.chatUser.id)
+        },
         ...mapState({
             apiDomain: state => state.ApiDomain,
 			lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
-            chatList: state => state.MessageList,
+            // chatList: state => state.MessageList,
             myInfo: state => state.MyInfomation
 		})
     },
+    watch: {
+        chatList: function() {            
+            this.$nextTick(function() {
+                this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight;
+            })
+        }
+    },
     methods: {
         ...mapActions([
-            "getMessageList"
+            "getMessageList",
+            "getMyInfo"
+        ]),
+        ...mapMutations([
+            "ADDNEWCHAT"
         ]),
         sendMsg: function() {
-            console.log(this.chatMsg)
             if(this.chatMsg == "" || this.chatMsg.length == 0) {
                 return false;
             }
@@ -149,27 +162,54 @@ export default {
                 lang: this.lang == "zh" ? 1 : 2
             }).then(res => {
                 console.log(res.data)
+                let msgId = res.data.Data
                 this.sendDisabled = false;
+                let temp = {
+                    Content: this.chatMsg,
+                    Id: msgId,
+                    NetUserId: this.myInfo.Id,
+                    ReadTime: "0001-01-01T00:00:00",
+                    SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
+                    TargetNetUserId: this.chatUser.id,
+                    Type: 0
+                }
+                this.ADDNEWCHAT({ id: this.chatUser.id, item: temp });
                 this.chatMsg = "";
-                this.$refs.chatBox.scrollTop = 99999;
             })
         }
     },
     created: function() {
-        this.getMessageList({
-            eventNo: this.eventNo,
-            target: this.chatUser.id,
-            before: -1,
-            size: -1,
-            token: this.token,
-            after: -1,
-            lang: this.lang == "zh" ? 1 : 2
-        });
+        this.getMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });
+        // this.getMessageList({
+        //     eventNo: this.eventNo,
+        //     target: this.chatUser.id,
+        //     before: -1,
+        //     size: -1,
+        //     token: this.token,
+        //     after: -1,
+        //     lang: this.lang == "zh" ? 1 : 2
+        // });
+        if(this.chatList == "" || this.chatList == null || this.chatList == undefined) {
+            this.$http.post(`${this.apiDomain}/Attendees/UserChat`, {
+                eventNo: this.eventNo,
+                target: this.chatUser.id,
+                before: -1,
+                size: 99999,
+                token: this.token,
+                after: -1,
+                lang: this.lang == "zh" ? 1 : 2
+            }).then(res => {
+                this.$store.commit("INITMESSAGELIST", { targetId: this.chatUser.id, msgList: res.data.Data });
+                this.timer = setTimeout(() => {
+                    this.$refs.chatBox.scrollTop = 999999;
+                }, 1);
+            })
+        }
     },
     mounted: function() {
-        this.timer = setTimeout(() => {
-            this.$refs.chatBox.scrollTop = 99999;
-        }, 1);
+        // this.timer = setTimeout(() => {
+            this.$refs.chatBox.scrollTop = 999999;
+        // }, 1);
     },
     beforeDestroy: function() {
         clearTimeout(this.timer);
@@ -191,6 +231,7 @@ export default {
     overflow: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    /* scroll-behavior: smooth; */
 }
 .chatRules {
     box-sizing: border-box;
@@ -214,6 +255,7 @@ export default {
     box-sizing: border-box;
     width: 95%;
     margin: 0 auto;
+    overflow: hidden;
 }
 .chatItem {
     width: 100%;

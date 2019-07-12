@@ -175,12 +175,10 @@ export default {
 							token: res.data.Data,
 							isFirstLogin: res.data.Message == 0 ? true : false
 						}
+            			localStorage.setItem("token", account.token);
 						// 触发初始化account的actions（token）
 						this.initToken({ account });
 						this.getNewChatCount({ eventNo: this.eventNo, token: account.token, lang: this.language == "zh" ? 1 : 2 });
-						// let isOpenSocket = this.$parent.initWebsocket(res.data.Data);					
-						// this.$parent.isOpenSocket = true;
-            			localStorage.setItem("token", account.token);
 						let _redirect = this.$route.query.redirect
 						// if (_redirect) {
 						// 	this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
@@ -196,22 +194,11 @@ export default {
 					alert(err);
 				})
 				// console.log("验证通过，登录成功");
-				// var logininfo = {
-				// 	account: this.account
-				// };
-				// localStorage.setItem("user", JSON.stringify(logininfo))
-				// let _redirect = this.$route.query.redirect
-				// if (_redirect) {
-				// 	this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
-				// } else {
-				// 	this.$router.push({ path: "/" })
-				// }
 			}
 			
 		}
 	},
 	created: function() {
-		console.log(this.$parent)
 	},
 	beforeDestroy() {
 		clearInterval(this.timer)

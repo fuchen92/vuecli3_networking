@@ -64,7 +64,9 @@ export default new Vuex.Store({
         ProductDetail: {},
         QrCode: "",
         ChatList: [],
-        MessageList: [],
+        MessageList: {
+
+        },
         InviteDetail: {
             NetUserInfo: {
                 ContactList: [
@@ -204,10 +206,10 @@ export default new Vuex.Store({
             state.ChatList = chatList;
         },
         // 获取用户聊天的消息
-        INITMESSAGELIST(state, { msgList }) {
-            msgList.sort(function(a, b) {
-                return a.Id - b.Id
-            });
+        INITMESSAGELIST(state, { targetId, msgList }) {
+            // msgList.sort(function(a, b) {
+            //     return a.Id - b.Id
+            // });
             msgList.map(item => {
                 if(item.Type == 1 || item.Type == 2) {
                     item.Content = JSON.parse(item.Content)
@@ -216,7 +218,12 @@ export default new Vuex.Store({
                     }
                 }
             });
-            state.MessageList = msgList;
+            // state.MessageList = msgList;
+            Vue.set(state.MessageList, targetId, msgList);
+        },
+        // 向当前聊天对象添加新的聊天内容
+        ADDNEWCHAT(state, { id, item }) {
+            state.MessageList[id].push(item)
         },
         // 获取邀约详情
         GETINVITEDETAIL(state, { inviteDetail }) {
@@ -356,7 +363,7 @@ export default new Vuex.Store({
         // 获取用户聊天的消息列表
         getMessageList({ commit }, { eventNo, target, before, size, token, after, lang }) {
             getMessageList(eventNo, target, before, size, token, after, lang).then(res => {
-                commit("INITMESSAGELIST", { msgList: res.data.Data })
+                commit("INITMESSAGELIST", { targetId: target, msgList: res.data.Data })
             })
         },
         // 获取邀约详情
@@ -387,6 +394,10 @@ export default new Vuex.Store({
                 }
             }
             return myInfo;
+        },
+        // 根据用户Id获取对应的聊天记录
+        getChatListById: (state) => (targetId) => {
+            return state.MessageList[targetId]
         }
     }
 });
