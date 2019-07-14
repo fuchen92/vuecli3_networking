@@ -6,7 +6,8 @@
 				{{ $t("message.noticeText") }}
             </p>
             <label class="noticeLabel rt">
-                <input class="noticeCheckbox" type="checkbox">
+                <input class="noticeCheckbox" type="checkbox" v-model="openNotice">
+                <!-- <input class="noticeCheckbox" type="checkbox" v-model="openNotice" @change="setNotice"> -->
 				<i class="noticeCaret"></i>            
             </label>
         </div>
@@ -55,11 +56,35 @@ export default {
 	name: "Message",
 	data: function() {
 		return  {
-
+			// openNotice: false
 		}
 	},
 	computed: {
+		openNotice: {
+			get() {
+				return localStorage.getItem("openNotice")
+			},
+			set(value) {
+				let setting = [
+					{ Id: 1, Name: "", Value: this.lang == "zh" ? 1 : 2 },
+					{ Id: 2, Name: "", Value: value ? 1 : 0 },
+					{ Id: 4, Name: "", Value: value ? 1 : 0 },
+					{ Id: 6, Name: "", Value: value ? 1 : 0 }
+				]
+				localStorage.setItem("openNotice", value);
+				this.$http.post(`${this.apiDomain}/Me/AlterUiSetting`, {
+					setting: setting,
+					token: this.token
+				}).then(res => {
+					if(res.data.Code != 0) {
+						alert(res.data.Message)
+					}
+					console.log(res.data);
+				})
+			}
+		},
 		...mapState({
+			apiDomain: state => state.ApiDomain,
 			lang: state => state.Lang,
             eventNo: state => state.eventNo,
 			token: state => state.Account.Token,
@@ -72,7 +97,25 @@ export default {
 		]),
 		...mapMutations([
 			"SETREDDOT"
-		])
+		]),
+		setNotice: function() {
+			let setting = [
+				{ Id: 1, Name: "", Value: this.lang == "zh" ? 1 : 2 },
+				{ Id: 2, Name: "", Value: this.openNotice ? 1 : 0 },
+				{ Id: 4, Name: "", Value: this.openNotice ? 1 : 0 },
+				{ Id: 6, Name: "", Value: this.openNotice ? 1 : 0 }
+			]
+			// localStorage.setItem("openNotice", this.openNotice);
+			this.$http.post(`${this.apiDomain}/Me/AlterUiSetting`, {
+				setting: setting,
+				token: this.token
+			}).then(res => {
+				if(res.data.Code != 0) {
+					alert(res.data.Message)
+				}
+				console.log(res.data);
+			})
+		},
 	},
 	created: function() {
 		this.getChatList({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 });

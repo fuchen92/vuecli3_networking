@@ -60,7 +60,6 @@ export default {
     name: "MeInfomation",
     data: function() {
         return {
-            navBarTitle: this.$i18n.messages[this.$store.state.Lang].meinfomation.navBarTitle,
             // wechat: "111",
             // intro: ""
         }
@@ -69,6 +68,9 @@ export default {
         NavBar
     },
     computed: {
+        navBarTitle: function() {
+            return this.$i18n.messages[this.lang].meinfomation.navBarTitle
+        },
         intro: {
             get() {
                 return this.$store.state.MyInfomation.Intro

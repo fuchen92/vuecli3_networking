@@ -29,7 +29,7 @@
                     </div>
                     <div class="inviteCardItem">
                         <img class="inviteCardItemIcon" src="../assets/iconEmail.svg" alt="">
-                        <p class="inviteCardItemContent">{{ myInfo.Email }}</p>
+                        <p class="inviteCardItemContent">{{ myInfo.Mail }}</p>
                     </div>
                     <div class="inviteCardItem">
                         <img class="inviteCardItemIcon" src="../assets/iconTime.svg" alt="">
