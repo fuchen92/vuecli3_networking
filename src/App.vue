@@ -39,7 +39,8 @@ export default {
             "INITMESSAGELIST",
         ]),
         ...mapActions([
-            "getMyInfo"
+            "getMyInfo",
+            "getMessageList"
         ]),
         initSocket(token) {
             const socketUrl = `wss://socialapi.traveldaily.cn/WebSocket/Index?token=${encodeURIComponent(token)}`
@@ -73,7 +74,16 @@ export default {
                 if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
                     this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
                 } else {
-                    this.INITMESSAGELIST({ targetId: socketData.Sender, msgList: temp })
+                    // this.INITMESSAGELIST({ targetId: socketData.Sender, msgList: temp })
+                    // this.getMessageList({
+                    //     eventNo: this.eventNo,
+                    //     target: socketData.Sender,
+                    //     before: -1,
+                    //     size: 999999,
+                    //     token: this.token,
+                    //     after: -1,
+                    //     lang: this.lang == "zh" ? 1 : 2
+                    // });
                 }
             } else if (socketData.Type == 2) {
                 let temp = {
@@ -88,7 +98,16 @@ export default {
                 if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
                     this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
                 } else {
-                    this.INITMESSAGELIST({ targetId: socketData.Sender, msgList: temp })
+                    // this.INITMESSAGELIST({ targetId: socketData.Sender, msgList: temp })
+                    // this.getMessageList({
+                    //     eventNo: this.eventNo,
+                    //     target: socketData.Sender,
+                    //     before: -1,
+                    //     size: 999999,
+                    //     token: this.token,
+                    //     after: -1,
+                    //     lang: this.lang == "zh" ? 1 : 2
+                    // });
                 }
             }
             if(currentRoute != "/message") {

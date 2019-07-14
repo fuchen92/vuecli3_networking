@@ -234,7 +234,7 @@ export default new Vuex.Store({
             if(type == "show") {
                 state.showRedDot = true;
             } else {
-                state.showRedDot = false
+                state.showRedDot = false;
             }
         }
     },

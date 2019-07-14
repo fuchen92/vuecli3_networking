@@ -62,7 +62,14 @@ export default {
 	computed: {
 		openNotice: {
 			get() {
-				return localStorage.getItem("openNotice")
+				let notice = localStorage.getItem("openNotice");
+				if(notice == "false") {
+					return false;
+				} else if(notice == "true") {
+					return true;
+				} else if(notice == null || notice == "" || notice == undefined) {
+					return false;
+				}
 			},
 			set(value) {
 				let setting = [
@@ -79,7 +86,6 @@ export default {
 					if(res.data.Code != 0) {
 						alert(res.data.Message)
 					}
-					console.log(res.data);
 				})
 			}
 		},

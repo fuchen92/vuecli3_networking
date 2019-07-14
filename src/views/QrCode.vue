@@ -3,7 +3,7 @@
         <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="qrCodeWrapper">
             <div class="qrCodeBox">
-                <img class="qrCodeImg" :src="'data:image/jpeg;base64,' + qrcode.Image" alt="">
+                <img class="qrCodeImg" :src="`data:image/jpeg;base64,${qrcode.Image}`" alt="">
                 <p class="qrCodeName">{{ $t("qrcode.name") }}</p>
             </div>
             <p class="qrCodeDesc" v-html="$t('qrcode.qrcodeDesc')"></p>

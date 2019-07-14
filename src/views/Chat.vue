@@ -231,7 +231,7 @@ export default {
                 eventNo: this.eventNo,
                 target: this.chatUser.id,
                 before: -1,
-                size: 99999,
+                size: 999999,
                 token: this.token,
                 after: -1,
                 lang: this.lang == "zh" ? 1 : 2
