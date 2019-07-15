@@ -41,8 +41,10 @@
 						</div>
 					</div>
 					<div class="messageSummary rt">
-						<p class="messageDate">{{ chat.LastMessage.SentTime.split("T")[0].substr(5) }}</p>
-						<p class="latestTime">{{ chat.LastMessage.SentTime.split("T")[1].substr(0, 5) }}</p>
+						<p class="messageDate">{{ $pattern(chat.LastMessage.SentTime, 'MM-dd') }}</p>
+						<!-- <p class="messageDate">{{ chat.LastMessage.SentTime.split("T")[0].substr(5) }}</p> -->
+						<p class="latestTime">{{ $pattern(chat.LastMessage.SentTime, 'HH:mm') }}</p>
+						<!-- <p class="latestTime">{{ chat.LastMessage.SentTime.split("T")[1].substr(0, 5) }}</p> -->
 					</div>
 				</router-link>
 			</div>
@@ -55,7 +57,7 @@ export default {
 	name: "Message",
 	data: function() {
 		return  {
-			// openNotice: false
+			
 		}
 	},
 	computed: {

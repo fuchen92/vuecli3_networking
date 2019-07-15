@@ -24,7 +24,8 @@
                     <li class="participateItem" v-for="(participate, index) in guest.ProgramList" :key="index">
                         <div class="participateInfo">
                             <p class="participateTime">
-                                {{ participate.Begin.split("T")[1].substr(0, 5) }} - {{ participate.End.split("T")[1].substr(0, 5) }}
+                                <!-- {{ participate.Begin.split("T")[1].substr(0, 5) }} - {{ participate.End.split("T")[1].substr(0, 5) }} -->
+                                {{ $pattern(participate.Begin, "HH:mm") }} - {{ $pattern(participate.End, "HH:mm") }}
                             </p>
                             <p class="participateType">
                                 {{ participate.TypeName }}
@@ -63,7 +64,8 @@
                     <div class="guestDemand">
                         <p class="demandContent">{{ solution.Intro }}</p>
                         <div class="demandBottom clear">
-                            <p class="demandTime lt">{{ solution.Time.split("T")[0].substr(5, 5) + " " + solution.Time.split("T")[1].substr(0, 5) }}</p>
+                            <p class="demandTime lt">{{ $pattern(solution.Time, "MM-dd HH:mm") }}</p>
+                            <!-- <p class="demandTime lt">{{ solution.Time.split("T")[0].substr(5, 5) + " " + solution.Time.split("T")[1].substr(0, 5) }}</p> -->
                             <div class="demandLike rt" :class="{ active: solution.IsLike }" :data-id="solution.Id" :data-index="index">
                                 {{ $tc("guest.interest", solution.Like) }}
                             </div>

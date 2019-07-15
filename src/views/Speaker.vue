@@ -24,7 +24,8 @@
                     <li class="participateItem" v-for="(participate, index) in speakerDetail.ProgramList" :key="index">
                         <div class="participateInfo">
                             <p class="participateTime">
-                                {{ participate.Begin.split("T")[1].substr(0, 5) }} - {{ participate.End.split("T")[1].substr(0, 5) }} {{ participate.TypeName }}
+                                {{ $pattern(participate.Begin, "HH:mm") }} - {{ $pattern(participate.End, "HH:mm") }} {{ participate.TypeName }}
+                                <!-- {{ participate.Begin.split("T")[1].substr(0, 5) }} - {{ participate.End.split("T")[1].substr(0, 5) }} {{ participate.TypeName }} -->
                             </p>
                             <!-- <p class="participateType">
                                 {{ participate.TypeName }}

@@ -90,7 +90,8 @@
 						<template v-for="(prg, index) in programList[i - 1]">
 							<div class="programItem" v-bind:key="index">
 								<div class="programItemHead">
-									<p class="programItemTime">{{ prg.Begin.split("T")[1].substr(0, 5) }} - {{ prg.End.split("T")[1].substr(0, 5) }}</p>
+									<p class="programItemTime">{{ $pattern(prg.Begin, "HH:mm") }} - {{ $pattern(prg.End, "HH:mm") }}</p>
+									<!-- <p class="programItemTime">{{ prg.Begin.split("T")[1].substr(0, 5) }} - {{ prg.End.split("T")[1].substr(0, 5) }}</p> -->
 									<p class="programItemType">{{ prg.TypeName }}</p>
 									<router-link v-if="prg.Topic != ''" class="programItemTitle" :to="'/programdetail?programId=' + prg.Id">
 										{{ prg.Topic }}

@@ -86,7 +86,6 @@ export default {
     data: function() {
         return {
             programId: this.$route.query.programId,
-            backUrl: "/",
             currentIndex: 0,
             // pptIndex: 1,
             subscribeIndex: 0,
