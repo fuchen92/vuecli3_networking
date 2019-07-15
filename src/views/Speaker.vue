@@ -24,11 +24,11 @@
                     <li class="participateItem" v-for="(participate, index) in speakerDetail.ProgramList" :key="index">
                         <div class="participateInfo">
                             <p class="participateTime">
-                                {{ participate.Begin.split("T")[1].substr(0, 5) }} - {{ participate.End.split("T")[1].substr(0, 5) }}
+                                {{ participate.Begin.split("T")[1].substr(0, 5) }} - {{ participate.End.split("T")[1].substr(0, 5) }} {{ participate.TypeName }}
                             </p>
-                            <p class="participateType">
+                            <!-- <p class="participateType">
                                 {{ participate.TypeName }}
-                            </p>
+                            </p> -->
                             <h4 class="participateTopic">{{ participate.Topic }}</h4>
                         </div>
                         <router-link class="participateLink" :to="'/programdetail?programId=' + participate.Id">

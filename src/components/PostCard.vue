@@ -17,7 +17,7 @@
             <p class="postDesc">
                 {{ post.Intro }}
             </p>
-            <div class="postTags">
+            <div class="postTags" v-if="post.Tag.length != 0">
                 <span class="postTag">{{ post.Tag[0].Name }}</span>
             </div>
         </div>

@@ -102,9 +102,9 @@ export default {
         return {     
             chatUser: {
                 id: this.$route.query.chatId,
-                name: this.$route.query.uName,
-                company: this.$route.query.uCompany,
-                job: this.$route.query.uJob,
+                // name: this.$route.query.uName,
+                // company: this.$route.query.uCompany,
+                // job: this.$route.query.uJob,
                 photo: this.$route.query.uPhoto
             },
             chatMsg: "",
@@ -123,6 +123,9 @@ export default {
         },
         chatList: function() {
             return this.$store.getters.getChatListById(this.chatUser.id)
+        },
+        unReadList: function() {
+            return this.$store.getters.getUnReadListById(this.chatUser.id)
         },
         ...mapState({
             apiDomain: state => state.ApiDomain,
@@ -146,7 +149,8 @@ export default {
             "getMyInfo"
         ]),
         ...mapMutations([
-            "ADDNEWCHAT"
+            "ADDNEWCHAT",
+            "RESETUNREADLIST"
         ]),
         sendMsg: function() {
             if(this.chatMsg == "" || this.chatMsg.length == 0) {
@@ -161,7 +165,6 @@ export default {
                 token: this.token,
                 lang: this.lang == "zh" ? 1 : 2
             }).then(res => {
-                console.log(res.data)
                 let msgId = res.data.Data
                 this.sendDisabled = false;
                 let temp = {
@@ -226,6 +229,20 @@ export default {
         //     after: -1,
         //     lang: this.lang == "zh" ? 1 : 2
         // });
+        // console.log(this.unReadList);
+        if(this.unReadList != undefined && this.unReadList.length != 0) {
+            this.$http.post(`${this.apiDomain}/Attendees/ChatReadList`, {
+                ids: this.unReadList,
+                token: this.token
+            }).then(res => {
+                console.log(res.data)
+                if(res.data.Code == 0) {
+                    this.RESETUNREADLIST({ targetId: this.chatUser.id })
+                } else {
+                    console.log('未知错误')
+                }
+            })
+        }
         if(this.chatList == "" || this.chatList == null || this.chatList == undefined) {
             this.$http.post(`${this.apiDomain}/Attendees/UserChat`, {
                 eventNo: this.eventNo,
@@ -236,6 +253,7 @@ export default {
                 after: -1,
                 lang: this.lang == "zh" ? 1 : 2
             }).then(res => {
+                console.log(555)
                 this.$store.commit("INITMESSAGELIST", { targetId: this.chatUser.id, msgList: res.data.Data });
                 this.timer = setTimeout(() => {
                     this.$refs.chatBox.scrollTop = 999999;

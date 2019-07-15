@@ -40,7 +40,7 @@
             <div class="guestChunk" v-if="guest.Role != 4 || guest.ContactList.length > 0">
                 <div class="guestChunkContactTitle clear">
                     <h4 class="guestChunkCaption lt">{{ $t("guest.contactLabel") }}</h4>
-                    <span class="sendCardLabel rt" v-if="guest.Id != myInfo.Id">{{ $t("guest.sendCard") }}</span>
+                    <span class="sendCardLabel rt" v-if="guest.Id != myInfo.Id" @click="sendCard">{{ $t("guest.sendCard") }}</span>
                 </div>
                 <div class="guestContact">
                     <div class="guestContactItem clear">
@@ -77,7 +77,8 @@
                 {{ $t("guest.inviteLabel") }}
             </router-link>
             <b class="guestLinkDivide" v-if="guest.Role == 2"></b>
-            <router-link class="guestLink chatLink" :class="{ large: guest.Role != 2 }" :to="`/chat?chatId=${guest.Id}&uName=${guest.Name}&uCompany=${guest.Company}&uJob=${guest.JobTitle}&uPhoto=${guest.Photo}`">
+            <router-link class="guestLink chatLink" :class="{ large: guest.Role != 2 }" :to="`/chat?chatId=${guest.Id}&uPhoto=${guest.Photo}`">
+            <!-- <router-link class="guestLink chatLink" :class="{ large: guest.Role != 2 }" :to="`/chat?chatId=${guest.Id}&uName=${guest.Name}&uCompany=${guest.Company}&uJob=${guest.JobTitle}&uPhoto=${guest.Photo}`"> -->
                 {{ $t("guest.chatLabel") }}
             </router-link>
         </div>
@@ -101,6 +102,7 @@ export default {
             return this.$i18n.messages[this.lang].guest.navBarTitle
         },
         ...mapState({
+            apiDomain: state => state.ApiDomain,
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
@@ -112,7 +114,24 @@ export default {
         ...mapActions([
             "getGuestDetail",
             "getMyInfo"
-        ])
+        ]),
+        sendCard: function() {
+            var r = window.confirm("即将发送您的联系方式（包括手机、邮箱、微信等）给对象，请确认");
+            if(r) {
+                console.log("确定发送名片")
+                this.$http.post(`${this.apiDomain}/Attendees/ChatSend`, {
+                    eventNo: this.eventNo,
+                    target: this.guestId,
+                    type: 1,
+                    content: "",
+                    token: this.token,
+                    lang: this.lang == "zh" ? 1 : 2
+                }).then(res => {
+                    console.log(res.data)
+                    this.$router.push({ path: "/chat", query: { chatId: this.guestId, uPhoto: this.guest.Photo } })
+                })
+            }
+        }
     },
     created: function() {
         this.getMyInfo({ eventNo: this.eventNo, token: this.token })

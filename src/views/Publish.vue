@@ -85,10 +85,10 @@ export default {
                     Name: this.mobile,
                     Value: this.publicMobile ? 1 : 9
                 },
-                Tag: this.tagList[this.tagIndex]
+                Tag: [this.tagList[this.tagIndex]]
             }
             console.log(data);
-            // return false;
+            return false;
             this.$http.post(`${this.apiDomain}/Plaza/SolutionSave`, {
                 eventNo: this.eventNo,
                 token: this.token,

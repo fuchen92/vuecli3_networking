@@ -37,6 +37,7 @@ export default {
             "SETREDDOT",
             "ADDNEWCHAT",
             "INITMESSAGELIST",
+            "ADDUNREADLIST"
         ]),
         ...mapActions([
             "getMyInfo",
@@ -73,6 +74,7 @@ export default {
                 }
                 if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
                     this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
+                    this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId })
                 } else {
                     // this.INITMESSAGELIST({ targetId: socketData.Sender, msgList: temp })
                     // this.getMessageList({
@@ -97,6 +99,7 @@ export default {
                 }
                 if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
                     this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
+                    this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId })
                 } else {
                     // this.INITMESSAGELIST({ targetId: socketData.Sender, msgList: temp })
                     // this.getMessageList({

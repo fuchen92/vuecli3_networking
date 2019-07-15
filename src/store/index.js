@@ -57,14 +57,21 @@ export default new Vuex.Store({
             localContactList: [],
             Products: []
         },
-        SupplyList: [],
-        DemandList: [],
+        SupplyList: [
+            
+        ],
+        DemandList: [
+
+        ],
         MyInfomation: {},
         SolutionList: [],
         ProductDetail: {},
         QrCode: "",
         ChatList: [],
         MessageList: {
+
+        },
+        UnReadList: {
 
         },
         InviteDetail: {
@@ -174,7 +181,7 @@ export default new Vuex.Store({
         },
         // 获取广场需求帖子
         INITDEMANDLIST(state, { plazaList }) {
-            state.DemandList = plazaList
+            state.DemandList = plazaList;
         },
         // 我的需求页面获取我的需求
         INITMYSOLUTIONLIST(state, { solutionList }) {
@@ -220,10 +227,24 @@ export default new Vuex.Store({
             });
             // state.MessageList = msgList;
             Vue.set(state.MessageList, targetId, msgList);
+            // Vue.set(state.MessageList[targetId], "chatList", msgList);
         },
         // 向当前聊天对象添加新的聊天内容
         ADDNEWCHAT(state, { id, item }) {
             state.MessageList[id].push(item)
+        },
+        // socket不在message页面时，用于添加用户的未读信息
+        ADDUNREADLIST(state, { targetId, unReadMsgId }) {
+            // Vue.set(state.UnReadList, targetId, unreadList)
+            console.log(state.UnReadList)
+            Vue.set(state.UnReadList, targetId, []);
+            if(state.UnReadList[targetId] != null || state.UnReadList[targetId] != undefined) {
+                state.UnReadList[targetId].push(unReadMsgId)
+            }
+        },
+        // 清空用户未读消息
+        RESETUNREADLIST(state, { targetId }) {
+            state.UnReadList[targetId].length = 0;
         },
         // 获取邀约详情
         GETINVITEDETAIL(state, { inviteDetail }) {
@@ -398,6 +419,10 @@ export default new Vuex.Store({
         // 根据用户Id获取对应的聊天记录
         getChatListById: (state) => (targetId) => {
             return state.MessageList[targetId]
+        },
+        // 根据用户Id获取对应的未读消息
+        getUnReadListById: (state) => (targetId) => {
+            return state.UnReadList[targetId]
         }
     }
 });

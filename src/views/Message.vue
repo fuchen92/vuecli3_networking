@@ -13,7 +13,7 @@
         </div>
 		<div class="messageBox">
 			<div class="messageList">
-				<router-link class="messageItem clear" to="/chat?userid=110">
+				<!-- <router-link class="messageItem clear" to="/chat?userid=110">
 					<div class="messageUser lt">
 						<div class="messageUserAvatar">
 							<img class="messageUserPhoto" src="../assets/avatar.jpg" alt="">
@@ -25,11 +25,10 @@
 						</div>
 					</div>
 					<div class="messageSummary rt">
-						<p class="messageDate">6月5日</p>
+						<p class="messageDate">06-05</p>
 						<p class="latestTime">22:00</p>
 					</div>
-				</router-link>
-				<!-- <router-link class="messageItem clear" v-for="chat in chatList" v-bind:key="chat.id" v-bind:to="`'/chat?chatId=${chat.Id}'`"> -->
+				</router-link> -->
 				<router-link class="messageItem clear" v-for="chat in chatList" v-bind:key="chat.id" v-bind:to="`/chat?chatId=${chat.Id}&uName=${chat.Name}&uCompany=${chat.Company}&uJob=${chat.JobTitle}&uPhoto=${chat.Photo}`">
 					<div class="messageUser lt">
 						<div class="messageUserAvatar">
