@@ -62,69 +62,67 @@ export default {
         onMessage(e){ //数据接收
             const socketData = JSON.parse(e.data);
             let currentRoute = this.$route.path;
-            if(socketData.Type == 1) {
-                let temp = {
-                    Content: socketData.Content,
-                    Id: socketData.MsgId,
-                    NetUserId: socketData.Sender,
-                    ReadTime: "0001-01-01T00:00:00",
-                    SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
-                    TargetNetUserId: this.myInfo.Id,
-                    Type: 0
+            var temp = null;
+            if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
+                if(socketData.Type == 1) {
+                    temp = {
+                        Content: socketData.Content,
+                        Id: socketData.MsgId,
+                        NetUserId: socketData.Sender,
+                        ReadTime: "0001-01-01T00:00:00",
+                        SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
+                        TargetNetUserId: this.myInfo.Id,
+                        Type: 0
+                    }
+                } else if(socketData.Type == 2) {
+                    temp = {
+                        Content: JSON.parse(socketData.Content),
+                        Id: socketData.MsgId,
+                        NetUserId: socketData.Sender,
+                        ReadTime: "0001-01-01T00:00:00",
+                        SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
+                        TargetNetUserId: this.myInfo.Id,
+                        Type: 1
+                    }
                 }
-                if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
-                    this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
-                    this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId })
-                } else {
-                    // this.INITMESSAGELIST({ targetId: socketData.Sender, msgList: temp })
-                    // this.getMessageList({
-                    //     eventNo: this.eventNo,
-                    //     target: socketData.Sender,
-                    //     before: -1,
-                    //     size: 999999,
-                    //     token: this.token,
-                    //     after: -1,
-                    //     lang: this.lang == "zh" ? 1 : 2
-                    // });
-                }
-            } else if (socketData.Type == 2) {
-                let temp = {
-                    Content: JSON.parse(socketData.Content),
-                    Id: socketData.MsgId,
-                    NetUserId: socketData.Sender,
-                    ReadTime: "0001-01-01T00:00:00",
-                    SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
-                    TargetNetUserId: this.myInfo.Id,
-                    Type: 1
-                }
-                if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
-                    this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
-                    this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId })
-                } else {
-                    // this.INITMESSAGELIST({ targetId: socketData.Sender, msgList: temp })
-                    // this.getMessageList({
-                    //     eventNo: this.eventNo,
-                    //     target: socketData.Sender,
-                    //     before: -1,
-                    //     size: 999999,
-                    //     token: this.token,
-                    //     after: -1,
-                    //     lang: this.lang == "zh" ? 1 : 2
-                    // });
-                }
+                this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
+                this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId })
             }
+            // if(socketData.Type == 1) {
+            //     let temp = {
+            //         Content: socketData.Content,
+            //         Id: socketData.MsgId,
+            //         NetUserId: socketData.Sender,
+            //         ReadTime: "0001-01-01T00:00:00",
+            //         SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
+            //         TargetNetUserId: this.myInfo.Id,
+            //         Type: 0
+            //     }
+            //     if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
+            //         this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
+            //         this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId })
+            //     }
+            // } else if (socketData.Type == 2) {
+            //     let temp = {
+            //         Content: JSON.parse(socketData.Content),
+            //         Id: socketData.MsgId,
+            //         NetUserId: socketData.Sender,
+            //         ReadTime: "0001-01-01T00:00:00",
+            //         SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
+            //         TargetNetUserId: this.myInfo.Id,
+            //         Type: 1
+            //     }
+            //     if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
+            //         this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
+            //         this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId })
+            //     }
+            // }
             if(currentRoute != "/message") {
                 this.SETREDDOT("show")
             }
             if(currentRoute == "/chat") {
-                let senderId = this.$route.query.chatId
-                if(socketData.Type == 1 && socketData.Sender == senderId) {
-                    this.$http.post(`${this.apiDomain}/Attendees/ChatRead`, {
-                        id: socketData.MsgId,
-                        token: this.token
-                    }).then(res => {
-                    })
-                } else if (socketData.Type == 2 && socketData.Sender == senderId) {
+                let senderId = this.$route.query.chatId;
+                if(socketData.Sender == senderId) {
                     this.$http.post(`${this.apiDomain}/Attendees/ChatRead`, {
                         id: socketData.MsgId,
                         token: this.token

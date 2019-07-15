@@ -205,6 +205,10 @@ export default new Vuex.Store({
         CHANGEINTRO(state, intro) {
             Vue.set(state.MyInfomation, "Intro", intro)
         },
+        // 修改个人资料头像
+        CHANGEAVATAR(state, avatar) {
+            Vue.set(state.MyInfomation, "Photo", avatar)
+        },
         GETMYQRCODE(state, code) {
             state.QrCode = code;
         },
@@ -225,9 +229,7 @@ export default new Vuex.Store({
                     }
                 }
             });
-            // state.MessageList = msgList;
             Vue.set(state.MessageList, targetId, msgList);
-            // Vue.set(state.MessageList[targetId], "chatList", msgList);
         },
         // 向当前聊天对象添加新的聊天内容
         ADDNEWCHAT(state, { id, item }) {
@@ -235,8 +237,6 @@ export default new Vuex.Store({
         },
         // socket不在message页面时，用于添加用户的未读信息
         ADDUNREADLIST(state, { targetId, unReadMsgId }) {
-            // Vue.set(state.UnReadList, targetId, unreadList)
-            console.log(state.UnReadList)
             Vue.set(state.UnReadList, targetId, []);
             if(state.UnReadList[targetId] != null || state.UnReadList[targetId] != undefined) {
                 state.UnReadList[targetId].push(unReadMsgId)

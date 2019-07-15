@@ -48,8 +48,6 @@ export default {
         ])
     },
     created: function() {
-        console.log("created");
-        console.log(this);
         // this.$http.post("http://192.168.1.21:89/Me/SolutionList", {
         //     eventNo: 63,
         //     index: 1,

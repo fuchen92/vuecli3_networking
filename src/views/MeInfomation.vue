@@ -7,7 +7,11 @@
                     <img class="avatarPhoto" v-bind:src="myInfo.Photo || '../assets/avatar.jpg'" alt="">
                 </div>
                 <div class="infomationCardContent">
-                    <button class="uploadBtn">{{ $t("meinfomation.upload") }}</button>
+                    <!-- <button class="uploadBtn">{{ $t("meinfomation.upload") }}</button> -->
+                    <label class="uploadLabel">
+                        <input class="uploadInput" type="file" ref="uploadInput" accept="image/jpg, image/jpeg, image/png, image/gif" @change="uploadAvatar">
+                        <i class="uploadBtn">{{ $t("meinfomation.upload") }}</i>
+                    </label>
                     <div class="infomationItem clear">
                         <p class="infomationItemLabel lt">{{ $t("meinfomation.name") }}</p>
                         <p class="infomationItemValue rt">{{ myInfo.Name }}</p>
@@ -54,14 +58,14 @@
     </div>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 import NavBar from "@/components/NavBar";
 export default {
     name: "MeInfomation",
     data: function() {
         return {
             // wechat: "111",
-            // intro: ""
+            // intro: ""            
         }
     },
     components: {
@@ -88,6 +92,7 @@ export default {
             }
         },
         ...mapState({
+            apiDomain: state => state.ApiDomain,
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
@@ -96,6 +101,73 @@ export default {
 		})
     },
     methods: {
+        ...mapMutations([
+            "CHANGEAVATAR"
+        ]),
+        uploadAvatar: function() {
+            var reader = new FileReader(),
+                img = new Image();                
+            var fileData = this.$refs.uploadInput.files[0];
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+
+            var formData = new FormData();
+            formData.append('file', fileData);
+            formData.append('token', this.token);
+            formData.append('lang', this.lang == "zh" ? 1 : 2);
+            console.log(formData);
+
+            this.$http.post(`http://files.traveldaily.cn/UploadSocial/UserPhoto`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(res => {
+                console.log(res.data)
+                this.CHANGEAVATAR(res.data.Message);
+            })
+
+            // if(file.type.indexOf("image") == 0) {
+            //     reader.readAsDataURL(file)
+            // }
+            // reader.onload = function(e) {
+            //     console.log("reader.onload执行")
+            //     img.src = e.target.result;
+            // }
+            // img.onload = function() {
+            //     console.log("img.onload执行")
+            //     console.log(this)
+            //     // 图片原始尺寸
+            //     var originWidth = this.width;
+            //     var originHeight = this.height;
+            //     // 最大尺寸限制
+            //     var maxWidth = 400, maxHeight = 400;
+            //     // 目标尺寸
+            //     var targetWidth = originWidth, targetHeight = originHeight;
+            //     // 图片尺寸超过400x400的限制
+            //     if (originWidth > maxWidth || originHeight > maxHeight) {
+            //         if (originWidth / originHeight > maxWidth / maxHeight) {
+            //             // 更宽，按照宽度限定尺寸
+            //             targetWidth = maxWidth;
+            //             targetHeight = Math.round(maxWidth * (originHeight / originWidth));
+            //         } else {
+            //             targetHeight = maxHeight;
+            //             targetWidth = Math.round(maxHeight * (originWidth / originHeight));
+            //         }
+            //     }
+
+            //     // canvas对图片进行缩放
+            //     canvas.width = targetWidth;
+            //     canvas.height = targetHeight;
+            //     // 清除画布
+            //     context.clearRect(0, 0, targetWidth, targetHeight);
+            //     // 图片压缩
+            //     context.drawImage(img, 0, 0, targetWidth, targetHeight);
+            //     // canvas转为blob并上传
+            //     console.log(canvas.toDataURL("jpeg"))
+            // }
+
+
+        },
         saveInfomation: function() {
             console.log("保存个人信息");
             if((this.intro == "" || this.intro.length == 0) && (this.wechat == "" || this.wechat.length == 0)) {
@@ -171,14 +243,23 @@ export default {
     margin-top: -1rem;
     font-size: 0;
 }
-.uploadBtn {
+.uploadLabel {
     display: block;
+    width: 100%;
+    margin: 0.2rem auto 0.3rem;
+    font-size: 0;
+    text-align: center;
+}
+.uploadInput {
+    display: none;
+}
+.uploadBtn {
+    display: inline-block;
     width: 1.6rem;
     height: 0.6rem;
-    margin: 0.2rem auto 0.3rem;
     border-radius: 0.4rem;
     font-size: 0.24rem;
-    text-align: center;
+    font-style: normal;
     line-height: 0.6rem;
     background-color: var(--themeColor);
     color: #ffffff;

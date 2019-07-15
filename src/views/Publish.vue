@@ -87,8 +87,6 @@ export default {
                 },
                 Tag: [this.tagList[this.tagIndex]]
             }
-            console.log(data);
-            return false;
             this.$http.post(`${this.apiDomain}/Plaza/SolutionSave`, {
                 eventNo: this.eventNo,
                 token: this.token,
@@ -98,7 +96,6 @@ export default {
                 if(data.Code != 0) {
                     alert(data.Message)
                 }
-                console.log(res);
                 this.$router.go(-1)
             }).catch(err => {
                 console.log(err);
