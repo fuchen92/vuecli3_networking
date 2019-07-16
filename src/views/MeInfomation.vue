@@ -117,7 +117,6 @@ export default {
             formData.append('file', fileData);
             formData.append('token', this.token);
             formData.append('lang', this.lang == "zh" ? 1 : 2);
-            console.log(formData);
 
             this.$http.post(`http://files.traveldaily.cn/UploadSocial/UserPhoto`, formData, {
                 headers: {

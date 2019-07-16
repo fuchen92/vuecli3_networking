@@ -94,7 +94,7 @@ export default {
         })
 	},
 	created: function() {
-		this.initMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });
+		// this.initMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });
 	}
 };
 </script>
