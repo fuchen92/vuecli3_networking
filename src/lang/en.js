@@ -3,44 +3,44 @@ export default {
         "search": "Search"
     },
     postCard: {
-        tel: "Tel",
-        interest: "{count} People Are interested"
+        tel: "Contact",
+        interest: "{count} Interested"
     },
     guestCard: {
-        inviteBtn: "Invitations Meet",
+        inviteBtn: "Book a Meeting",
         chatBtn: "Chat"
     },
     "tabBar": {
         "home": "Program",
         "attendees": "Attendees",
-        "plaza": "Plaza",
-        "message": "Message",
+        "plaza": "Discover",
+        "message": "Chats",
         "me": "Me"
     },
     "login": {
-        "accountPlaceholder": "Please enter your email adress for sign-up",
-        "valicodePlaceholder": "Enter the verification code",
+        "accountPlaceholder": "Please enter your email adress to log in",
+        "valicodePlaceholder": "Enter verification code",
         "getCode": ["Get Code", "Resend"],
         "errTip": {
-            "empty": "Please enter your email adress for sign-up",
+            "empty": "Please enter your email adress to log in",
             "valicodeEmpty": "Please enter verification code",
-            "mobileErr": "mobile incorrect format",
-            "emailErr": "email incorrect format",
-            "valicodeErr": "Please enter a six-digit verification code",
-            "codeIncorrect": "Mobile phone verification incorrect"
+            "mobileErr": "mobile number format incorrect",
+            "emailErr": "email format incorrect",
+            "valicodeErr": "Please enter a six-digit code",
+            "codeIncorrect": "verification code incorrect"
         },
-        "loginBtn": "Login",
-        "loginTip": "Call 0086 20-2882 9750 or email register@traveldaily.cn if you still can't log in."
+        "loginBtn": "Log in",
+        "loginTip": "Call 0086 20-2882 9750 or email register@traveldaily.cn if you can't log in."
     },
     search: {
         navBarTitle: "Search",
-        searchInput: "Search Attendees Businesses",
+        searchInput: "Search Attendees or Companies",
         attendOption: "Attendees",
-        exhibitorOption: "Exhibitor",
+        exhibitorOption: "Exhibitors",
         openFilterBtn: "Filter",
         cancelFilterBtn: "Cancel",
-        emptyDesc: "Please Enter a keyword or select any filter",
-        categoryTabs: ["Industry", "Products/Services"],
+        emptyDesc: "Please enter a keyword or select filter options",
+        categoryTabs: ["Industries", "Products/Services"],
         multiTip: "Multiple Choices",
         resetBtn: "Reset",
         submitBtn: "Submit"
@@ -48,19 +48,19 @@ export default {
     "program": {
         "tabs": [
             {
-                "time": "Aug.27",
+                "time": "Aug 27",
                 "name": "Digital Travel Awards"
             },
             {
-                "time": "Aug.28",
+                "time": "Aug 28",
                 "name": "TravelDaily Conference"
             }, 
             {
-                "time": "Aug.29",
+                "time": "Aug 29",
                 "name": "Hotel Conference"
             },
             {
-                "time": "Aug.29",
+                "time": "Aug 29",
                 "name": "Airline Conference"
             }
         ],
@@ -90,68 +90,68 @@ export default {
                 "name": "Intro"
             },
             {
-                "name": "Article"
+                "name": "Reports"
             },
             {
                 name: "PPT"
             }
         ],
-        videoTip: "Video will be posted here after the conference, please stay tuned",
-        noArticle: "There are no reports in this section",
-        noPPT: "No PPT for this session",
-        subscribeBtn: ["Subscription Start Reminder", "Already Subscribed"]
+        videoTip: "Event video will be released here after the conference, please stay tuned.",
+        noArticle: "Currently not available.",
+        noPPT: "Currently not available.",
+        subscribeBtn: ["Subscribe to session reminder", "Subscribed"]
     },
     speaker: {
-        navBarTitle: "Guest Details",
-        emptyVal: "Not Filled",
+        navBarTitle: "Speaker Profile",
+        emptyVal: "Not available",
         introCaption: "Intro",
-        participateCaption: "Participation Process",
+        participateCaption: "Participating Session",
         view: "View Now"
     },
     guest: {
         "navBarTitle": "Guest Details",
         "introLabel": "Intro",
-        participateCaption: "Participation Process",
+        participateCaption: "Participating Session",
         contactLabel: "Contact",
-        sendCard: "SendContact",
+        sendCard: "Send Contact",
         mobileLabel: "Mobile",
         emailLabel: "Email",
         wechatLabel: "WeChat",
         demandLabel: "Demand",
-        emptyVal: "Not Filled",
-        "interest": "{count} People Are Interested",
-        inviteLabel: "Invitations",
+        emptyVal: "Not available",
+        "interest": "{count} Interested",
+        inviteLabel: "Book a Meeting",
         chatLabel: "Chat"
     },
     attendees: {
         "tabs": [
             {
-                "name": "Recommend guest"
+                "name": "Recommended"
             },
             {
-                "name": "All the guests"
+                "name": "All Guests"
             }
         ],
-        emptyListDesc: "There is no recommended guest, please select the label",
-        openFilter: "Open the recommended",
+        emptyListDesc: "Currently not available. Please select filter options.",
+        openFilter: "Enable Recommendation",
         multiTip: "Multiple Choices",
         resetBtn: "Reset",
         submit: "Submit",
-        notFind: "Can't find anyone who is interested",
-        reRecommend: "Recommend"
+        notFind: "Not interested?",
+        reRecommend: "Re-select"
     },
     invite: {
-        navBarTitle: "Invite",
-        peopleCaption: "Invite People",
-        cardCaption: "Invite Card",
-        inviteDesc: "The following information will be sent to the other party, including your mobile phone number and email address.",
-        matterCaption: "Invite Matter",
-        inviteAddr: "Address of invitation",
-        matterInput: "I have a project that matches your company's products very well. I hope to have the opportunity to discuss cooperation.",
-        inviteBtn: "Send invitations"
+        navBarTitle: "Book a Meeting",
+        peopleCaption: "Invited Guest",
+        cardCaption: "Invitation Card",
+        inviteDesc: "The following information including your mobile number and email address will be sent to the Invited Guest.",
+        matterCaption: "Invitation Notes",
+        inviteAddr: "Please enter meeting address.",
+        matterInput: "I have a project that matches your company's products very well and I hope we can talk about it!",
+        inviteBtn: "Send Invitation"
     },
     inviteDetail: {
-        navBarTitle: "Invite Details"
+        navBarTitle: "Invitation Details"
     },
     "plaza": {
         "tabs": [
@@ -162,29 +162,29 @@ export default {
                 name: "Supply"
             },
             {
-                name: "Requirement"
+                name: "Demand"
             }
         ],
-        "publishTab": "Supply",
-        "requirementTab": "Requirement",
-        "emptySupplyDesc": "You have not released the supply yet",
-        "emptyRequirementDesc": "You have not published requirements yet",
-        "attendExpected": "{count} people are expected to attend"
+        "publishTab": "Post Supply",
+        "requirementTab": "Post Demand",
+        "emptySupplyDesc": "No supply posted yet.",
+        "emptyRequirementDesc": "No demand posted yet.",
+        "attendExpected": "Expecting {count} guest(s)"
     },
     "publish": {
-        "navBarSupplyTitle": "Publish Supply",
-        "navBarRequirementTitle": "Publish Requirement",
+        "navBarSupplyTitle": "Post Supply",
+        "navBarRequirementTitle": "Post Demand",
         "postType": "Post type",
         postSupply: "Supply",
-        postRequirement: "Requirement",
+        postRequirement: "Demand",
         offserLabel: "What we offer",
-        inputPlaceholder: "For example: we are specialized in hotel cloud service, and we have a good solution. If you need any help, please contact us, we are at booth c-20.",
-        addTag: "Add tags",
-        tagTip: "Easy to find and locate content",
+        inputPlaceholder: "For example: we are specialized in hotel cloud service with a good solution. If you need any help, please reach us at booth C-20.",
+        addTag: "Add tag",
+        tagTip: "Make it Easier to find and locate content",
         tagList: [
             {
                 Id: 1,
-                Name: "Resources swap",
+                Name: "Resource Deal",
                 value: ""
             },
             {
@@ -203,76 +203,76 @@ export default {
                 value: ""
             }
         ],
-        publishMobile: "Public mobile",  
-        "publishBtn": "Publish"
+        publishMobile: "Post mobile number",  
+        "publishBtn": "Post"
     },
     "exhibitor": {
-        "navBarTitle": "Exhibitor Detail",
-        "companyCaption": "Company Intro",
-        "boothCaption": "Exhibition Booth Map",
+        "navBarTitle": "Exhibitor Details",
+        "companyCaption": "Company Profile",
+        "boothCaption": "Floor Plan",
         "schemeCaption": "Tourism Solutions",
         "contactCaption": "Contact Information",
         "contactLabel": "Contact Person",
-        "mobileLabel": "Mobile",
+        "mobileLabel": "Mobile Number",
         "emailLabel": "Email",
-        "telLabel": "Phone",
+        "telLabel": "Phone Number",
         "siteLabel": "Company Website",
-        "emptyVal": "Not Filled",
+        "emptyVal": "Not available",
         "designedContact": "Designated Contact",
-        otherAttend: "Other Participants"
+        otherAttend: "Other Attendees"
     },
     product: {
-        "navBarTitle": "Product Detail",
+        "navBarTitle": "Product Details",
     },
     "message": {
-        "noticeText": "New message alerts（SMS + Email）"
+        "noticeText": "Message alerts on （SMS + Email）"
     },
     "chat": {
-        "navBarTitle": "Chat",
-        chatRule: "Communication rules",
-        rule1: "Please state your requirements",
+        "navBarTitle": "Chats",
+        chatRule: "Communication Tips",
+        rule1: "Please state your demand",
         rule2: "Please do not send spam messages",
-        rule3: "First meeting template: I want to seek partners in China, who can provide similar resources, interested people can contact me!",
-        emptyVal: "Not Filled",
+        rule3: "First meeting template:  I'm looking for a partner in China who can provide relative resources. Please let me know if you are interested in cooperation!",
+        emptyVal: "Not available",
         businessCard: "Here is my business card",
-        invite: "Meeting invitation",
-        checkDetail: "view details",
-        cardBtn: "Card",
+        invite: "Meeting Invitation",
+        checkDetail: "View details",
+        cardBtn: "Send Business Card",
         sendBtn: "Send"
     },
     "me": {
-        "qrcode": "Code",
-        "need": "Need",
+        "qrcode": "Check-in Code",
+        "need": "Demand",
         "language": "Language",
-        "view": "view",
+        "view": "View",
         "venue": "Venue",
-        "contact": "Contact",
-        "faq": "Faq",
-        "service": "Service"
+        "contact": "Contact us",
+        "faq": "FAQ",
+        "service": "Recommendation"
     },
     "meinfomation": {
-        "navBarTitle": "Infomation",
+        "navBarTitle": "Profile",
         "upload": "Upload",
-        "name": "Name",
-        "nameEn": "NameEn",
-        "company": "Company",
-        "companyEn": "CompanyEn",
-        "job": "Job",
-        "jobEn": "JobEn",
+        "name": "Chinese Name (if available)",
+        "nameEn": "English Name",
+        "company": "Company Name in Chinese (if available)",
+        "companyEn": "Company Name in English",
+        "job": "Job Title in Chinese (if available)",
+        "jobEn": "Job Title in English",
         "mobile": "Mobile",
         "email": "Email",
-        "wechat": "WeChat",
-        "wechatplaceholder": "Please Enter Wechat",
-        "intro": "Personal Intro",
-        "save": ["Save", "Success"]
+        "wechat": "WeChat or Facebook",
+        "wechatplaceholder": "Please Enter WeChat or Facebook ID",
+        "intro": "Personal Profile",
+        "save": ["Save", "Done"]
     },
     "qrcode": {
-        "navBarTitle": "Sign in Code",
-        "name": "Sign in Code",
-        "qrcodeDesc": "In order to prevent the site network instability, can be in advance screensaver save this page. <br> Just show the qr code picture when you check in"
+        "navBarTitle": "Check-in Code",
+        "name": "Check-in Code",
+        "qrcodeDesc": "In case the WiFi signal on-site is not strong enough, please screenshot to save your Check-in Code. <br> Just show the QR code picture when you check in"
     },
     "myneed": {
-        "navBarTitle": "My Need",
-        "emptyNeedDesc": "You have not published requirements yet"
+        "navBarTitle": "My Demand",
+        "emptyNeedDesc": "You have not yet posted any demand."
     }
 }
