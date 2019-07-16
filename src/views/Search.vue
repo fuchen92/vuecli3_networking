@@ -278,6 +278,7 @@ export default {
 .openFilterBtn {
     width: calc(100% - 6.1rem);
     height: 0.6rem;
+    line-height: 0.56rem;
     background-color: #fff;
     border: 0.02rem solid #999;
 }

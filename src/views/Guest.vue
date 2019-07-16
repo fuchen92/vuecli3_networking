@@ -290,7 +290,7 @@ export default {
     border-left: 0.02rem solid #8d8d8d;
 }
 .guestLink {
-    width: calc((100% - 0.02rem) / 2);
+    width: calc((100% - 0.04rem) / 2);
     height: 1rem;
     font-size: 0.28rem;
     line-height: 1rem;

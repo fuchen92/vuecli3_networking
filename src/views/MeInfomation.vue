@@ -183,7 +183,6 @@ export default {
                     item.Name = this.wechat
                 }
             });
-            // return false;
             // 不用触发action修改state
             // this.saveMyInfo({ intro: this.intro, contactList, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
             this.$http.post(`${this.apiDomain}/Me/MeSave`, {

@@ -88,35 +88,6 @@ export default {
                 this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
                 this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId })
             }
-            // if(socketData.Type == 1) {
-            //     let temp = {
-            //         Content: socketData.Content,
-            //         Id: socketData.MsgId,
-            //         NetUserId: socketData.Sender,
-            //         ReadTime: "0001-01-01T00:00:00",
-            //         SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
-            //         TargetNetUserId: this.myInfo.Id,
-            //         Type: 0
-            //     }
-            //     if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
-            //         this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
-            //         this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId })
-            //     }
-            // } else if (socketData.Type == 2) {
-            //     let temp = {
-            //         Content: JSON.parse(socketData.Content),
-            //         Id: socketData.MsgId,
-            //         NetUserId: socketData.Sender,
-            //         ReadTime: "0001-01-01T00:00:00",
-            //         SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
-            //         TargetNetUserId: this.myInfo.Id,
-            //         Type: 1
-            //     }
-            //     if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
-            //         this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
-            //         this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId })
-            //     }
-            // }
             if(currentRoute != "/message") {
                 this.SETREDDOT("show")
             }
@@ -129,39 +100,6 @@ export default {
                     }).then(res => {
                     })
                 }
-                // if(socketData.Type == 1 && socketData.Sender == senderId) {
-                //     let temp = {
-                //         Content: socketData.Content,
-                //         Id: socketData.MsgId,
-                //         NetUserId: senderId,
-                //         ReadTime: "0001-01-01T00:00:00",
-                //         SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
-                //         TargetNetUserId: this.myInfo.Id,
-                //         Type: 0
-                //     }
-                //     this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
-                //     this.$http.post(`${this.apiDomain}/Attendees/ChatRead`, {
-                //         id: socketData.MsgId,
-                //         token: this.token
-                //     }).then(res => {
-                //     })
-                // } else if (socketData.Type == 2 && socketData.Sender == senderId) {
-                //     let temp = {
-                //         Content: JSON.parse(socketData.Content),
-                //         Id: socketData.MsgId,
-                //         NetUserId: senderId,
-                //         ReadTime: "0001-01-01T00:00:00",
-                //         SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
-                //         TargetNetUserId: this.myInfo.Id,
-                //         Type: 1
-                //     }
-                //     this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
-                //     this.$http.post(`${this.apiDomain}/Attendees/ChatRead`, {
-                //         id: socketData.MsgId,
-                //         token: this.token
-                //     }).then(res => {
-                //     })
-                // }
             }
         },
         socketSend(Data){//数据发送

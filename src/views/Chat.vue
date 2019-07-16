@@ -254,7 +254,6 @@ export default {
                 after: -1,
                 lang: this.lang == "zh" ? 1 : 2
             }).then(res => {
-                console.log(555)
                 this.$store.commit("INITMESSAGELIST", { targetId: this.chatUser.id, msgList: res.data.Data });
                 this.timer = setTimeout(() => {
                     this.$refs.chatBox.scrollTop = 999999;

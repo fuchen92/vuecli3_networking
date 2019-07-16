@@ -242,7 +242,7 @@ export default {
     },
     "me": {
         "qrcode": "签到码",
-        "need": "我的需求",
+        "need": "我的供需",
         "language": "语言选择",
         "view": "点击查看",
         "venue": "会场信息",
