@@ -131,7 +131,7 @@ export default {
     data: function() {
         return {
             keyWord: "",
-            identity: 1,
+            identity: this.$route.query.searchType == "attendees" ? 1 : 2,
             resultList: [],
             resultType: 1,
             showFilter: true,
@@ -168,8 +168,7 @@ export default {
     methods: {
         ...mapActions([
             "getAttendsFilter",
-            "getExhibitorFilter",
-            "getRecommendList",
+            "getExhibitorFilter"
         ]),
         submitFilter: function() {
             switch(Number(this.identity)) {

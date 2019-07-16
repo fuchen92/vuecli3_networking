@@ -1,7 +1,7 @@
 <template>
     <div class="plaza">
         <div class="plazaTabs">
-            <div v-for="(tab, index) in tabs" v-bind:key="index" class="plazaTab" v-bind:class="{ active: currentIndex == index }" v-on:click="currentIndex = index">
+            <div v-for="(tab, index) in tabs" v-bind:key="index" class="plazaTab" v-bind:class="{ active: currentIndex == index }" v-on:click="switchPlaza(index)">
                 <span class="plazaTab">{{ tab.name }}</span>
             </div>
         </div>
@@ -105,7 +105,8 @@ export default {
     name: "Plaza",
     data: function() {
         return {
-            currentIndex: 0
+            currentIndex: (localStorage.getItem("plazaTabIndex") == null ? 0 : localStorage.getItem("plazaTabIndex"))
+            // currentIndex: 0
         }
     },
     components: {
@@ -129,10 +130,16 @@ export default {
         ...mapActions([
             "getExhibitorList",
             "getPlazaList"
-        ])
+        ]),
+        switchPlaza: function(index) {
+            this.currentIndex = index;
+            localStorage.setItem("plazaTabIndex", index);
+        }
     },
     created: function() {
-        this.getExhibitorList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2});
+        if(this.exhibitorList.length == 0) {
+            this.getExhibitorList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2});
+        }
         this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 1, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
         this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 2, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
     }

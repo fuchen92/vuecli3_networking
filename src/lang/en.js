@@ -60,7 +60,7 @@ export default {
                 "name": "Hotel Conference"
             },
             {
-                "time": "Aug.30",
+                "time": "Aug.29",
                 "name": "Airline Conference"
             }
         ],
@@ -264,7 +264,7 @@ export default {
         "wechat": "WeChat",
         "wechatplaceholder": "Please Enter Wechat",
         "intro": "Personal Intro",
-        "save": "Save"
+        "save": ["Save", "Success"]
     },
     "qrcode": {
         "navBarTitle": "Sign in Code",

@@ -190,8 +190,7 @@ html, body, header, section, aside, footer, div, p, h1, h2, h3, h4, h5, h6, ul, 
 html, body {
     width: 100%;
     height: 100%;
-    /* font-family: "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif; */
-    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "微软雅黑", "WenQuanYi Micro Hei", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -223,8 +222,8 @@ select::-ms-expand {
     display: none;
 }
 input:disabled, select:disabled, button:disabled {
-    background: #999;
-    cursor: not-allowed;
+    background: #999 !important;
+    cursor: not-allowed !important;
 }
 .container {
     margin: 0 auto;

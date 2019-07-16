@@ -2,14 +2,14 @@
     <div class="program">
         <div class="programTabs">
             <div class="programTabsWrapper" ref="tabWrapper">                
-                <div v-for="(tab, index) in tabs" v-bind:key="index" class="programTab" v-bind:class="{ active: currentIndex == index, en: lang == 'en' }" v-on:click="currentIndex = index">
+                <div v-for="(tab, index) in tabs" v-bind:key="index" class="programTab" v-bind:class="{ active: currentIndex == index, en: lang == 'en' }" v-on:click="switchProgram(index)">
                     <span class="programTabTime">{{ tab.time }}</span>
                     <span class="programTabName">{{ tab.name }}</span>
                 </div>
             </div>
             <div class="rightTip" @click="showAllTab"></div>
         </div>
-        <div class="programBox">
+        <div class="programBox" ref="programBox">
             <div class="programList" v-bind:class="{ active: currentIndex == 0 }">
                 <div class="container">
                     <div class="programItem programItemSite">
@@ -157,6 +157,10 @@ export default {
         }),
         showAllTab: function() {
             this.$refs.tabWrapper.scrollLeft = 9999;
+        },
+        switchProgram: function(index) {
+            this.currentIndex = index;
+            this.$refs.programBox.scrollTop = 0;
         }
     },
     created: function() {

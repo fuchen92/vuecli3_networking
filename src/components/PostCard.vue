@@ -22,7 +22,8 @@
             </div>
         </div>
         <div class="postSummary clear">
-            <div class="postTime lt">{{ post.Time.split("T")[0] + " " + post.Time.split("T")[1].substr(0, 5) }}</div>
+            <div class="postTime lt">{{ $pattern(post.Time, "yyyy-MM-dd HH:mm") }}</div>
+            <!-- <div class="postTime lt">{{ post.Time.split("T")[0] + " " + post.Time.split("T")[1].substr(0, 5) }}</div> -->
             <a class="postContact rt" v-bind:href="'tel:' + post.Contact.Name">{{ $t("postCard.tel") }}</a>
             <div class="postInterest rt" v-bind:class="{ active: post.IsLike }">{{ $tc("postCard.interest", post.Like) }}</div>
         </div>

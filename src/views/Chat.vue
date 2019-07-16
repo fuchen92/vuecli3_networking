@@ -88,7 +88,8 @@
                 <img class="sendCardImg" src="../assets/iconSendcard.svg" alt="">
                 {{ $t("chat.cardBtn") }}
             </div>
-            <textarea class="chatInput" v-model.trim="chatMsg"></textarea>
+            <input class="chatInput" v-model.trim="chatMsg">
+            <!-- <textarea class="chatInput" v-model.trim="chatMsg"></textarea> -->
             <button class="sendMsgBtn" @click="sendMsg" :disabled="sendDisabled">{{ $t("chat.sendBtn") }}</button>
         </div>
     </div>

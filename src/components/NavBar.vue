@@ -2,7 +2,7 @@
     <div class="navBar">
         <div class="container clear">
             <template v-if="showSearch">
-                <router-link class="searchLink" to="/search">
+                <router-link class="searchLink" :to="`/search?searchType=${searchType}`">
                     <!-- 搜索参会嘉宾或企业 -->
                     {{ $t("navBar.search") }}
                 </router-link>
@@ -28,6 +28,10 @@ export default {
         },
         navBarTitle: {
             type: String
+        },
+        searchType: {
+            type: String,
+            default: "attendees"
         }
     },
     methods: {

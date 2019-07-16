@@ -60,7 +60,7 @@ export default {
                 "name": "酒店论坛"
             },
             {
-                "time": "8月30日",
+                "time": "8月29日",
                 "name": "航空论坛"
             }
         ],
@@ -264,7 +264,7 @@ export default {
         "wechat": "微信号",
         "wechatplaceholder": "请输入微信号",
         "intro": "请输入个人简介",
-        "save": "保存"
+        "save": ["保存", "修改成功"]
     },
     "qrcode": {
         "navBarTitle": "签到码",

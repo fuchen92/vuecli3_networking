@@ -96,6 +96,7 @@ export default {
                 if(data.Code != 0) {
                     alert(data.Message)
                 }
+                localStorage.setItem("plazaTabIndex", this.publishType);
                 this.$router.go(-1)
             }).catch(err => {
                 console.log(err);

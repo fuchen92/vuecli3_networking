@@ -53,7 +53,7 @@
             <div class="infomationCard">
                 <textarea class="infomationIntro" :placeholder="$t('meinfomation.intro')" v-model.trim="intro"></textarea>
             </div>
-            <button class="saveInfomation" @click="saveInfomation">{{ $t("meinfomation.save") }}</button>        
+            <button class="saveInfomation" @click="saveInfomation" :disabled="isSaved">{{ $t("meinfomation.save['" + saveBtnIndex + "']") }}</button>        
         </div>
     </div>
 </template>
@@ -65,7 +65,9 @@ export default {
     data: function() {
         return {
             // wechat: "111",
-            // intro: ""            
+            // intro: "" 
+            saveBtnIndex: 0,
+            isSaved: false       
         }
     },
     components: {
@@ -173,6 +175,7 @@ export default {
             if((this.intro == "" || this.intro.length == 0) && (this.wechat == "" || this.wechat.length == 0)) {
                 return false;
             }
+            this.isSaved = true;
             let contactList = this.contactList;
             console.log(contactList)
             contactList.map(item => {
@@ -180,19 +183,27 @@ export default {
                     item.Name = this.wechat
                 }
             });
+            // return false;
             // 不用触发action修改state
             // this.saveMyInfo({ intro: this.intro, contactList, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
-            this.$http.post(`http://192.168.1.21:89/Me/MeSave`, {
+            this.$http.post(`${this.apiDomain}/Me/MeSave`, {
                 Intro: this.intro,
                 ContactList: contactList,
                 token: this.token,
                 lang: this.lang == "zh" ? 1 : 2
             }).then(res => {
                 if(res.data.Code == 0) {
-                    alert("修改成功");
+                    // alert("修改成功");
+                    this.saveBtnIndex = 1;
                 } else {
+                    this.saveBtnIndex = 0;
+                    this.isSaved = false;
                     alert(res.data.Message)
                 }
+            }).catch(err => {
+                this.saveBtnIndex = 0;
+                this.isSaved = false;
+                alert(err);
             })
         },
         // 此处不用修改state

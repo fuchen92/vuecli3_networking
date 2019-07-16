@@ -1,6 +1,6 @@
 <template>
     <div class="layout">
-        <NavBar :showSearch="true" navBarTitle=""></NavBar>
+        <NavBar :showSearch="true" :searchType="searchType"></NavBar>
         <!-- <keep-alive> -->
             <router-view></router-view>
         <!-- </keep-alive> -->
@@ -15,12 +15,28 @@ export default {
     name: "layout",
     data: function() {
         return {
-
+            searchType: "attendees"
         }
     },
     components: {
         NavBar,
         TabBar
+    },
+    watch: {
+        $route: function() {
+            let path = this.$route.path;
+            if(path != "/plaza") {
+                this.searchType = "attendees";
+            } else {
+                this.searchType = "exhibitor"
+            }
+        }
+    },
+    created: function() {
+        let path = this.$route.path;
+        if(path == "/plaza") {
+            this.searchType = "exhibitor";
+        }
     }
 }
 </script>
