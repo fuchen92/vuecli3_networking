@@ -163,6 +163,7 @@ export default {
         }
     },
     created: function() {
+        console.log("created")
         this.getRecommendList({
             eventNo: this.eventNo,
             keyword: "",
@@ -176,6 +177,9 @@ export default {
         })
         this.getAttendsList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
         this.getAttendsFilter({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
+    },
+    activated: function() {
+        console.log("keep-alive activated生命周期")
     }
 }
 </script>

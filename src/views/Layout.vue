@@ -37,6 +37,11 @@ export default {
         if(path == "/plaza") {
             this.searchType = "exhibitor";
         }
+        localStorage.removeItem("searchAttendFilter");
+        localStorage.removeItem("searchExhibitorFilter");
+        localStorage.removeItem("searchResult");
+        localStorage.removeItem("resultType");
+        localStorage.removeItem("searchFilterTab");
     }
 }
 </script>

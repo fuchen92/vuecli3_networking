@@ -167,8 +167,8 @@ export default {
         ],
         "publishTab": "发布供应",
         "requirementTab": "发布需求",
-        "emptySupplyDesc": "您暂未发布供应",
-        "emptyRequirementDesc": "您暂未发布需求",
+        "emptySupplyDesc": "来发布第一个供应吧",
+        "emptyRequirementDesc": "来发布第一个需求吧",
         "attendExpected": "等{count}人出席",
     },
     "publish": {

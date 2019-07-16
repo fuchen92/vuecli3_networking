@@ -129,19 +129,20 @@ import ExhibitorCard from "@/components/ExhibitorCard";
 export default {
     name: "Search",
     data: function() {
+        let searchAttendFilter = JSON.parse(localStorage.getItem("searchAttendFilter"));
+        let searchExhibitorFilter = JSON.parse(localStorage.getItem("searchExhibitorFilter"));
         return {
             keyWord: "",
             identity: this.$route.query.searchType == "attendees" ? 1 : 2,
             resultList: [],
             resultType: 1,
             showFilter: true,
-            industryArr: [],
-            functionArr: [],
-            identityArr: [],
-            // categoryTabs: ["行业", "产品/服务"],
+            industryArr: searchAttendFilter != null ? searchAttendFilter.filter1 : [],
+            functionArr: searchAttendFilter != null ? searchAttendFilter.filter2 : [],
+            identityArr: searchAttendFilter != null ? searchAttendFilter.filter3 : [],
             filterTabIndex: 0,
-            exhibitorIdstryArr: [],
-            exhibitorProArr: []
+            exhibitorIdstryArr: searchExhibitorFilter != null ? searchExhibitorFilter.filter1 : [],
+            exhibitorProArr: searchExhibitorFilter != null ? searchExhibitorFilter.filter2 : []
         }
     },
     components: {
@@ -177,6 +178,18 @@ export default {
                         alert("请输入关键字或选中任意筛选项");
                         return false;
                     }
+                    var attendFilterObj = {
+                        eventNo: this.eventNo,
+                        keyword: this.keyWord,
+                        filter1: this.industryArr,
+                        index: 1,
+                        size: 9999,
+                        filter2: this.functionArr,
+                        filter3: this.identityArr,
+                        token: this.token,
+                        lang: this.lang == "zh" ? 1 : 2
+                    }
+                    localStorage.setItem("searchAttendFilter", JSON.stringify(attendFilterObj));
                     this.$http.post(`${this.apiDomain}/Attendees/Search`, {
                         eventNo: this.eventNo,
                         keyword: this.keyWord,
@@ -191,6 +204,8 @@ export default {
                         this.resultList = res.data.Data;
                         this.resultType = 1;
                         this.showFilter = false;
+                        localStorage.setItem("searchResult", JSON.stringify(this.resultList));
+                        localStorage.setItem("resultType", this.resultType);
                     })
                     break;
                 case 2:
@@ -198,6 +213,17 @@ export default {
                         alert("请输入关键字或选中任意筛选项");
                         return false;
                     }
+                    let exhibitorFilterObj = {
+                        eventNo: this.eventNo,
+                        keyword: this.keyWord,
+                        filter1: this.exhibitorIdstryArr,
+                        filter2: this.exhibitorProArr,
+                        token: this.token,
+                        lang: this.lang == "zh" ? 1 : 2,
+                        index: 1,
+                        size: 9999
+                    }
+                    localStorage.setItem("searchExhibitorFilter", JSON.stringify(exhibitorFilterObj));
                     this.$http.post(`${this.apiDomain}/Exhibitors/Search`, {
                         eventNo: this.eventNo,
                         keyword: this.keyWord,
@@ -211,6 +237,9 @@ export default {
                         this.resultList = res.data.Data;
                         this.resultType = 2;
                         this.showFilter = false;
+                        localStorage.setItem("searchResult", JSON.stringify(this.resultList));
+                        localStorage.setItem("resultType", this.resultType);
+                        localStorage.setItem("searchFilterTab", this.filterTabIndex);
                     })
                     break;
             }
@@ -224,6 +253,18 @@ export default {
         }
     },
     created: function() {
+        let searchResult = JSON.parse(localStorage.getItem("searchResult"));
+        let resType = localStorage.getItem("resultType");
+        if(searchResult != null) {
+            if(resType == 1) {
+                this.identity = 1
+            } else {
+                this.identity = 2;
+                this.filterTabIndex = localStorage.getItem('searchFilterTab');
+            }
+            this.resultList = searchResult;
+            this.showFilter = false;
+        }
         this.getAttendsFilter({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
         this.getExhibitorFilter({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
     }
