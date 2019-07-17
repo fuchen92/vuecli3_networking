@@ -37,7 +37,8 @@ export default {
             "SETREDDOT",
             "ADDNEWCHAT",
             "INITMESSAGELIST",
-            "ADDUNREADLIST"
+            "ADDUNREADLIST",
+            "UPDATELASTMSG"
         ]),
         ...mapActions([
             "getMyInfo",
@@ -59,7 +60,7 @@ export default {
         },
         onMessage(e){ //数据接收
             const socketData = JSON.parse(e.data);
-            console.log(socketData)
+            // console.log(socketData)
             let currentRoute = this.$route.path;
             var temp = null;
             if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
@@ -94,10 +95,15 @@ export default {
                     Type: (socketData.Type == 1 ? 0 : 1)
                 }
                 this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
-                this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId });
+                if(currentRoute != "/chat") {
+                    this.ADDUNREADLIST({ targetId: socketData.Sender, unReadMsgId: socketData.MsgId });
+                }
             }
             if(currentRoute != "/message") {
                 this.SETREDDOT("show")
+            }
+            if(currentRoute == "/message") {
+                this.UPDATELASTMSG({ id: socketData.Sender, socketData: socketData })
             }
             if(currentRoute == "/chat") {
                 let senderId = this.$route.query.chatId;

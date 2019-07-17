@@ -237,10 +237,31 @@ export default new Vuex.Store({
         },
         // socket不在message页面时，用于添加用户的未读信息
         ADDUNREADLIST(state, { targetId, unReadMsgId }) {
-            Vue.set(state.UnReadList, targetId, []);
-            if(state.UnReadList[targetId] != null || state.UnReadList[targetId] != undefined) {
+            if(state.UnReadList.hasOwnProperty(targetId)) {
+                state.UnReadList[targetId].push(unReadMsgId)
+            } else {
+                Vue.set(state.UnReadList, targetId, []);
                 state.UnReadList[targetId].push(unReadMsgId)
             }
+        },
+        // socket在message页面时，实时更新用户头像红点和最新聊天信息
+        UPDATELASTMSG(state, { id, socketData }) {
+            let { Type, Sender, Content, MsgId } = socketData;
+            var chatList = state.ChatList,
+                len = chatList.length;
+            var index = 0;
+            for(var i = 0; i < len; i++) {
+                if(chatList[i].Id == id) {
+                    index = i;
+                    break;
+                }
+            }
+            let date = new Date().toJSON().substr(0, 10),
+                time = new Date().toTimeString().substr(0, 8),
+                sentTime = date + "T" + time;
+            Vue.set(state.ChatList[index]["LastMessage"], "Content", Type == 1 ? Content: "这是我的名片，请查收" );
+            Vue.set(state.ChatList[index]["LastMessage"], "SentTime", sentTime );
+            Vue.set(state.ChatList[index], "NewMessageCount", state.ChatList[index]["NewMessageCount"] + 1 );
         },
         // 清空用户未读消息
         RESETUNREADLIST(state, { targetId }) {

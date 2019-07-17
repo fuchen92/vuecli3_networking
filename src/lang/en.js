@@ -237,7 +237,7 @@ export default {
         businessCard: "Here is my business card",
         invite: "Meeting Invitation",
         checkDetail: "View details",
-        cardBtn: "Send Business Card",
+        cardBtn: "Card",
         sendBtn: "Send"
     },
     "me": {

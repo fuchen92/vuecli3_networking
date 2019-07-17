@@ -220,23 +220,11 @@ export default {
         }
     },
     created: function() {
-        // this.getMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });
-        // this.getMessageList({
-        //     eventNo: this.eventNo,
-        //     target: this.chatUser.id,
-        //     before: -1,
-        //     size: -1,
-        //     token: this.token,
-        //     after: -1,
-        //     lang: this.lang == "zh" ? 1 : 2
-        // });
-        console.log(this.unReadList);
         if(this.unReadList != undefined && this.unReadList.length != 0) {
             this.$http.post(`${this.apiDomain}/Attendees/ChatReadList`, {
                 ids: this.unReadList,
                 token: this.token
             }).then(res => {
-                console.log(res.data)
                 if(res.data.Code == 0) {
                     this.RESETUNREADLIST({ targetId: this.chatUser.id })
                 } else {
