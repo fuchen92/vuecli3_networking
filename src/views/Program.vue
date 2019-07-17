@@ -200,6 +200,7 @@ export default {
     height: 1rem;
     padding: 0 0.4rem 0 0.2rem;
     background-color: #fff;
+    z-index: 100;
 }
 .programTabsWrapper {
     font-size: 0;

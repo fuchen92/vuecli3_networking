@@ -276,19 +276,19 @@ export default {
     border-bottom: 1px solid #F0F1F2;
 }
 .infomationItemLabel, .infomationItemValue, .wechatInput {
-    width: 2rem;
+    width: 3rem;
     font-size: 0.28rem;
     line-height: 0.8rem;
 }
 .infomationItemValue {
-    width: calc(100% - 2rem);
+    width: calc(100% - 3rem);
     text-align: right;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 .wechatInput {
-    width: calc(100% - 2rem);
+    width: calc(100% - 3rem);
     border: 0;
     text-align: right;
 }

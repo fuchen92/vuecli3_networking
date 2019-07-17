@@ -311,10 +311,11 @@ export default {
     width: 1.9rem;
     height: 0.6rem;
     margin-right: 0.2rem;
+    border: 0;
+    border-radius: 0;
     padding: 0 0.5rem 0 0.2rem;
     background: url(../assets/downArrowWhite32.png) var(--themeColor) right 0.04rem center/0.4rem auto no-repeat;
     color: #fff;
-    border: 0;
 }
 .openFilterBtn {
     width: calc(100% - 6.1rem);

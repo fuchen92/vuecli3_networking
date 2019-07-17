@@ -182,7 +182,7 @@ export default {
     background: url(../assets/iconTick.svg) #999 center center/0.28rem no-repeat;
 }
 .publishMobileCheckbox:checked + .publishMobileCaret {
-    background: url(../assets/iconTick.svg) var(--themeColor) center center/0.28rem no-repeat;
+    background: url(../assets/iconTick.svg) #c30d23 center center/0.28rem no-repeat;
 }
 .publishBtn {
     position: absolute;

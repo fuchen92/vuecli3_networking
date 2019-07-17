@@ -214,6 +214,7 @@ export default {
     width: 100%;
     height: 0.8rem;
     background-color: #fff;
+    z-index: 100;
 }
 .detailTab {
     padding: 0 0.2rem;

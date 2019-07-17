@@ -127,7 +127,7 @@ export default {
 	font-size: 0;
 }
 .meInfoLink {
-	width: calc(100% - 1rem);
+	width: calc(100% - 2rem);
 	color: #2c3e50;
 }
 .meAvatar, .meInfo {
@@ -159,7 +159,7 @@ export default {
 	font-weight: bold;
 }
 .qrCode {
-	width: 0.9rem;
+	width: 2rem;
 	text-align: center;
 }
 .qrCodeLink {

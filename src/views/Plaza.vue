@@ -5,7 +5,7 @@
                 <span class="plazaTab">{{ tab.name }}</span>
             </div>
         </div>
-        <div class="plazaBox">
+        <div class="plazaBox" ref="plazaBox" @scroll="loadMore">
             <div class="plazaList" v-bind:class="{ active: currentIndex == 0 }">
                     <!-- <router-link v-for="exhibitor in exhibitorList" class="exhibitorLink" v-bind:key="exhibitor.Id" v-bind:to="'/exhibitor?exhibitorId=' + exhibitor.Id">
                         <div class="exhibitorAvatar">
@@ -79,6 +79,9 @@
                     </PostCard>
                 </template>
             </div>
+            <div class="loading" v-show="showLoading">
+                <img class="loadingImg" src="../assets/loading.gif" alt="">
+            </div>
         </div>
         <div class="publishTabs">
             <router-link class="publishTab" to="/publish?type=1">
@@ -105,8 +108,10 @@ export default {
     name: "Plaza",
     data: function() {
         return {
-            currentIndex: (localStorage.getItem("plazaTabIndex") == null ? 0 : localStorage.getItem("plazaTabIndex"))
-            // currentIndex: 0
+            currentIndex: (localStorage.getItem("plazaTabIndex") == null ? 0 : localStorage.getItem("plazaTabIndex")),
+            pageIndex: 1,
+            size: 50,
+            showLoading: true
         }
     },
     components: {
@@ -134,10 +139,16 @@ export default {
         switchPlaza: function(index) {
             this.currentIndex = index;
             localStorage.setItem("plazaTabIndex", index);
+        },
+        loadMore: function() {
+            let box = this.$refs.plazaBox;
+            console.log(box.scrollTop)
+            console.log(box.scrollHeight)
+            console.log(box.clientHeight)
         }
     },
     created: function() {
-        this.getExhibitorList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2});
+        this.getExhibitorList({ eventNo: this.eventNo, index: 1, size: this.size, token: this.token, lang: this.lang == "zh" ? 1 : 2});
         // this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 1, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
         // this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 2, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
     }
@@ -161,6 +172,7 @@ export default {
     width: 100%;
     height: 0.8rem;
     background-color: #fff;
+    z-index: 100;
 }
 .plazaTab {
     padding: 0 0.2rem;
@@ -250,5 +262,16 @@ export default {
 }
 .publishTabText {
     font-size: 0.28rem;
+}
+.loading {
+    display: block;
+    font-size: 0;
+    text-align: center;
+}
+.loadingImg {
+    display: inline-block;
+    width: 0.6rem;
+    height: auto;
+    margin: 0.2rem 0;
 }
 </style>

@@ -11,7 +11,7 @@
             <span class="closeReRecommend rt" @click="hideRecommendBar"></span>
             <button class="reRecommendBtn rt" @click="showFilter = true">{{ $t("attendees.reRecommend") }}</button>
         </div>
-        <div class="attendBox">
+        <div class="attendBox" ref="attendBox" @scroll="loadMore">
             <div class="attendWrapper" v-bind:class="{ active: currentIndex == 0, empty: recommends == null }">
                 <div class="emptyList" v-if="recommends == null">
                     <img class="emptyListImg" src="../assets/nullState.png" alt="">
@@ -160,6 +160,12 @@ export default {
                 lang: this.lang == "zh" ? 1 : 2
             });
             this.showFilter = false;
+        },
+        loadMore: function() {            
+            let box = this.$refs.attendBox;
+            console.log(box.scrollTop)
+            console.log(box.scrollHeight)
+            console.log(box.clientHeight)
         }
     },
     created: function() {
