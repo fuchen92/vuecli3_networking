@@ -184,7 +184,6 @@ export default {
         sendCard: function() {
             var r = window.confirm("即将发送您的联系方式（包括手机、邮箱、微信等）给对象，请确认");
             if(r) {
-                console.log("确定发送名片")
                 this.$http.post(`${this.apiDomain}/Attendees/ChatSend`, {
                     eventNo: this.eventNo,
                     target: this.chatUser.id,
@@ -193,8 +192,6 @@ export default {
                     token: this.token,
                     lang: this.lang == "zh" ? 1 : 2
                 }).then(res => {
-                    console.log(res.data)
-                    console.log(this.myInfo);
                     let msgId = res.data.Data
                     let { Name, Company, JobTitle, Mobile, Mail, WeChat } = this.myInfo;
                     
