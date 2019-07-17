@@ -21,14 +21,16 @@ export default {
     name: "Product",
     data: function() {
         return {
-            productId: this.$route.query.productId,
-            navBarTitle: this.$i18n.messages[this.$store.state.Lang].product.navBarTitle
+            productId: this.$route.query.productId
         }
     },
     components: {
         NavBar
     },
     computed: {
+        navBarTitle: function() {
+            return this.$i18n.messages[this.lang].product.navBarTitle
+        },
         ...mapState({
             lang: state => state.Lang,
             eventNo: state => state.eventNo,

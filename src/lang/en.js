@@ -96,6 +96,7 @@ export default {
                 name: "PPT"
             }
         ],
+        emptySummary: "Please stay tuned for updates.",
         videoTip: "Event video will be released here after the conference, please stay tuned.",
         noArticle: "Currently not available.",
         noPPT: "Currently not available.",

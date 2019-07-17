@@ -142,8 +142,6 @@ export default {
         }
     },
     created: function() {
-        this.getMyInfo({ eventNo: this.eventNo, token: this.token })
-        console.log(this.invitePeople)
     }
 }
 </script>

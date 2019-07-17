@@ -20,7 +20,7 @@
                 </div>
                 <div class="detailContent">
                     <div class="detailList" :class="{ active: currentIndex == 0 }">
-                        <div class="detailIntro" v-html="programDetail.Summary"></div>
+                        <div class="detailIntro" v-html="programDetail.Summary == '' ? $t('programDetail.emptySummary') : programDetail.Summary"></div>
                         <div class="detailSpeakerList">
                             <template v-for="(speaker, idx) in programDetail.Details">
                                 <p v-if="speaker.DataType.Title != programDetail.Details[0].DataType.Title || idx == 0" :key="idx" class="speakerType">{{ speaker.DataType.Title }}</p>
@@ -70,10 +70,10 @@
                                 </div>
                             </div>
                         </template>
-                    </div>
-                    
-                </div>
-                <button class="subscribeBtn" v-if="!programDetail.IsSubscribed" :disabled="isSubscribed" @click="subscribe">{{ $t("programDetail.subscribeBtn[" + subscribeIndex + "]") }}</button>
+                    </div>                    
+                </div>                
+                <button class="subscribeBtn" v-if="programDetail.IsSubscribed" ref="isSubscribedBtn" :disabled="programDetail.IsSubscribed">{{ $t("programDetail.subscribeBtn[" + isSubscribedIndex + "]") }}</button>
+                <button class="subscribeBtn" v-else :disabled="isSubscribed" ref="subscribeBtn" @click="subscribe">{{ $t("programDetail.subscribeBtn[" + subscribeIndex + "]") }}</button>
             </div>
         </div>
     </div>
@@ -87,8 +87,8 @@ export default {
         return {
             programId: this.$route.query.programId,
             currentIndex: 0,
-            // pptIndex: 1,
             subscribeIndex: 0,
+            isSubscribedIndex: 1,
             isSubscribed: false
         }
     },
@@ -103,6 +103,7 @@ export default {
             return this.$i18n.messages[this.lang].programDetail.tabs
         },
         ...mapState({
+            apiDomain: state => state.ApiDomain,
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
@@ -115,16 +116,16 @@ export default {
         ]),
         subscribe: function() {
             this.isSubscribed = true;
-            this.$http.post("http://192.168.1.21:89/Program/ProgramSubscribe", {
+            this.$http.post(`${this.apiDomain}/Program/ProgramSubscribe`, {
                 programId: this.programId,
                 token: this.token,
                 lang: this.lang == "zh" ? 1 : 2
             }).then(res => {
-                console.log(res)
                 if(res.data.Code == 0) {
                     this.subscribeIndex = 1;
                 } else {
                     this.isSubscribed = false;
+                    this.subscribeIndex = 0;
                     alert(res.data.Message)
                 }
             }).catch(err => {
@@ -132,9 +133,6 @@ export default {
                 this.subscribeIndex = 0;
                 alert(err);
             })
-            
-            
-            console.log("订阅开始提醒")
         }
     },
     created: function() {

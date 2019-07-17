@@ -7,7 +7,6 @@
             </p>
             <label class="noticeLabel rt">
                 <input class="noticeCheckbox" type="checkbox" v-model="openNotice">
-                <!-- <input class="noticeCheckbox" type="checkbox" v-model="openNotice" @change="setNotice"> -->
 				<i class="noticeCaret"></i>            
             </label>
         </div>
@@ -42,9 +41,7 @@
 					</div>
 					<div class="messageSummary rt">
 						<p class="messageDate">{{ $pattern(chat.LastMessage.SentTime, 'MM-dd') }}</p>
-						<!-- <p class="messageDate">{{ chat.LastMessage.SentTime.split("T")[0].substr(5) }}</p> -->
 						<p class="latestTime">{{ $pattern(chat.LastMessage.SentTime, 'HH:mm') }}</p>
-						<!-- <p class="latestTime">{{ chat.LastMessage.SentTime.split("T")[1].substr(0, 5) }}</p> -->
 					</div>
 				</router-link>
 			</div>
@@ -104,25 +101,7 @@ export default {
 		]),
 		...mapMutations([
 			"SETREDDOT"
-		]),
-		setNotice: function() {
-			let setting = [
-				{ Id: 1, Name: "", Value: this.lang == "zh" ? 1 : 2 },
-				{ Id: 2, Name: "", Value: this.openNotice ? 1 : 0 },
-				{ Id: 4, Name: "", Value: this.openNotice ? 1 : 0 },
-				{ Id: 6, Name: "", Value: this.openNotice ? 1 : 0 }
-			]
-			// localStorage.setItem("openNotice", this.openNotice);
-			this.$http.post(`${this.apiDomain}/Me/AlterUiSetting`, {
-				setting: setting,
-				token: this.token
-			}).then(res => {
-				if(res.data.Code != 0) {
-					alert(res.data.Message)
-				}
-				console.log(res.data);
-			})
-		},
+		])
 	},
 	created: function() {
 		this.getChatList({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 });

@@ -163,7 +163,6 @@ export default {
         }
     },
     created: function() {
-        console.log("created")
         this.getRecommendList({
             eventNo: this.eventNo,
             keyword: "",

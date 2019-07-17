@@ -24,12 +24,11 @@
                     <li class="participateItem" v-for="(participate, index) in guest.ProgramList" :key="index">
                         <div class="participateInfo">
                             <p class="participateTime">
-                                <!-- {{ participate.Begin.split("T")[1].substr(0, 5) }} - {{ participate.End.split("T")[1].substr(0, 5) }} -->
-                                {{ $pattern(participate.Begin, "HH:mm") }} - {{ $pattern(participate.End, "HH:mm") }}
+                                {{ $pattern(participate.Begin, "HH:mm") }} - {{ $pattern(participate.End, "HH:mm") }} {{ participate.TypeName }}
                             </p>
-                            <p class="participateType">
+                            <!-- <p class="participateType">
                                 {{ participate.TypeName }}
-                            </p>
+                            </p> -->
                             <h4 class="participateTopic">{{ participate.Topic }}</h4>
                         </div>
                         <router-link class="participateLink" :to="'/programdetail?programId=' + participate.Id">
@@ -65,7 +64,6 @@
                         <p class="demandContent">{{ solution.Intro }}</p>
                         <div class="demandBottom clear">
                             <p class="demandTime lt">{{ $pattern(solution.Time, "MM-dd HH:mm") }}</p>
-                            <!-- <p class="demandTime lt">{{ solution.Time.split("T")[0].substr(5, 5) + " " + solution.Time.split("T")[1].substr(0, 5) }}</p> -->
                             <div class="demandLike rt" :class="{ active: solution.IsLike }" :data-id="solution.Id" :data-index="index">
                                 {{ $tc("guest.interest", solution.Like) }}
                             </div>
@@ -80,7 +78,6 @@
             </router-link>
             <b class="guestLinkDivide" v-if="guest.Role == 2"></b>
             <router-link class="guestLink chatLink" :class="{ large: guest.Role != 2 }" :to="`/chat?chatId=${guest.Id}&uPhoto=${guest.Photo}`">
-            <!-- <router-link class="guestLink chatLink" :class="{ large: guest.Role != 2 }" :to="`/chat?chatId=${guest.Id}&uName=${guest.Name}&uCompany=${guest.Company}&uJob=${guest.JobTitle}&uPhoto=${guest.Photo}`"> -->
                 {{ $t("guest.chatLabel") }}
             </router-link>
         </div>

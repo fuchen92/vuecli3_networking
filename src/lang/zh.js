@@ -96,6 +96,7 @@ export default {
                 name: "PPT"
             }
         ],
+        emptySummary: "该环节详情正在更新中，请保持关注",
         videoTip: "会后视频将发布在此，请保持关注",
         noArticle: "本环节暂无报道文章",
         noPPT: "本环节暂无PPT",

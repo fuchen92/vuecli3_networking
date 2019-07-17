@@ -32,7 +32,6 @@
                     <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.schemeCaption") }}</h4>
                     <div class="schemeList">
                         <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="`/product?productId=${scheme.Id}`" class="schemeItem">
-                        <!-- <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="'/product?productId=' + scheme.Id + '&backId=' + exhibitorId" class="schemeItem"> -->
                             <div class="schemeLogo">
                                 <img class="schemeLogoImg" :src="scheme.Logo" alt="">
                             </div>

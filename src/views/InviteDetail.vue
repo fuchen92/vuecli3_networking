@@ -27,7 +27,6 @@
                 <div class="inviteDetailInfoItem">
                     <img class="inviteDetailItemIcon" src="../assets/iconTime.svg" alt="">
                     <p class="inviteDetailItemContent">{{ $pattern(inviteDetail.Time, "yyyy-MM-dd HH:mm") }}</p>
-                    <!-- <p class="inviteDetailItemContent">{{ inviteDetail.Time.replace("T", " ").substr(0, 16) }}</p> -->
                 </div>
                 <div class="inviteDetailInfoItem">
                     <img class="inviteDetailItemIcon" src="../assets/iconLocation.svg" alt="">

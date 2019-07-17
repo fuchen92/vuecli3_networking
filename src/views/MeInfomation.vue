@@ -170,7 +170,6 @@ export default {
 
         },
         saveInfomation: function() {
-            console.log("保存个人信息");
             if((this.intro == "" || this.intro.length == 0) && (this.wechat == "" || this.wechat.length == 0)) {
                 return false;
             }

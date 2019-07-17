@@ -22,9 +22,7 @@
 			</div>
 			<div class="formGroup clear">
 				<input class="formInput valicodeInput lt" type="text" maxlength="6" ref="valicode" v-bind:placeholder="$t('login.valicodePlaceholder')" v-model.trim="valicode">
-				<!-- <button class="btn btnRed getValicode rt" @click="getValicode" v-t="{ path: 'login.getValicode', locale: language }">{{ $t('login.getValicode') }}</button> -->
 				<button class="btn btnRed getValicode rt" @click="getValicode" v-bind:disabled="isGettedCode">{{ isGettedCode ? (countDown + "s") : $t("login.getCode[" + valicodeTipIndex + "]") }}</button>
-				<!-- <button class="btn btnRed getValicode rt" @click="getValicode" v-t="'login.getValicode'"></button> -->
 			</div>
 			<div class="formGroup">
 				<p class="formTips" v-show="hasError">{{ $t("login.errTip['" + errType + "']") }}</p>
@@ -179,12 +177,6 @@ export default {
 						// 触发初始化account的actions（token）
 						this.initToken({ account });
 						this.getNewChatCount({ eventNo: this.eventNo, token: account.token, lang: this.language == "zh" ? 1 : 2 });
-						let _redirect = this.$route.query.redirect
-						// if (_redirect) {
-						// 	this.$router.push({ path: "/" + _redirect, query: { no: this.$route.query.no } })
-						// } else {
-						// 	this.$router.push({ path: "/" })
-						// }
 						this.$router.push({ path: "/" })
 					} else if(res.data.Code != 0) {
 						alert(res.data.Message)
@@ -193,7 +185,6 @@ export default {
 				}).catch(err => {
 					alert(err);
 				})
-				// console.log("验证通过，登录成功");
 			}
 			
 		}
@@ -207,7 +198,7 @@ export default {
 		// 应在此处根据语言初始化日程列表，暂时注释，后续再放开
 		// this.initProgram({ eventNo: 63, token: "", lang: this.lang == 'zh' ? 1 : 2 });
 
-		this.initMyInfo({ eventNo: this.$store.state.eventNo, token: this.$store.state.Account.Token })
+		// this.initMyInfo({ eventNo: this.$store.state.eventNo, token: this.$store.state.Account.Token })
 	}
 }
 </script>
