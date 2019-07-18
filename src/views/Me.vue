@@ -74,6 +74,7 @@ export default {
 			set(value) {
 				localStorage.removeItem("exhibitorLoadIndex");		// 重置广场页展商列表加载页码
 				localStorage.removeItem("exhibitorLoadAll");		// 重置广场页展商列表加载状态
+				localStorage.removeItem("plazaBoxScrollTop");		// 重置广场页展商列表加载状态
 				this.$store.commit("CHANGELANGUAGE", value);
 				/* 应在此处修改语言之后重新请求日程，人脉页全部参会嘉宾，人脉页推荐筛选面板，广场展商列表，英文数据，暂时注释，后续再放开
 					语言修改之后应当清空state中人脉页全部参会嘉宾中文数据，广场页展商列表中文数据

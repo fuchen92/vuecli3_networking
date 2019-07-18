@@ -114,7 +114,8 @@ export default {
 		window.addEventListener("beforeunload",()=>{
             // localStorage.setItem("activityMsg",JSON.stringify(this.$store.state))
             localStorage.removeItem("exhibitorLoadIndex");		// 重置广场页展商列表加载页码
-			localStorage.removeItem("exhibitorLoadAll");		// 重置广场页展商列表加载状态
+            localStorage.removeItem("exhibitorLoadAll");		// 重置广场页展商列表加载状态
+            localStorage.removeItem("plazaBoxScrollTop");
 		})
     },
 }

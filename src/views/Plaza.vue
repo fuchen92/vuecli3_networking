@@ -210,7 +210,7 @@ export default {
     },
     mounted: function() {
         console.log("广场页挂载")
-        this.$refs.plazaBox.scrollTop = localStorage.getItem('plazaBoxScrollTop')
+        // this.$refs.plazaBox.scrollTop = localStorage.getItem('plazaBoxScrollTop')
     },
     beforeDestroy: function() {
         console.log("beforeDestroy")
@@ -227,7 +227,7 @@ export default {
         console.log(this.pageIndex);
         console.log(this.loading);
         console.log(this.loadAll);
-        this.$refs.plazaBox.scrollTop = localStorage.getItem('plazaBoxScrollTop')
+        // this.$refs.plazaBox.scrollTop = localStorage.getItem('plazaBoxScrollTop')
     }
 }
 </script>
