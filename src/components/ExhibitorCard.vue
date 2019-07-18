@@ -36,6 +36,12 @@ export default {
         exhibitor: {
             type: Object
         }
+    },
+    mounted: function() {
+        console.log("展商卡片挂载")
+    },
+    destroyed: function() {
+        console.log("exhibitorCard destroyed")
     }
 }
 </script>

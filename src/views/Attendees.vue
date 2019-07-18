@@ -11,7 +11,8 @@
             <span class="closeReRecommend rt" @click="hideRecommendBar"></span>
             <button class="reRecommendBtn rt" @click="showFilter = true">{{ $t("attendees.reRecommend") }}</button>
         </div>
-        <div class="attendBox" ref="attendBox" @scroll="loadMore">
+        <div class="attendBox" ref="attendBox" v-scroll.to="{ position: y }">
+        <!-- <div class="attendBox" ref="attendBox" @scroll="loadMore"> -->
             <div class="attendWrapper" v-bind:class="{ active: currentIndex == 0, empty: recommends == null }">
                 <div class="emptyList" v-if="recommends == null">
                     <img class="emptyListImg" src="../assets/nullState.png" alt="">
@@ -85,6 +86,7 @@ export default {
     data: function() {
         var filterObj = JSON.parse(localStorage.getItem("filter"));
         return {
+            y: 200,
             currentIndex: 1,
             industryArr: filterObj != null ? filterObj.filter1 : [],
             functionArr: filterObj != null ? filterObj.filter2 : [],
@@ -180,8 +182,15 @@ export default {
             token: this.token,
             lang: this.lang == "zh" ? 1 : 2
         })
-        this.getAttendsList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
-        this.getAttendsFilter({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
+        if(this.attends.length == 0) {
+            this.getAttendsList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
+        }
+        if(this.filterMenu.length == 0) {
+            this.getAttendsFilter({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
+        }
+    },
+    mounted: function() {
+        
     },
     activated: function() {
         console.log("keep-alive activated生命周期")

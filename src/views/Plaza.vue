@@ -5,7 +5,8 @@
                 <span class="plazaTab">{{ tab.name }}</span>
             </div>
         </div>
-        <div class="plazaBox" ref="plazaBox" @scroll="loadMore">
+        <div class="plazaBox" ref="plazaBox" v-scroll="{ position: y }">
+        <!-- <div class="plazaBox" ref="plazaBox" @scroll="loadMore"> -->
             <div class="plazaList" v-bind:class="{ active: currentIndex == 0 }">
                     <!-- <router-link v-for="exhibitor in exhibitorList" class="exhibitorLink" v-bind:key="exhibitor.Id" v-bind:to="'/exhibitor?exhibitorId=' + exhibitor.Id">
                         <div class="exhibitorAvatar">
@@ -79,7 +80,7 @@
                     </PostCard>
                 </template>
             </div>
-            <div class="loading" v-show="showLoading">
+            <div class="loading" v-show="loading">
                 <img class="loadingImg" src="../assets/loading.gif" alt="">
             </div>
         </div>
@@ -101,17 +102,22 @@
     </div>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 import PostCard from "@/components/PostCard.vue";
 import ExhibitorCard from "@/components/ExhibitorCard"
+import { Throttle } from "@/utils.js"
 export default {
     name: "Plaza",
     data: function() {
         return {
+            y: 0,
             currentIndex: (localStorage.getItem("plazaTabIndex") == null ? 0 : localStorage.getItem("plazaTabIndex")),
-            pageIndex: 1,
+            pageIndex: (localStorage.getItem("exhibitorLoadIndex") == null ? 1 : localStorage.getItem("exhibitorLoadIndex")),
+            // pageIndex: 1,
             size: 50,
-            showLoading: true
+            loading: false,
+            loadAll: (localStorage.getItem("exhibitorLoadAll") == null ? false : localStorage.getItem("exhibitorLoadAll"))
+            // loadAll: false
         }
     },
     components: {
@@ -123,6 +129,7 @@ export default {
             return this.$i18n.messages[this.lang].plaza.tabs
         },
         ...mapState({
+            apiDomain: state => state.ApiDomain,
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
@@ -136,21 +143,91 @@ export default {
             "getExhibitorList",
             "getPlazaList"
         ]),
+        ...mapMutations([
+            "INITEXHIBITORLIST"
+        ]),
         switchPlaza: function(index) {
             this.currentIndex = index;
             localStorage.setItem("plazaTabIndex", index);
         },
-        loadMore: function() {
+        loadMore: Throttle(function() {
             let box = this.$refs.plazaBox;
-            console.log(box.scrollTop)
-            console.log(box.scrollHeight)
-            console.log(box.clientHeight)
-        }
+            let scrlTop = box.scrollTop,
+                scrlHeight = box.scrollHeight,
+                cliHeight = box.clientHeight;
+
+            console.log(scrlTop)
+
+            localStorage.setItem('plazaBoxScrollTop', scrlTop);
+
+            if((scrlTop + cliHeight) >= scrlHeight) {
+                if(this.loading) {
+                    return false;
+                } else {
+                    if(!this.loadAll) {
+                        this.loading = true;
+                        this.pageIndex++;                    
+                        this.$http.post(`${this.apiDomain}/Exhibitors/List`, {
+                            eventNo: this.eventNo,
+                            index: this.pageIndex,
+                            size: this.size,
+                            token: this.token,
+                            lang: this.lang == "zh" ? 1 : 2
+                        }).then(res => {
+                            console.log(this.pageIndex);
+                            let data = res.data;
+                            if(data.Code == 0) {
+                                this.loading = false;
+                                if(data.Data.length < this.size) {
+                                    this.loadAll = true;
+                                    localStorage.setItem("exhibitorLoadIndex", this.pageIndex);
+                                    localStorage.setItem("exhibitorLoadAll", this.loadAll);
+                                }
+                                if(data.Data.length != 0) {
+                                    this.INITEXHIBITORLIST({ exhibitorList: data.Data });
+                                }
+                            } else {
+                                alert(data.Message)
+                            }
+                        }).catch(err => {
+                            alert(err)
+                        })
+                    }
+                }
+            }
+        })
     },
     created: function() {
-        this.getExhibitorList({ eventNo: this.eventNo, index: 1, size: this.size, token: this.token, lang: this.lang == "zh" ? 1 : 2});
-        // this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 1, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
-        // this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 2, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
+        if(this.exhibitorList.length == 0) {
+            this.getExhibitorList({ eventNo: this.eventNo, index: this.pageIndex, size: this.size, token: this.token, lang: this.lang == "zh" ? 1 : 2});
+        }
+        // if(this.supplyList.length == 0) {
+            this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 1, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
+        // }
+        // if(this.demandList.length == 0) {
+            this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 2, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
+        // }
+    },
+    mounted: function() {
+        console.log("广场页挂载")
+        this.$refs.plazaBox.scrollTop = localStorage.getItem('plazaBoxScrollTop')
+    },
+    beforeDestroy: function() {
+        console.log("beforeDestroy")
+        let box = this.$refs.plazaBox;
+        let scrlTop = box.scrollTop;
+        console.log(scrlTop)
+        
+    },
+    destroyed: function() {
+        console.log("plaza destroyed")
+    },
+    activated: function() {
+        console.log("keep-alive activated生命周期")
+        console.log(this.pageIndex);
+        console.log(this.loading);
+        console.log(this.loadAll);
+        this.$refs.plazaBox.scrollTop = localStorage.getItem('plazaBoxScrollTop')
     }
 }
 </script>

@@ -165,22 +165,9 @@ export default {
     },
     created: function() {
         let language = this.lang == "zh" ? 1 : 2;
-        // if(this.programList.length == 0) {
+        if(this.programList.length == 0) {
             this.initProgram({ eventNo: this.eventNo, token: this.token, lang: language });
-        // }
-        // this.$http.post("http://192.168.1.21:89/Program/List", {
-        //     eventNo: 63,
-        //     token: "",
-        //     lang: 2
-        // }).then(res => {
-        //     let data = res.data.Data;
-        //     let arr = [];
-        //     let firstDay = data[4]["2018-9-20"]
-        //     let secondDay = data[5]["2018-9-21"]
-        //     let thirdDay = data[6]["2018-9-21"]
-        //     arr.push(firstDay, secondDay, thirdDay);
-        //     this.programList.push(firstDay, secondDay, thirdDay)
-        // })
+        }
     }
 }
 </script>

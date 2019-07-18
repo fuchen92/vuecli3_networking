@@ -61,25 +61,33 @@ Vue.prototype.$pattern = function(time, fmt) {
 	return fmt;
 }
 
+Vue.directive("scroll", {	
+	bind: function(el, binding, vnode) {
+		let drvalue = binding.value;
+		el.addEventListener("scroll", vnode.context.loadMore)
+	},
+	// inserted: function(el, binding, vnode) {
+	// 	console.log(binding)
+	// 	if(binding.modifiers.to) {
+	// 		setTimeout(function() {
+	// 			el.scrollTop = binding.value.position
+	// 		}, 500)
+	// 	}
+	// }
+})
+
 Vue.config.productionTip = false
 
 // 判断是否登陆
 router.beforeEach((to, from, next) => {
 	if (to.path === '/login') {
 		localStorage.removeItem('token')
-		// localStorage.clear();
 	}
 	let token = localStorage.getItem('token')
 	if (!token && to.path !== '/login') {
 		console.log("重定向到登录页")
 		next({ path: '/login' })
-		// if (to.path.substring(1)) {
-		// 	next({ path: '/login', query: { redirect: to.path.substring(1), no: to.query.no } })
-		// } else {
-		// 	next({ path: '/login' })
-		// }
 	} else {
-		// console.log("无重定向，直接进入下一步")
 		next()
 	}
 })

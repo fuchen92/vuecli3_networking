@@ -62,7 +62,7 @@
     </div>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 export default {
 	name: "Me",
 	computed: {
@@ -72,9 +72,19 @@ export default {
 				return this.$store.state.Lang
 			},
 			set(value) {
+				localStorage.removeItem("exhibitorLoadIndex");		// 重置广场页展商列表加载页码
+				localStorage.removeItem("exhibitorLoadAll");		// 重置广场页展商列表加载状态
 				this.$store.commit("CHANGELANGUAGE", value);
-				// 应在此处修改语言之后重新请求日程英文数据，暂时注释，后续再放开
-				// this.initProgram({ eventNo: 63, token: "", lang: value == 'zh' ? 1 : 2 });
+				/* 应在此处修改语言之后重新请求日程，人脉页全部参会嘉宾，人脉页推荐筛选面板，广场展商列表，英文数据，暂时注释，后续再放开
+					语言修改之后应当清空state中人脉页全部参会嘉宾中文数据，广场页展商列表中文数据
+				*/
+				this.EMPTYATTENDSLIST();
+				this.EMPTYEXHIBITORLIST();
+				this.getProgramList({ eventNo: this.eventNo, token: this.token, lang: value == 'zh' ? 1 : 2 });
+				this.getAttendsList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: value == 'zh' ? 1 : 2 });
+				this.getAttendsFilter({ eventNo: this.eventNo, token: this.token, lang: value == 'zh' ? 1 : 2 });
+				this.getExhibitorList({ eventNo: this.eventNo, index: 1, size: 50, token: this.token, lang: value == 'zh' ? 1 : 2 });
+				this.getChatList({ eventNo: this.eventNo, token: this.token, lang: value == 'zh' ? 1 : 2 });
 				this.$i18n.locale = value;
 				localStorage.setItem("localeLanguage", value);
 			}
@@ -89,9 +99,18 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions({
-			initMyInfo: "getMyInfo"
-        })
+		...mapActions([
+			"getProgramList",
+			"getAttendsList",
+			"getAttendsFilter",
+			"getExhibitorList",
+			"getPlazaList",
+			"getChatList"
+		]),
+		...mapMutations([
+			"EMPTYATTENDSLIST",
+			"EMPTYEXHIBITORLIST"
+		])
 	},
 	created: function() {
 		// this.initMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });

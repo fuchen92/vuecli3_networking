@@ -96,7 +96,6 @@ export default new Vuex.Store({
         },
         // 初始化日程列表
         INITPROGRAMLIST(state, { programList }) {
-            // console.log(programList)
             let data = programList;
             let arr = [];
             let firstDay = data[4]["2019-8-28"];
@@ -143,6 +142,10 @@ export default new Vuex.Store({
         INITATTENDSLIST(state, { attendsList }) {
             state.AttendsList = attendsList;
         },
+        // 当语言切换时清空人脉页所有嘉宾列表
+        EMPTYATTENDSLIST(state) {
+            state.AttendsList.length = 0;
+        },
         // 人脉页推荐列表
         INITRECOMMENDLIST(state, { recommendList }) {
             state.RecommendList = recommendList
@@ -153,7 +156,15 @@ export default new Vuex.Store({
         },
         // 初始化展商列表
         INITEXHIBITORLIST(state, { exhibitorList }) {
-            state.ExhibitorList = exhibitorList;
+            if(state.ExhibitorList.length == 0) {
+                state.ExhibitorList = exhibitorList;
+            } else {
+                state.ExhibitorList = state.ExhibitorList.concat(exhibitorList)
+            }
+        },
+        // 当语言切换时清空展商列表
+        EMPTYEXHIBITORLIST(state) {
+            state.ExhibitorList.length = 0;
         },
         // 获取展商详情
         INITEXHIBITORDETAIL(state, { detail }) {
@@ -314,7 +325,7 @@ export default new Vuex.Store({
             getAttendsList(eventNo, index, size, token, lang).then(res => {
                 commit("INITATTENDSLIST", { attendsList: res.data.Data })
             })
-        },
+        },        
         // 获取人脉页推荐面板筛选选项
         getAttendsFilter({ commit }, { eventNo, token, lang }) {
             getAttendsFilter(eventNo, token, lang).then(res => {
