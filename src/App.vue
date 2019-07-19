@@ -60,9 +60,10 @@ export default {
         },
         onMessage(e){ //数据接收
             const socketData = JSON.parse(e.data);
+            console.log(socketData)
             let currentRoute = this.$route.path;
             var temp = null;
-            if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
+            if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {            
                 temp = {
                     Content: (socketData.Type == 1 ? socketData.Content : JSON.parse(socketData.Content)),
                     Id: socketData.MsgId,
@@ -70,7 +71,7 @@ export default {
                     ReadTime: "0001-01-01T00:00:00",
                     SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
                     TargetNetUserId: this.myInfo.Id,
-                    Type: (socketData.Type == 1 ? 0 : 1)
+                    Type: (socketData.Type == 1 ? 0 : (socketData.Type == 2 ? 1 : 2))
                 }
                 this.ADDNEWCHAT({ id: socketData.Sender, item: temp });
                 if(currentRoute != "/chat") {

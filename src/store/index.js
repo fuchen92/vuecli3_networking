@@ -254,6 +254,10 @@ export default new Vuex.Store({
         },
         // 向当前聊天对象添加新的聊天内容
         ADDNEWCHAT(state, { id, item }) {
+            if(item.Type == 2) {
+                item.Content.Time = item.Content.Time.split("T")[0].substr(5, 5) + " " + item.Content.Time.split("T")[1].substr(0, 5)
+            }
+            console.log(item)
             state.MessageList[id].push(item)
         },
         // socket不在message页面时，用于添加用户的未读信息
@@ -280,7 +284,16 @@ export default new Vuex.Store({
             let date = new Date().toJSON().substr(0, 10),
                 time = new Date().toTimeString().substr(0, 8),
                 sentTime = date + "T" + time;
-            Vue.set(state.ChatList[index]["LastMessage"], "Content", Type == 1 ? Content: "这是我的名片，请查收" );
+
+            var content = "";
+            if(Type == 2) {
+                content = "这是我的名片，请查收";
+            } else if(Type == 3) {
+                content = "我向你发起了现场见面邀约，请查收";
+            } else {
+                content = Content;
+            }
+            Vue.set(state.ChatList[index]["LastMessage"], "Content", content );
             Vue.set(state.ChatList[index]["LastMessage"], "SentTime", sentTime );
             Vue.set(state.ChatList[index], "NewMessageCount", state.ChatList[index]["NewMessageCount"] + 1 );
         },

@@ -104,9 +104,7 @@ export default {
 		])
 	},
 	created: function() {
-		if(this.chatList.length == 0) {
-			this.getChatList({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
-		}
+		this.getChatList({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
 		this.SETREDDOT("hide")
 	}
 }

@@ -172,11 +172,9 @@ export default {
         this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 2, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
     },
     mounted: function() {
-        console.log("广场页挂载")
         // this.$refs.plazaBox.scrollTop = localStorage.getItem('exhibitorListScrollTop')
     },
     destroyed: function() {
-        console.log("plaza destroyed")
     },
     activated: function() {
         console.log("keep-alive activated生命周期")

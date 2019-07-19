@@ -89,7 +89,6 @@
                 {{ $t("chat.cardBtn") }}
             </div>
             <input class="chatInput" v-model.trim="chatMsg">
-            <!-- <textarea class="chatInput" v-model.trim="chatMsg"></textarea> -->
             <button class="sendMsgBtn" @click="sendMsg" :disabled="sendDisabled">{{ $t("chat.sendBtn") }}</button>
         </div>
     </div>
@@ -217,6 +216,7 @@ export default {
         }
     },
     created: function() {
+        console.log(this.unReadList)
         if(this.unReadList != undefined && this.unReadList.length != 0) {
             this.$http.post(`${this.apiDomain}/Attendees/ChatReadList`, {
                 ids: this.unReadList,
