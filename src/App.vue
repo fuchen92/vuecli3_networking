@@ -112,10 +112,17 @@ export default {
 
 		//在页面刷新时将vuex里的信息保存到localStorage里
 		window.addEventListener("beforeunload",()=>{
-            // localStorage.setItem("activityMsg",JSON.stringify(this.$store.state))
             localStorage.removeItem("exhibitorLoadIndex");		// 重置广场页展商列表加载页码
             localStorage.removeItem("exhibitorLoadAll");		// 重置广场页展商列表加载状态
-            localStorage.removeItem("plazaBoxScrollTop");
+            localStorage.removeItem("exhibitorListScrollTop");
+
+            localStorage.removeItem("recommendLoadIndex");
+            localStorage.removeItem("recommendLoadAll");
+            localStorage.removeItem("recommendScrollTop");
+
+            localStorage.removeItem("attendsLoadIndex");
+            localStorage.removeItem("attendsLoadAll");
+            localStorage.removeItem("attendsScrollTop");
 		})
     },
 }

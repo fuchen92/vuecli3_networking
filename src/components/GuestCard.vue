@@ -54,8 +54,7 @@ export default {
             if(id == this.myInfo.Id) {
                 alert("无法对自己进行操作");
                 return false;
-            }
-            // this.$router.push({ path: "/chat", query: { chatId: id, uName: this.guest.Name, uCompany: this.guest.Company, uJob: this.guest.JobTitle, uPhoto: this.guest.Photo } });
+            }    
             this.$router.push({ path: "/chat", query: { chatId: id, uPhoto: this.guest.Photo } });
         }
     }

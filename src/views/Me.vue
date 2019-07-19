@@ -1,6 +1,5 @@
 <template>
     <div class="me">
-        <!-- <h1>This is an about page</h1> -->
 		<div class="container">
 			<div class="meCard">
 				<router-link class="meInfoLink" to="/meinfomation">
@@ -74,15 +73,25 @@ export default {
 			set(value) {
 				localStorage.removeItem("exhibitorLoadIndex");		// 重置广场页展商列表加载页码
 				localStorage.removeItem("exhibitorLoadAll");		// 重置广场页展商列表加载状态
-				localStorage.removeItem("plazaBoxScrollTop");		// 重置广场页展商列表加载状态
+				localStorage.removeItem("exhibitorListScrollTop");
+
+				localStorage.removeItem("recommendLoadIndex");
+				localStorage.removeItem("recommendLoadAll");
+				localStorage.removeItem("recommendScrollTop");
+
+				localStorage.removeItem("attendsLoadIndex");
+				localStorage.removeItem("attendsLoadAll");
+				localStorage.removeItem("attendsScrollTop");
+
 				this.$store.commit("CHANGELANGUAGE", value);
 				/* 应在此处修改语言之后重新请求日程，人脉页全部参会嘉宾，人脉页推荐筛选面板，广场展商列表，英文数据，暂时注释，后续再放开
 					语言修改之后应当清空state中人脉页全部参会嘉宾中文数据，广场页展商列表中文数据
 				*/
 				this.EMPTYATTENDSLIST();
+				this.EMPTYRECOMMENDLIST();
 				this.EMPTYEXHIBITORLIST();
 				this.getProgramList({ eventNo: this.eventNo, token: this.token, lang: value == 'zh' ? 1 : 2 });
-				this.getAttendsList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: value == 'zh' ? 1 : 2 });
+				this.getAttendsList({ eventNo: this.eventNo, index: 1, size: 20, token: this.token, lang: value == 'zh' ? 1 : 2 });
 				this.getAttendsFilter({ eventNo: this.eventNo, token: this.token, lang: value == 'zh' ? 1 : 2 });
 				this.getExhibitorList({ eventNo: this.eventNo, index: 1, size: 50, token: this.token, lang: value == 'zh' ? 1 : 2 });
 				this.getChatList({ eventNo: this.eventNo, token: this.token, lang: value == 'zh' ? 1 : 2 });
@@ -110,7 +119,8 @@ export default {
 		]),
 		...mapMutations([
 			"EMPTYATTENDSLIST",
-			"EMPTYEXHIBITORLIST"
+			"EMPTYEXHIBITORLIST",
+			"EMPTYRECOMMENDLIST"
 		])
 	},
 	created: function() {

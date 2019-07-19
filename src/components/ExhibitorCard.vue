@@ -23,7 +23,6 @@
                     <span class="interestSummary">
                         <!-- {{ $tc("plaza.attendExpected", {count: 5}) }} -->
                         {{ $tc("plaza.attendExpected", exhibitor.AttendeesPhoto.length) }}
-                        <!-- 等{{ exhibitor.AttendeesPhoto.length }}人出席 -->
                     </span>
                 </div>
             </div>
@@ -41,7 +40,7 @@ export default {
         console.log("展商卡片挂载")
     },
     destroyed: function() {
-        console.log("exhibitorCard destroyed")
+        console.log("展商卡片销毁")
     }
 }
 </script>

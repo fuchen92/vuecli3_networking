@@ -1,42 +1,16 @@
 <template>
     <div class="plaza">
         <div class="plazaTabs">
-            <div v-for="(tab, index) in tabs" v-bind:key="index" class="plazaTab" v-bind:class="{ active: currentIndex == index }" v-on:click="switchPlaza(index)">
+            <div v-for="(tab, index) in tabs" v-bind:key="index" class="plazaTab" v-bind:class="{ active: tabIndex == index }" v-on:click="switchPlaza(index)">
                 <span class="plazaTab">{{ tab.name }}</span>
             </div>
         </div>
-        <div class="plazaBox" ref="plazaBox" v-scroll="{ position: y }">
-        <!-- <div class="plazaBox" ref="plazaBox" @scroll="loadMore"> -->
-            <div class="plazaList" v-bind:class="{ active: currentIndex == 0 }">
-                    <!-- <router-link v-for="exhibitor in exhibitorList" class="exhibitorLink" v-bind:key="exhibitor.Id" v-bind:to="'/exhibitor?exhibitorId=' + exhibitor.Id">
-                        <div class="exhibitorAvatar">
-                            <img class="exhibitorLogo" :src="exhibitor.Photo" alt="">
-                            <p class="exhibitorBooth">
-                                <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                                <span class="exhibitorBoothText">{{ exhibitor.Booth }}</span>
-                            </p>
-                        </div>
-                        <div class="exhibitorInfo">
-                            <h4 class="exhibitorName">{{ exhibitor.Name }}</h4>
-                            <div class="exhibitorTags">
-                                <span class="exhibitorTag" v-for="(industry, index) in exhibitor.Industry" :key="index">{{ industry.Name }}</span>
-                            </div>
-                            <p class="exhibitorSlogan" v-if="exhibitor.Intro2 != ''">{{ exhibitor.Intro2 }}</p>
-                            <div class="interestList" v-if="exhibitor.AttendeesPhoto != null">
-                                <template v-for="(attend, index) in exhibitor.AttendeesPhoto">
-                                    <template v-if="index < 3">
-                                        <img class="interestPeople" :src="attend[index]" :key="index" alt="">
-                                    </template>
-                                </template>
-                                <span class="interestSummary">
-                                    {{ $tc("plaza.attendExpected", exhibitor.AttendeesPhoto.length) }}
-                                </span>
-                            </div>
-                        </div>
-                    </router-link> -->
+        <div class="plazaBox">
+            <div class="plazaList" ref="exhibitorList" v-bind:class="{ active: tabIndex == 0 }" @scroll="loadMore">
                 <ExhibitorCard v-for="exhibitor in exhibitorList" :key="exhibitor.Id" :exhibitor="exhibitor"></ExhibitorCard>
+                <Loading :loading="loading"></Loading>
             </div>
-            <div class="plazaList supplyList" v-bind:class="{ active: currentIndex == 1, empty: supplyList.length == 0 }">
+            <div class="plazaList supplyList" v-bind:class="{ active: tabIndex == 1, empty: supplyList.length == 0 }">
                 <div class="emptyList" v-if="supplyList.length == 0">
                     <img class="emptyListImg" src="../assets/nullState.png" alt="">
                     <p class="emptyListDesc">{{ $t("plaza.emptySupplyDesc") }}</p>
@@ -58,7 +32,7 @@
                     </PostCard>
                 </template>
             </div>
-            <div class="plazaList demandList" v-bind:class="{ active: currentIndex == 2, empty: demandList.length == 0 }">
+            <div class="plazaList demandList" v-bind:class="{ active: tabIndex == 2, empty: demandList.length == 0 }">
                 <div class="emptyList" v-if="demandList.length == 0">
                     <img class="emptyListImg" src="../assets/nullState.png" alt="">
                     <p class="emptyListDesc">{{ $t("plaza.emptyRequirementDesc") }}</p>
@@ -79,9 +53,6 @@
                         </div>
                     </PostCard>
                 </template>
-            </div>
-            <div class="loading" v-show="loading">
-                <img class="loadingImg" src="../assets/loading.gif" alt="">
             </div>
         </div>
         <div class="publishTabs">
@@ -104,25 +75,24 @@
 <script>
 import { mapActions, mapMutations, mapState } from "vuex";
 import PostCard from "@/components/PostCard.vue";
-import ExhibitorCard from "@/components/ExhibitorCard"
+import ExhibitorCard from "@/components/ExhibitorCard";
+import Loading from "@/components/Loading.vue";
 import { Throttle } from "@/utils.js"
 export default {
     name: "Plaza",
     data: function() {
         return {
-            y: 0,
-            currentIndex: (localStorage.getItem("plazaTabIndex") == null ? 0 : localStorage.getItem("plazaTabIndex")),
+            tabIndex: (localStorage.getItem("plazaTabIndex") == null ? 0 : localStorage.getItem("plazaTabIndex")),
             pageIndex: (localStorage.getItem("exhibitorLoadIndex") == null ? 1 : localStorage.getItem("exhibitorLoadIndex")),
-            // pageIndex: 1,
             size: 50,
             loading: false,
             loadAll: (localStorage.getItem("exhibitorLoadAll") == null ? false : localStorage.getItem("exhibitorLoadAll"))
-            // loadAll: false
         }
     },
     components: {
         PostCard,
-        ExhibitorCard
+        ExhibitorCard,
+        Loading
     },
     computed: {
         tabs: function() {
@@ -147,20 +117,18 @@ export default {
             "INITEXHIBITORLIST"
         ]),
         switchPlaza: function(index) {
-            this.currentIndex = index;
+            this.tabIndex = index;
             localStorage.setItem("plazaTabIndex", index);
         },
         loadMore: Throttle(function() {
-            let box = this.$refs.plazaBox;
+            let box = this.$refs.exhibitorList;
             let scrlTop = box.scrollTop,
                 scrlHeight = box.scrollHeight,
                 cliHeight = box.clientHeight;
 
-            console.log(scrlTop)
+            localStorage.setItem('exhibitorListScrollTop', scrlTop);
 
-            localStorage.setItem('plazaBoxScrollTop', scrlTop);
-
-            if((scrlTop + cliHeight) >= scrlHeight) {
+            if((scrlTop + cliHeight) >= scrlHeight - 150) {
                 if(this.loading) {
                     return false;
                 } else {
@@ -174,7 +142,6 @@ export default {
                             token: this.token,
                             lang: this.lang == "zh" ? 1 : 2
                         }).then(res => {
-                            console.log(this.pageIndex);
                             let data = res.data;
                             if(data.Code == 0) {
                                 this.loading = false;
@@ -201,23 +168,12 @@ export default {
         if(this.exhibitorList.length == 0) {
             this.getExhibitorList({ eventNo: this.eventNo, index: this.pageIndex, size: this.size, token: this.token, lang: this.lang == "zh" ? 1 : 2});
         }
-        // if(this.supplyList.length == 0) {
-            this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 1, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
-        // }
-        // if(this.demandList.length == 0) {
-            this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 2, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
-        // }
+        this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 1, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
+        this.getPlazaList({ eventNo: this.eventNo, index: 1, size: 9999, type: 2, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
     },
     mounted: function() {
         console.log("广场页挂载")
-        // this.$refs.plazaBox.scrollTop = localStorage.getItem('plazaBoxScrollTop')
-    },
-    beforeDestroy: function() {
-        console.log("beforeDestroy")
-        let box = this.$refs.plazaBox;
-        let scrlTop = box.scrollTop;
-        console.log(scrlTop)
-        
+        // this.$refs.plazaBox.scrollTop = localStorage.getItem('exhibitorListScrollTop')
     },
     destroyed: function() {
         console.log("plaza destroyed")
@@ -265,24 +221,23 @@ export default {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: 1rem 0 1.9rem;
+    padding: 1rem 0 0;
+    /* overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; */
+}
+.plazaList {
+    box-sizing: border-box;
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 1.8rem;
     overflow-x: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
-.plazaList {
-    display: none;
-}
 .plazaList.active {
     display: block;
-    width: 100%;
-}
-.supplyList.empty,
-.supplyList.empty > .container,
-.demandList.empty,
-.demandList.empty > .container {
-    width: 100%;
-    height: 100%;
 }
 .emptyList {
     display: flex;
@@ -339,16 +294,5 @@ export default {
 }
 .publishTabText {
     font-size: 0.28rem;
-}
-.loading {
-    display: block;
-    font-size: 0;
-    text-align: center;
-}
-.loadingImg {
-    display: inline-block;
-    width: 0.6rem;
-    height: auto;
-    margin: 0.2rem 0;
 }
 </style>

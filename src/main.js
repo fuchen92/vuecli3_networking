@@ -61,21 +61,6 @@ Vue.prototype.$pattern = function(time, fmt) {
 	return fmt;
 }
 
-Vue.directive("scroll", {	
-	bind: function(el, binding, vnode) {
-		let drvalue = binding.value;
-		el.addEventListener("scroll", vnode.context.loadMore)
-	},
-	// inserted: function(el, binding, vnode) {
-	// 	console.log(binding)
-	// 	if(binding.modifiers.to) {
-	// 		setTimeout(function() {
-	// 			el.scrollTop = binding.value.position
-	// 		}, 500)
-	// 	}
-	// }
-})
-
 Vue.config.productionTip = false
 
 // 判断是否登陆

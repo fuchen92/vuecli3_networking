@@ -1,33 +1,31 @@
 <template>
     <div class="attendees">
         <div class="attendTabs">
-            <div v-for="(tab, index) in tabs" v-bind:key="index" class="attendTab" v-bind:class="{ active: currentIndex == index }" v-on:click="currentIndex = index">
+            <div v-for="(tab, index) in tabs" v-bind:key="index" class="attendTab" v-bind:class="{ active: tabIndex == index }" v-on:click="tabIndex = index">
                 {{ tab.name }}
             </div>
         </div>
-        <div class="reRecommend clear" v-show="(currentIndex == 0 && (recommends != null) && showTopRecommend)">
-        <!-- <div class="reRecommend clear" v-show="showRecommendBar"> -->
+        <div class="reRecommend clear" v-show="(tabIndex == 0 && (recommends.length != 0) && showTopRecommend)">
+        <!-- <div class="reRecommend clear" v-show="(tabIndex == 0 && (recommends != null) && showTopRecommend)"> -->
             <p class="reRecommendText lt">{{ $t("attendees.notFind") }}</p>
             <span class="closeReRecommend rt" @click="hideRecommendBar"></span>
             <button class="reRecommendBtn rt" @click="showFilter = true">{{ $t("attendees.reRecommend") }}</button>
         </div>
-        <div class="attendBox" ref="attendBox" v-scroll.to="{ position: y }">
-        <!-- <div class="attendBox" ref="attendBox" @scroll="loadMore"> -->
-            <div class="attendWrapper" v-bind:class="{ active: currentIndex == 0, empty: recommends == null }">
-                <div class="emptyList" v-if="recommends == null">
-                    <img class="emptyListImg" src="../assets/nullState.png" alt="">
-                    <p class="emptyListDesc">{{ $t("attendees.emptyListDesc") }}</p>
-                    <button class="openFilter" @click="openFilter">{{ $t("attendees.openFilter") }}</button>
-                </div>
-                <div class="recommendList" v-else :class="{ hasRecommendBar: showTopRecommend }">
-                    <GuestCard v-for="(guest, index) in recommends" :key="index" :guest="guest"></GuestCard>
-                </div>
+        <div class="attendBox">
+            <div class="emptyList" v-if="recommends.length == 0" :class="{ active: tabIndex == 0 }">
+            <!-- <div class="emptyList" v-if="recommends == null" :class="{ active: tabIndex == 0 }"> -->
+                <img class="emptyListImg" src="../assets/nullState.png" alt="">
+                <p class="emptyListDesc">{{ $t("attendees.emptyListDesc") }}</p>
+                <button class="openFilter" @click="showFilter = true">{{ $t("attendees.openFilter") }}</button>
             </div>
-            <div class="attendWrapper" :class="{ active: currentIndex == 1 }">
-                <div class="attendsList">
-                    <GuestCard v-for="(guest, index) in attends" :key="index" :guest="guest"></GuestCard>
-                </div>
+            <div class="recommendList" ref="recommendList" v-else :class="{ hasRecommendBar: showTopRecommend, active: tabIndex == 0 }" @scroll="loadMore">
+                <GuestCard v-for="(guest, index) in recommends" :key="index" :guest="guest"></GuestCard>
+                <Loading :loading="recommendLoading"></Loading>
             </div>
+            <div class="attendsList" ref="attendsList" :class="{ active: tabIndex == 1 }" @scroll="loadMore">
+                <GuestCard v-for="(guest, index) in attends" :key="index" :guest="guest"></GuestCard>
+                <Loading :loading="attendsLoading"></Loading>
+            </div>            
         </div>
         <div class="filterPanel" v-show="showFilter">
             <form class="filterForm" @submit.prevent="submitFilter" @reset="reset">
@@ -79,15 +77,24 @@
     </div>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 import GuestCard from "@/components/GuestCard";
+import Loading from "@/components/Loading.vue";
+import { Throttle } from "@/utils.js"
 export default {
     name: "Attendees",
     data: function() {
         var filterObj = JSON.parse(localStorage.getItem("filter"));
         return {
-            y: 200,
-            currentIndex: 1,
+            tabIndex: 1,
+            pageIndex: (localStorage.getItem("attendLoadIndex") == null ? 1 : localStorage.getItem("attendLoadIndex")),
+            size: 20,
+            recommendLoading: false,
+            recommendLoadIndex: (localStorage.getItem("recommendLoadIndex") == null ? 1 : localStorage.getItem("recommendLoadIndex")),
+            recommendLoadAll: (localStorage.getItem("recommendLoadAll") == null ? false : localStorage.getItem("recommendLoadAll")),
+            attendsLoading: false,
+            attendsLoadIndex: (localStorage.getItem("attendsLoadIndex") == null ? 1 : localStorage.getItem("attendsLoadIndex")),
+            attendsLoadAll: (localStorage.getItem("attendsLoadAll") == null ? false : localStorage.getItem("attendsLoadAll")),
             industryArr: filterObj != null ? filterObj.filter1 : [],
             functionArr: filterObj != null ? filterObj.filter2 : [],
             identityArr: filterObj != null ? filterObj.filter3 : [],
@@ -96,17 +103,18 @@ export default {
         }
     },
     components: {
-        GuestCard
+        GuestCard,
+        Loading
     },
     computed: {
         tabs: function() {
             return this.$i18n.messages[this.lang].attendees.tabs
         },
         showRecommendBar: function() {
-            return (this.currentIndex == 0 && this.recommends != null && this.showTopRecommend == true);
-            // return true;
+            return (this.tabIndex == 0 && this.recommends != null && this.showTopRecommend == true);
         },
         ...mapState({
+            apiDomain: state => state.ApiDomain,
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
@@ -121,9 +129,11 @@ export default {
             "getAttendsList",
             "getRecommendList"
         ]),
-        openFilter: function() {
-            this.showFilter = true;
-        },
+        ...mapMutations([
+            "INITATTENDSLIST",
+            "INITRECOMMENDLIST",
+            "EMPTYRECOMMENDLIST"
+        ]),
         reset: function() {
             this.industryArr.length = 0;
             this.functionArr.length = 0;
@@ -143,19 +153,25 @@ export default {
                 keyword: "",
                 filter1: this.industryArr,
                 index: 1,
-                size: -1,
+                size: this.size,
                 filter2: this.functionArr,
                 filter3: this.identityArr,
                 token: this.token,
                 lang: this.lang == "zh" ? 1 : 2
             }
             localStorage.setItem("filter", JSON.stringify(filterObj));
+            localStorage.removeItem("recommendLoadIndex");
+            localStorage.removeItem("recommendLoadAll");
+            localStorage.removeItem("recommendScrollTop");
+            this.recommendLoadIndex = 1;
+            this.recommendLoadAll = false;
+            this.EMPTYRECOMMENDLIST();
             this.getRecommendList({
                 eventNo: this.eventNo,
                 keyword: "",
                 filter1: this.industryArr.join(","),
                 index: 1,
-                size: 9999,
+                size: this.size,
                 filter2: this.functionArr.join(","),
                 filter3: this.identityArr.join(","),
                 token: this.token,
@@ -163,27 +179,121 @@ export default {
             });
             this.showFilter = false;
         },
-        loadMore: function() {            
-            let box = this.$refs.attendBox;
-            console.log(box.scrollTop)
-            console.log(box.scrollHeight)
-            console.log(box.clientHeight)
-        }
+        loadMore: Throttle(function() {
+            var box = null;
+            var scrlTop = 0,
+                scrlHeight = 0,
+                cliHeight = 0;
+            switch(this.tabIndex) {
+                case 0:
+                    box = this.$refs.recommendList;
+                    scrlTop = box.scrollTop,
+                    scrlHeight = box.scrollHeight,
+                    cliHeight = box.clientHeight;
+
+                    localStorage.setItem('recommendScrollTop', scrlTop);
+                    break;
+                case 1:
+                    box = this.$refs.attendsList;
+                    scrlTop = box.scrollTop,
+                    scrlHeight = box.scrollHeight,
+                    cliHeight = box.clientHeight;
+
+                    localStorage.setItem('attendsScrollTop', scrlTop);
+                    break;
+            }
+            
+            if((scrlTop + cliHeight) >= scrlHeight - 150) {
+                if(this.tabIndex == 0) {
+                    if(this.recommendLoading) {
+                        return false;
+                    } else {
+                        if(!this.recommendLoadAll) {
+                            this.recommendLoading = true;
+                            this.recommendLoadIndex++;        
+                            this.$http.post(`${this.apiDomain}/Attendees/Search`, {
+                                eventNo: this.eventNo,
+                                keyword: "",
+                                filter1: this.industryArr.join(","),
+                                index: this.recommendLoadIndex,
+                                size: this.size,
+                                filter2: this.functionArr.join(","),
+                                filter3: this.identityArr.join(","),
+                                token: this.token,
+                                lang: this.lang == "zh" ? 1 : 2
+                            }).then(res => {
+                                let data = res.data;
+                                if(data.Code == 0) {
+                                    this.recommendLoading = false;
+                                    if(data.Data.length < this.size) {
+                                        this.recommendLoadAll = true;
+                                        localStorage.setItem("recommendLoadIndex", this.recommendLoadIndex);
+                                        localStorage.setItem("recommendLoadAll", this.recommendLoadAll);
+                                    }
+                                    if(data.Data.length != 0) {
+                                        this.INITRECOMMENDLIST({ recommendList: data.Data });
+                                    }
+                                } else {
+                                    console.log(data.Message)
+                                }
+                            }).catch(err => {
+                                console.log(err)
+                            })
+                        }
+                    }
+                } else if(this.tabIndex == 1) {
+                    if(this.attendsLoading) {
+                        return false;
+                    } else {
+                        if(!this.attendsLoadAll) {
+                            this.attendsLoading = true;
+                            this.attendsLoadIndex++;             
+                            this.$http.post(`${this.apiDomain}/Attendees/List`, {
+                                eventNo: this.eventNo,
+                                index: this.attendsLoadIndex,
+                                size: this.size,
+                                token: this.token,
+                                lang: this.lang == "zh" ? 1 : 2
+                            }).then(res => {
+                                let data = res.data;
+                                if(data.Code == 0) {
+                                    this.attendsLoading = false;
+                                    if(data.Data.length < this.size) {
+                                        this.attendsLoadAll = true;
+                                        localStorage.setItem("attendsLoadIndex", this.attendsLoadIndex);
+                                        localStorage.setItem("attendsLoadAll", this.attendsLoadAll);
+                                    }
+                                    if(data.Data.length != 0) {
+                                        this.INITATTENDSLIST({ attendsList: data.Data });
+                                    }
+                                } else {
+                                    alert(data.Message)
+                                }
+                            }).catch(err => {
+                                alert(err)
+                            })
+                        }
+                    }
+                }
+            }
+        })
     },
     created: function() {
-        this.getRecommendList({
-            eventNo: this.eventNo,
-            keyword: "",
-            filter1: this.industryArr.join(","),
-            index: 1,
-            size: -1,
-            filter2: this.functionArr.join(","),
-            filter3: this.identityArr.join(","),
-            token: this.token,
-            lang: this.lang == "zh" ? 1 : 2
-        })
+        if(this.industryArr.length != 0 || this.functionArr.length != 0 || this.identityArr.length != 0) {
+            this.getRecommendList({
+                eventNo: this.eventNo,
+                keyword: "",
+                filter1: this.industryArr.join(","),
+                index: this.recommendLoadIndex,
+                size: this.size,
+                filter2: this.functionArr.join(","),
+                filter3: this.identityArr.join(","),
+                token: this.token,
+                lang: this.lang == "zh" ? 1 : 2
+            })
+        }
         if(this.attends.length == 0) {
-            this.getAttendsList({ eventNo: this.eventNo, index: 1, size: -1, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
+            this.getAttendsList({ eventNo: this.eventNo, index: 1, size: this.size, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
         }
         if(this.filterMenu.length == 0) {
             this.getAttendsFilter({ eventNo: this.eventNo, token: this.token, lang: this.lang == "zh" ? 1 : 2 })
@@ -197,7 +307,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .attendees {
     box-sizing: border-box;
     position: relative;
@@ -265,29 +375,34 @@ export default {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: 1rem 0 0.2rem;
+    padding: 1rem 0 0;
+    /* overflow: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; */
+}
+.attendsList, .recommendList {
+    box-sizing: border-box;
+    display: none;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
-.attendWrapper {
-    display: none;
-    width: 100%;
-}
-.attendWrapper.active {
+.attendsList.active, .recommendList.active {
     display: block;
 }
-.attendWrapper.empty {
-    height: 100%;
-}
 .emptyList {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
+}
+.emptyList.active {
+    display: flex;
 }
 .emptyListImg {
     width: 4rem;

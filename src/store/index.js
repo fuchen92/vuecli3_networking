@@ -103,8 +103,6 @@ export default new Vuex.Store({
             let thirdDay = data[6]["2019-8-29"];
             arr.push(firstDay, secondDay, thirdDay);
             state.ProgramList = arr;     
-            
-            // console.log(state.ProgramList)
         },
         // 获取日程详情
         INITPROGRAMDETAIL(state, { programDetail }) {
@@ -140,7 +138,11 @@ export default new Vuex.Store({
         },
         // 获取人脉页所有嘉宾列表
         INITATTENDSLIST(state, { attendsList }) {
-            state.AttendsList = attendsList;
+            if(state.AttendsList.length == 0) {
+                state.AttendsList = attendsList;
+            } else {
+                state.AttendsList = state.AttendsList.concat(attendsList);
+            }
         },
         // 当语言切换时清空人脉页所有嘉宾列表
         EMPTYATTENDSLIST(state) {
@@ -148,7 +150,15 @@ export default new Vuex.Store({
         },
         // 人脉页推荐列表
         INITRECOMMENDLIST(state, { recommendList }) {
-            state.RecommendList = recommendList
+            if(state.RecommendList.length == 0) {
+                state.RecommendList = recommendList
+            } else {
+                state.RecommendList = state.RecommendList.concat(recommendList)
+            }
+        },
+        // 人脉页重新推荐时清空推荐列表
+        EMPTYRECOMMENDLIST(state) {
+            state.RecommendList.length = 0;
         },
         // 获取人脉页推荐面板筛选选项
         INITATTENDSFILTERMENU(state, { filterMenu }) {
