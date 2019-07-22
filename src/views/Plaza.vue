@@ -86,7 +86,8 @@ export default {
             pageIndex: (localStorage.getItem("exhibitorLoadIndex") == null ? 1 : localStorage.getItem("exhibitorLoadIndex")),
             size: 50,
             loading: false,
-            loadAll: (localStorage.getItem("exhibitorLoadAll") == null ? false : localStorage.getItem("exhibitorLoadAll"))
+            loadAll: false
+            // loadAll: (localStorage.getItem("exhibitorLoadAll") == null ? false : localStorage.getItem("exhibitorLoadAll"))
         }
     },
     components: {

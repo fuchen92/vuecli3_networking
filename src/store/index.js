@@ -250,14 +250,20 @@ export default new Vuex.Store({
                     }
                 }
             });
-            Vue.set(state.MessageList, targetId, msgList);
+            if(state.MessageList.hasOwnProperty(targetId)) {
+                let newList = [...msgList, ...state.MessageList[targetId]]
+                state.MessageList[targetId].unshift(...msgList)
+                // Vue.set(state.MessageList, targetId, newList);
+            } else {
+                Vue.set(state.MessageList, targetId, msgList);
+            }
         },
         // 向当前聊天对象添加新的聊天内容
         ADDNEWCHAT(state, { id, item }) {
             if(item.Type == 2) {
                 item.Content.Time = item.Content.Time.split("T")[0].substr(5, 5) + " " + item.Content.Time.split("T")[1].substr(0, 5)
             }
-            console.log(item)
+            // console.log(item)
             state.MessageList[id].push(item)
         },
         // socket不在message页面时，用于添加用户的未读信息

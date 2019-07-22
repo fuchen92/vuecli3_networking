@@ -1,7 +1,7 @@
 <template>
     <div class="chat">
         <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
-        <div class="chatBox" ref="chatBox">
+        <div class="chatBox" ref="chatBox" @scroll="loadMore">
             <div class="chatRules">
                 <p class="ruleCaption">{{ $t("chat.chatRule") }}</p>
                 <p class="ruleItem">1. {{ $t("chat.rule1") }}</p>
@@ -9,11 +9,12 @@
                 <p class="ruleItem">3. {{ $t("chat.rule3") }}</p>
             </div>
             <div class="chatList">
+                <Loading :loading="loading"></Loading>
                 <template v-for="chat in chatList">
                     <template v-if="chat.Type == 0">
-                        <div class="chatItem clear" v-bind:id="'msg' + chat.Id" v-bind:class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" v-bind:key="chat.Id">
+                        <div class="chatItem clear" :id="'msg' + chat.Id" :class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" :key="chat.Id">
                             <div class="chatUserAvatar">
-                                <img class="chatUserPhoto" v-bind:src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
+                                <img class="chatUserPhoto" :src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
                             </div>
                             <div class="chatContent">
                                 {{ chat.Content }}
@@ -21,9 +22,9 @@
                         </div>
                     </template>
                     <template v-else-if="chat.Type == 1">
-                        <div class="chatItem clear" v-bind:id="'msg' + chat.Id" v-bind:class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" v-bind:key="chat.Id">
+                        <div class="chatItem clear" :id="'msg' + chat.Id" :class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" :key="chat.Id">
                             <div class="chatUserAvatar">
-                                <img class="chatUserPhoto" v-bind:src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
+                                <img class="chatUserPhoto" :src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
                             </div>
                             <div class="chatContent">
                                 <p class="chatCardCaption">{{ $t("chat.businessCard") }}</p>
@@ -57,9 +58,9 @@
                         </div>
                     </template>
                     <template v-else-if="chat.Type == 2">
-                        <div class="chatItem clear" v-bind:id="'msg' + chat.Id" v-bind:class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" v-bind:key="chat.Id">
+                        <div class="chatItem clear" :id="'msg' + chat.Id" :class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" :key="chat.Id">
                             <div class="chatUserAvatar">
-                                <img class="chatUserPhoto" v-bind:src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
+                                <img class="chatUserPhoto" :src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
                             </div>
                             <div class="chatContent">
                                 <p class="chatCardCaption inviteCaption">{{ $t("chat.invite") }}</p>
@@ -73,7 +74,7 @@
                                         <span class="chatCardText">{{ chat.Content.Time }}</span>
                                     </div>
                                 </div>
-                                <router-link class="inviteLink clear" v-bind:to="'/invitedetail?id=' + chat.Content.Id">
+                                <router-link class="inviteLink clear" :to="'/invitedetail?id=' + chat.Content.Id">
                                     <span class="inviteLinkText lt">{{ $t("chat.checkDetail") }}</span>
                                     <span class="inviteLinkRightArrow rt"></span>
                                 </router-link>
@@ -96,6 +97,8 @@
 <script>
 import { mapActions, mapMutations, mapState } from "vuex";
 import NavBar from "@/components/NavBar";
+import Loading from "@/components/Loading.vue";
+import { Throttle } from "@/utils.js"
 export default {
     name: "Chat",
     data: function() {
@@ -108,18 +111,34 @@ export default {
                 photo: this.$route.query.uPhoto
             },
             chatMsg: "",
+            size: 10,
+            loading: false,
+            // loadMsgBeforeId: -1,
+            loadBefore: false,
+            loadAll: false,
             sendDisabled: false,
-            timer: null,
-            myPhoto: require("../assets/avatar.jpg"),
-            msgArr: []
+            timer: null
         }
     },
     components: {
-        NavBar
+        NavBar,
+        Loading
     },
     computed: {
         navBarTitle: function() {
             return this.$i18n.messages[this.lang].chat.navBarTitle
+        },
+        loadMsgBeforeId: {
+            get() {
+                if(this.chatList == null || this.chatList == undefined) {
+                    return -1;
+                } else {
+                    return this.chatList[0].Id
+                }
+            },
+            set(value) {
+                console.log(value)
+            }
         },
         chatList: function() {
             return this.$store.getters.getChatListById(this.chatUser.id)
@@ -137,10 +156,20 @@ export default {
 		})
     },
     watch: {
-        chatList: function() {            
-            this.$nextTick(function() {
-                this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight;
-            })
+        chatList: function() {
+            if(this.loadBefore) {
+                this.loadBefore = false;
+                this.$nextTick(function() {
+                    let temp = document.querySelectorAll(".chatItem")[9];
+                    let top = temp.offsetTop;
+                    this.$refs.chatBox.scrollTop = top;
+                })
+                
+            } else {
+                this.$nextTick(function() {
+                    this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight;
+                })
+            }
         }
     },
     methods: {
@@ -150,8 +179,55 @@ export default {
         ]),
         ...mapMutations([
             "ADDNEWCHAT",
-            "RESETUNREADLIST"
+            "RESETUNREADLIST",
+            "INITMESSAGELIST"
         ]),
+        loadMore: Throttle(function() {
+            let box = this.$refs.chatBox;
+            let scrlTop = box.scrollTop,
+                scrlHeight = box.scrollHeight,
+                cliHeight = box.clientHeight;        
+
+            if(scrlTop <= 0) {
+                if(this.loading) {
+                    return false;
+                } else {
+                    if(!this.loadAll) {
+                        this.loadBefore = true;
+                        this.loading = true; 
+                        console.log("滚动请求数据Id： " + this.loadMsgBeforeId)    
+                        
+                        this.$http.post(`${this.apiDomain}/Attendees/UserChat`, {
+                            eventNo: this.eventNo,
+                            target: this.chatUser.id,
+                            before: this.loadMsgBeforeId,
+                            size: this.size,
+                            token: this.token,
+                            after: -1,
+                            lang: this.lang == "zh" ? 1 : 2
+                        }).then(res => {
+                            let data = res.data;
+                            if(data.Code == 0) {
+                                this.loading = false;
+                                if(data.Data.length < this.size) {
+                                    this.loadAll = true;                                    
+                                }
+                                if(data.Data.length != 0) {
+                                    this.loadMsgBeforeId = data.Data[0].Id
+                                    this.INITMESSAGELIST({ targetId: this.chatUser.id, msgList: data.Data });
+                                }
+                                
+                                console.log("滚动请求之后Id: " + this.loadMsgBeforeId)
+                            } else {
+                                alert(data.Message)
+                            }
+                        }).catch(err => {
+                            alert(err)
+                        })
+                    }
+                }
+            }
+        }), 
         sendMsg: function() {
             if(this.chatMsg == "" || this.chatMsg.length == 0) {
                 return false;
@@ -178,6 +254,8 @@ export default {
                 }
                 this.ADDNEWCHAT({ id: this.chatUser.id, item: temp });
                 this.chatMsg = "";
+                // this.$refs.chatBox.scrollTop = 999999;
+                console.log("需要滚动到底部")
             })
         },
         sendCard: function() {
@@ -234,22 +312,26 @@ export default {
                 eventNo: this.eventNo,
                 target: this.chatUser.id,
                 before: -1,
-                size: 999999,
+                size: this.size,
                 token: this.token,
                 after: -1,
                 lang: this.lang == "zh" ? 1 : 2
             }).then(res => {
-                this.$store.commit("INITMESSAGELIST", { targetId: this.chatUser.id, msgList: res.data.Data });
-                this.timer = setTimeout(() => {
-                    this.$refs.chatBox.scrollTop = 999999;
-                }, 1);
+                let data = res.data.Data;
+                if(data.length < this.size) {
+                    this.loadAll = true;
+                }
+                this.loadMsgBeforeId = data[0].Id
+                console.log("初次请求聊天数据： " + this.loadMsgBeforeId)
+                this.$store.commit("INITMESSAGELIST", { targetId: this.chatUser.id, msgList: data });
+                // this.timer = setTimeout(() => {
+                //     this.$refs.chatBox.scrollTop = 999999;
+                // }, 1);
             })
         }
     },
     mounted: function() {
-        // this.timer = setTimeout(() => {
-            this.$refs.chatBox.scrollTop = 999999;
-        // }, 1);
+        this.$refs.chatBox.scrollTop = 999999;
     },
     beforeDestroy: function() {
         clearTimeout(this.timer);

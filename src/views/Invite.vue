@@ -96,8 +96,6 @@ export default {
             "getMyInfo"
         ]),
         submitInvite: function() {
-            // console.log(this.inviteTime)
-            // console.log(this.inviteDate + " " + this.inviteTime + ":00")
             console.log({
                 eventNo: this.eventNo,
                 target: this.invitePeople.id,
@@ -131,7 +129,7 @@ export default {
                 lang: this.lang == "zh" ? 1 : 2
             }).then(res => {
                 if(res.data.Code == 0) {
-                    this.$router.push({ path: "/chat", query: { chatId: this.invitePeople.id } })
+                    this.$router.push({ path: "/chat", query: { chatId: this.invitePeople.id, uPhoto: this.invitePeople.photo } })
                 } else if(res.data.Code != 0) {
                     alert(res.data.Message);
                 }
