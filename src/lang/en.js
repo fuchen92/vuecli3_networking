@@ -243,7 +243,7 @@ export default {
     },
     "me": {
         "qrcode": "Check-in Code",
-        "need": "Demand",
+        "need": "Demand & Supply",
         "language": "Language",
         "view": "View",
         "venue": "Venue",

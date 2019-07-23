@@ -137,7 +137,7 @@ export default {
                 }
             },
             set(value) {
-                console.log(value)
+                // console.log(value)
             }
         },
         chatList: function() {
@@ -159,12 +159,11 @@ export default {
         chatList: function() {
             if(this.loadBefore) {
                 this.loadBefore = false;
-                this.$nextTick(function() {
-                    let temp = document.querySelectorAll(".chatItem")[9];
-                    let top = temp.offsetTop;
-                    this.$refs.chatBox.scrollTop = top;
-                })
-                
+                // this.$nextTick(function() {
+                //     let temp = document.querySelectorAll(".chatItem")[9];
+                //     let top = temp.offsetTop;
+                //     this.$refs.chatBox.scrollTop = top;
+                // })             
             } else {
                 this.$nextTick(function() {
                     this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight;
@@ -195,7 +194,7 @@ export default {
                     if(!this.loadAll) {
                         this.loadBefore = true;
                         this.loading = true; 
-                        console.log("滚动请求数据Id： " + this.loadMsgBeforeId)    
+                        // console.log("滚动请求数据Id： " + this.loadMsgBeforeId)    
                         
                         this.$http.post(`${this.apiDomain}/Attendees/UserChat`, {
                             eventNo: this.eventNo,
@@ -217,7 +216,7 @@ export default {
                                     this.INITMESSAGELIST({ targetId: this.chatUser.id, msgList: data.Data });
                                 }
                                 
-                                console.log("滚动请求之后Id: " + this.loadMsgBeforeId)
+                                // console.log("滚动请求之后Id: " + this.loadMsgBeforeId)
                             } else {
                                 alert(data.Message)
                             }
@@ -255,7 +254,6 @@ export default {
                 this.ADDNEWCHAT({ id: this.chatUser.id, item: temp });
                 this.chatMsg = "";
                 // this.$refs.chatBox.scrollTop = 999999;
-                console.log("需要滚动到底部")
             })
         },
         sendCard: function() {
@@ -322,7 +320,7 @@ export default {
                     this.loadAll = true;
                 }
                 this.loadMsgBeforeId = data[0].Id
-                console.log("初次请求聊天数据： " + this.loadMsgBeforeId)
+                // console.log("初次请求聊天数据： " + this.loadMsgBeforeId)
                 this.$store.commit("INITMESSAGELIST", { targetId: this.chatUser.id, msgList: data });
                 // this.timer = setTimeout(() => {
                 //     this.$refs.chatBox.scrollTop = 999999;

@@ -57,7 +57,7 @@
     </div>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 import NavBar from "@/components/NavBar";
 export default {
     name: "Invite",
@@ -88,23 +88,29 @@ export default {
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
-            myInfo: state => state.MyInfomation
-        })
+            // myInfo: state => state.MyInfomation
+        }),
+        myInfo: function() {
+			return this.$store.getters.getMyInfoByLang(this.lang)
+		}
     },
     methods: {
         ...mapActions([
             "getMyInfo"
         ]),
+        ...mapMutations([
+            "ADDNEWCHAT"
+        ]),
         submitInvite: function() {
-            console.log({
-                eventNo: this.eventNo,
-                target: this.invitePeople.id,
-                time: this.inviteDate + " " + this.inviteTime + ":00",
-                content: this.matter,
-                location: this.inviteAddr,    
-                token: this.token,
-                lang: this.lang == "zh" ? 1 : 2
-            })
+            // console.log({
+            //     eventNo: this.eventNo,
+            //     target: this.invitePeople.id,
+            //     time: this.inviteDate + " " + this.inviteTime + ":00",
+            //     content: this.matter,
+            //     location: this.inviteAddr,    
+            //     token: this.token,
+            //     lang: this.lang == "zh" ? 1 : 2
+            // })
             if(this.inviteAddr.length == 0 || this.inviteAddr == "") {
                 this.$refs.addr.focus();
                 alert("请输入邀约地址")
@@ -118,7 +124,6 @@ export default {
             if(this.invitePeople.id == 0) {
                 return false;
             }
-
             this.$http.post(`https://socialapi.traveldaily.cn/Attendees/InviteSend`, {
                 eventNo: this.eventNo,
                 target: this.invitePeople.id,
@@ -129,6 +134,21 @@ export default {
                 lang: this.lang == "zh" ? 1 : 2
             }).then(res => {
                 if(res.data.Code == 0) {
+                    let inviteId = res.data.Message;
+                    let temp = {
+                        Content: {
+                            Id: inviteId,   
+                            Location: this.inviteAddr,
+                            Time: new Date().toJSON(),
+                        },
+                        Id: res.data.Data,
+                        NetUserId: this.myInfo.Id,
+                        ReadTime: "0001-01-01T00:00:00",
+                        SentTime: new Date().toJSON().replace("T", " ").substr(0, 19),
+                        TargetNetUserId: this.invitePeople.id,
+                        Type: 2
+                    }
+                    this.ADDNEWCHAT({ id: this.invitePeople.id, item: temp });
                     this.$router.push({ path: "/chat", query: { chatId: this.invitePeople.id, uPhoto: this.invitePeople.photo } })
                 } else if(res.data.Code != 0) {
                     alert(res.data.Message);

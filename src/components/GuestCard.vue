@@ -86,6 +86,7 @@ export default {
 }
 .guestPhoto {
     width: 100%;
+    height: 100%;
 }
 .guestInfo {
     width: calc(100% - 1.2rem);

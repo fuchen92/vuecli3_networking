@@ -260,11 +260,14 @@ export default new Vuex.Store({
         },
         // 向当前聊天对象添加新的聊天内容
         ADDNEWCHAT(state, { id, item }) {
-            if(item.Type == 2) {
-                item.Content.Time = item.Content.Time.split("T")[0].substr(5, 5) + " " + item.Content.Time.split("T")[1].substr(0, 5)
+            if (state.MessageList.hasOwnProperty(id)) {
+                if(item.Type == 2) {
+                    item.Content.Time = item.Content.Time.split("T")[0].substr(5, 5) + " " + item.Content.Time.split("T")[1].substr(0, 5)
+                }
+                state.MessageList[id].push(item)
+            } else {
+                // Vue.set(state.MessageList, targetId, msgList);
             }
-            // console.log(item)
-            state.MessageList[id].push(item)
         },
         // socket不在message页面时，用于添加用户的未读信息
         ADDUNREADLIST(state, { targetId, unReadMsgId }) {
@@ -464,7 +467,10 @@ export default new Vuex.Store({
                     Name: state.MyInfomation.Name,
                     Company: state.MyInfomation.Company,
                     JobTitle: state.MyInfomation.JobTitle,
-                    Photo: state.MyInfomation.Photo
+                    Photo: state.MyInfomation.Photo,
+                    Mobile: state.MyInfomation.Mobile,
+                    Mail: state.MyInfomation.Mail,
+                    WeChat: state.MyInfomation.WeChat
                 }
             }
             if(lang == "en") {
@@ -472,7 +478,10 @@ export default new Vuex.Store({
                     Name: state.MyInfomation.NameEn,
                     Company: state.MyInfomation.CompanyEn,
                     JobTitle: state.MyInfomation.JobTitleEn,
-                    Photo: state.MyInfomation.Photo
+                    Photo: state.MyInfomation.Photo,
+                    Mobile: state.MyInfomation.Mobile,
+                    Mail: state.MyInfomation.Mail,
+                    WeChat: state.MyInfomation.WeChat
                 }
             }
             return myInfo;

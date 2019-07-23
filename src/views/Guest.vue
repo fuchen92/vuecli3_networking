@@ -115,9 +115,8 @@ export default {
             "getMyInfo"
         ]),
         sendCard: function() {
-            var r = window.confirm("即将发送您的联系方式（包括手机、邮箱、微信等）给对象，请确认");
+            var r = this.lang == "zh" ? window.confirm("即将发送您的联系方式（包括手机、邮箱、微信等）给对方，请确认") : window.confirm("Your contact info (including mobile, email and WeChat ID) will be sent to the guest");
             if(r) {
-                console.log("确定发送名片")
                 this.$http.post(`${this.apiDomain}/Attendees/ChatSend`, {
                     eventNo: this.eventNo,
                     target: this.guestId,

@@ -23,9 +23,9 @@
                                     <img class="postUserPhoto" v-bind:src="post.User.Photo" alt="">
                                 </div>
                                 <div class="postUserInfo">
-                                    <p class="postUserName">{{ post.User.Name }}</p>
-                                    <p class="postUserJob">{{ post.User.JobTitle }}</p>
-                                    <p class="postUserCompany">{{ post.User.Company }}</p>
+                                    <p class="postUserName">{{ lang == "zh" ? post.User.Name : post.User.NameEn }}</p>
+                                    <p class="postUserJob">{{ lang == "zh" ? post.User.JobTitle : post.User.JobTitleEn }}</p>
+                                    <p class="postUserCompany">{{ lang == "zh" ? post.User.Company : post.User.CompanyEn }}</p>
                                 </div>
                             </router-link>
                         </div>
@@ -45,9 +45,9 @@
                                     <img class="postUserPhoto" v-bind:src="post.User.Photo" alt="">
                                 </div>
                                 <div class="postUserInfo">
-                                    <p class="postUserName">{{ post.User.Name }}</p>
-                                    <p class="postUserJob">{{ post.User.JobTitle }}</p>
-                                    <p class="postUserCompany">{{ post.User.Company }}</p>
+                                    <p class="postUserName">{{ lang == "zh" ? post.User.Name : post.User.NameEn }}</p>
+                                    <p class="postUserJob">{{ lang == "zh" ? post.User.JobTitle : post.User.JobTitleEn }}</p>
+                                    <p class="postUserCompany">{{ lang == "zh" ? post.User.Company : post.User.CompanyEn }}</p>
                                 </div>
                             </router-link>
                         </div>

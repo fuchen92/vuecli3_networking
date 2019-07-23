@@ -8,9 +8,9 @@
                         <img class="inviteDetailPhoto" :src="inviteDetail.NetUserInfo.Photo" alt="">
                     </div>
                     <div class="inviteDetailUserInfo">
-                        <h4 class="inviteDetailUserName">{{ inviteDetail.NetUserInfo.Name }}</h4>
-                        <p class="inviteDetailUserJob">{{ inviteDetail.NetUserInfo.JobTitle }}</p>
-                        <p class="inviteDetailUserCompany">{{ inviteDetail.NetUserInfo.Company }}</p>
+                        <h4 class="inviteDetailUserName">{{ lang == "zh" ? inviteDetail.NetUserInfo.Name : inviteDetail.NetUserInfo.NameEn }}</h4>
+                        <p class="inviteDetailUserJob">{{ lang == "zh" ? inviteDetail.NetUserInfo.JobTitle : inviteDetail.NetUserInfo.JobTitleEn }}</p>
+                        <p class="inviteDetailUserCompany">{{ lang == "zh" ? inviteDetail.NetUserInfo.Company : inviteDetail.NetUserInfo.CompanyEn }}</p>
                     </div>
                 </div>
                 <p class="inviteDetailContent">{{ inviteDetail.Content }}</p>

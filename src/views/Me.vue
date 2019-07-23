@@ -34,25 +34,25 @@
 				</router-link>
 			</div>
 			<div class="menuCard">
-				<a class="menuCardLink clear" href="https://event.traveldaily.cn/tdc2019/service/venue">
+				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/service/venue${ lang == 'zh' ? '' : '_en' }`">
 					<p class="menuLabel lt">{{ $t("me.venue") }}</p>
 					<span class="menuCardLinkIcon rt"></span>
 				</a>
 			</div>
 			<div class="menuCard">
-				<a class="menuCardLink clear" href="https://event.traveldaily.cn/tdc2019/contact">
+				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/contact${ lang == 'zh' ? '' : '_en' }`">
 					<p class="menuLabel lt">{{ $t("me.contact") }}</p>
 					<span class="menuCardLinkIcon rt"></span>
 				</a>
 			</div>
 			<div class="menuCard">
-				<a class="menuCardLink clear" href="https://event.traveldaily.cn/tdc2019/service/fqa">
+				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/service/fqa`">
 					<p class="menuLabel lt">{{ $t("me.faq") }}</p>
 					<span class="menuCardLinkIcon rt"></span>
 				</a>
 			</div>
 			<div class="menuCard">
-				<a class="menuCardLink clear" href="https://event.traveldaily.cn/tdc2019/service/recommended">
+				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/service/recommended${ lang == 'zh' ? '' : '_en' }`">
 					<p class="menuLabel lt">{{ $t("me.service") }}</p>
 					<span class="menuCardLinkIcon rt"></span>
 				</a>
