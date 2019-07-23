@@ -1,8 +1,8 @@
 <template>
     <div class="program">
         <div class="programTabs">
-            <div class="programTabsWrapper" ref="tabWrapper">                
-                <div v-for="(tab, index) in tabs" v-bind:key="index" class="programTab" v-bind:class="{ active: currentIndex == index, en: lang == 'en' }" v-on:click="switchProgram(index)">
+            <div class="programTabsWrapper" ref="tabWrapper">
+                <div v-for="(tab, index) in tabs" :key="index" class="programTab" :class="{ active: currentIndex == index, en: lang == 'en' }" v-on:click="switchProgram(index)">
                     <span class="programTabTime">{{ tab.time }}</span>
                     <span class="programTabName">{{ tab.name }}</span>
                 </div>
@@ -10,120 +10,162 @@
             <div class="rightTip" @click="showAllTab"></div>
         </div>
         <div class="programBox" ref="programBox">
-            <div class="programList" v-bind:class="{ active: currentIndex == 0 }">
+            <div class="programList" :class="{ active: currentIndex == 0 }">
                 <div class="container">
-                    <div class="programItem programItemSite">
-                        {{ lang == 'zh' ? '会场：上海国际会议中心7楼 【明珠厅】' : 'Venue: Pearl Hall, 7th Floor, Shanghai International Convention Center' }}
-                    </div>
+                    <div class="programItem programItemSite">{{ lang == 'zh' ? '会场：上海国际会议中心7楼 【明珠厅】' : 'Venue: Pearl Hall, 7th Floor, Shanghai International Convention Center' }}</div>
                     <div class="programItem">
                         <div class="programItemDesc">
-                            <p class="programItemDescText">
-                                {{ $t("program.awardDesc1") }}
-                            </p>
-                            <p class="programItemDescText" v-html="$t('program.awardDesc2')">
-                            </p>
-                            <p class="programItemDescText">
-                                {{ $t("program.awardDesc3") }}
-                            </p>
+                            <p class="programItemDescText">{{ $t("program.awardDesc1") }}</p>
                         </div>
                     </div>
                     <div class="programItem">
-                        <div class="programItemDesc">
-                            <p class="programItemDescText">
-                                <strong>【{{ $t("program.awardFlowCaption") }}】</strong>
-                            </p>
-                            <ul class="awardFlow">
-                                <li class="awardFlowItem">
-                                    <span class="awardFlowLabel">{{ $t("program.awardFlowTime1") }}</span>
-                                    <span class="awardFlowItemDesc">{{ $t("program.awardFlowTime1Desc") }}</span>
-                                </li>
-                                <li class="awardFlowItem">
-                                    <span class="awardFlowLabel">{{ $t("program.awardFlowTime2") }}</span>
-                                    <span class="awardFlowItemDesc">{{ $t("program.awardFlowTime2Desc") }}</span>
-                                </li>
-                                <li class="awardFlowItem">
-                                    <span class="awardFlowLabel">{{ $t("program.awardFlowTime3") }}</span>
-                                    <span class="awardFlowItemDesc">{{ $t("program.awardFlowTime3Desc") }}</span>
-                                </li>
-                                <li class="awardFlowItem">
-                                    <span class="awardFlowLabel">{{ $t("program.awardFlowTime4") }}</span>
-                                    <span class="awardFlowItemDesc">{{ $t("program.awardFlowTime4Desc") }}</span>
-                                </li>
-                                <li class="awardFlowItem">
-                                    <span class="awardFlowLabel">{{ $t("program.awardFlowTime5") }}</span>
-                                    <span class="awardFlowItemDesc" v-html="$t('program.awardFlowTime5Desc')">
-                                    </span>
-                                </li>
-                                <li class="awardFlowItem">
-                                    <span class="awardFlowLabel">{{ $t("program.awardFlowTime6") }}</span>
-                                    <span class="awardFlowItemDesc">
-                                        {{ $t("program.awardFlowTime6Desc") }}
-                                    </span>
-                                </li>
-                            </ul>
+                        <div class="programItemHead">
+                            <p class="programItemTime">{{ $t("program.awardFlowTime1") }}</p>
+                            <p class="programItemType">{{ $t("program.awardFlowTime1Desc") }}</p>
                         </div>
                     </div>
                     <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">{{ $t("program.awardFlowTime2") }}</p>
+                            <p class="programItemType">{{ $t("program.awardFlowTime2Desc") }}</p>
+                        </div>
+                        <div class="programItemBody">
+                            <div class="programItemSpeakerList">
+                                <p class="speakerType">{{ $t("program.awardFlowSpeakerType1") }}</p>
+                                <div class="programItemSpeaker">
+                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime2Speaker1") }}</span>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">{{ $t("program.awardFlowTime3") }}</p>
+                            <p class="programItemType">{{ $t("program.awardFlowTime3Desc") }}</p>
+                        </div> 
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">{{ $t("program.awardFlowTime4") }}</p>
+                            <p class="programItemType">{{ $t("program.awardFlowTime4Desc") }}</p>
+                        </div> 
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">{{ $t("program.awardFlowTime5") }}</p>
+                            <p class="programItemType">{{ $t("program.awardFlowTime5Desc") }}</p>
+                        </div> 
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">{{ $t("program.awardFlowTime6") }}</p>
+                            <p class="programItemType">{{ $t("program.awardFlowTime6Desc") }}</p>
+                        </div>
+                        <div class="programItemBody">
+                            <div class="programItemSpeakerList">
+                                <p class="speakerType">{{ $t("program.awardFlowSpeakerType1") }}</p>
+                                <div class="programItemSpeaker">
+                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime6Speaker1") }}</span>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">{{ $t("program.awardFlowTime7") }}</p>
+                            <p class="programItemType">{{ $t("program.awardFlowTime7Desc") }}</p>
+                        </div> 
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">{{ $t("program.awardFlowTime8") }}</p>
+                            <p class="programItemType">{{ $t("program.awardFlowTime8Desc") }}</p>
+                        </div> 
+                    </div>
+                    <div class="programItem">
+                        <div class="programItemHead">
+                            <p class="programItemTime">{{ $t("program.awardFlowTime9") }}</p>
+                            <p class="programItemType">{{ $t("program.awardFlowTime9Desc") }}</p>
+                            <p class="programItemTitle">{{ $t("program.awardFlowTime9Title") }}</p>
+                        </div>
+                        <div class="programItemBody">
+                            <div class="programItemDesc">
+                                <p class="programItemDescText">{{ $t("program.awardFlowTime9Summary") }}</p>
+                            </div>
+                            <div class="programItemSpeakerList">
+                                <p class="speakerType" style="margin-top: 0.2rem;">{{ $t("program.awardFlowSpeakerType2") }}</p>
+                                <div class="programItemSpeaker">
+                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime9Speaker1") }}</span>
+                                </div>
+                                <div class="programItemSpeaker">
+                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime9Speaker2") }}</span>
+                                </div>
+                                <div class="programItemSpeaker">
+                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime9Speaker3") }}</span>
+                                </div>
+                                <div class="programItemSpeaker">
+                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime9Speaker4") }}</span>
+                                </div>
+                                <div class="programItemSpeaker">
+                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime9Speaker5") }}</span>
+                                </div>
+                                <p class="speakerType">{{ $t("program.awardFlowSpeakerType3") }}</p>
+                                <div class="programItemSpeaker">
+                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime9Speaker6") }}</span>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="programItem">
                         <div class="programItemDesc">
-                            <p class="programItemDescText">
-                                <strong>【{{ $t("program.awardShowCaption") }}】</strong>
-                            </p>
-                            <p class="programItemDescText">
-                                {{ $t("program.awardShowDesc") }}
-                            </p>
+                            <p class="programItemDescText">{{ $t("program.awardNote1") }}</p>
+                            <p class="programItemDescText">{{ $t("program.awardNote2") }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-			<template v-for="i in programList.length">
-				<div class="programList" v-bind:key="i" v-bind:class="{ active: currentIndex == i }">
-					<div class="container">
-						<div class="programItem programItemSite">
-                            <template v-if="lang == 'zh'">
-							    {{ i == 1 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (i == 2 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}
-                            </template>
-                            <template v-else>
-                                {{ i == 1 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2 & 3】" : (i == 2 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2】" : "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 3】") }}
-                            </template>
-						</div>
-
-						<template v-for="(prg, index) in programList[i - 1]">
-							<div class="programItem" v-bind:key="index">
-								<div class="programItemHead">
-									<p class="programItemTime">{{ $pattern(prg.Begin, "HH:mm") }} - {{ $pattern(prg.End, "HH:mm") }}</p>
-									<!-- <p class="programItemTime">{{ prg.Begin.split("T")[1].substr(0, 5) }} - {{ prg.End.split("T")[1].substr(0, 5) }}</p> -->
-									<p class="programItemType">{{ prg.TypeName }}</p>
-									<router-link v-if="prg.Topic != ''" class="programItemTitle" :to="'/programdetail?programId=' + prg.Id">
-										{{ prg.Topic }}
-									</router-link>
-								</div>
-								<template v-if="prg.Details.length != 0">
-									<div class="programItemBody">
-										<div class="programItemSpeakerList">
-											<template v-for="(detail, idx) in prg.Details">
-												<p v-if="detail.DataType != prg.Details[0].DataType || idx == 0" v-bind:key="idx" class="speakerType">{{ detail.DataType }}</p>
-												<router-link class="programItemSpeaker" v-if="detail.Speaker.SocialId > 0" v-bind:to="'/guest?guestId=' + detail.Speaker.SocialId" v-bind:key="detail.Speaker.SocialId">
-													<span class="programItemSpeakerAvatar">
-														<img class="programItemSpeakerPhoto" v-bind:src="detail.Speaker.Photo" alt="">
-													</span>
-													<span class="programItemSpeakerName">{{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}</span>
-												</router-link>
-												<router-link class="programItemSpeaker" v-else v-bind:to="'/speaker?speakerId=' + detail.Speaker.Id" v-bind:key="detail.Speaker.Id">
-													<span class="programItemSpeakerAvatar">
-														<img class="programItemSpeakerPhoto" v-bind:src="detail.Speaker.Photo" alt="">
-													</span>
-													<span class="programItemSpeakerName">{{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}</span>
-												</router-link>
-											</template>
-										</div>
-									</div>
-								</template>
-							</div>
-						</template>
-
-					</div>
-				</div>
-			</template>
+            <template v-for="i in programList.length">
+                <div class="programList" :key="i" :class="{ active: currentIndex == i }">
+                    <div class="container">
+                        <div class="programItem programItemSite">
+                            <template v-if="lang == 'zh'">{{ i == 1 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (i == 2 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}</template>
+                            <template v-else >{{ i == 1 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2 & 3】" : (i == 2 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2】" : "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 3】") }}</template>
+                        </div>
+                        <template v-for="(prg, index) in programList[i - 1]">
+                            <div class="programItem" :key="index">
+                                <div class="programItemHead">
+                                    <p class="programItemTime">{{ $pattern(prg.Begin, "HH:mm") }} - {{ $pattern(prg.End, "HH:mm") }}</p>
+                                    <p class="programItemType">{{ prg.TypeName }}</p>
+                                    <router-link v-if="prg.Topic != ''" class="programItemTitle" :to="'/programdetail?programId=' + prg.Id">{{ prg.Topic }}</router-link>
+                                </div>
+                                <template v-if="prg.Details.length != 0">
+                                    <div class="programItemBody">
+                                        <div class="programItemSpeakerList">
+                                            <template v-for="(detail, idx) in prg.Details">
+                                                <p v-if="detail.DataType != prg.Details[0].DataType || idx == 0" :key="idx" class="speakerType">{{ detail.DataType }}</p>
+                                                <router-link class="programItemSpeaker" v-if="detail.Speaker.SocialId > 0" :to="'/guest?guestId=' + detail.Speaker.SocialId" :key="detail.Speaker.SocialId">
+                                                    <span class="programItemSpeakerAvatar">
+                                                        <img class="programItemSpeakerPhoto" :src="detail.Speaker.Photo" />
+                                                    </span>
+                                                    <span
+                                                        class="programItemSpeakerName"
+                                                    >{{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}</span>
+                                                </router-link>
+                                                <router-link v-else class="programItemSpeaker" :to="'/speaker?speakerId=' + detail.Speaker.Id" :key="detail.Speaker.Id">
+                                                    <span class="programItemSpeakerAvatar">
+                                                        <img class="programItemSpeakerPhoto" :src="detail.Speaker.Photo"/>
+                                                    </span>
+                                                    <span class="programItemSpeakerName">{{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}</span>
+                                                </router-link>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
         </div>
     </div>
 </template>
@@ -133,14 +175,14 @@ export default {
     name: "Program",
     data: function() {
         return {
-			isCurrent: true,
-            currentIndex: 1, 
-            timer: null,
-        }
-    },    
+            isCurrent: true,
+            currentIndex: 1,
+            timer: null
+        };
+    },
     computed: {
         tabs: function() {
-            return this.$i18n.messages[this.lang].program.tabs
+            return this.$i18n.messages[this.lang].program.tabs;
         },
         ...mapState({
             lang: state => state.Lang,
@@ -151,9 +193,9 @@ export default {
     },
     methods: {
         // 使用 mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用
-		// 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
-		...mapActions({
-			initProgram: "getProgramList"
+        // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+        ...mapActions({
+            initProgram: "getProgramList"
         }),
         showAllTab: function() {
             this.$refs.tabWrapper.scrollLeft = 9999;
@@ -165,11 +207,15 @@ export default {
     },
     created: function() {
         let language = this.lang == "zh" ? 1 : 2;
-        if(this.programList.length == 0) {
-            this.initProgram({ eventNo: this.eventNo, token: this.token, lang: language });
+        if (this.programList.length == 0) {
+            this.initProgram({
+                eventNo: this.eventNo,
+                token: this.token,
+                lang: language
+            });
         }
     }
-}
+};
 </script>
 <style>
 .program {
@@ -241,7 +287,8 @@ export default {
 .programTab:last-child {
     margin-right: 0;
 }
-.programTabTime, .programTabName {
+.programTabTime,
+.programTabName {
     display: block;
 }
 .programTabTime {
@@ -249,7 +296,7 @@ export default {
     line-height: 0.4rem;
 }
 .programTabName {
-    line-height: 0.4rem
+    line-height: 0.4rem;
 }
 .programTab.active {
     color: var(--themeColor);
@@ -278,20 +325,21 @@ export default {
     margin-bottom: 0.2rem;
     padding: 0.4rem 0.2rem;
     font-size: 0.28rem;
-	line-height: 0.4rem;
+    line-height: 0.4rem;
     background-color: #fff;
 }
-.programItemTime, .programItemType {
-	display: inline-block;
+.programItemTime,
+.programItemType {
+    display: inline-block;
 }
 .programItemType {
-	margin-left: 0.4rem;
+    margin-left: 0.4rem;
 }
 .programItemTitle {
-	margin-top: 0.2rem;
-	font-size: 0.32rem;
-	line-height: 0.4rem;
-	color: var(--themeColor);
+    margin-top: 0.2rem;
+    font-size: 0.32rem;
+    line-height: 0.4rem;
+    color: var(--themeColor);
 }
 .programItemDesc {
     overflow: hidden;
@@ -302,7 +350,8 @@ export default {
 .awardFlowItem:not(:last-child) {
     margin-bottom: 0.3rem;
 }
-.awardFlowLabel, .awardFlowItemDesc {
+.awardFlowLabel,
+.awardFlowItemDesc {
     display: inline-block;
     vertical-align: top;
 }
@@ -314,31 +363,36 @@ export default {
     width: calc(100% - 3.2rem);
 }
 .programItemBody {
-	margin-top: 0.2rem;
+    margin-top: 0.2rem;
 }
 .speakerType {
-	margin-bottom: 0.2rem;
-	font-size: 0.24rem;	
+    margin-bottom: 0.2rem;
+    font-size: 0.24rem;
 }
 .programItemSpeaker {
-	margin-bottom: 0.2rem;
-	font-size: 0;
+    margin-bottom: 0.2rem;
+    font-size: 0;
 }
-.programItemSpeakerAvatar, .programItemSpeakerName {
-	display: inline-block;
-	vertical-align: middle;
+.programItemSpeakerAvatar,
+.programItemSpeakerName {
+    display: inline-block;
+    vertical-align: middle;
 }
 .programItemSpeakerAvatar {
-	width: 0.6rem;
-	overflow: hidden;
+    width: 0.6rem;
+    overflow: hidden;
 }
 .programItemSpeakerPhoto {
-	width: 100%;
+    width: 100%;
 }
 .programItemSpeakerName {
     width: calc(100% - 0.9rem);
-	margin-left: 0.3rem;
-	font-size: 0.28rem;
-	color: #2c3e50;
+    margin-left: 0.3rem;
+    font-size: 0.28rem;
+    color: #2c3e50;
+}
+div.programItemSpeaker .programItemSpeakerName {
+    width: 100%;
+    margin-left: 0;
 }
 </style>
