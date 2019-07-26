@@ -57,6 +57,7 @@
 					<span class="menuCardLinkIcon rt"></span>
 				</a>
 			</div>
+			<button @click="showToast">Toast</button>
 		</div>
     </div>
 </template>
@@ -121,7 +122,15 @@ export default {
 			"EMPTYATTENDSLIST",
 			"EMPTYEXHIBITORLIST",
 			"EMPTYRECOMMENDLIST"
-		])
+		]),
+		showToast: function() {
+			// this.$toast("我是测试消息")
+			this.$toast({
+				msg: "我是调用方法传入的内容",
+				duration: 5000,
+				show: false
+			})
+		}
 	},
 	created: function() {
 		// this.initMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });

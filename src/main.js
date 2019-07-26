@@ -3,11 +3,14 @@ import VueI18n from "vue-i18n"
 import LangZh from "@/lang/zh"
 import LangEn from "@/lang/en"
 
+import Toast from "@/plugins/toast/index"
+
 import App from './App.vue'
 import store from "./store"
 import router from './router'
 
 Vue.use(VueI18n)
+Vue.use(Toast)
 
 const i18n = new VueI18n({
 	locale: localStorage.getItem("localeLanguage") || store.state.Lang || "zh",
