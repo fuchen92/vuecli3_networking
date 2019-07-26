@@ -18,11 +18,11 @@
 		</div>
 		<div class="loginBox">
 			<div class="formGroup">
-				<input class="formInput" type="text" ref="account" v-bind:placeholder="$t('login.accountPlaceholder')" v-model.trim="account">
+				<input class="formInput" type="text" ref="account" :placeholder="$t('login.accountPlaceholder')" v-model.trim="account">
 			</div>
 			<div class="formGroup clear">
-				<input class="formInput valicodeInput lt" type="text" maxlength="6" ref="valicode" v-bind:placeholder="$t('login.valicodePlaceholder')" v-model.trim="valicode">
-				<button class="btn btnRed getValicode rt" @click="getValicode" v-bind:disabled="isGettedCode">{{ isGettedCode ? (countDown + "s") : $t("login.getCode[" + valicodeTipIndex + "]") }}</button>
+				<input class="formInput valicodeInput lt" type="text" maxlength="6" ref="valicode" :placeholder="$t('login.valicodePlaceholder')" v-model.trim="valicode">
+				<button class="btn btnRed getValicode rt" @click="getValicode" :disabled="isGettedCode">{{ isGettedCode ? (countDown + "s") : $t("login.getCode[" + valicodeTipIndex + "]") }}</button>
 			</div>
 			<div class="formGroup">
 				<p class="formTips" v-show="hasError">{{ $t("login.errTip['" + errType + "']") }}</p>

@@ -9,7 +9,7 @@
                 </div>
                 <div class="publishChunk">
                     <p class="publishChunkCaption">{{ $t("publish.offserLabel") }}</p>
-                    <textarea class="publishInput" v-model.trim="publishContent" v-bind:placeholder="$t('publish.inputPlaceholder')"></textarea>
+                    <textarea class="publishInput" v-model.trim="publishContent" :placeholder="$t('publish.inputPlaceholder')"></textarea>
                 </div>
                 <div class="publishChunk">
                     <p class="publishChunkCaption">
@@ -17,7 +17,7 @@
                         <span class="publishChunkCaptionTip">（{{ $t("publish.tagTip") }}）</span>
                     </p>
                     <div class="publishTags">
-                        <span class="publishTag" v-for="(tag, index) in tagList" :key="index"  v-bind:class="{ active: tagIndex == index }" v-on:click="tagIndex = index">                        
+                        <span class="publishTag" v-for="(tag, index) in tagList" :key="index"  :class="{ active: tagIndex == index }" :click="tagIndex = index">                        
                             {{ tag.Name }}
                         </span>
                     </div>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <button class="publishBtn" @click="publish" v-bind:disabled="isPublished">
+        <button class="publishBtn" @click="publish" :disabled="isPublished">
             {{ $t("publish.publishBtn") }}
         </button>
     </div>

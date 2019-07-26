@@ -1,16 +1,16 @@
 <template>
     <div class="plaza">
         <div class="plazaTabs">
-            <div v-for="(tab, index) in tabs" v-bind:key="index" class="plazaTab" v-bind:class="{ active: tabIndex == index }" v-on:click="switchPlaza(index)">
+            <div v-for="(tab, index) in tabs" :key="index" class="plazaTab" :class="{ active: tabIndex == index }" :click="switchPlaza(index)">
                 <span class="plazaTab">{{ tab.name }}</span>
             </div>
         </div>
         <div class="plazaBox">
-            <div class="plazaList" ref="exhibitorList" v-bind:class="{ active: tabIndex == 0 }" @scroll="loadMore">
+            <div class="plazaList" ref="exhibitorList" :class="{ active: tabIndex == 0 }" @scroll="loadMore">
                 <ExhibitorCard v-for="exhibitor in exhibitorList" :key="exhibitor.Id" :exhibitor="exhibitor"></ExhibitorCard>
                 <Loading :loading="loading"></Loading>
             </div>
-            <div class="plazaList supplyList" v-bind:class="{ active: tabIndex == 1, empty: supplyList.length == 0 }">
+            <div class="plazaList supplyList" :class="{ active: tabIndex == 1, empty: supplyList.length == 0 }">
                 <div class="emptyList" v-if="supplyList.length == 0">
                     <img class="emptyListImg" src="../assets/nullState.png" alt="">
                     <p class="emptyListDesc">{{ $t("plaza.emptySupplyDesc") }}</p>
@@ -18,9 +18,9 @@
                 <template v-else>
                     <PostCard v-for="(post, index) in supplyList" :key="index" :post="post">
                         <div class="postCardHead" slot="postCardHead">
-                            <router-link class="postUser" v-bind:to="'/guest?guestId=' + post.User.Id">
+                            <router-link class="postUser" :to="'/guest?guestId=' + post.User.Id">
                                 <div class="postUserAvatar">
-                                    <img class="postUserPhoto" v-bind:src="post.User.Photo" alt="">
+                                    <img class="postUserPhoto" :src="post.User.Photo" alt="">
                                 </div>
                                 <div class="postUserInfo">
                                     <p class="postUserName">{{ lang == "zh" ? post.User.Name : post.User.NameEn }}</p>
@@ -32,7 +32,7 @@
                     </PostCard>
                 </template>
             </div>
-            <div class="plazaList demandList" v-bind:class="{ active: tabIndex == 2, empty: demandList.length == 0 }">
+            <div class="plazaList demandList" :class="{ active: tabIndex == 2, empty: demandList.length == 0 }">
                 <div class="emptyList" v-if="demandList.length == 0">
                     <img class="emptyListImg" src="../assets/nullState.png" alt="">
                     <p class="emptyListDesc">{{ $t("plaza.emptyRequirementDesc") }}</p>
@@ -40,9 +40,9 @@
                 <template v-else>
                     <PostCard v-for="(post, index) in demandList" :key="index" :post="post">
                         <div class="postCardHead" slot="postCardHead">
-                            <router-link class="postUser" v-bind:to="'/guest?guestId=' + post.User.Id">
+                            <router-link class="postUser" :to="'/guest?guestId=' + post.User.Id">
                                 <div class="postUserAvatar">
-                                    <img class="postUserPhoto" v-bind:src="post.User.Photo" alt="">
+                                    <img class="postUserPhoto" :src="post.User.Photo" alt="">
                                 </div>
                                 <div class="postUserInfo">
                                     <p class="postUserName">{{ lang == "zh" ? post.User.Name : post.User.NameEn }}</p>

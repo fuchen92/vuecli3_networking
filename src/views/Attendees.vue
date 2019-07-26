@@ -1,7 +1,7 @@
 <template>
     <div class="attendees">
         <div class="attendTabs">
-            <div v-for="(tab, index) in tabs" v-bind:key="index" class="attendTab" v-bind:class="{ active: tabIndex == index }" v-on:click="tabIndex = index">
+            <div v-for="(tab, index) in tabs" :key="index" class="attendTab" :class="{ active: tabIndex == index }" @:click="tabIndex = index">
                 {{ tab.name }}
             </div>
         </div>

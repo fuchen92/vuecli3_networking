@@ -11,13 +11,12 @@ export default {
         return {
             show: false,
             timer: null,
-            duration: 2000,
+            duration: 1500,
             msg: ""
         }
     },
     methods: {
         afterLeave: function() {
-            console.log("afterLeave钩子");
             this.$destroy()
             this.$el.parentNode.removeChild(this.$el);
         },
@@ -30,7 +29,6 @@ export default {
         }
     },
     mounted: function() {
-        console.log("挂载了")
         this.close();
     },
     beforeDestroy: function() {        

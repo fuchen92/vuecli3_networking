@@ -4,7 +4,7 @@
         <div class="infomationWrapper">
             <div class="infomationCard">
                 <div class="infomationAvatar">                
-                    <img class="avatarPhoto" v-bind:src="myInfo.Photo || '../assets/avatar.jpg'" alt="">
+                    <img class="avatarPhoto" :src="myInfo.Photo || '../assets/avatar.jpg'" alt="">
                 </div>
                 <div class="infomationCardContent">
                     <!-- <button class="uploadBtn">{{ $t("meinfomation.upload") }}</button> -->

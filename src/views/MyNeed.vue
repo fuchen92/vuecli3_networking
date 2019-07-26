@@ -9,7 +9,7 @@
                 </div>
             </template>                
             <template v-else>
-                <PostCard v-for="(post, index) in solutionList" v-bind:key="index" v-bind:post="post"></PostCard>
+                <PostCard v-for="(post, index) in solutionList" :key="index" :post="post"></PostCard>
             </template>
         </div>
     </div>

@@ -28,10 +28,10 @@
 						<p class="latestTime">22:00</p>
 					</div>
 				</router-link> -->
-				<router-link class="messageItem clear" v-for="chat in chatList" v-bind:key="chat.id" v-bind:to="`/chat?chatId=${chat.Id}&uPhoto=${chat.Photo}`">
+				<router-link class="messageItem clear" v-for="chat in chatList" :key="chat.id" :to="`/chat?chatId=${chat.Id}&uPhoto=${chat.Photo}`">
 					<div class="messageUser lt">
 						<div class="messageUserAvatar">
-							<img class="messageUserPhoto" v-bind:src="chat.Photo" alt="">
+							<img class="messageUserPhoto" :src="chat.Photo" alt="">
 							<span class="unReadMsgCount" v-if="chat.NewMessageCount > 0">{{ chat.NewMessageCount > 99 ? 99 : chat.NewMessageCount }}</span>
 						</div>
 						<div class="messageUserInfo">

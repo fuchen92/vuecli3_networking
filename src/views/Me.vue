@@ -4,7 +4,7 @@
 			<div class="meCard">
 				<router-link class="meInfoLink" to="/meinfomation">
 					<div class="meAvatar">
-						<img class="meAvatarImg" v-bind:src="myInfo.Photo" alt="">
+						<img class="meAvatarImg" :src="myInfo.Photo" alt="">
 					</div>
 					<div class="meInfo">
 						<p class="meName">{{ myInfo.Name }}</p>
@@ -126,9 +126,8 @@ export default {
 		showToast: function() {
 			// this.$toast("我是测试消息")
 			this.$toast({
-				msg: "我是调用方法传入的内容",
-				duration: 5000,
-				show: false
+				msg: this.$t("me.contact"),
+				duration: 1500
 			})
 		}
 	},
