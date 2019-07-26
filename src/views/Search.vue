@@ -131,11 +131,13 @@ export default {
     data: function() {
         let searchAttendFilter = JSON.parse(localStorage.getItem("searchAttendFilter"));
         let searchExhibitorFilter = JSON.parse(localStorage.getItem("searchExhibitorFilter"));
+        let type = localStorage.getItem("resultType");
         return {
             keyWord: "",
             identity: this.$route.query.searchType == "attendees" ? 1 : 2,
             resultList: [],
-            resultType: 1,
+            // resultType: 1,
+            resultType: type != null ? type : 1,
             showFilter: true,
             industryArr: searchAttendFilter != null ? searchAttendFilter.filter1 : [],
             functionArr: searchAttendFilter != null ? searchAttendFilter.filter2 : [],
