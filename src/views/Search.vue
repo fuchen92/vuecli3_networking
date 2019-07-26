@@ -136,7 +136,6 @@ export default {
             keyWord: "",
             identity: this.$route.query.searchType == "attendees" ? 1 : 2,
             resultList: [],
-            // resultType: 1,
             resultType: type != null ? type : 1,
             showFilter: true,
             industryArr: searchAttendFilter != null ? searchAttendFilter.filter1 : [],
