@@ -1,7 +1,7 @@
 <template>
     <div class="plaza">
         <div class="plazaTabs">
-            <div v-for="(tab, index) in tabs" :key="index" class="plazaTab" :class="{ active: tabIndex == index }" :click="switchPlaza(index)">
+            <div v-for="(tab, index) in tabs" :key="index" class="plazaTab" :class="{ active: tabIndex == index }" @click="switchPlaza(index)">
                 <span class="plazaTab">{{ tab.name }}</span>
             </div>
         </div>
