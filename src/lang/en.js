@@ -276,6 +276,6 @@ export default {
     },
     "myneed": {
         "navBarTitle": "Demand & Supply",
-        "emptyNeedDesc": "You have not yet posted any demand."
+        "emptyNeedDesc": "You have not yet posted any demand & supply."
     }
 }

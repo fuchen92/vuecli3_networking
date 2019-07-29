@@ -293,6 +293,6 @@ export default {
     },
     "myneed": {
         "navBarTitle": "我的供需",
-        "emptyNeedDesc": "您暂未发布需求"
+        "emptyNeedDesc": "您暂未发布供需"
     }
 }
