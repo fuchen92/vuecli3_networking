@@ -257,7 +257,7 @@ export default {
             })
         },
         sendCard: function() {
-            var r = window.confirm("即将发送您的联系方式（包括手机、邮箱、微信等）给对象，请确认");
+            var r = this.lang == "zh" ? window.confirm("即将发送您的联系方式（包括手机、邮箱、微信等）给对方，请确认") : window.confirm("Your contact info (including mobile, email and WeChat ID) will be sent to the guest");
             if(r) {
                 this.$http.post(`${this.apiDomain}/Attendees/ChatSend`, {
                     eventNo: this.eventNo,
@@ -292,7 +292,6 @@ export default {
         }
     },
     created: function() {
-        console.log(this.unReadList)
         if(this.unReadList != undefined && this.unReadList.length != 0) {
             this.$http.post(`${this.apiDomain}/Attendees/ChatReadList`, {
                 ids: this.unReadList,
@@ -301,8 +300,10 @@ export default {
                 if(res.data.Code == 0) {
                     this.RESETUNREADLIST({ targetId: this.chatUser.id })
                 } else {
-                    console.log('未知错误')
+                    alert(res.data.Message)
                 }
+            }).catch(err => {
+                alert(err)
             })
         }
         if(this.chatList == "" || this.chatList == null || this.chatList == undefined) {
@@ -319,12 +320,8 @@ export default {
                 if(data.length < this.size) {
                     this.loadAll = true;
                 }
-                this.loadMsgBeforeId = data[0].Id
-                // console.log("初次请求聊天数据： " + this.loadMsgBeforeId)
+                if(data.length != 0) this.loadMsgBeforeId = data[0].Id;
                 this.$store.commit("INITMESSAGELIST", { targetId: this.chatUser.id, msgList: data });
-                // this.timer = setTimeout(() => {
-                //     this.$refs.chatBox.scrollTop = 999999;
-                // }, 1);
             })
         }
     },

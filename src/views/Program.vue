@@ -2,7 +2,7 @@
     <div class="program">
         <div class="programTabs">
             <div class="programTabsWrapper" ref="tabWrapper">
-                <div v-for="(tab, index) in tabs" :key="index" class="programTab" :class="{ active: currentIndex == index, en: lang == 'en' }" :click="switchProgram(index)">
+                <div v-for="(tab, tabIndex) in tabs" :key="tabIndex" class="programTab" :class="{ active: currentIndex == tabIndex, en: lang == 'en' }" @click="switchProgram(tabIndex)">
                     <span class="programTabTime">{{ tab.time }}</span>
                     <span class="programTabName">{{ tab.name }}</span>
                 </div>
@@ -124,15 +124,15 @@
                     </div>
                 </div>
             </div>
-            <template v-for="i in programList.length">
-                <div class="programList" :key="i" :class="{ active: currentIndex == i }">
+            <template v-for="(prgList, index) in programList">
+                <div class="programList" :key="index" :class="{ active: currentIndex == (index + 1) }">
                     <div class="container">
                         <div class="programItem programItemSite">
-                            <template v-if="lang == 'zh'">{{ i == 1 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (i == 2 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}</template>
-                            <template v-else >{{ i == 1 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2 & 3】" : (i == 2 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2】" : "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 3】") }}</template>
+                            <template v-if="lang == 'zh'">{{ index == 0 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (index == 1 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}</template>
+                            <template v-else >{{ index == 0 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2 & 3】" : (index == 1 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2】" : "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 3】") }}</template>
                         </div>
-                        <template v-for="(prg, index) in programList[i - 1]">
-                            <div class="programItem" :key="index">
+                        <template v-for="prg in prgList">
+                            <div class="programItem" :key="prg.Id">
                                 <div class="programItemHead">
                                     <p class="programItemTime">{{ $pattern(prg.Begin, "HH:mm") }} - {{ $pattern(prg.End, "HH:mm") }}</p>
                                     <p class="programItemType">{{ prg.TypeName }}</p>
@@ -141,8 +141,8 @@
                                 <template v-if="prg.Details.length != 0">
                                     <div class="programItemBody">
                                         <div class="programItemSpeakerList">
-                                            <template v-for="(detail, idx) in prg.Details">
-                                                <p v-if="detail.DataType != prg.Details[0].DataType || idx == 0" :key="idx" class="speakerType">{{ detail.DataType }}</p>
+                                            <template v-for="(detail, didx) in prg.Details">
+                                                <p v-if="detail.DataType != prg.Details[0].DataType || didx == 0" :key="didx" class="speakerType">{{ detail.DataType }}</p>
                                                 <router-link class="programItemSpeaker" v-if="detail.Speaker.SocialId > 0" :to="'/guest?guestId=' + detail.Speaker.SocialId" :key="detail.Speaker.SocialId">
                                                     <span class="programItemSpeakerAvatar">
                                                         <img class="programItemSpeakerPhoto" :src="detail.Speaker.Photo" />
@@ -200,8 +200,8 @@ export default {
         showAllTab: function() {
             this.$refs.tabWrapper.scrollLeft = 9999;
         },
-        switchProgram: function(index) {
-            this.currentIndex = index;
+        switchProgram: function(tabIndex) {
+            this.currentIndex = tabIndex;
             this.$refs.programBox.scrollTop = 0;
         }
     },
@@ -213,6 +213,8 @@ export default {
                 token: this.token,
                 lang: language
             });
+
+            console.log(this.programList)
         }
     }
 };

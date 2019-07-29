@@ -17,18 +17,20 @@
                 </div>
                 <template v-else>
                     <PostCard v-for="(post, index) in supplyList" :key="index" :post="post">
-                        <div class="postCardHead" slot="postCardHead">
-                            <router-link class="postUser" :to="'/guest?guestId=' + post.User.Id">
-                                <div class="postUserAvatar">
-                                    <img class="postUserPhoto" :src="post.User.Photo" alt="">
-                                </div>
-                                <div class="postUserInfo">
-                                    <p class="postUserName">{{ lang == "zh" ? post.User.Name : post.User.NameEn }}</p>
-                                    <p class="postUserJob">{{ lang == "zh" ? post.User.JobTitle : post.User.JobTitleEn }}</p>
-                                    <p class="postUserCompany">{{ lang == "zh" ? post.User.Company : post.User.CompanyEn }}</p>
-                                </div>
-                            </router-link>
-                        </div>
+                        <template #postCardHead>
+                            <div class="postCardHead">
+                                <router-link class="postUser" :to="'/guest?guestId=' + post.User.Id">
+                                    <div class="postUserAvatar">
+                                        <img class="postUserPhoto" :src="post.User.Photo" alt="">
+                                    </div>
+                                    <div class="postUserInfo">
+                                        <p class="postUserName">{{ lang == "zh" ? post.User.Name : post.User.NameEn }}</p>
+                                        <p class="postUserJob">{{ lang == "zh" ? post.User.JobTitle : post.User.JobTitleEn }}</p>
+                                        <p class="postUserCompany">{{ lang == "zh" ? post.User.Company : post.User.CompanyEn }}</p>
+                                    </div>
+                                </router-link>
+                            </div>
+                        </template>
                     </PostCard>
                 </template>
             </div>

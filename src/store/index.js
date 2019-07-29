@@ -208,6 +208,19 @@ export default new Vuex.Store({
         INITMYSOLUTIONLIST(state, { solutionList }) {
             state.SolutionList = solutionList;
         },
+        // 根据帖子Id删除我的需求
+        DELETESOLUTION(state, { id }) {
+            var solutionList = state.SolutionList,
+                len = solutionList.length;
+            var index = 0;
+            for(let i = 0; i < len; i++) {
+                if(solutionList[i].Id == id) {
+                    index = i;
+                    break;
+                }
+            }
+            state.SolutionList.splice(index, 1);
+        },
         // 我的页面个人信息简要
         INITMYINFOMATION(state, { infomation }) {
             let Mobile = infomation.ContactList.filter(item => item.Id == 1)[0].Name;

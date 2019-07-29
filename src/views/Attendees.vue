@@ -1,7 +1,7 @@
 <template>
     <div class="attendees">
         <div class="attendTabs">
-            <div v-for="(tab, index) in tabs" :key="index" class="attendTab" :class="{ active: tabIndex == index }" @:click="tabIndex = index">
+            <div v-for="(tab, index) in tabs" :key="index" class="attendTab" :class="{ active: tabIndex == index }" @click="tabIndex = index">
                 {{ tab.name }}
             </div>
         </div>
@@ -145,7 +145,7 @@ export default {
         },
         submitFilter: function() {
             if(this.industryArr.length == 0 && this.functionArr.length == 0 && this.identityArr.length == 0) {
-                alert("请选中任意筛选项");
+                this.lang == "zh" ? alert("请选中任意筛选项") : alert("Please select filter options.")
                 return false;
             }
             var filterObj = {

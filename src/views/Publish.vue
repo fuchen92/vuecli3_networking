@@ -17,7 +17,7 @@
                         <span class="publishChunkCaptionTip">（{{ $t("publish.tagTip") }}）</span>
                     </p>
                     <div class="publishTags">
-                        <span class="publishTag" v-for="(tag, index) in tagList" :key="index"  :class="{ active: tagIndex == index }" :click="tagIndex = index">                        
+                        <span class="publishTag" v-for="(tag, index) in tagList" :key="index"  :class="{ active: tagIndex == index }" @click="tagIndex = index">                        
                             {{ tag.Name }}
                         </span>
                     </div>

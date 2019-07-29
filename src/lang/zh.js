@@ -4,7 +4,9 @@ export default {
     },
     postCard: {
         tel: "联系",
-        interest: "{count}人感兴趣"
+        interest: "{count}人感兴趣",
+        likeCount: "等{count}人感兴趣，点击查看详情",
+        del: "删除"
     },
     guestCard: {
         inviteBtn: "邀约会面",

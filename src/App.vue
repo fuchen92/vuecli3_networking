@@ -29,6 +29,7 @@ export default {
         token: function() {
             if(this.token != "" || this.token != null) {
                 this.initSocket(this.token)
+                this.getMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });
             }
         }
     },

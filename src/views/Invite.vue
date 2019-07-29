@@ -85,6 +85,7 @@ export default {
             return this.$i18n.messages[this.lang].invite.navBarTitle
         },
          ...mapState({
+            apiDomain: state => state.ApiDomain,
             lang: state => state.Lang,
             eventNo: state => state.eventNo,
             token: state => state.Account.Token,
@@ -102,29 +103,20 @@ export default {
             "ADDNEWCHAT"
         ]),
         submitInvite: function() {
-            // console.log({
-            //     eventNo: this.eventNo,
-            //     target: this.invitePeople.id,
-            //     time: this.inviteDate + " " + this.inviteTime + ":00",
-            //     content: this.matter,
-            //     location: this.inviteAddr,    
-            //     token: this.token,
-            //     lang: this.lang == "zh" ? 1 : 2
-            // })
             if(this.inviteAddr.length == 0 || this.inviteAddr == "") {
                 this.$refs.addr.focus();
-                alert("请输入邀约地址")
+                this.lang == "zh" ? alert("请输入邀约地址") : alert("Please enter meeting address");
                 return false;
             }
             if(this.matter.length == 0 || this.matter == "") {
                 this.$refs.matter.focus();
-                alert("请输入邀约事项");
+                this.lang == "zh" ? alert("请输入邀约事项") : alert("Please enter the invitation notes");            
                 return false;
             }
             if(this.invitePeople.id == 0) {
                 return false;
             }
-            this.$http.post(`https://socialapi.traveldaily.cn/Attendees/InviteSend`, {
+            this.$http.post(`${this.apiDomain}/Attendees/InviteSend`, {
                 eventNo: this.eventNo,
                 target: this.invitePeople.id,
                 time: this.inviteDate + " " + this.inviteTime + ":00",

@@ -37,14 +37,15 @@ export default {
     },
     computed: {
         ...mapState({
-            myInfo: state => state.MyInfomation
+            myInfo: state => state.MyInfomation,
+            lang: state => state.Lang,
         })
     },
     methods: {
         toInvite: function(event) {
             var id = event.target.dataset.id;
             if(id == this.myInfo.Id) {
-                alert("无法对自己进行操作");
+                this.lang == "zh" ? alert("无法对自己进行操作") : alert("Not applicable to yourself!");
                 return false;
             }
             this.$router.push({ path: "/invite", query: { inviteId: id, uName: this.guest.Name, uCompany: this.guest.Company, uJob: this.guest.JobTitle, uPhoto: this.guest.Photo } });
@@ -52,7 +53,7 @@ export default {
         toChat: function(event) {
             var id = event.target.dataset.id;
             if(id == this.myInfo.Id) {
-                alert("无法对自己进行操作");
+                this.lang == "zh" ? alert("无法对自己进行操作") : alert("Not applicable to yourself!");
                 return false;
             }    
             this.$router.push({ path: "/chat", query: { chatId: id, uPhoto: this.guest.Photo } });

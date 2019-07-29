@@ -4,7 +4,9 @@ export default {
     },
     postCard: {
         tel: "Contact",
-        interest: "{count} Interested"
+        interest: "{count} Interested",
+        likeCount: "{count} interested. Click to view details",
+        del: "Delete"
     },
     guestCard: {
         inviteBtn: "Book a Meeting",

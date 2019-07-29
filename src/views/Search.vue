@@ -176,7 +176,7 @@ export default {
             switch(Number(this.identity)) {
                 case 1:
                     if(this.keyWord.length == 0 && this.industryArr.length == 0 && this.functionArr.length == 0 && this.identityArr.length == 0) {
-                        alert("请输入关键字或选中任意筛选项");
+                        this.lang == "zh" ? alert("请输入关键字或选中任意筛选项") : alert("Please enter keyword or select filter options.");
                         return false;
                     }
                     var attendFilterObj = {
@@ -211,7 +211,7 @@ export default {
                     break;
                 case 2:
                     if(this.keyWord.length == 0 && this.exhibitorIdstryArr.length == 0 && this.exhibitorProArr.length == 0) {
-                        alert("请输入关键字或选中任意筛选项");
+                        this.lang == "zh" ? alert("请输入关键字或选中任意筛选项") : alert("Please enter keyword or select filter options.");
                         return false;
                     }
                     let exhibitorFilterObj = {

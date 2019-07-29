@@ -175,7 +175,6 @@ export default {
             }
             this.isSaved = true;
             let contactList = this.contactList;
-            console.log(contactList)
             contactList.map(item => {
                 if(item.Id == 3) {
                     item.Name = this.wechat
