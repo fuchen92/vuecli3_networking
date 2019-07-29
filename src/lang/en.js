@@ -275,7 +275,7 @@ export default {
         "qrcodeDesc": "In case the WiFi signal on-site is not strong enough, please screenshot to save your Check-in Code. <br> Just show the QR code picture when you check in"
     },
     "myneed": {
-        "navBarTitle": "My Demand",
+        "navBarTitle": "Demand & Supply",
         "emptyNeedDesc": "You have not yet posted any demand."
     }
 }
