@@ -1,9 +1,5 @@
 <template>
     <div id="app">
-        <!-- <div id="nav">
-            <router-link to="/">Home</router-link>|
-            <router-link to="/about">About</router-link>
-        </div> -->
 		<router-view></router-view>
     </div>
 </template>
@@ -61,7 +57,6 @@ export default {
         },
         onMessage(e){ //数据接收
             const socketData = JSON.parse(e.data);
-            // console.log(socketData)
             let currentRoute = this.$route.path;
             var temp = null;
             if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
@@ -86,8 +81,6 @@ export default {
                 this.UPDATELASTMSG({ id: socketData.Sender, socketData: socketData })
             }
             if(currentRoute == "/chat") {
-                // let instance = this.$children;
-                // console.log(instance[0])
                 let senderId = this.$route.query.chatId;
                 if(socketData.Sender == senderId) {
                     this.$http.post(`${this.apiDomain}/Attendees/ChatRead`, {

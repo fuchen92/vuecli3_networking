@@ -32,16 +32,26 @@
 					<div class="messageUser lt">
 						<div class="messageUserAvatar">
 							<img class="messageUserPhoto" :src="chat.Photo" alt="">
-							<span class="unReadMsgCount" v-if="chat.NewMessageCount > 0">{{ chat.NewMessageCount > 99 ? 99 : chat.NewMessageCount }}</span>
+							<span class="unReadMsgCount" v-if="chat.NewMessageCount > 0">
+								{{ chat.NewMessageCount > 99 ? 99 : chat.NewMessageCount }}
+							</span>
 						</div>
 						<div class="messageUserInfo">
-							<p class="messageUserName">{{ chat.Name }}</p>
-							<p class="lastMessage">{{ chat.LastMessage.Content }}</p>
+							<p class="messageUserName">
+								{{ chat.Name }}
+							</p>
+							<p class="lastMessage">
+								{{ chat.LastMessage.Content }}
+							</p>
 						</div>
 					</div>
 					<div class="messageSummary rt">
-						<p class="messageDate">{{ $pattern(chat.LastMessage.SentTime, 'MM-dd') }}</p>
-						<p class="latestTime">{{ $pattern(chat.LastMessage.SentTime, 'HH:mm') }}</p>
+						<p class="messageDate">
+							{{ $pattern(chat.LastMessage.SentTime, 'MM-dd') }}
+						</p>
+						<p class="latestTime">
+							{{ $pattern(chat.LastMessage.SentTime, 'HH:mm') }}
+						</p>
 					</div>
 				</router-link>
 			</div>

@@ -8,29 +8,45 @@
                         <img class="inviteDetailPhoto" :src="inviteDetail.NetUserInfo.Photo" alt="">
                     </div>
                     <div class="inviteDetailUserInfo">
-                        <h4 class="inviteDetailUserName">{{ lang == "zh" ? inviteDetail.NetUserInfo.Name : inviteDetail.NetUserInfo.NameEn }}</h4>
-                        <p class="inviteDetailUserJob">{{ lang == "zh" ? inviteDetail.NetUserInfo.JobTitle : inviteDetail.NetUserInfo.JobTitleEn }}</p>
-                        <p class="inviteDetailUserCompany">{{ lang == "zh" ? inviteDetail.NetUserInfo.Company : inviteDetail.NetUserInfo.CompanyEn }}</p>
+                        <h4 class="inviteDetailUserName">
+                            {{ lang == "zh" ? inviteDetail.NetUserInfo.Name : inviteDetail.NetUserInfo.NameEn }}
+                        </h4>
+                        <p class="inviteDetailUserJob">
+                            {{ lang == "zh" ? inviteDetail.NetUserInfo.JobTitle : inviteDetail.NetUserInfo.JobTitleEn }}
+                        </p>
+                        <p class="inviteDetailUserCompany">
+                            {{ lang == "zh" ? inviteDetail.NetUserInfo.Company : inviteDetail.NetUserInfo.CompanyEn }}
+                        </p>
                     </div>
                 </div>
-                <p class="inviteDetailContent">{{ inviteDetail.Content }}</p>
+                <p class="inviteDetailContent">
+                    {{ inviteDetail.Content }}
+                </p>
             </div>
             <div class="inviteDetailChunk">
                 <div class="inviteDetailInfoItem">
                     <img class="inviteDetailItemIcon" src="../assets/iconName.svg" alt="">
-                    <p class="inviteDetailItemContent">{{ inviteDetail.NetUserInfo.ContactList[0].Name }}</p>
+                    <p class="inviteDetailItemContent">
+                        {{ inviteDetail.NetUserInfo.ContactList[0].Name }}
+                    </p>
                 </div>
                 <div class="inviteDetailInfoItem">
                     <img class="inviteDetailItemIcon" src="../assets/iconEmail.svg" alt="">
-                    <p class="inviteDetailItemContent">{{ inviteDetail.NetUserInfo.ContactList[1].Name }}</p>
+                    <p class="inviteDetailItemContent">
+                        {{ inviteDetail.NetUserInfo.ContactList[1].Name }}
+                    </p>
                 </div>
                 <div class="inviteDetailInfoItem">
                     <img class="inviteDetailItemIcon" src="../assets/iconTime.svg" alt="">
-                    <p class="inviteDetailItemContent">{{ $pattern(inviteDetail.Time, "yyyy-MM-dd HH:mm") }}</p>
+                    <p class="inviteDetailItemContent">
+                        {{ $pattern(inviteDetail.Time, "yyyy-MM-dd HH:mm") }}
+                    </p>
                 </div>
                 <div class="inviteDetailInfoItem">
                     <img class="inviteDetailItemIcon" src="../assets/iconLocation.svg" alt="">
-                    <p class="inviteDetailItemContent">{{ inviteDetail.Location }}</p>
+                    <p class="inviteDetailItemContent">
+                        {{ inviteDetail.Location }}
+                    </p>
                 </div>
             </div>
         </div>

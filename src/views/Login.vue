@@ -32,8 +32,12 @@
 				</p>
 			</div>
 			<div class="formGroup">
-				<button class="btn btnRed loginBtn" @click="submitLogin">{{ $t('login.loginBtn') }}</button>
-				<p class="loginTip">{{ $t('login.loginTip') }}</p>
+				<button class="btn btnRed loginBtn" @click="submitLogin">
+					{{ $t('login.loginBtn') }}
+				</button>
+				<p class="loginTip">
+					{{ $t('login.loginTip') }}
+				</p>
 			</div>
 		</div>
 		<p class="copyright">

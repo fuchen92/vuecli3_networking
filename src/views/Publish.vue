@@ -4,17 +4,25 @@
         <div class="publishBox">
             <div class="container">
                 <div class="publishChunk clear">
-                    <p class="publishChunkCaption lt">{{ $t("publish.postType") }}</p>
-                    <p class="publishType rt">{{ publishType == 1 ? $t("publish.postSupply") : $t("publish.postRequirement") }}</p>
+                    <p class="publishChunkCaption lt">
+                        {{ $t("publish.postType") }}
+                    </p>
+                    <p class="publishType rt">
+                        {{ publishType == 1 ? $t("publish.postSupply") : $t("publish.postRequirement") }}
+                    </p>
                 </div>
                 <div class="publishChunk">
-                    <p class="publishChunkCaption">{{ $t("publish.offserLabel") }}</p>
+                    <p class="publishChunkCaption">
+                        {{ $t("publish.offserLabel") }}
+                    </p>
                     <textarea class="publishInput" v-model.trim="publishContent" :placeholder="$t('publish.inputPlaceholder')"></textarea>
                 </div>
                 <div class="publishChunk">
                     <p class="publishChunkCaption">
                         {{ $t("publish.addTag") }}
-                        <span class="publishChunkCaptionTip">（{{ $t("publish.tagTip") }}）</span>
+                        <span class="publishChunkCaptionTip">
+                            （{{ $t("publish.tagTip") }}）
+                        </span>
                     </p>
                     <div class="publishTags">
                         <span class="publishTag" v-for="(tag, index) in tagList" :key="index"  :class="{ active: tagIndex == index }" @click="tagIndex = index">                        
@@ -23,8 +31,12 @@
                     </div>
                 </div>
                 <div class="publishChunk clear">
-                    <p class="publishChunkCaption lt">{{ $t("publish.publishMobile") }}</p>
-                    <span class="publishMobile lt">{{ mobile }}</span>
+                    <p class="publishChunkCaption lt">
+                        {{ $t("publish.publishMobile") }}
+                    </p>
+                    <span class="publishMobile lt">
+                        {{ mobile }}
+                    </span>
                     <label class="publishMobileLabel rt">
                         <input class="publishMobileCheckbox" type="checkbox" v-model="publicMobile">
                         <i class="publishMobileCaret"></i>

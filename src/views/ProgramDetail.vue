@@ -6,9 +6,15 @@
                 <video class="afterVideo" v-if="programDetail.IsEnd && programDetail.Video != null" controls :src="programDetail.Video[0]"></video>
                 <div class="detailBannerBox" v-else>
                     <div class="detailBannerContent">
-                        <h3 class="detailBannerTitle">{{ programDetail.Topic }}</h3>
-                        <p class="detailTime">{{ programDetail.LocalTime }}</p>
-                        <p class="detailBannerTip">{{ $t("programDetail.videoTip") }}</p>
+                        <h3 class="detailBannerTitle">
+                            {{ programDetail.Topic }}
+                        </h3>
+                        <p class="detailTime">
+                            {{ programDetail.LocalTime }}
+                        </p>
+                        <p class="detailBannerTip">
+                            {{ $t("programDetail.videoTip") }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -23,15 +29,23 @@
                         <div class="detailIntro" v-html="programDetail.Summary == '' ? $t('programDetail.emptySummary') : programDetail.Summary"></div>
                         <div class="detailSpeakerList">
                             <template v-for="(speaker, idx) in programDetail.Details">
-                                <p v-if="speaker.DataType.Title != programDetail.Details[0].DataType.Title || idx == 0" :key="idx" class="speakerType">{{ speaker.DataType.Title }}</p>
-                                <router-link class="detailSpeaker" :to="speaker.Speaker.SocialId > 0 ? '/guest?guestId=' + speaker.Speaker.SocialId : '/speaker?speakerId=' + speaker.Speaker.Id" :key="speaker.Speaker.Id">
+                                <p v-if="speaker.DataType.Title != programDetail.Details[0].DataType.Title || idx == 0" :key="idx" class="speakerType">
+                                    {{ speaker.DataType.Title }}
+                                </p>
+                                <router-link class="detailSpeaker" :to="speaker.Speaker.SocialId > 0 ? `/guest?guestId=${speaker.Speaker.SocialId}` : `/speaker?speakerId=${speaker.Speaker.Id}`" :key="speaker.Speaker.Id">
                                     <div class="detailSpeakerAvatar">
                                         <img class="detailSpeakerPhoto" :src="speaker.Speaker.Photo" alt="">
                                     </div>
                                     <div class="detailSpeakerInfo">
-                                        <h4 class="detailSpeakerName">{{ speaker.Speaker.Name }}</h4>
-                                        <p class="detailSpeakerCompany">{{ speaker.Speaker.Company }}</p>
-                                        <p class="detailSpeakerJob">{{ speaker.Speaker.JobTitle }}</p>
+                                        <h4 class="detailSpeakerName">
+                                            {{ speaker.Speaker.Name }}
+                                        </h4>
+                                        <p class="detailSpeakerCompany">
+                                            {{ speaker.Speaker.Company }}
+                                        </p>
+                                        <p class="detailSpeakerJob">
+                                            {{ speaker.Speaker.JobTitle }}
+                                        </p>
                                     </div>
                                 </router-link>
                             </template>
@@ -41,13 +55,19 @@
                         <template v-if="programDetail.NewsList == null">
                             <div class="noArticle">
                                 <img class="noArticleImg" src="../assets/nullState.png" alt="">
-                                <p class="noArticleDesc">{{ $t("programDetail.noArticle") }}</p>
+                                <p class="noArticleDesc">
+                                    {{ $t("programDetail.noArticle") }}
+                                </p>
                             </div>
                         </template>
                         <template v-else>
                             <div class="article" v-for="article in programDetail.NewsList" :key="article.Id">
-                                <a class="articleLink" :href="'http://m.traveldaily.cn/article/' + article.Id">{{ article.Title }}</a>
-                                <p class="articleSummary">{{ article.Summary }}</p>
+                                <a class="articleLink" :href="`http://m.traveldaily.cn/article/${article.Id}`">
+                                    {{ article.Title }}
+                                </a>
+                                <p class="articleSummary">
+                                    {{ article.Summary }}
+                                </p>
                             </div>
                         </template>
                     </div>
@@ -55,7 +75,9 @@
                         <template v-if="programDetail.PptList == null && programDetail.PptListEn == null">
                             <div class="noPPT">
                                 <img class="noPPTImg" src="../assets/nullState.png" alt="">
-                                <p class="noPPTDesc">{{ $t("programDetail.noPPT") }}</p>
+                                <p class="noPPTDesc">
+                                    {{ $t("programDetail.noPPT") }}
+                                </p>
                             </div>
                         </template>
                         <template v-else>
@@ -72,8 +94,12 @@
                         </template>
                     </div>                    
                 </div>                
-                <button class="subscribeBtn" v-if="programDetail.IsSubscribed" ref="isSubscribedBtn" :disabled="programDetail.IsSubscribed">{{ $t("programDetail.subscribeBtn[" + isSubscribedIndex + "]") }}</button>
-                <button class="subscribeBtn" v-else :disabled="isSubscribed" ref="subscribeBtn" @click="subscribe">{{ $t("programDetail.subscribeBtn[" + subscribeIndex + "]") }}</button>
+                <button class="subscribeBtn" v-if="programDetail.IsSubscribed" ref="isSubscribedBtn" :disabled="programDetail.IsSubscribed">
+                    {{ $t("programDetail.subscribeBtn[" + isSubscribedIndex + "]") }}
+                </button>
+                <button class="subscribeBtn" v-else :disabled="isSubscribed" ref="subscribeBtn" @click="subscribe">
+                    {{ $t("programDetail.subscribeBtn[" + subscribeIndex + "]") }}
+                </button>
             </div>
         </div>
     </div>

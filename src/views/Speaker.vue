@@ -7,19 +7,29 @@
                     <img class="speakerPhoto" :src="speakerDetail.Photo" alt="">
                 </div>
                 <div class="speakerInfo">
-                    <h4 class="speakerName">{{ speakerDetail.Name }}</h4>
-                    <p class="speakerJob">{{ speakerDetail.JobTitle }}</p>
-                    <p class="speakerCompany">{{ speakerDetail.Company }}</p>
+                    <h4 class="speakerName">
+                        {{ speakerDetail.Name }}
+                    </h4>
+                    <p class="speakerJob">
+                        {{ speakerDetail.JobTitle }}
+                    </p>
+                    <p class="speakerCompany">
+                        {{ speakerDetail.Company }}
+                    </p>
                 </div>
             </div>
             <div class="speakerChunk">
-                <h4 class="speakerChunkCaption">{{ $t("speaker.introCaption") }}</h4>
+                <h4 class="speakerChunkCaption">
+                    {{ $t("speaker.introCaption") }}
+                </h4>
                 <p class="speakerIntro">
                     {{ (speakerDetail.Resume == null || speakerDetail.Resume == "") ? $t("speaker.emptyVal") : speakerDetail.Resume }}
                 </p>
             </div>
             <div class="speakerChunk" v-if="speakerDetail.ProgramList.length != 0">
-                <h4 class="speakerChunkCaption">{{ $t("speaker.participateCaption") }}</h4>
+                <h4 class="speakerChunkCaption">
+                    {{ $t("speaker.participateCaption") }}
+                </h4>
                 <ul class="participateList">
                     <li class="participateItem" v-for="(participate, index) in speakerDetail.ProgramList" :key="index">
                         <div class="participateInfo">
@@ -29,9 +39,11 @@
                             <!-- <p class="participateType">
                                 {{ participate.TypeName }}
                             </p> -->
-                            <h4 class="participateTopic">{{ participate.Topic }}</h4>
+                            <h4 class="participateTopic">
+                                {{ participate.Topic }}
+                            </h4>
                         </div>
-                        <router-link class="participateLink" :to="'/programdetail?programId=' + participate.Id">
+                        <router-link class="participateLink" :to="`/programdetail?programId=${participate.Id}`">
                             {{ $t("speaker.view") }}
                         </router-link>
                     </li>

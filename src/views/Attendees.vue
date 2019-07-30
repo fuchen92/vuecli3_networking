@@ -6,17 +6,23 @@
             </div>
         </div>
         <div class="reRecommend clear" v-show="(tabIndex == 0 && (recommends.length != 0) && showTopRecommend)">
-        <!-- <div class="reRecommend clear" v-show="(tabIndex == 0 && (recommends != null) && showTopRecommend)"> -->
-            <p class="reRecommendText lt">{{ $t("attendees.notFind") }}</p>
+            <p class="reRecommendText lt">
+                {{ $t("attendees.notFind") }}
+            </p>
             <span class="closeReRecommend rt" @click="hideRecommendBar"></span>
-            <button class="reRecommendBtn rt" @click="showFilter = true">{{ $t("attendees.reRecommend") }}</button>
+            <button class="reRecommendBtn rt" @click="showFilter = true">
+                {{ $t("attendees.reRecommend") }}
+            </button>
         </div>
         <div class="attendBox">
             <div class="emptyList" v-if="recommends.length == 0" :class="{ active: tabIndex == 0 }">
-            <!-- <div class="emptyList" v-if="recommends == null" :class="{ active: tabIndex == 0 }"> -->
                 <img class="emptyListImg" src="../assets/nullState.png" alt="">
-                <p class="emptyListDesc">{{ $t("attendees.emptyListDesc") }}</p>
-                <button class="openFilter" @click="showFilter = true">{{ $t("attendees.openFilter") }}</button>
+                <p class="emptyListDesc">
+                    {{ $t("attendees.emptyListDesc") }}
+                </p>
+                <button class="openFilter" @click="showFilter = true">
+                    {{ $t("attendees.openFilter") }}
+                </button>
             </div>
             <div class="recommendList" ref="recommendList" v-else :class="{ hasRecommendBar: showTopRecommend, active: tabIndex == 0 }" @scroll="loadMore">
                 <GuestCard v-for="(guest, index) in recommends" :key="index" :guest="guest"></GuestCard>
@@ -36,12 +42,16 @@
                                 <div class="filterCard" :key="industryIndex">
                                     <p class="filterCardCaption">
                                         {{ industry.Name }}
-                                        <span class="filterCaptionTip">（{{ $t("attendees.multiTip") }}）</span>
+                                        <span class="filterCaptionTip">
+                                            （{{ $t("attendees.multiTip") }}）
+                                        </span>
                                     </p>
                                     <div class="filterTags">
                                         <label class="filterLabel" v-for="(tag, tagidx) in industry.Value" :key="tagidx" :value="tag.Id">
                                             <input class="filterCheckBox" type="checkbox" :value="tag.Id" v-model="industryArr">
-                                            <i class="filterTag">{{ tag.Name }}</i>
+                                            <i class="filterTag">
+                                                {{ tag.Name }}
+                                            </i>
                                         </label>
                                     </div>
                                 </div>                
@@ -51,7 +61,9 @@
                             <div class="filterCard" :key="index">
                                 <p class="filterCardCaption">
                                     {{ category.Name }}
-                                    <span class="filterCaptionTip">（{{ $t("attendees.multiTip") }}）</span>
+                                    <span class="filterCaptionTip">
+                                        （{{ $t("attendees.multiTip") }}）
+                                    </span>
                                 </p>
                                 <div class="filterTags">
                                     <label class="filterLabel" v-for="(tag, tagidx) in category.Value" :key="tagidx" :value="tag.Id">
@@ -61,7 +73,9 @@
                                         <template v-else-if="index == 2">
                                             <input class="filterCheckBox" type="checkbox" :value="tag.Id" v-model="identityArr">
                                         </template>
-                                        <i class="filterTag">{{ tag.Name }}</i>
+                                        <i class="filterTag">
+                                            {{ tag.Name }}
+                                        </i>
                                     </label>
                                 </div>
                             </div> 
@@ -69,8 +83,12 @@
                     </template>       
                 </div>
                 <div class="filterBtns">
-                    <button class="filterBtn" type="reset">{{ $t("attendees.resetBtn") }}</button>
-                    <button class="filterBtn submitFilterBtn" type="submit">{{ $t("attendees.submit") }}</button>
+                    <button class="filterBtn" type="reset">
+                        {{ $t("attendees.resetBtn") }}
+                    </button>
+                    <button class="filterBtn submitFilterBtn" type="submit">
+                        {{ $t("attendees.submit") }}
+                    </button>
                 </div>
             </form>
         </div>

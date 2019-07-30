@@ -7,9 +7,15 @@
 						<img class="meAvatarImg" :src="myInfo.Photo" alt="">
 					</div>
 					<div class="meInfo">
-						<p class="meName">{{ myInfo.Name }}</p>
-						<p class="meCompany">{{ myInfo.Company }}</p>
-						<p class="meJob">{{ myInfo.JobTitle }}</p>
+						<p class="meName">
+							{{ myInfo.Name }}
+						</p>
+						<p class="meCompany">
+							{{ myInfo.Company }}
+						</p>
+						<p class="meJob">
+							{{ myInfo.JobTitle }}
+						</p>
 					</div>
 				</router-link>
 				<div class="qrCode">
@@ -75,11 +81,11 @@ export default {
 				localStorage.removeItem("exhibitorLoadAll");		// 重置广场页展商列表加载状态
 				localStorage.removeItem("exhibitorListScrollTop");
 
-				localStorage.removeItem("recommendLoadIndex");
-				localStorage.removeItem("recommendLoadAll");
+				localStorage.removeItem("recommendLoadIndex");		// 重置人脉页推荐列表加载页码
+				localStorage.removeItem("recommendLoadAll");		// 重置人脉页推荐列表加载状态
 				localStorage.removeItem("recommendScrollTop");
 
-				localStorage.removeItem("attendsLoadIndex");
+				localStorage.removeItem("attendsLoadIndex");		// 人脉页全部嘉宾
 				localStorage.removeItem("attendsLoadAll");
 				localStorage.removeItem("attendsScrollTop");
 
@@ -114,7 +120,6 @@ export default {
 			"getAttendsList",
 			"getAttendsFilter",
 			"getExhibitorList",
-			"getPlazaList",
 			"getChatList"
 		]),
 		...mapMutations([
@@ -124,7 +129,7 @@ export default {
 		]),
 	},
 	created: function() {
-		// this.initMyInfo({ eventNo: this.eventNo, token: this.token, lang: this.lang == 'zh' ? 1 : 2 });
+		
 	}
 };
 </script>

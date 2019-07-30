@@ -12,7 +12,7 @@
                 <Loading :loading="loading"></Loading>
                 <template v-for="chat in chatList">
                     <template v-if="chat.Type == 0">
-                        <div class="chatItem clear" :id="'msg' + chat.Id" :class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" :key="chat.Id">
+                        <div class="chatItem clear" :id="`msg${chat.Id}`" :class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" :key="chat.Id">
                             <div class="chatUserAvatar">
                                 <img class="chatUserPhoto" :src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
                             </div>
@@ -22,60 +22,82 @@
                         </div>
                     </template>
                     <template v-else-if="chat.Type == 1">
-                        <div class="chatItem clear" :id="'msg' + chat.Id" :class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" :key="chat.Id">
+                        <div class="chatItem clear" :id="`msg${chat.Id}`" :class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" :key="chat.Id">
                             <div class="chatUserAvatar">
                                 <img class="chatUserPhoto" :src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
                             </div>
                             <div class="chatContent">
-                                <p class="chatCardCaption">{{ $t("chat.businessCard") }}</p>
+                                <p class="chatCardCaption">
+                                    {{ $t("chat.businessCard") }}
+                                </p>
                                 <div class="chatCard">
                                     <div class="chatCardItem">
                                         <img class="chatCardIcon" src="../assets/iconName.svg" alt="">
-                                        <span class="chatCardText">{{ chat.Content.Name || $t("chat.emptyVal") }}</span>
+                                        <span class="chatCardText">
+                                            {{ chat.Content.Name || $t("chat.emptyVal") }}
+                                        </span>
                                     </div>
                                     <div class="chatCardItem">
                                         <img class="chatCardIcon" src="../assets/iconCompany.svg" alt="">
-                                        <span class="chatCardText">{{ chat.Content.Company || $t("chat.emptyVal") }}</span>
+                                        <span class="chatCardText">
+                                            {{ chat.Content.Company || $t("chat.emptyVal") }}
+                                        </span>
                                     </div>
                                     <div class="chatCardItem">
                                         <img class="chatCardIcon" src="../assets/iconJobtitle.svg" alt="">
-                                        <span class="chatCardText">{{ chat.Content.JobTitle || $t("chat.emptyVal") }}</span>
+                                        <span class="chatCardText">
+                                            {{ chat.Content.JobTitle || $t("chat.emptyVal") }}
+                                        </span>
                                     </div>
                                     <div class="chatCardItem">
                                         <img class="chatCardIcon" src="../assets/iconMobileRed.svg" alt="">
-                                        <span class="chatCardText">{{ chat.Content.Mobile || $t("chat.emptyVal") }}</span>
+                                        <span class="chatCardText">
+                                            {{ chat.Content.Mobile || $t("chat.emptyVal") }}
+                                        </span>
                                     </div>
                                     <div class="chatCardItem">
                                         <img class="chatCardIcon" src="../assets/iconEmail.svg" alt="">
-                                        <span class="chatCardText">{{ chat.Content.Mail || $t("chat.emptyVal") }}</span>
+                                        <span class="chatCardText">
+                                            {{ chat.Content.Mail || $t("chat.emptyVal") }}
+                                        </span>
                                     </div>
                                     <div class="chatCardItem">
                                         <img class="chatCardIcon" src="../assets/iconWechat.svg" alt="">
-                                        <span class="chatCardText">{{ chat.Content.WeChat || $t("chat.emptyVal") }}</span>
+                                        <span class="chatCardText">
+                                            {{ chat.Content.WeChat || $t("chat.emptyVal") }}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </template>
                     <template v-else-if="chat.Type == 2">
-                        <div class="chatItem clear" :id="'msg' + chat.Id" :class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" :key="chat.Id">
+                        <div class="chatItem clear" :id="`msg${chat.Id}`" :class="[chat.NetUserId != chatUser.id ? 'meItem' : 'fromItem']" :key="chat.Id">
                             <div class="chatUserAvatar">
                                 <img class="chatUserPhoto" :src="chat.NetUserId == chatUser.id ? chatUser.photo : myInfo.Photo" alt="">
                             </div>
                             <div class="chatContent">
-                                <p class="chatCardCaption inviteCaption">{{ $t("chat.invite") }}</p>
+                                <p class="chatCardCaption inviteCaption">
+                                    {{ $t("chat.invite") }}
+                                </p>
                                 <div class="chatCard">
                                     <div class="chatCardItem">
                                         <img class="chatCardIcon" src="../assets/iconLocation.svg" alt="">
-                                        <span class="chatCardText">{{ chat.Content.Location }}</span>
+                                        <span class="chatCardText">
+                                            {{ chat.Content.Location }}
+                                        </span>
                                     </div>
                                     <div class="chatCardItem">
                                         <img class="chatCardIcon" src="../assets/iconTime.svg" alt="">
-                                        <span class="chatCardText">{{ chat.Content.Time }}</span>
+                                        <span class="chatCardText">
+                                            {{ chat.Content.Time }}
+                                        </span>
                                     </div>
                                 </div>
-                                <router-link class="inviteLink clear" :to="'/invitedetail?id=' + chat.Content.Id">
-                                    <span class="inviteLinkText lt">{{ $t("chat.checkDetail") }}</span>
+                                <router-link class="inviteLink clear" :to="`/invitedetail?id=${chat.Content.Id}`">
+                                    <span class="inviteLinkText lt">
+                                        {{ $t("chat.checkDetail") }}
+                                    </span>
                                     <span class="inviteLinkRightArrow rt"></span>
                                 </router-link>
                             </div>
@@ -90,7 +112,9 @@
                 {{ $t("chat.cardBtn") }}
             </div>
             <input class="chatInput" v-model.trim="chatMsg">
-            <button class="sendMsgBtn" @click="sendMsg" :disabled="sendDisabled">{{ $t("chat.sendBtn") }}</button>
+            <button class="sendMsgBtn" @click="sendMsg" :disabled="sendDisabled">
+                {{ $t("chat.sendBtn") }}
+            </button>
         </div>
     </div>
 </template>

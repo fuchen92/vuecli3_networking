@@ -3,14 +3,14 @@ import VueI18n from "vue-i18n"
 import LangZh from "@/lang/zh"
 import LangEn from "@/lang/en"
 
-import Toast from "@/plugins/toast/index"
+// import Toast from "@/plugins/toast/index"
 
 import App from './App.vue'
 import store from "./store"
 import router from './router'
 
 Vue.use(VueI18n)
-Vue.use(Toast)
+// Vue.use(Toast)
 
 const i18n = new VueI18n({
 	locale: localStorage.getItem("localeLanguage") || store.state.Lang || "zh",
@@ -73,7 +73,6 @@ router.beforeEach((to, from, next) => {
 	}
 	let token = localStorage.getItem('token')
 	if (!token && to.path !== '/login') {
-		console.log("重定向到登录页")
 		next({ path: '/login' })
 	} else {
 		next()

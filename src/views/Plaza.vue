@@ -2,7 +2,9 @@
     <div class="plaza">
         <div class="plazaTabs">
             <div v-for="(tab, index) in tabs" :key="index" class="plazaTab" :class="{ active: tabIndex == index }" @click="switchPlaza(index)">
-                <span class="plazaTab">{{ tab.name }}</span>
+                <span class="plazaTab">
+                    {{ tab.name }}
+                </span>
             </div>
         </div>
         <div class="plazaBox">
@@ -13,20 +15,28 @@
             <div class="plazaList supplyList" :class="{ active: tabIndex == 1, empty: supplyList.length == 0 }">
                 <div class="emptyList" v-if="supplyList.length == 0">
                     <img class="emptyListImg" src="../assets/nullState.png" alt="">
-                    <p class="emptyListDesc">{{ $t("plaza.emptySupplyDesc") }}</p>
+                    <p class="emptyListDesc">
+                        {{ $t("plaza.emptySupplyDesc") }}
+                    </p>
                 </div>
                 <template v-else>
                     <PostCard v-for="(post, index) in supplyList" :key="index" :post="post">
                         <template #postCardHead>
                             <div class="postCardHead">
-                                <router-link class="postUser" :to="'/guest?guestId=' + post.User.Id">
+                                <router-link class="postUser" :to="`/guest?guestId=${post.User.Id}`">
                                     <div class="postUserAvatar">
                                         <img class="postUserPhoto" :src="post.User.Photo" alt="">
                                     </div>
                                     <div class="postUserInfo">
-                                        <p class="postUserName">{{ lang == "zh" ? post.User.Name : post.User.NameEn }}</p>
-                                        <p class="postUserJob">{{ lang == "zh" ? post.User.JobTitle : post.User.JobTitleEn }}</p>
-                                        <p class="postUserCompany">{{ lang == "zh" ? post.User.Company : post.User.CompanyEn }}</p>
+                                        <p class="postUserName">
+                                            {{ lang == "zh" ? post.User.Name : post.User.NameEn }}
+                                        </p>
+                                        <p class="postUserJob">
+                                            {{ lang == "zh" ? post.User.JobTitle : post.User.JobTitleEn }}
+                                        </p>
+                                        <p class="postUserCompany">
+                                            {{ lang == "zh" ? post.User.Company : post.User.CompanyEn }}
+                                        </p>
                                     </div>
                                 </router-link>
                             </div>
@@ -37,19 +47,27 @@
             <div class="plazaList demandList" :class="{ active: tabIndex == 2, empty: demandList.length == 0 }">
                 <div class="emptyList" v-if="demandList.length == 0">
                     <img class="emptyListImg" src="../assets/nullState.png" alt="">
-                    <p class="emptyListDesc">{{ $t("plaza.emptyRequirementDesc") }}</p>
+                    <p class="emptyListDesc">
+                        {{ $t("plaza.emptyRequirementDesc") }}
+                    </p>
                 </div>
                 <template v-else>
                     <PostCard v-for="(post, index) in demandList" :key="index" :post="post">
                         <div class="postCardHead" slot="postCardHead">
-                            <router-link class="postUser" :to="'/guest?guestId=' + post.User.Id">
+                            <router-link class="postUser" :to="`/guest?guestId=${post.User.Id}`">
                                 <div class="postUserAvatar">
                                     <img class="postUserPhoto" :src="post.User.Photo" alt="">
                                 </div>
                                 <div class="postUserInfo">
-                                    <p class="postUserName">{{ lang == "zh" ? post.User.Name : post.User.NameEn }}</p>
-                                    <p class="postUserJob">{{ lang == "zh" ? post.User.JobTitle : post.User.JobTitleEn }}</p>
-                                    <p class="postUserCompany">{{ lang == "zh" ? post.User.Company : post.User.CompanyEn }}</p>
+                                    <p class="postUserName">
+                                        {{ lang == "zh" ? post.User.Name : post.User.NameEn }}
+                                    </p>
+                                    <p class="postUserJob">
+                                        {{ lang == "zh" ? post.User.JobTitle : post.User.JobTitleEn }}
+                                    </p>
+                                    <p class="postUserCompany">
+                                        {{ lang == "zh" ? post.User.Company : post.User.CompanyEn }}
+                                    </p>
                                 </div>
                             </router-link>
                         </div>

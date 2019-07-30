@@ -7,19 +7,29 @@
                     <img class="guestPhoto" :src="guest.Photo" alt="">
                 </div>
                 <div class="guestInfo">
-                    <h4 class="guestName">{{ guest.Name }}</h4>
-                    <p class="guestJob">{{ guest.JobTitle }}</p>
-                    <p class="guestCompany">{{ guest.Company }}</p>
+                    <h4 class="guestName">
+                        {{ guest.Name }}
+                    </h4>
+                    <p class="guestJob">
+                        {{ guest.JobTitle }}
+                    </p>
+                    <p class="guestCompany">
+                        {{ guest.Company }}
+                    </p>
                 </div>
             </div>
             <div class="guestChunk">
-                <h4 class="guestChunkCaption">{{ $t("guest.introLabel") }}</h4>
+                <h4 class="guestChunkCaption">
+                    {{ $t("guest.introLabel") }}
+                </h4>
                 <p class="guestIntro">
                     {{ (guest.Intro == "" || guest.Intro == null) ? $t("guest.emptyVal") : guest.Intro }}
                 </p>
             </div>
             <div class="guestChunk" v-if="guest.ProgramList != null && guest.ProgramList.length != 0">
-                <h4 class="guestChunkCaption">{{ $t("guest.participateCaption") }}</h4>
+                <h4 class="guestChunkCaption">
+                    {{ $t("guest.participateCaption") }}
+                </h4>
                 <ul class="participateList">
                     <li class="participateItem" v-for="(participate, index) in guest.ProgramList" :key="index">
                         <div class="participateInfo">
@@ -29,9 +39,11 @@
                             <!-- <p class="participateType">
                                 {{ participate.TypeName }}
                             </p> -->
-                            <h4 class="participateTopic">{{ participate.Topic }}</h4>
+                            <h4 class="participateTopic">
+                                {{ participate.Topic }}
+                            </h4>
                         </div>
-                        <router-link class="participateLink" :to="'/programdetail?programId=' + participate.Id">
+                        <router-link class="participateLink" :to="`/programdetail?programId=${participate.Id}`">
                             {{ $t("speaker.view") }}
                         </router-link>
                     </li>
@@ -39,31 +51,53 @@
             </div>
             <div class="guestChunk" v-if="guest.Role != 4 || guest.ContactList.length > 0">
                 <div class="guestChunkContactTitle clear">
-                    <h4 class="guestChunkCaption lt">{{ $t("guest.contactLabel") }}</h4>
-                    <span class="sendCardLabel rt" v-if="guest.Id != myInfo.Id" @click="sendCard">{{ $t("guest.sendCard") }}</span>
+                    <h4 class="guestChunkCaption lt">
+                        {{ $t("guest.contactLabel") }}
+                    </h4>
+                    <span class="sendCardLabel rt" v-if="guest.Id != myInfo.Id" @click="sendCard">
+                        {{ $t("guest.sendCard") }}
+                    </span>
                 </div>
                 <div class="guestContact">
                     <div class="guestContactItem clear">
-                        <p class="guestContactItemName lt">{{ $t("guest.mobileLabel") }}</p>
-                        <p class="guestContactItemVal rt">{{ (guest.ContactList[0] == "" || guest.ContactList[0] == null) ? $t("guest.emptyVal") : guest.ContactList[0].Name }}</p>
+                        <p class="guestContactItemName lt">
+                            {{ $t("guest.mobileLabel") }}
+                        </p>
+                        <p class="guestContactItemVal rt">
+                            {{ (guest.ContactList[0] == "" || guest.ContactList[0] == null) ? $t("guest.emptyVal") : guest.ContactList[0].Name }}
+                        </p>
                     </div>
                     <div class="guestContactItem clear">
-                        <p class="guestContactItemName lt">{{ $t("guest.emailLabel") }}</p>
-                        <p class="guestContactItemVal rt">{{ (guest.ContactList[1] == "" || guest.ContactList[1] == null) ? $t("guest.emptyVal") : guest.ContactList[1].Name }}</p>
+                        <p class="guestContactItemName lt">
+                            {{ $t("guest.emailLabel") }}
+                        </p>
+                        <p class="guestContactItemVal rt">
+                            {{ (guest.ContactList[1] == "" || guest.ContactList[1] == null) ? $t("guest.emptyVal") : guest.ContactList[1].Name }}
+                        </p>
                     </div>
                     <div class="guestContactItem clear">
-                        <p class="guestContactItemName lt">{{ $t("guest.wechatLabel") }}</p>
-                        <p class="guestContactItemVal rt">{{ (guest.ContactList[2] == "" || guest.ContactList[2] == null) ? $t("guest.emptyVal") : guest.ContactList[2].Name }}</p>
+                        <p class="guestContactItemName lt">
+                            {{ $t("guest.wechatLabel") }}
+                        </p>
+                        <p class="guestContactItemVal rt">
+                            {{ (guest.ContactList[2] == "" || guest.ContactList[2] == null) ? $t("guest.emptyVal") : guest.ContactList[2].Name }}
+                        </p>
                     </div>
                 </div>
             </div>
             <template v-if="guest.SolutionList.length != 0">                
                 <div class="guestChunk" v-for="(solution, index) in guest.SolutionList" :key="solution.Id">
-                    <h4 class="guestChunkCaption" v-if="index == 0">{{ $t("guest.demandLabel") }}</h4>
+                    <h4 class="guestChunkCaption" v-if="index == 0">
+                        {{ $t("guest.demandLabel") }}
+                    </h4>
                     <div class="guestDemand">
-                        <p class="demandContent">{{ solution.Intro }}</p>
+                        <p class="demandContent">
+                            {{ solution.Intro }}
+                        </p>
                         <div class="demandBottom clear">
-                            <p class="demandTime lt">{{ $pattern(solution.Time, "MM-dd HH:mm") }}</p>
+                            <p class="demandTime lt">
+                                {{ $pattern(solution.Time, "MM-dd HH:mm") }}
+                            </p>
                             <div class="demandLike rt" :class="{ active: solution.IsLike }" :data-id="solution.Id" :data-index="index">
                                 {{ $tc("guest.interest", solution.Like) }}
                             </div>

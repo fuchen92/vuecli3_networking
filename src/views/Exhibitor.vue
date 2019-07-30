@@ -8,62 +8,103 @@
                         <img class="exhibitorLogo" :src="exhibitor.Photo" alt="">
                         <p class="exhibitorBooth">
                             <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                            <span class="exhibitorBoothText">{{ exhibitor.Booth }}</span>
+                            <span class="exhibitorBoothText">
+                                {{ exhibitor.Booth }}
+                            </span>
                         </p>
                     </div>
                     <div class="exhibitorInfo">
-                        <h4 class="exhibitorName">{{ exhibitor.Name }}</h4>
+                        <h4 class="exhibitorName">
+                            {{ exhibitor.Name }}
+                        </h4>
                         <div class="exhibitorTags">
-                            <span class="exhibitorTag" v-for="(industry, index) in exhibitor.Industry" :key="index">{{ industry.Name }}</span>
+                            <span class="exhibitorTag" v-for="(industry, index) in exhibitor.Industry" :key="index">
+                                {{ industry.Name }}
+                            </span>
                         </div>
-                        <p class="exhibitorSlogan" v-if="exhibitor.Intro2 != ''">{{ exhibitor.Intro2 }}</p>
+                        <p class="exhibitorSlogan" v-if="exhibitor.Intro2 != ''">
+                            {{ exhibitor.Intro2 }}
+                        </p>
                     </div>
                 </div>
                 <div class="exhibitorChunk">
-                    <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.companyCaption") }}</h4>
-                    <p class="exhibitorIntro">{{ exhibitor.Intro }}</p>
+                    <h4 class="exhibitorChunkCaption">
+                        {{ $t("exhibitor.companyCaption") }}
+                    </h4>
+                    <p class="exhibitorIntro">
+                        {{ exhibitor.Intro }}
+                    </p>
                 </div>
                 <div class="exhibitorChunk clear">
-                    <h4 class="exhibitorChunkCaption venueCaption lt">{{ $t("exhibitor.boothCaption") }}</h4>
+                    <h4 class="exhibitorChunkCaption venueCaption lt">
+                        {{ $t("exhibitor.boothCaption") }}
+                    </h4>
                     <p class="venueCaret rt"></p>
                 </div>
-                <!-- <div class="exhibitorChunk"> -->
                 <div class="exhibitorChunk" v-if="exhibitor.Products.length != 0">
-                    <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.schemeCaption") }}</h4>
+                    <h4 class="exhibitorChunkCaption">
+                        {{ $t("exhibitor.schemeCaption") }}
+                    </h4>
                     <div class="schemeList">
                         <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="`/product?productId=${scheme.Id}`" class="schemeItem">
                             <div class="schemeLogo">
                                 <img class="schemeLogoImg" :src="scheme.Logo" alt="">
                             </div>
                             <div class="schemeInfo">
-                                <h5 class="schemeTitle">{{ scheme.Name }}</h5>
-                                <p class="schemeDesc">{{ scheme.Summary }}</p>
+                                <h5 class="schemeTitle">
+                                    {{ scheme.Name }}
+                                </h5>
+                                <p class="schemeDesc">
+                                    {{ scheme.Summary }}
+                                </p>
                             </div>
                         </router-link>
                     </div>
                 </div>
                 <div class="exhibitorChunk">
-                    <h4 class="exhibitorChunkCaption">{{ $t("exhibitor.contactCaption") }}</h4>
+                    <h4 class="exhibitorChunkCaption">
+                        {{ $t("exhibitor.contactCaption") }}
+                    </h4>
                     <div class="exhibitorContact">
                         <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">{{ $t("exhibitor.contactLabel") }}</p>
-                            <p class="exhibitorContactItemVal rt">{{ (exhibitor.localContactList[7] == "" || exhibitor.localContactList[7] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[7] }}</p>
+                            <p class="exhibitorContactItemName lt">
+                                {{ $t("exhibitor.contactLabel") }}
+                            </p>
+                            <p class="exhibitorContactItemVal rt">
+                                {{ (exhibitor.localContactList[7] == "" || exhibitor.localContactList[7] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[7] }}
+                            </p>
                         </div>
                         <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">{{ $t("exhibitor.mobileLabel") }}</p>
-                            <p class="exhibitorContactItemVal rt">{{ (exhibitor.localContactList[0] == "" || exhibitor.localContactList[0] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[0] }}</p>
+                            <p class="exhibitorContactItemName lt">
+                                {{ $t("exhibitor.mobileLabel") }}
+                            </p>
+                            <p class="exhibitorContactItemVal rt">
+                                {{ (exhibitor.localContactList[0] == "" || exhibitor.localContactList[0] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[0] }}
+                            </p>
                         </div>
                         <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">{{ $t("exhibitor.emailLabel") }}</p>
-                            <p class="exhibitorContactItemVal rt">{{ (exhibitor.localContactList[1] == "" || exhibitor.localContactList[1] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[1] }}</p>
+                            <p class="exhibitorContactItemName lt">
+                                {{ $t("exhibitor.emailLabel") }}
+                            </p>
+                            <p class="exhibitorContactItemVal rt">
+                                {{ (exhibitor.localContactList[1] == "" || exhibitor.localContactList[1] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[1] }}
+                            </p>
                         </div>
                         <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">{{ $t("exhibitor.telLabel") }}</p>
-                            <p class="exhibitorContactItemVal rt">{{ (exhibitor.localContactList[9] == "" || exhibitor.localContactList[9] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[9] }}</p>
+                            <p class="exhibitorContactItemName lt">
+                                {{ $t("exhibitor.telLabel") }}
+                            </p>
+                            <p class="exhibitorContactItemVal rt">
+                                {{ (exhibitor.localContactList[9] == "" || exhibitor.localContactList[9] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[9] }}
+                            </p>
                         </div>
                         <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">{{ $t("exhibitor.siteLabel") }}</p>
-                            <p class="exhibitorContactItemVal rt">{{ (exhibitor.localContactList[8] == "" || exhibitor.localContactList[8] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[8] }}</p>
+                            <p class="exhibitorContactItemName lt">
+                                {{ $t("exhibitor.siteLabel") }}
+                            </p>
+                            <p class="exhibitorContactItemVal rt">
+                                {{ (exhibitor.localContactList[8] == "" || exhibitor.localContactList[8] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[8] }}
+                            </p>
                         </div>
                     </div>
                 </div>

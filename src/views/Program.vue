@@ -128,34 +128,48 @@
                 <div class="programList" :key="index" :class="{ active: currentIndex == (index + 1) }">
                     <div class="container">
                         <div class="programItem programItemSite">
-                            <template v-if="lang == 'zh'">{{ index == 0 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (index == 1 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}</template>
-                            <template v-else >{{ index == 0 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2 & 3】" : (index == 1 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2】" : "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 3】") }}</template>
+                            <template v-if="lang == 'zh'">
+                                {{ index == 0 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (index == 1 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}
+                            </template>
+                            <template v-else >
+                                {{ index == 0 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2 & 3】" : (index == 1 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2】" : "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 3】") }}
+                            </template>
                         </div>
                         <template v-for="prg in prgList">
                             <div class="programItem" :key="prg.Id">
                                 <div class="programItemHead">
-                                    <p class="programItemTime">{{ $pattern(prg.Begin, "HH:mm") }} - {{ $pattern(prg.End, "HH:mm") }}</p>
-                                    <p class="programItemType">{{ prg.TypeName }}</p>
-                                    <router-link v-if="prg.Topic != ''" class="programItemTitle" :to="'/programdetail?programId=' + prg.Id">{{ prg.Topic }}</router-link>
+                                    <p class="programItemTime">
+                                        {{ $pattern(prg.Begin, "HH:mm") }} - {{ $pattern(prg.End, "HH:mm") }}
+                                    </p>
+                                    <p class="programItemType">
+                                        {{ prg.TypeName }}
+                                    </p>
+                                    <router-link v-if="prg.Topic != ''" class="programItemTitle" :to="`/programdetail?programId=${prg.Id}`">
+                                        {{ prg.Topic }}
+                                    </router-link>
                                 </div>
                                 <template v-if="prg.Details.length != 0">
                                     <div class="programItemBody">
                                         <div class="programItemSpeakerList">
                                             <template v-for="(detail, didx) in prg.Details">
-                                                <p v-if="detail.DataType != prg.Details[0].DataType || didx == 0" :key="didx" class="speakerType">{{ detail.DataType }}</p>
-                                                <router-link class="programItemSpeaker" v-if="detail.Speaker.SocialId > 0" :to="'/guest?guestId=' + detail.Speaker.SocialId" :key="detail.Speaker.SocialId">
+                                                <p v-if="detail.DataType != prg.Details[0].DataType || didx == 0" :key="didx" class="speakerType">
+                                                    {{ detail.DataType }}
+                                                </p>
+                                                <router-link class="programItemSpeaker" v-if="detail.Speaker.SocialId > 0" :to="`/guest?guestId=${detail.Speaker.SocialId}`" :key="detail.Speaker.SocialId">
                                                     <span class="programItemSpeakerAvatar">
                                                         <img class="programItemSpeakerPhoto" :src="detail.Speaker.Photo" />
                                                     </span>
-                                                    <span
-                                                        class="programItemSpeakerName"
-                                                    >{{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}</span>
+                                                    <span class="programItemSpeakerName">
+                                                        {{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}
+                                                    </span>
                                                 </router-link>
-                                                <router-link v-else class="programItemSpeaker" :to="'/speaker?speakerId=' + detail.Speaker.Id" :key="detail.Speaker.Id">
+                                                <router-link v-else class="programItemSpeaker" :to="`/speaker?speakerId=${detail.Speaker.Id}`" :key="detail.Speaker.Id">
                                                     <span class="programItemSpeakerAvatar">
                                                         <img class="programItemSpeakerPhoto" :src="detail.Speaker.Photo"/>
                                                     </span>
-                                                    <span class="programItemSpeakerName">{{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}</span>
+                                                    <span class="programItemSpeakerName">
+                                                        {{ detail.Speaker.Company }} {{ detail.Speaker.JobTitle }} {{ detail.Speaker.Name }}
+                                                    </span>
                                                 </router-link>
                                             </template>
                                         </div>

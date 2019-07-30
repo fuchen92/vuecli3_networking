@@ -52,7 +52,9 @@
             <div class="infomationCard">
                 <textarea class="infomationIntro" :placeholder="$t('meinfomation.intro')" v-model.trim="intro"></textarea>
             </div>
-            <button class="saveInfomation" @click="saveInfomation" :disabled="isSaved">{{ $t("meinfomation.save['" + saveBtnIndex + "']") }}</button>        
+            <button class="saveInfomation" @click="saveInfomation" :disabled="isSaved">
+                {{ $t("meinfomation.save['" + saveBtnIndex + "']") }}
+            </button>        
         </div>
     </div>
 </template>

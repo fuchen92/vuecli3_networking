@@ -5,16 +5,24 @@
             <div class="searchBar">
                 <input class="searchInput" type="text" :placeholder="$t('search.searchInput')" v-model.trim="keyWord" @keyup.enter="submitFilter">
                 <select class="searchSelect" v-model="identity">
-                    <option value="1">{{ $t("search.attendOption") }}</option>
-                    <option value="2">{{ $t("search.exhibitorOption") }}</option>
+                    <option value="1">
+                        {{ $t("search.attendOption") }}
+                    </option>
+                    <option value="2">
+                        {{ $t("search.exhibitorOption") }}
+                    </option>
                 </select>
-                <button class="openFilterBtn" @click="showFilter = !showFilter">{{ showFilter ? $t("search.cancelFilterBtn") : $t("search.openFilterBtn") }}</button>
+                <button class="openFilterBtn" @click="showFilter = !showFilter">
+                    {{ showFilter ? $t("search.cancelFilterBtn") : $t("search.openFilterBtn") }}
+                </button>
             </div>
             <div class="searchWrapper">
                 <div class="resultBox">
                     <div class="emptyResult" v-if="resultList.length == 0">
                         <img class="emptyResultImg" src="../assets/nullState.png" alt="">
-                        <p class="emptyResultDesc">{{ $t("search.emptyDesc") }}</p>
+                        <p class="emptyResultDesc">
+                            {{ $t("search.emptyDesc") }}
+                        </p>
                     </div>
                     <div class="resultList" v-else>
                         <template v-if="resultType == 1">
@@ -35,12 +43,16 @@
                                             <div class="filterCard" :key="industryIndex">
                                                 <p class="filterCardCaption">
                                                     {{ industry.Name }}
-                                                    <span class="filterCaptionTip">（{{ $t("search.multiTip") }}）</span>
+                                                    <span class="filterCaptionTip">
+                                                        （{{ $t("search.multiTip") }}）
+                                                    </span>
                                                 </p>
                                                 <div class="filterTags">
                                                     <label class="filterLabel" v-for="(tag, tagidx) in industry.Value" :key="tagidx" :value="tag.Id">
                                                         <input class="filterCheckBox" type="checkbox" :value="tag.Id" v-model="industryArr">
-                                                        <i class="filterTag">{{ tag.Name }}</i>
+                                                        <i class="filterTag">
+                                                            {{ tag.Name }}
+                                                        </i>
                                                     </label>
                                                 </div>
                                             </div>                
@@ -50,7 +62,9 @@
                                         <div class="filterCard" :key="index">
                                             <p class="filterCardCaption">
                                                 {{ category.Name }}
-                                                <span class="filterCaptionTip">（{{ $t("search.multiTip") }}）</span>
+                                                <span class="filterCaptionTip">
+                                                    （{{ $t("search.multiTip") }}）
+                                                </span>
                                             </p>
                                             <div class="filterTags">
                                                 <label class="filterLabel" v-for="(tag, tagidx) in category.Value" :key="tagidx" :value="tag.Id">
@@ -60,7 +74,9 @@
                                                     <template v-else-if="index == 2">
                                                         <input class="filterCheckBox" type="checkbox" :value="tag.Id" v-model="identityArr">
                                                     </template>
-                                                    <i class="filterTag">{{ tag.Name }}</i>
+                                                    <i class="filterTag">
+                                                        {{ tag.Name }}
+                                                    </i>
                                                 </label>
                                             </div>
                                         </div> 
@@ -81,12 +97,16 @@
                                             <div class="filterCard" :key="industry2.Id" v-show="filterTabIndex == 0">
                                                 <p class="filterCardCaption">
                                                     {{ industry2.Name }}
-                                                    <span class="filterCaptionTip">（{{ $t("search.multiTip") }}）</span>
+                                                    <span class="filterCaptionTip">
+                                                        （{{ $t("search.multiTip") }}）
+                                                    </span>
                                                 </p>
                                                 <div class="filterTags">
                                                     <label class="filterLabel" v-for="(tag2, tagidx2) in industry2.Value" :key="tagidx2" :value="tag2.Id">
                                                         <input class="filterCheckBox" type="checkbox" :value="tag2.Id" v-model="exhibitorIdstryArr">
-                                                        <i class="filterTag">{{ tag2.Name }}</i>
+                                                        <i class="filterTag">
+                                                            {{ tag2.Name }}
+                                                        </i>
                                                     </label>
                                                 </div>
                                             </div>
@@ -97,12 +117,16 @@
                                             <div class="filterCard" :key="product.Id" v-show="filterTabIndex == 1">
                                                 <p class="filterCardCaption">
                                                     {{ product.Name }}
-                                                    <span class="filterCaptionTip">（{{ $t("search.multiTip") }}）</span>
+                                                    <span class="filterCaptionTip">
+                                                        （{{ $t("search.multiTip") }}）
+                                                    </span>
                                                 </p>
                                                 <div class="filterTags">
                                                     <label class="filterLabel" v-for="(pro, proIdx) in product.Value" :key="proIdx" :value="pro.Id">                                                        
                                                         <input class="filterCheckBox" type="checkbox" :value="pro.Id" v-model="exhibitorProArr">                                                        
-                                                        <i class="filterTag">{{ pro.Name }}</i>
+                                                        <i class="filterTag">
+                                                            {{ pro.Name }}
+                                                        </i>
                                                     </label>
                                                 </div>
                                             </div>
@@ -112,8 +136,12 @@
                             </div>
                         </div>
                         <div class="filterBtns">
-                            <button class="filterBtn" type="reset">{{ $t("search.resetBtn") }}</button>
-                            <button class="filterBtn submitFilterBtn" type="submit">{{ $t("search.submitBtn") }}</button>
+                            <button class="filterBtn" type="reset">
+                                {{ $t("search.resetBtn") }}
+                            </button>
+                            <button class="filterBtn submitFilterBtn" type="submit">
+                                {{ $t("search.submitBtn") }}
+                            </button>
                         </div>
                     </form>
                 </div>

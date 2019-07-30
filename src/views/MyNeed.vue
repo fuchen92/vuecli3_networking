@@ -48,15 +48,6 @@ export default {
         ])
     },
     created: function() {
-        // this.$http.post("http://192.168.1.21:89/Me/SolutionList", {
-        //     eventNo: 63,
-        //     index: 1,
-        //     size: -1,
-        //     token: "",
-        //     lang: 1
-        // }).then(res => {
-        //     console.log(res)
-        // })
         this.getMySolutionList({ eventNo: this.eventNo, index: 1, size: 9999, token: this.token, lang: this.lang == "zh" ? 1 : 2 });
     }
     

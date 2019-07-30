@@ -3,33 +3,51 @@
         <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="inviteBox">
             <div class="inviteChunk">
-                <h4 class="inviteChunkCaption">{{ $t("invite.peopleCaption") }}</h4>
+                <h4 class="inviteChunkCaption">
+                    {{ $t("invite.peopleCaption") }}
+                </h4>
                 <div class="invitePeople">
                     <div class="invitePeopleAvatar">
                         <img class="invitePeoplePhoto" :src="invitePeople.photo" alt="">
                     </div>
                     <div class="invitePeopleInfo">
-                        <h4 class="invitePeopleName">{{ invitePeople.name }}</h4>
-                        <p class="invitePeopleJob">{{ invitePeople.job }}</p>
-                        <p class="invitePeopleCompany">{{ invitePeople.company }}</p>
+                        <h4 class="invitePeopleName">
+                            {{ invitePeople.name }}
+                        </h4>
+                        <p class="invitePeopleJob">
+                            {{ invitePeople.job }}
+                        </p>
+                        <p class="invitePeopleCompany">
+                            {{ invitePeople.company }}
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="inviteChunk">
-                <h4 class="inviteChunkCaption">{{ $t("invite.cardCaption") }}</h4>
-                <p class="inviteDesc">{{ $t("invite.inviteDesc") }}</p>
+                <h4 class="inviteChunkCaption">
+                    {{ $t("invite.cardCaption") }}
+                </h4>
+                <p class="inviteDesc">
+                    {{ $t("invite.inviteDesc") }}
+                </p>
                 <div class="inviteCard">
                     <div class="inviteCardItem">
                         <img class="inviteCardItemIcon" src="../assets/iconName.svg" alt="">
-                        <p class="inviteCardItemContent">{{ myInfo.Name }}</p>
+                        <p class="inviteCardItemContent">
+                            {{ myInfo.Name }}
+                        </p>
                     </div>
                     <div class="inviteCardItem">
                         <img class="inviteCardItemIcon" src="../assets/iconMobileRed.svg" alt="">
-                        <p class="inviteCardItemContent">{{ myInfo.Mobile }}</p>
+                        <p class="inviteCardItemContent">
+                            {{ myInfo.Mobile }}
+                        </p>
                     </div>
                     <div class="inviteCardItem">
                         <img class="inviteCardItemIcon" src="../assets/iconEmail.svg" alt="">
-                        <p class="inviteCardItemContent">{{ myInfo.Mail }}</p>
+                        <p class="inviteCardItemContent">
+                            {{ myInfo.Mail }}
+                        </p>
                     </div>
                     <div class="inviteCardItem">
                         <img class="inviteCardItemIcon" src="../assets/iconTime.svg" alt="">
@@ -47,12 +65,16 @@
                 </div>
             </div>
             <div class="inviteChunk">
-                <h4 class="inviteChunkCaption">{{ $t("invite.matterCaption") }}</h4>
+                <h4 class="inviteChunkCaption">
+                    {{ $t("invite.matterCaption") }}
+                </h4>
                 <div class="inviteMatter">
                     <textarea class="inviteMatterInput" :placeholder="$t('invite.matterInput')" ref="matter" v-model.trim="matter"></textarea>
                 </div>
             </div>
-            <button class="inviteSubmitBtn" @click="submitInvite">{{ $t("invite.inviteBtn") }}</button>
+            <button class="inviteSubmitBtn" @click="submitInvite">
+                {{ $t("invite.inviteBtn") }}
+            </button>
         </div>
     </div>
 </template>
