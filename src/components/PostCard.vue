@@ -1,30 +1,24 @@
 <template>
     <div class="postCard">
-        <!-- <div class="postCardHead">
-            <router-link class="postUser" v-bind:to="'/guests?' + post.User.Id">
-                <div class="postUserAvatar">
-                    <img class="postUserPhoto" v-bind:src="post.User.Photo" alt="">
-                </div>
-                <div class="postUserInfo">
-                    <p class="postUserName">{{ post.User.Name }}</p>
-                    <p class="postUserJob">{{ post.User.JobTitle }}</p>
-                    <p class="postUserCompany">{{ post.User.Company }}</p>
-                </div>
-            </router-link>
-        </div> -->
         <slot name="postCardHead"></slot>
         <div class="postCardBody">
             <p class="postDesc">
                 {{ post.Intro }}
             </p>
             <div class="postTags" v-if="post.Tag.length != 0">
-                <span class="postTag">{{ post.Tag[0].Name }}</span>
+                <span class="postTag">
+                    {{ post.Tag[0].Name }}
+                </span>
             </div>
         </div>
         <div class="postSummary clear">
-            <div class="postTime lt">{{ $pattern(post.Time, "yyyy-MM-dd HH:mm") }}</div>
+            <div class="postTime lt">
+                {{ $pattern(post.Time, "yyyy-MM-dd HH:mm") }}
+            </div>
             <template v-if="this.$route.path == '/plaza'">
-                <a class="postContact rt" :href="'tel:' + post.Contact.Name">{{ $t("postCard.tel") }}</a>
+                <a class="postContact rt" :href="`tel:${post.Contact.Name}`">
+                    {{ $t("postCard.tel") }}
+                </a>
                 <div class="postStar rt" :class="{ active: post.IsLike, star: isStared }" :data-from="post.User.Id" :data-pid="post.Id" @click="starPost(post.Id, $event)">
                     {{ isStared ? $tc("postCard.interest", starCount) : $tc("postCard.interest", post.Like) }}
                 </div>

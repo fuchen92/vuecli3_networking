@@ -5,15 +5,23 @@
                 <img class="exhibitorLogo" :src="exhibitor.Photo" alt="">
                 <p class="exhibitorBooth">
                     <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                    <span class="exhibitorBoothText">{{ exhibitor.Booth }}</span>
+                    <span class="exhibitorBoothText">
+                        {{ exhibitor.Booth }}
+                    </span>
                 </p>
             </div>
             <div class="exhibitorInfo">
-                <h4 class="exhibitorName">{{ exhibitor.Name }}</h4>
+                <h4 class="exhibitorName">
+                    {{ exhibitor.Name }}
+                </h4>
                 <div class="exhibitorTags">
-                    <span class="exhibitorTag" v-for="(industry, index) in exhibitor.Industry" :key="index">{{ industry.Name }}</span>
+                    <span class="exhibitorTag" v-for="(industry, index) in exhibitor.Industry" :key="index">
+                        {{ industry.Name }}
+                    </span>
                 </div>
-                <p class="exhibitorSlogan" v-if="exhibitor.Intro2 != ''">{{ exhibitor.Intro2 }}</p>
+                <p class="exhibitorSlogan" v-if="exhibitor.Intro2 != ''">
+                    {{ exhibitor.Intro2 }}
+                </p>
                 <div class="interestList" v-if="exhibitor.AttendeesPhoto != null">
                     <template v-for="(attend, index) in exhibitor.AttendeesPhoto">
                         <template v-if="index < 3">

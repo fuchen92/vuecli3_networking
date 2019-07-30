@@ -5,9 +5,15 @@
                 <img class="guestPhoto" :src="guest.Photo" alt="">
             </div>
             <div class="guestInfo">
-                <p class="guestName">{{ guest.Name }}</p>
-                <p class="guestCompany">{{ guest.Company }}</p>
-                <p class="guestJob">{{ guest.JobTitle }}</p>
+                <p class="guestName">
+                    {{ guest.Name }}
+                </p>
+                <p class="guestCompany">
+                    {{ guest.Company }}
+                </p>
+                <p class="guestJob">
+                    {{ guest.JobTitle }}
+                </p>
             </div>
         </router-link>
         <div class="guestOpts">
