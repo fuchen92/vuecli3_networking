@@ -226,6 +226,9 @@ export default {
         publishMobile: "公开手机号",        
         "publishBtn": "发布"
     },
+    postInterest: {
+        "navBarTitle": "感兴趣的人",
+    },
     "exhibitor": {
         "navBarTitle": "展商详情",
         "companyCaption": "公司介绍",

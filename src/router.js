@@ -72,6 +72,10 @@ export default new Router({
 			component: () => import(/* webpackChunkName: "publish" */ "@/views/Publish.vue")
 		},
 		{
+			path: "/postinterest",
+			component: () => import(/* webpackChunkName: "postinterest" */ "@/views/PostInterest.vue")
+		},
+		{
 			path: "/meinfomation",
 			component: () => import(/* webpackChunkName: "meinfomation" */ "@/views/MeInfomation.vue")
 		},

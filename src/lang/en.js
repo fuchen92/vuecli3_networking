@@ -209,6 +209,9 @@ export default {
         publishMobile: "Post mobile number",  
         "publishBtn": "Post"
     },
+    postInterest: {
+        "navBarTitle": "People Interested",
+    },
     "exhibitor": {
         "navBarTitle": "Exhibitor Details",
         "companyCaption": "Company Profile",

@@ -25,7 +25,7 @@
             <div class="postTime lt">{{ $pattern(post.Time, "yyyy-MM-dd HH:mm") }}</div>
             <template v-if="this.$route.path == '/plaza'">
                 <a class="postContact rt" :href="'tel:' + post.Contact.Name">{{ $t("postCard.tel") }}</a>
-                <div class="postInterest rt" :class="{ active: post.IsLike, star: isStared }" :data-from="post.User.Id" :data-pid="post.Id" @click="starPost(post.Id, $event)">
+                <div class="postStar rt" :class="{ active: post.IsLike, star: isStared }" :data-from="post.User.Id" :data-pid="post.Id" @click="starPost(post.Id, $event)">
                     {{ isStared ? $tc("postCard.interest", starCount) : $tc("postCard.interest", post.Like) }}
                 </div>
             </template>
@@ -34,14 +34,13 @@
             </div>
         </div>
         <div class="postLike clear" v-if="post.LikeUserPhoto && this.$route.path == '/plaza'">
-            <router-link class="likeCount rt" :to="`/postinterest?id=${post.Id}`">
+            <router-link class="likeCount rt" :to="`/postinterest?postId=${post.Id}`">
                 {{ isStared ? $tc("postCard.likeCount", starCount) : $tc("postCard.likeCount", post.Like) }}
             </router-link>
             <template v-for="(likeUser, index) in post.LikeUserPhoto">
                 <img class="likePhoto rt" v-if="index < 3" :key="index" :src="likeUser">
             </template>
         </div>
-        <!-- <slot name="postCardSummary"></slot> -->
     </div>
 </template>
 <script>
@@ -178,7 +177,7 @@ export default {
     padding-top: 0.2rem;
     border-top: 0.02rem solid #f0f1f2;
 }
-.postTime, .postContact, .postInterest {
+.postTime, .postContact, .postStar {
     height: 0.4rem;
     font-size: 0.24rem;
     line-height: 0.4rem;
@@ -189,11 +188,11 @@ export default {
     padding-left: 0.4rem;
     background: url(../assets/iconMobile.svg) left center/0.3rem auto no-repeat;
 }
-.postInterest {
+.postStar {
     padding-left: 0.4rem;
     background: url(../assets/iconLike.svg) left center/0.3rem auto no-repeat;
 }
-.postInterest.active, .postInterest.star {
+.postStar.active, .postStar.star {
     background: url(../assets/iconLikeRed.svg) left center/0.3rem auto no-repeat;
 }
 .postLike {

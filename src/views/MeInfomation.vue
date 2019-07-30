@@ -7,7 +7,6 @@
                     <img class="avatarPhoto" :src="myInfo.Photo || '../assets/avatar.jpg'" alt="">
                 </div>
                 <div class="infomationCardContent">
-                    <!-- <button class="uploadBtn">{{ $t("meinfomation.upload") }}</button> -->
                     <label class="uploadLabel">
                         <input class="uploadInput" type="file" ref="uploadInput" accept="image/jpg, image/jpeg, image/png, image/gif" @change="uploadAvatar">
                         <i class="uploadBtn">{{ $t("meinfomation.upload") }}</i>
