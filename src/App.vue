@@ -19,6 +19,7 @@ export default {
             lang: state => state.Lang,
             token: state => state.Account.Token,
             myInfo: state => state.MyInfomation,
+            messageList: state => state.MessageList
 		}),
     },
     watch: {
@@ -33,7 +34,6 @@ export default {
         ...mapMutations([
             "SETREDDOT",
             "ADDNEWCHAT",
-            "INITMESSAGELIST",
             "ADDUNREADLIST",
             "UPDATELASTMSG"
         ]),
@@ -59,7 +59,7 @@ export default {
             const socketData = JSON.parse(e.data);
             let currentRoute = this.$route.path;
             var temp = null;
-            if(this.$store.state.MessageList.hasOwnProperty(socketData.Sender)) {
+            if(this.messageList.hasOwnProperty(socketData.Sender)) {
                 temp = {
                     Content: (socketData.Type == 1 ? socketData.Content : JSON.parse(socketData.Content)),
                     Id: socketData.MsgId,
