@@ -42,6 +42,14 @@
                         <i class="publishMobileCaret"></i>
                     </label>
                 </div>
+                <div class="publishChunk">
+                    <p class="publishChunkCaption">
+                        {{ $t("publish.publishLimitLabel") }}
+                    </p>
+                    <p class="publishLimit">
+                        {{ $t("publish.publishLimit") }}
+                    </p>
+                </div>
             </div>
         </div>
         <button class="publishBtn" @click="publish" :disabled="isPublished">
@@ -106,12 +114,16 @@ export default {
             }).then(res => {
                 let data = res.data;
                 if(data.Code != 0) {
-                    alert(data.Message)
+                    alert(data.Message);
+                    this.isPublished = false;
                 }
-                localStorage.setItem("plazaTabIndex", this.publishType);
-                this.$router.go(-1)
+                if(data.Code == 0) {
+                    localStorage.setItem("plazaTabIndex", this.publishType);
+                    this.$router.go(-1)
+                }
             }).catch(err => {
-                console.log(err);
+                alert(err);
+                this.isPublished = false;
             })
         }
     }
@@ -207,5 +219,9 @@ export default {
     text-align: center;
     background-color: var(--themeColor);
     color: #fff;
+}
+.publishLimit {
+    font-size: 0.24rem;
+    line-height: 0.4rem;
 }
 </style>

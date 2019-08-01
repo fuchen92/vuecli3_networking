@@ -224,7 +224,9 @@ export default {
             }
         ],
         publishMobile: "公开手机号",        
-        "publishBtn": "发布"
+        "publishBtn": "发布",
+        publishLimitLabel: "温馨提示",
+        publishLimit: "每位用户每天仅能发布供应/需求信息各1条。"
     },
     postInterest: {
         "navBarTitle": "感兴趣的人",

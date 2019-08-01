@@ -31,7 +31,7 @@ export default new Vuex.Store({
         LocalApiDomain: "http://192.168.1.21:89",
         ApiDomain: "https://socialapi.traveldaily.cn",
         eventNo: 68,
-        Lang: localStorage.getItem("localeLanguage") || "zh",
+        Lang: localStorage.getItem("localeLanguage") || "en",
         showRedDot: false,
         Account: {
             Token: localStorage.getItem("token") || "",

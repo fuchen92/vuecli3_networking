@@ -18,13 +18,12 @@
 						</p>
 					</div>
 				</router-link>
-				<div class="qrCode">
+				<!-- <div class="qrCode">
 					<router-link class="qrCodeLink" to="/qrcode">
 						<img class="qrCodeIcon" src="../assets/iconQrCode.svg" alt="">
-						<!-- 签到码 -->
 						{{ $t("me.qrcode") }}
 					</router-link>
-				</div>
+				</div> -->
 			</div>
 			<div class="menuCard clear">
 				<p class="menuLabel lt">{{ $t("me.language") }}</p>

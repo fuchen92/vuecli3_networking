@@ -207,7 +207,9 @@ export default {
             }
         ],
         publishMobile: "Post mobile number",  
-        "publishBtn": "Post"
+        "publishBtn": "Post",
+        publishLimitLabel: "Note",
+        publishLimit: "Each user can post only one Supply and one Demand per day."
     },
     postInterest: {
         "navBarTitle": "People Interested",
