@@ -124,7 +124,6 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(res => {
-                console.log(res.data)
                 this.CHANGEAVATAR(res.data.Message);
             })
 

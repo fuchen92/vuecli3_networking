@@ -161,7 +161,7 @@ export default {
                 }
             },
             set(value) {
-                // console.log(value)
+                
             }
         },
         chatList: function() {
@@ -217,8 +217,7 @@ export default {
                 } else {
                     if(!this.loadAll) {
                         this.loadBefore = true;
-                        this.loading = true; 
-                        // console.log("滚动请求数据Id： " + this.loadMsgBeforeId)    
+                        this.loading = true;  
                         
                         this.$http.post(`${this.apiDomain}/Attendees/UserChat`, {
                             eventNo: this.eventNo,
@@ -239,8 +238,6 @@ export default {
                                     this.loadMsgBeforeId = data.Data[0].Id
                                     this.INITMESSAGELIST({ targetId: this.chatUser.id, msgList: data.Data });
                                 }
-                                
-                                // console.log("滚动请求之后Id: " + this.loadMsgBeforeId)
                             } else {
                                 alert(data.Message)
                             }

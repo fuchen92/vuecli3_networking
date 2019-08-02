@@ -224,8 +224,6 @@ export default {
                 token: this.token,
                 lang: language
             });
-
-            console.log(this.programList)
         }
     }
 };

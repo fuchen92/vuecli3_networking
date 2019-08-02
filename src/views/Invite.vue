@@ -276,9 +276,6 @@ export default {
     height: 0.8rem;
     border: 0;
 }
-/* .inviteAddr:focus::placeholder {
-    color: var(--themeColor);
-} */
 .inviteMatter {
     margin-top: 0.2rem;
 }
@@ -286,6 +283,7 @@ export default {
     width: 100%;
     height: 1.2rem;
     border: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "微软雅黑", "WenQuanYi Micro Hei", sans-serif;
     resize: none;
 }
 .inviteSubmitBtn {

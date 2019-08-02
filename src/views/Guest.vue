@@ -159,7 +159,6 @@ export default {
                     token: this.token,
                     lang: this.lang == "zh" ? 1 : 2
                 }).then(res => {
-                    console.log(res.data)
                     this.$router.push({ path: "/chat", query: { chatId: this.guestId, uPhoto: this.guest.Photo } })
                 })
             }

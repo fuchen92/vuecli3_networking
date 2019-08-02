@@ -71,7 +71,6 @@ export default {
             if(this.post.IsLike || from == this.myInfo.Id || this.isStared) {
                 return false;
             }
-            console.log(this.starCount)
             this.$http.post(`${this.apiDomain}/Plaza/SolutionLike`, {
                 eventNo: this.eventNo,
                 id: id,

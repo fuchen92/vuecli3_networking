@@ -198,11 +198,7 @@ export default {
     destroyed: function() {
     },
     activated: function() {
-        console.log("keep-alive activated生命周期")
-        console.log(this.pageIndex);
-        console.log(this.loading);
-        console.log(this.loadAll);
-        // this.$refs.plazaBox.scrollTop = localStorage.getItem('plazaBoxScrollTop')
+        
     }
 }
 </script>

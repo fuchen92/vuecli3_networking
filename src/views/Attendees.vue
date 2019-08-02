@@ -252,10 +252,10 @@ export default {
                                         this.INITRECOMMENDLIST({ recommendList: data.Data });
                                     }
                                 } else {
-                                    console.log(data.Message)
+                                    alert(data.Message)
                                 }
                             }).catch(err => {
-                                console.log(err)
+                                alert(err)
                             })
                         }
                     }
@@ -321,7 +321,7 @@ export default {
         
     },
     activated: function() {
-        console.log("keep-alive activated生命周期")
+        
     }
 }
 </script>
