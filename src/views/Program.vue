@@ -21,13 +21,13 @@
                     <div class="programItem">
                         <div class="programItemHead">
                             <p class="programItemTime">{{ $t("program.awardFlowTime1") }}</p>
-                            <p class="programItemType">{{ $t("program.awardFlowTime1Desc") }}</p>
+                            <p class="programItemType" :class="{ en: lang == 'en' }">{{ $t("program.awardFlowTime1Desc") }}</p>
                         </div>
                     </div>
                     <div class="programItem">
                         <div class="programItemHead">
                             <p class="programItemTime">{{ $t("program.awardFlowTime2") }}</p>
-                            <p class="programItemType">{{ $t("program.awardFlowTime2Desc") }}</p>
+                            <p class="programItemType" :class="{ en: lang == 'en' }">{{ $t("program.awardFlowTime2Desc") }}</p>
                         </div>
                         <div class="programItemBody">
                             <div class="programItemSpeakerList">
@@ -41,25 +41,25 @@
                     <div class="programItem">
                         <div class="programItemHead">
                             <p class="programItemTime">{{ $t("program.awardFlowTime3") }}</p>
-                            <p class="programItemType">{{ $t("program.awardFlowTime3Desc") }}</p>
+                            <p class="programItemType" :class="{ en: lang == 'en' }">{{ $t("program.awardFlowTime3Desc") }}</p>
                         </div> 
                     </div>
                     <div class="programItem">
                         <div class="programItemHead">
                             <p class="programItemTime">{{ $t("program.awardFlowTime4") }}</p>
-                            <p class="programItemType">{{ $t("program.awardFlowTime4Desc") }}</p>
+                            <p class="programItemType" :class="{ en: lang == 'en' }">{{ $t("program.awardFlowTime4Desc") }}</p>
                         </div> 
                     </div>
                     <div class="programItem">
                         <div class="programItemHead">
                             <p class="programItemTime">{{ $t("program.awardFlowTime5") }}</p>
-                            <p class="programItemType">{{ $t("program.awardFlowTime5Desc") }}</p>
+                            <p class="programItemType" :class="{ en: lang == 'en' }">{{ $t("program.awardFlowTime5Desc") }}</p>
                         </div> 
                     </div>
                     <div class="programItem">
                         <div class="programItemHead">
                             <p class="programItemTime">{{ $t("program.awardFlowTime6") }}</p>
-                            <p class="programItemType">{{ $t("program.awardFlowTime6Desc") }}</p>
+                            <p class="programItemType" :class="{ en: lang == 'en' }">{{ $t("program.awardFlowTime6Desc") }}</p>
                         </div>
                         <div class="programItemBody">
                             <div class="programItemSpeakerList">
@@ -73,19 +73,19 @@
                     <div class="programItem">
                         <div class="programItemHead">
                             <p class="programItemTime">{{ $t("program.awardFlowTime7") }}</p>
-                            <p class="programItemType">{{ $t("program.awardFlowTime7Desc") }}</p>
+                            <p class="programItemType" :class="{ en: lang == 'en' }">{{ $t("program.awardFlowTime7Desc") }}</p>
                         </div> 
                     </div>
                     <div class="programItem">
                         <div class="programItemHead">
                             <p class="programItemTime">{{ $t("program.awardFlowTime8") }}</p>
-                            <p class="programItemType">{{ $t("program.awardFlowTime8Desc") }}</p>
+                            <p class="programItemType" :class="{ en: lang == 'en' }">{{ $t("program.awardFlowTime8Desc") }}</p>
                         </div> 
                     </div>
                     <div class="programItem">
                         <div class="programItemHead">
                             <p class="programItemTime">{{ $t("program.awardFlowTime9") }}</p>
-                            <p class="programItemType">{{ $t("program.awardFlowTime9Desc") }}</p>
+                            <p class="programItemType" :class="{ en: lang == 'en' }">{{ $t("program.awardFlowTime9Desc") }}</p>
                             <p class="programItemTitle">{{ $t("program.awardFlowTime9Title") }}</p>
                         </div>
                         <div class="programItemBody">
@@ -106,12 +106,9 @@
                                 <div class="programItemSpeaker">
                                     <span class="programItemSpeakerName">{{ $t("program.awardFlowTime9Speaker4") }}</span>
                                 </div>
-                                <div class="programItemSpeaker">
-                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime9Speaker5") }}</span>
-                                </div>
                                 <p class="speakerType">{{ $t("program.awardFlowSpeakerType3") }}</p>
                                 <div class="programItemSpeaker">
-                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime9Speaker6") }}</span>
+                                    <span class="programItemSpeakerName">{{ $t("program.awardFlowTime9Speaker5") }}</span>
                                 </div>
                             </div>
                         </div>  
@@ -350,6 +347,10 @@ export default {
 }
 .programItemType {
     margin-left: 0.4rem;
+}
+.programItemType.en {
+    display: block;
+    margin-left: 0;
 }
 .programItemTitle {
     margin-top: 0.2rem;
