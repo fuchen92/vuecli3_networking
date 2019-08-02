@@ -50,7 +50,7 @@
 					<span class="menuCardLinkIcon rt"></span>
 				</a>
 			</div>
-			<div class="menuCard">
+			<div class="menuCard" v-if="lang != 'en'">
 				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/service/fqa`">
 					<p class="menuLabel lt">{{ $t("me.faq") }}</p>
 					<span class="menuCardLinkIcon rt"></span>
@@ -76,6 +76,7 @@ export default {
 				return this.$store.state.Lang
 			},
 			set(value) {
+				document.title = value == "zh" ? "会议交流平台 - 环球旅讯(TravelDaily)" : "TravelDaily Conference Networking Platform";
 				localStorage.removeItem("exhibitorLoadIndex");		// 重置广场页展商列表加载页码
 				localStorage.removeItem("exhibitorLoadAll");		// 重置广场页展商列表加载状态
 				localStorage.removeItem("exhibitorListScrollTop");
