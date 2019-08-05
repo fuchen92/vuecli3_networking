@@ -10,7 +10,7 @@
             <div class="rightTip" @click="showAllTab"></div>
         </div>
         <div class="programBox" ref="programBox">
-            <div class="programList" :class="{ active: currentIndex == 0 }">
+            <!-- <div class="programList" :class="{ active: currentIndex == 0 }">
                 <div class="container">
                     <div class="programItem programItemSite">{{ lang == 'zh' ? '会场：上海国际会议中心7楼 【明珠厅】' : 'Venue: Pearl Hall, 7th Floor, Shanghai International Convention Center' }}</div>
                     <div class="programItem">
@@ -120,17 +120,22 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <template v-for="(prgList, index) in programList">
-                <div class="programList" :key="index" :class="{ active: currentIndex == (index + 1) }">
+                <div class="programList" :key="index" :class="{ active: currentIndex == index }">
                     <div class="container">
                         <div class="programItem programItemSite">
                             <template v-if="lang == 'zh'">
-                                {{ index == 0 ? "会场：上海国际会议中心7楼 【上海厅 2 & 3】" : (index == 1 ? "会场：上海国际会议中心7楼 【上海厅 2】" : "会场：上海国际会议中心7楼 【上海厅 3】") }}
+                                {{ index == 0 ? "会场：上海国际会议中心7楼 【明珠厅】" : "会场：上海国际会议中心7楼 【上海厅 】" }}
                             </template>
-                            <template v-else >
-                                {{ index == 0 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2 & 3】" : (index == 1 ? "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 2】" : "Venue:the 7th floor of the Shanghai International Convention Center【Shanghai Hall 3】") }}
+                            <template v-else>
+                                {{ index == 0 ? "Venue: Pearl Hall, 7th Floor, Shanghai International Convention Center" : "Venue: the 7th floor of the Shanghai International Convention Center" }}
                             </template>
+                        </div>
+                        <div class="programItem" v-if="index == 0">
+                            <div class="programItemDesc">
+                                <p class="programItemDescText">{{ $t("program.awardDesc1") }}</p>
+                            </div>
                         </div>
                         <template v-for="prg in prgList">
                             <div class="programItem" :key="prg.Id">
@@ -174,6 +179,12 @@
                                 </template>
                             </div>
                         </template>
+                        <div class="programItem" v-if="index == 0">
+                            <div class="programItemDesc">
+                                <p class="programItemDescText">{{ $t("program.awardNote1") }}</p>
+                                <p class="programItemDescText">{{ $t("program.awardNote2") }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -187,6 +198,7 @@ export default {
     data: function() {
         return {
             isCurrent: true,
+            // currentIndex: (localStorage.getItem("programTabIndex") == null ? 1 : localStorage.getItem("programTabIndex")),
             currentIndex: 1,
             timer: null
         };
@@ -214,6 +226,7 @@ export default {
         switchProgram: function(tabIndex) {
             this.currentIndex = tabIndex;
             this.$refs.programBox.scrollTop = 0;
+            // localStorage.setItem("programTabIndex", tabIndex);
         }
     },
     created: function() {

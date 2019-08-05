@@ -98,10 +98,15 @@ export default new Vuex.Store({
         INITPROGRAMLIST(state, { programList }) {
             let data = programList;
             let arr = [];
-            let firstDay = data[4]["2019-8-28"];
-            let secondDay = data[5]["2019-8-29"];
-            let thirdDay = data[6]["2019-8-29"];
-            arr.push(firstDay, secondDay, thirdDay);
+            let firstDay = data[7]["2019-8-27"];
+            let secondDay = data[4]["2019-8-28"];
+            let thirdDay = data[5]["2019-8-29"];
+            let fourthDay = data[6]["2019-8-29"];
+            arr.push(firstDay, secondDay, thirdDay, fourthDay);
+            // let firstDay = data[4]["2019-8-28"];
+            // let secondDay = data[5]["2019-8-29"];
+            // let thirdDay = data[6]["2019-8-29"];
+            // arr.push(firstDay, secondDay, thirdDay);
             state.ProgramList = arr;     
         },
         // 获取日程详情
