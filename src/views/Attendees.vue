@@ -322,6 +322,12 @@ export default {
     },
     activated: function() {
         
+    },
+    beforeDestroy: function() {
+        localStorage.removeItem("recommendLoadIndex");
+        localStorage.removeItem("recommendLoadAll");
+        localStorage.removeItem("recommendScrollTop");
+        this.EMPTYRECOMMENDLIST();
     }
 }
 </script>
