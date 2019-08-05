@@ -27,7 +27,7 @@
                 <div class="detailContent">
                     <div class="detailList" :class="{ active: currentIndex == 0 }">
                         <div class="detailIntro" v-html="programDetail.Summary == '' ? $t('programDetail.emptySummary') : programDetail.Summary"></div>
-                        <div class="detailSpeakerList" v-if="programDetail.Details.length != 0">
+                        <div class="detailSpeakerList" v-if="programDetail.Details != undefined && programDetail.Details.length != 0">
                             <template v-for="(speaker, idx) in programDetail.Details">
                                 <p v-if="speaker.DataType.Title != programDetail.Details[0].DataType.Title || idx == 0" :key="idx" class="speakerType">
                                     {{ speaker.DataType.Title }}
