@@ -126,7 +126,7 @@
                     <div class="container">
                         <div class="programItem programItemSite">
                             <template v-if="lang == 'zh'">
-                                {{ index == 0 ? "会场：上海国际会议中心7楼 【明珠厅】" : "会场：上海国际会议中心7楼 【上海厅 】" }}
+                                {{ index == 0 ? "会场：上海国际会议中心7楼 【明珠厅】" : "会场：上海国际会议中心7楼 【上海厅】" }}
                             </template>
                             <template v-else>
                                 {{ index == 0 ? "Venue: Pearl Hall, 7th Floor, Shanghai International Convention Center" : "Venue: the 7th floor of the Shanghai International Convention Center" }}
