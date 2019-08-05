@@ -38,7 +38,9 @@ export default new Vuex.Store({
             IsFirstLogin: ""
         },
         ProgramList: [],
-        ProgramDetail: {},
+        ProgramDetail: {
+            Details: []
+        },
         SpeakerDetail: {
             ProgramList: []
         },
