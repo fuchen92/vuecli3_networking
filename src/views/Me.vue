@@ -39,25 +39,25 @@
 				</router-link>
 			</div>
 			<div class="menuCard">
-				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/service/venue${ lang == 'zh' ? '' : '_en' }`">
+				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/service/venue${ lang == 'zh' ? '' : '_en' }`" target="_blank">
 					<p class="menuLabel lt">{{ $t("me.venue") }}</p>
 					<span class="menuCardLinkIcon rt"></span>
 				</a>
 			</div>
 			<div class="menuCard">
-				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/contact${ lang == 'zh' ? '' : '_en' }`">
+				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/contact${ lang == 'zh' ? '' : '_en' }`" target="_blank">
 					<p class="menuLabel lt">{{ $t("me.contact") }}</p>
 					<span class="menuCardLinkIcon rt"></span>
 				</a>
 			</div>
 			<div class="menuCard" v-if="lang != 'en'">
-				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/service/fqa`">
+				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/service/fqa`" target="_blank">
 					<p class="menuLabel lt">{{ $t("me.faq") }}</p>
 					<span class="menuCardLinkIcon rt"></span>
 				</a>
 			</div>
 			<div class="menuCard">
-				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/service/recommended${ lang == 'zh' ? '' : '_en' }`">
+				<a class="menuCardLink clear" :href="`https://event.traveldaily.cn/tdc2019/service/recommended${ lang == 'zh' ? '' : '_en' }`" target="_blank">
 					<p class="menuLabel lt">{{ $t("me.service") }}</p>
 					<span class="menuCardLinkIcon rt"></span>
 				</a>
