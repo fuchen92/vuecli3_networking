@@ -254,8 +254,8 @@ export default {
     position: absolute;
     left: 0;
     width: 100%;
-    height: 1rem;
-    padding: 0 0.4rem 0 0.2rem;
+    height: 1rem;    
+    padding: 0 0.2rem;
     background-color: #fff;
     z-index: 100;
 }
@@ -271,34 +271,12 @@ export default {
     display: none;
 }
 .rightTip {
-    position: absolute;
-    top: 0;
-    right: 0;
-    content: "";
-    display: block;
-    width: 0.4rem;
-    height: 1rem;
-    background-color: rgba(255, 255, 255, 0.5);
-    box-shadow: -0.2rem 0 0.4rem #ccc;
-    z-index: 900;
-}
-.rightTip::before {
-    position: absolute;
-    top: 0.4rem;
-    right: 0.15rem;
-    content: "";
-    display: block;
-    width: 0.2rem;
-    height: 0.2rem;
-    border-top: 1px solid #999;
-    border-right: 1px solid #999;
-    transform: rotate(45deg);
-    z-index: 1000;
+    display: none;    
 }
 .programTab {
     box-sizing: border-box;
     display: inline-block;
-    width: calc((100% - 0.4rem) / 3.2);
+    width: 25%;
     height: 1rem;
     margin-right: 0.2rem;
     font-size: 0.28rem;
@@ -311,11 +289,39 @@ export default {
     margin-right: 0;
 }
 @media screen and (max-width: 750px) {
+    .programTabs {
+        padding: 0 0.4rem 0 0.2rem;
+    }
     .programTab {
         width: calc((100% - 0.4rem) / 3.2);
     }
     .programTab.en {
         width: auto;
+    }
+    .rightTip {
+        position: absolute;
+        top: 0;
+        right: 0;
+        content: "";
+        display: block;
+        width: 0.4rem;
+        height: 1rem;
+        background-color: rgba(255, 255, 255, 0.5);
+        box-shadow: -0.2rem 0 0.4rem #ccc;
+        z-index: 900;
+    }
+    .rightTip::before {
+        position: absolute;
+        top: 0.4rem;
+        right: 0.15rem;
+        content: "";
+        display: block;
+        width: 0.2rem;
+        height: 0.2rem;
+        border-top: 1px solid #999;
+        border-right: 1px solid #999;
+        transform: rotate(45deg);
+        z-index: 1000;
     }
 }
 .programTabTime,
