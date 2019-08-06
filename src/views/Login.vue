@@ -52,7 +52,7 @@ export default {
 	data: function() {
 		return {
 			isGettedCode: false,
-			countDown: 10,
+			countDown: 59,
 			hasError: false,
 			errType: "empty",
 			account: "",
@@ -147,7 +147,7 @@ export default {
 						this.timer = setInterval(() => {
 							this.countDown--;
 							if(this.countDown <= 0) {
-								this.countDown = 10;
+								this.countDown = 59;
 								clearInterval(this.timer);
 								this.timer = null;
 								this.isGettedCode = false;
