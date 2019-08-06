@@ -305,11 +305,18 @@ export default {
     text-align: center;
 }
 .programTab.en {
-    width: auto;
     padding: 0 0.1rem;
 }
 .programTab:last-child {
     margin-right: 0;
+}
+@media screen and (max-width: 750px) {
+    .programTab {
+        width: calc((100% - 0.4rem) / 3.2);
+    }
+    .programTab.en {
+        width: auto;
+    }
 }
 .programTabTime,
 .programTabName {
