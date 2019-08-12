@@ -95,7 +95,7 @@
                     </div>                    
                 </div>                
                 <button class="subscribeBtn" v-if="programDetail.IsSubscribed" ref="isSubscribedBtn" :disabled="programDetail.IsSubscribed">
-                    {{ $t("programDetail.subscribeBtn[" + isSubscribedIndex + "]") }}
+                    {{ $t("programDetail.subscribeBtn[1]") }}
                 </button>
                 <button class="subscribeBtn" v-else :disabled="isSubscribed" ref="subscribeBtn" @click="subscribe">
                     {{ $t("programDetail.subscribeBtn[" + subscribeIndex + "]") }}

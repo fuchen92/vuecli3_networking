@@ -2,127 +2,125 @@
     <div class="exhibitor">
         <NavBar :showSearch="false" :navBarTitle="navBarTitle"></NavBar>
         <div class="exhibitorBox">
-            <div class="container">
-                <div class="exhibitorChunk">
-                    <div class="exhibitorAvatar">
-                        <img class="exhibitorLogo" :src="exhibitor.Photo" alt="">
-                        <p class="exhibitorBooth">
-                            <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
-                            <span class="exhibitorBoothText">
-                                {{ exhibitor.Booth }}
-                            </span>
-                        </p>
-                    </div>
-                    <div class="exhibitorInfo">
-                        <h4 class="exhibitorName">
-                            {{ exhibitor.Name }}
-                        </h4>
-                        <div class="exhibitorTags">
-                            <span class="exhibitorTag" v-for="(industry, index) in exhibitor.Industry" :key="index">
-                                {{ industry.Name }}
-                            </span>
-                        </div>
-                        <p class="exhibitorSlogan" v-if="exhibitor.Intro2 != ''">
-                            {{ exhibitor.Intro2 }}
-                        </p>
-                    </div>
-                </div>
-                <div class="exhibitorChunk">
-                    <h4 class="exhibitorChunkCaption">
-                        {{ $t("exhibitor.companyCaption") }}
-                    </h4>
-                    <p class="exhibitorIntro">
-                        {{ exhibitor.Intro }}
+            <div class="exhibitorChunk">
+                <div class="exhibitorAvatar">
+                    <img class="exhibitorLogo" :src="exhibitor.Photo" alt="">
+                    <p class="exhibitorBooth">
+                        <img class="exhibitorBoothImg" src="../assets/iconBooth.svg" alt="">
+                        <span class="exhibitorBoothText">
+                            {{ exhibitor.Booth }}
+                        </span>
                     </p>
                 </div>
-                <div class="exhibitorChunk clear">
-                    <h4 class="exhibitorChunkCaption venueCaption lt">
-                        {{ $t("exhibitor.boothCaption") }}
+                <div class="exhibitorInfo">
+                    <h4 class="exhibitorName">
+                        {{ exhibitor.Name }}
                     </h4>
-                    <p class="venueCaret rt"></p>
+                    <div class="exhibitorTags">
+                        <span class="exhibitorTag" v-for="(industry, index) in exhibitor.Industry" :key="index">
+                            {{ industry.Name }}
+                        </span>
+                    </div>
+                    <p class="exhibitorSlogan" v-if="exhibitor.Intro2 != ''">
+                        {{ exhibitor.Intro2 }}
+                    </p>
                 </div>
-                <div class="exhibitorChunk" v-if="exhibitor.Products.length != 0">
-                    <h4 class="exhibitorChunkCaption">
-                        {{ $t("exhibitor.schemeCaption") }}
-                    </h4>
-                    <div class="schemeList">
-                        <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="`/product?productId=${scheme.Id}`" class="schemeItem">
-                            <div class="schemeLogo">
-                                <img class="schemeLogoImg" :src="scheme.Logo" alt="">
-                            </div>
-                            <div class="schemeInfo">
-                                <h5 class="schemeTitle">
-                                    {{ scheme.Name }}
-                                </h5>
-                                <p class="schemeDesc">
-                                    {{ scheme.Summary }}
-                                </p>
-                            </div>
-                        </router-link>
+            </div>
+            <div class="exhibitorChunk">
+                <h4 class="exhibitorChunkCaption">
+                    {{ $t("exhibitor.companyCaption") }}
+                </h4>
+                <p class="exhibitorIntro">
+                    {{ exhibitor.Intro }}
+                </p>
+            </div>
+            <div class="exhibitorChunk clear">
+                <h4 class="exhibitorChunkCaption venueCaption lt">
+                    {{ $t("exhibitor.boothCaption") }}
+                </h4>
+                <p class="venueCaret rt"></p>
+            </div>
+            <div class="exhibitorChunk" v-if="exhibitor.Products.length != 0">
+                <h4 class="exhibitorChunkCaption">
+                    {{ $t("exhibitor.schemeCaption") }}
+                </h4>
+                <div class="schemeList">
+                    <router-link v-for="(scheme, index) in exhibitor.Products" :key="index" :to="`/product?productId=${scheme.Id}`" class="schemeItem">
+                        <div class="schemeLogo">
+                            <img class="schemeLogoImg" :src="scheme.Logo" alt="">
+                        </div>
+                        <div class="schemeInfo">
+                            <h5 class="schemeTitle">
+                                {{ scheme.Name }}
+                            </h5>
+                            <p class="schemeDesc">
+                                {{ scheme.Summary }}
+                            </p>
+                        </div>
+                    </router-link>
+                </div>
+            </div>
+            <div class="exhibitorChunk">
+                <h4 class="exhibitorChunkCaption">
+                    {{ $t("exhibitor.contactCaption") }}
+                </h4>
+                <div class="exhibitorContact">
+                    <div class="exhibitorContactItem clear">
+                        <p class="exhibitorContactItemName lt">
+                            {{ $t("exhibitor.contactLabel") }}
+                        </p>
+                        <p class="exhibitorContactItemVal rt">
+                            {{ (exhibitor.localContactList[7] == "" || exhibitor.localContactList[7] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[7] }}
+                        </p>
+                    </div>
+                    <div class="exhibitorContactItem clear">
+                        <p class="exhibitorContactItemName lt">
+                            {{ $t("exhibitor.mobileLabel") }}
+                        </p>
+                        <p class="exhibitorContactItemVal rt">
+                            {{ (exhibitor.localContactList[0] == "" || exhibitor.localContactList[0] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[0] }}
+                        </p>
+                    </div>
+                    <div class="exhibitorContactItem clear">
+                        <p class="exhibitorContactItemName lt">
+                            {{ $t("exhibitor.emailLabel") }}
+                        </p>
+                        <p class="exhibitorContactItemVal rt">
+                            {{ (exhibitor.localContactList[1] == "" || exhibitor.localContactList[1] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[1] }}
+                        </p>
+                    </div>
+                    <div class="exhibitorContactItem clear">
+                        <p class="exhibitorContactItemName lt">
+                            {{ $t("exhibitor.telLabel") }}
+                        </p>
+                        <p class="exhibitorContactItemVal rt">
+                            {{ (exhibitor.localContactList[9] == "" || exhibitor.localContactList[9] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[9] }}
+                        </p>
+                    </div>
+                    <div class="exhibitorContactItem clear">
+                        <p class="exhibitorContactItemName lt">
+                            {{ $t("exhibitor.siteLabel") }}
+                        </p>
+                        <p class="exhibitorContactItemVal rt">
+                            {{ (exhibitor.localContactList[8] == "" || exhibitor.localContactList[8] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[8] }}
+                        </p>
                     </div>
                 </div>
-                <div class="exhibitorChunk">
-                    <h4 class="exhibitorChunkCaption">
-                        {{ $t("exhibitor.contactCaption") }}
-                    </h4>
-                    <div class="exhibitorContact">
-                        <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">
-                                {{ $t("exhibitor.contactLabel") }}
-                            </p>
-                            <p class="exhibitorContactItemVal rt">
-                                {{ (exhibitor.localContactList[7] == "" || exhibitor.localContactList[7] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[7] }}
-                            </p>
-                        </div>
-                        <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">
-                                {{ $t("exhibitor.mobileLabel") }}
-                            </p>
-                            <p class="exhibitorContactItemVal rt">
-                                {{ (exhibitor.localContactList[0] == "" || exhibitor.localContactList[0] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[0] }}
-                            </p>
-                        </div>
-                        <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">
-                                {{ $t("exhibitor.emailLabel") }}
-                            </p>
-                            <p class="exhibitorContactItemVal rt">
-                                {{ (exhibitor.localContactList[1] == "" || exhibitor.localContactList[1] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[1] }}
-                            </p>
-                        </div>
-                        <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">
-                                {{ $t("exhibitor.telLabel") }}
-                            </p>
-                            <p class="exhibitorContactItemVal rt">
-                                {{ (exhibitor.localContactList[9] == "" || exhibitor.localContactList[9] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[9] }}
-                            </p>
-                        </div>
-                        <div class="exhibitorContactItem clear">
-                            <p class="exhibitorContactItemName lt">
-                                {{ $t("exhibitor.siteLabel") }}
-                            </p>
-                            <p class="exhibitorContactItemVal rt">
-                                {{ (exhibitor.localContactList[8] == "" || exhibitor.localContactList[8] == null) ? $t("exhibitor.emptyVal") : exhibitor.localContactList[8] }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <template v-if="exhibitor.Attendees.length > 0">
-                    <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.designedContact") }}</h4>
-                    <template v-for="(guest, index) in exhibitor.Attendees">
-                        <template v-if="guest.IsContact">
-                            <GuestCard :guest="guest" :key="index" style="width: 100%;"></GuestCard>
-                        </template>
-                    </template>
-                    <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.otherAttend") }}</h4>
-                    <template v-for="(guest, index) in exhibitor.Attendees">
-                        <template v-if="!guest.IsContact">
-                            <GuestCard :guest="guest" :key="index" style="width: 100%;"></GuestCard>
-                        </template>
+            </div>
+            <template v-if="exhibitor.Attendees.length > 0">
+                <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.designedContact") }}</h4>
+                <template v-for="(guest, index) in exhibitor.Attendees">
+                    <template v-if="guest.IsContact">
+                        <GuestCard :guest="guest" :key="index"></GuestCard>
                     </template>
                 </template>
-            </div>
+                <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.otherAttend") }}</h4>
+                <template v-for="(guest, index) in exhibitor.Attendees">
+                    <template v-if="!guest.IsContact">
+                        <GuestCard :guest="guest" :key="index"></GuestCard>
+                    </template>
+                </template>
+            </template>
         </div>
     </div>
 </template>
@@ -182,8 +180,9 @@ export default {
 }
 .exhibitorChunk {
     box-sizing: border-box;
-    width: 100%;
-    margin-bottom: 0.2rem;
+    width: 95%;
+    /* width: 100%; */
+    margin: 0 auto 0.2rem;
     padding: 0.4rem 0.2rem;
     font-size: 0;
     background-color: #fff;
@@ -328,7 +327,9 @@ export default {
     text-align: right;
 }
 .contactChunkCaption {
-    margin-bottom: 0.2rem;
+    box-sizing: border-box;
+    width: 95%;
+    margin: 0 auto 0.2rem;
     padding: 0.1rem 0.2rem;
     background-color: #fff;
 }
