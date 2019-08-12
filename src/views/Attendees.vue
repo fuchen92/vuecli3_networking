@@ -243,9 +243,9 @@ export default {
                                 let data = res.data;
                                 if(data.Code == 0) {
                                     this.recommendLoading = false;
+                                    localStorage.setItem("recommendLoadIndex", this.recommendLoadIndex);
                                     if(data.Data.length < this.size) {
                                         this.recommendLoadAll = true;
-                                        localStorage.setItem("recommendLoadIndex", this.recommendLoadIndex);
                                         localStorage.setItem("recommendLoadAll", this.recommendLoadAll);
                                     }
                                     if(data.Data.length != 0) {
@@ -276,9 +276,9 @@ export default {
                                 let data = res.data;
                                 if(data.Code == 0) {
                                     this.attendsLoading = false;
+                                    localStorage.setItem("attendsLoadIndex", this.attendsLoadIndex);
                                     if(data.Data.length < this.size) {
                                         this.attendsLoadAll = true;
-                                        localStorage.setItem("attendsLoadIndex", this.attendsLoadIndex);
                                         localStorage.setItem("attendsLoadAll", this.attendsLoadAll);
                                     }
                                     if(data.Data.length != 0) {

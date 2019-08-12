@@ -106,8 +106,7 @@ export default {
             pageIndex: (localStorage.getItem("exhibitorLoadIndex") == null ? 1 : localStorage.getItem("exhibitorLoadIndex")),
             size: 50,
             loading: false,
-            loadAll: false
-            // loadAll: (localStorage.getItem("exhibitorLoadAll") == null ? false : localStorage.getItem("exhibitorLoadAll"))
+            loadAll: (localStorage.getItem("exhibitorLoadAll") == null ? false : localStorage.getItem("exhibitorLoadAll"))
         }
     },
     components: {
@@ -166,9 +165,9 @@ export default {
                             let data = res.data;
                             if(data.Code == 0) {
                                 this.loading = false;
+                                localStorage.setItem("exhibitorLoadIndex", this.pageIndex);
                                 if(data.Data.length < this.size) {
                                     this.loadAll = true;
-                                    localStorage.setItem("exhibitorLoadIndex", this.pageIndex);
                                     localStorage.setItem("exhibitorLoadAll", this.loadAll);
                                 }
                                 if(data.Data.length != 0) {
