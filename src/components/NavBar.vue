@@ -11,7 +11,7 @@
                 <div class="navBarLinks lt">
                     <div class="navBarLink navBarBack" @click="goBack"></div>
                     <b class="navBarLinkDivide"></b>
-                    <router-link class="navBarLink navBarHome" to="/"></router-link>
+                    <router-link class="navBarLink navBarHome" :to="'/'" replace></router-link>
                 </div>
                 <p class="navBarTitle">{{ navBarTitle }}</p>
             </template>
