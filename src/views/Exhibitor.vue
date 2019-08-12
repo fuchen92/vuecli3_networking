@@ -112,13 +112,13 @@
                     <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.designedContact") }}</h4>
                     <template v-for="(guest, index) in exhibitor.Attendees">
                         <template v-if="guest.IsContact">
-                            <GuestCard prop="guest" :key="index"></GuestCard>
+                            <GuestCard :guest="guest" :key="index" style="width: 100%;"></GuestCard>
                         </template>
                     </template>
                     <h4 class="exhibitorChunkCaption contactChunkCaption">{{ $t("exhibitor.otherAttend") }}</h4>
                     <template v-for="(guest, index) in exhibitor.Attendees">
                         <template v-if="!guest.IsContact">
-                            <GuestCard prop="guest" :key="index"></GuestCard>
+                            <GuestCard :guest="guest" :key="index" style="width: 100%;"></GuestCard>
                         </template>
                     </template>
                 </template>

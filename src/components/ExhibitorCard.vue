@@ -25,7 +25,7 @@
                 <div class="interestList" v-if="exhibitor.AttendeesPhoto != null">
                     <template v-for="(attend, index) in exhibitor.AttendeesPhoto">
                         <template v-if="index < 3">
-                            <img class="interestPeople" :src="attend[index]" :key="index" alt="">
+                            <img class="interestPeople" :src="attend" :key="index" alt="">
                         </template>
                     </template>
                     <span class="interestSummary">
