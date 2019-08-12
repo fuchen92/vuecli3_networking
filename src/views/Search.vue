@@ -59,7 +59,7 @@
                                         </template>
                                     </template>
                                     <template v-else>
-                                        <div class="filterCard" :key="index">
+                                        <div class="filterCard" :key="`index_${index}`">
                                             <p class="filterCardCaption">
                                                 {{ category.Name }}
                                                 <span class="filterCaptionTip">

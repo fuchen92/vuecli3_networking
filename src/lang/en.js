@@ -174,7 +174,7 @@ export default {
     "plaza": {
         "tabs": [
             {
-                name: "Exhibitor"
+                name: "Sponsor"
             },
             {
                 name: "Supply"

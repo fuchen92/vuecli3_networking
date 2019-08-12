@@ -174,7 +174,7 @@ export default {
     "plaza": {
         "tabs": [
             {
-                "name": "展商"
+                "name": "赞助商"
             },
             {
                 "name": "供应"

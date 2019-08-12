@@ -2,7 +2,7 @@
     <div class="attendees">
         <div class="attendTabs">
             <div v-for="(tab, tabIdx) in tabs" :key="tabIdx" class="attendTab" :class="{ active: tabIndex == tabIdx }" @click="tabIndex = tabIdx">
-                {{ tab.name }}
+                {{ tab.name }} {{ tabIdx }}
             </div>
         </div>
         <div class="reRecommend clear" v-show="(tabIndex == 0 && (recommends.length != 0) && showTopRecommend)">
@@ -25,10 +25,12 @@
                 </button>
             </div>
             <div class="recommendList" ref="recommendList" v-else :class="{ hasRecommendBar: showTopRecommend, active: tabIndex == 0 }" @scroll="loadMore">
+                {{ tabIndex }}
                 <GuestCard v-for="(guest, recommendIndex) in recommends" :key="recommendIndex" :guest="guest"></GuestCard>
                 <Loading :loading="recommendLoading"></Loading>
             </div>
             <div class="attendsList" ref="attendsList" :class="{ active: tabIndex == 1 }" @scroll="loadMore">
+                {{ tabIndex }}
                 <GuestCard v-for="(guest, attendIndex) in attends" :key="attendIndex" :guest="guest"></GuestCard>
                 <Loading :loading="attendsLoading"></Loading>
             </div>            
@@ -37,6 +39,7 @@
             <form class="filterForm" @submit.prevent="submitFilter" @reset="reset">
                 <div class="filterBox">
                     <template v-for="(category, index) in filterMenu">
+                        {{ index }}
                         <template v-if="category.Id > 100">
                             <template v-for="(industry, industryIndex) in category.Value">
                                 <div class="filterCard" :key="industryIndex">
@@ -58,7 +61,8 @@
                             </template>
                         </template>
                         <template v-else>
-                            <div class="filterCard" :key="`index_${index}`">
+                            {{ index }}
+                            <div class="filterCard" :key="index">
                                 <p class="filterCardCaption">
                                     {{ category.Name }}
                                     <span class="filterCaptionTip">
@@ -67,10 +71,10 @@
                                 </p>
                                 <div class="filterTags">
                                     <label class="filterLabel" v-for="(tag2, tagidx2) in category.Value" :key="tagidx2" :value="tag2.Id">
-                                        <template v-if="category.Id == 1">
+                                        <template v-if="index == 1">
                                             <input class="filterCheckBox" type="checkbox" :value="tag2.Id" v-model="functionArr">
                                         </template>
-                                        <template v-else-if="category.Id == 2">
+                                        <template v-else-if="index == 2">
                                             <input class="filterCheckBox" type="checkbox" :value="tag2.Id" v-model="identityArr">
                                         </template>
                                         <i class="filterTag">
