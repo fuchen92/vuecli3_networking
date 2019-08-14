@@ -38,7 +38,7 @@ export default {
         navBarTitle: "搜索",
         searchInput: "搜索参会嘉宾或企业",
         attendOption: "参会嘉宾",
-        exhibitorOption: "现场展商",
+        exhibitorOption: "赞助商",
         openFilterBtn: "筛选",
         cancelFilterBtn: "取消",
         emptyDesc: "请输入关键字或选中任意筛选项",
@@ -230,7 +230,7 @@ export default {
         "navBarTitle": "感兴趣的人",
     },
     "exhibitor": {
-        "navBarTitle": "展商详情",
+        "navBarTitle": "赞助商详情",
         "companyCaption": "公司介绍",
         "boothCaption": "会场展位图",
         "schemeCaption": "旅游业解决方案",

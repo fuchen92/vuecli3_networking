@@ -38,7 +38,7 @@ export default {
         navBarTitle: "Search",
         searchInput: "Search Attendees or Companies",
         attendOption: "Attendees",
-        exhibitorOption: "Exhibitors",
+        exhibitorOption: "Sponsor",
         openFilterBtn: "Filter",
         cancelFilterBtn: "Cancel",
         emptyDesc: "Please enter a keyword or select filter options",
@@ -230,7 +230,7 @@ export default {
         "navBarTitle": "People Interested",
     },
     "exhibitor": {
-        "navBarTitle": "Exhibitor Details",
+        "navBarTitle": "Sponsor Details",
         "companyCaption": "Company Profile",
         "boothCaption": "Floor Plan",
         "schemeCaption": "Tourism Solutions",
