@@ -69,7 +69,7 @@ Vue.config.productionTip = false
 // 判断是否登陆
 router.beforeEach((to, from, next) => {
 	let lang = localStorage.getItem("localeLanguage") || store.state.Lang || "zh";
-	document.title = lang == "zh" ? "会议交流平台 - 环球旅讯(TravelDaily)" : "TravelDaily Conference Networking Platform";
+	document.title = lang == "zh" ? "旅讯峰会 - 环球旅讯(TravelDaily)" : "TravelDaily Conference Networking Platform";
 	if (to.path === '/login') {
 		localStorage.removeItem('token')
 	}

@@ -68,7 +68,7 @@ export default {
 				return this.$store.state.Lang
 			},
 			set(value) {
-				document.title = value == "zh" ? "会议交流平台 - 环球旅讯(TravelDaily)" : "TravelDaily Conference Networking Platform";
+				document.title = value == "zh" ? "旅讯峰会 - 环球旅讯(TravelDaily)" : "TravelDaily Conference Networking Platform";
 				this.$store.commit("CHANGELANGUAGE", value);
 				this.$i18n.locale = value;
 				localStorage.setItem("localeLanguage", value);

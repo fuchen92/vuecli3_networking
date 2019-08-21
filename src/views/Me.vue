@@ -76,7 +76,7 @@ export default {
 				return this.$store.state.Lang
 			},
 			set(value) {
-				document.title = value == "zh" ? "会议交流平台 - 环球旅讯(TravelDaily)" : "TravelDaily Conference Networking Platform";
+				document.title = value == "zh" ? "旅讯峰会 - 环球旅讯(TravelDaily)" : "TravelDaily Conference Networking Platform";
 				localStorage.removeItem("exhibitorLoadIndex");		// 重置广场页展商列表加载页码
 				localStorage.removeItem("exhibitorLoadAll");		// 重置广场页展商列表加载状态
 				localStorage.removeItem("exhibitorListScrollTop");
